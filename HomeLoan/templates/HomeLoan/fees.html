@@ -1,0 +1,58 @@
+{% extends 'base/base.html'%}
+{%block title%}Fees Details{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPfees' ppid=product.prod_id%} method="POST">
+                {% csrf_token %}
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Login Fees</b> </label>
+                            <input type="text" class="form-control" name="login_fees">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Proc Fee App</b> </label>
+                            <input type="text" class="form-control" name="proc_fee_app">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Proc Fee Type</b> </label>
+                            <input type="text" class="form-control" name="proc_fee_type">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Proc Fee Flat Loan Amountwise</b> </label>
+                            <input type="text" class="form-control" name="proc_fee_flat_loan_amtwise">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Proc Fee Percent Loan Amountwise</b> </label>
+                            <input type="text" class="form-control" name="proc_fee_percent_loan_amtwise">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Offers</b> </label>
+                            <input type="text" class="form-control" name="offers">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Offline or Online</b> </label>
+                            <input type="text" class="form-control" name="offline_or_online">
+                        </div>
+                    </div>
+                        <div style="text-align:center">
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}
+   

@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Obligation Details {% endblock title %}
+
+{% block other_body %}
+<h1 class="mb-5 mt-3 display-3 text-center text-dark">Obligation Details</h1>
+    <div class="container" style="width:95%; margin:25px auto;">
+        <form action={% url 'ProductsAndPolicyObligationDetails' id=id %} method="POST" class="bg-white rounded p-5 shadow-blur">
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in obligation_details_form %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Save & Next</button>
+            </div>
+        </form>
+    </div>
+{% endblock other_body%}
+
+{% block other_js %}
+{% endblock other_js %}

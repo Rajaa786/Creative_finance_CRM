@@ -1,0 +1,48 @@
+{% extends 'base/base.html'%}
+{%block title%} Other Details{%endblock title%}
+{%block other_body%}    
+    <div class ="container-fluid">
+
+        <!-- Sidebar -->
+        {% include 'account/sidebar.html' %}
+
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPotherdetails' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Prevailing Rate</b> </label>
+                            <input type="number" class="form-control" name="prevailingrate">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Tenure</b> </label>
+                            <input type="text" class="form-control" name="tenure">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Inward Cheque Return</b> </label>
+                            <input type="text" class="form-control" name="inwardchequereturn">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Multiple Inquiry</b> </label>
+                            <input type="text" class="form-control" name="multipleinquiry">
+                        </div>
+                    </div>
+
+                    <div style="text-align:center">
+                        <a class="btn btn-danger mr-3" href={% url 'editproductandpolicy' id=product.prod_id %}>Cancel</a>
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}

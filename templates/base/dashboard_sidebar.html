@@ -1,0 +1,284 @@
+{% load static %}
+
+<!-- Google Tag Manager (noscript) -->
+<noscript
+  ><iframe
+    src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
+    height="0"
+    width="0"
+    style="display: none; visibility: hidden"
+  ></iframe
+></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<aside
+  class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
+  id="sidenav-main"
+>
+  <div class="sidenav-header">
+    <i
+      class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+      aria-hidden="true"
+      id="iconSidenav"
+    ></i>
+    <a class="navbar-brand m-0" href="{% url 'home' %}">
+      <img
+        src="{% static 'material_2_pro_assets/img/brand_logo.jpg' %}"
+        class="navbar-brand-img h-100 rounded"
+        alt="main_logo"
+      />
+      <span class="ms-1 font-weight-bold text-white">CFCRM</span>
+    </a>
+  </div>
+  <hr class="horizontal light mt-0 mb-2" />
+  <div
+    class="collapse navbar-collapse w-auto h-auto"
+    id="sidenav-collapse-main"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#ProfileNav"
+          class="nav-link text-white"
+          aria-controls="ProfileNav"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-crown"></i>
+          <span class="nav-link-text ms-2 ps-1">Master</span>
+        </a>
+        <div class="collapse" id="ProfileNav" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'Master_details' %}">
+                <span class="sidenav-mini-icon"> G </span>
+                <span class="sidenav-normal ms-3 ps-1"> General </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-white"
+                href="{% url 'listproductandpolicy' %}"
+              >
+                <span class="sidenav-mini-icon"> P&P </span>
+                <span class="sidenav-normal ms-3 ps-1"> Product & Policy </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#Registration"
+          class="nav-link text-white"
+          aria-controls="Registration"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fab fa-wpforms"></i>
+          <span class="nav-link-text ms-2 ps-1">Registration</span>
+        </a>
+        <div class="collapse" id="Registration" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:register' %}">
+                <span class="sidenav-mini-icon"> RP </span>
+                <span class="sidenav-normal ms-3 ps-1"> Referal Partner </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:register2' %}">
+                <span class="sidenav-mini-icon"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1">
+                  Creative Finserve Centre
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#Lead"
+          class="nav-link text-white"
+          aria-controls="Lead"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-book"></i>
+          <span class="nav-link-text ms-2 ps-1">Lead</span>
+        </a>
+        <div class="collapse" id="Lead" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:add_leads' %}">
+                <span class="sidenav-mini-icon"> AL </span>
+                <span class="sidenav-normal ms-3 ps-1"> Add Leads </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:list_leads' %}">
+                <span class="sidenav-mini-icon"> LL </span>
+                <span class="sidenav-normal ms-3 ps-1"> List Lead </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#PartnerCustomer"
+          class="nav-link text-white"
+          aria-controls="PartnerCustomer"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-users"></i>
+          <span class="nav-link-text ms-2 ps-1">Partner / Customer</span>
+        </a>
+        <div class="collapse" id="PartnerCustomer" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a
+                class="nav-link text-white"
+                href="{% url 'account:customer_details' %}"
+              >
+                <span class="sidenav-mini-icon"> C </span>
+                <span class="sidenav-normal ms-3 ps-1"> Customer </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:partner_list' %}">
+                <span class="sidenav-mini-icon"> P </span>
+                <span class="sidenav-normal ms-3 ps-1"> Partner </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#BankNBFC"
+          class="nav-link text-white"
+          aria-controls="BankNBFC"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-university"></i>
+          <span class="nav-link-text ms-2 ps-1">Bank / NBFC Format</span>
+        </a>
+        <div class="collapse" id="BankNBFC" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:codes' %}">
+                <span class="sidenav-mini-icon"> C </span>
+                <span class="sidenav-normal ms-3 ps-1"> Codes </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:bank_download' %}">
+                <span class="sidenav-mini-icon"> DU </span>
+                <span class="sidenav-normal ms-3 ps-1"> Documents Upload </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          href="{% url 'account:approved' %}"
+          class="nav-link text-white"
+          aria-controls="BankNBFC"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-calendar-check"></i>
+          <span class="nav-link-text ms-2 ps-1">Approved Projects</span>
+        </a>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          data-bs-toggle="collapse"
+          href="#Apps"
+          class="nav-link text-white"
+          aria-controls="Apps"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fab fa-app-store-ios"></i>
+          <span class="nav-link-text ms-2 ps-1">Apps</span>
+        </a>
+        <div class="collapse" id="Apps" style="">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:email' %}">
+                <span class="sidenav-mini-icon"> E </span>
+                <span class="sidenav-normal ms-3 ps-1"> Email </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:whatsapp' %}">
+                <span class="sidenav-mini-icon"> W </span>
+                <span class="sidenav-normal ms-3 ps-1"> Whatsapp </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'account:calculator' %}">
+                <span class="sidenav-mini-icon"> C </span>
+                <span class="sidenav-normal ms-3 ps-1"> Calculator </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">
+                <span class="sidenav-mini-icon"> BSA </span>
+                <span class="sidenav-normal ms-3 ps-1">
+                  Bank Statement Analyzer
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          href="{% url 'account:training' %}"
+          class="nav-link text-white"
+          aria-controls="BankNBFC"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-chalkboard-teacher"></i>
+          <span class="nav-link-text ms-2 ps-1">Training</span>
+        </a>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          href="{% url 'account:support' %}"
+          class="nav-link text-white"
+          aria-controls="BankNBFC"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-headset"></i>
+          <span class="nav-link-text ms-2 ps-1">Support</span>
+        </a>
+      </li>
+      <li class="nav-item mb-2 mt-0">
+        <a
+          href="{% url 'account:logout' %}"
+          class="nav-link text-white"
+          aria-controls="BankNBFC"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-link-text ms-2 ps-1">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>

@@ -1,0 +1,57 @@
+{% extends 'base/base.html'%}
+{%block title%}Other Details ROI {% endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPOtherDetailsRoi' ppid=product.prod_id %} method="POST">
+            {% csrf_token %}
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Minimum Loan Amount</b> </label>
+                        <input type="text" class="form-control" name="min_loan_amt">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Maximum Loan Amount</b> </label>
+                        <input type="text" class="form-control" name="max_loan_amt">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Minimum Value</b> </label>
+                        <input type="text" class="form-control" name="min_val">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Maximum Value</b> </label>
+                        <input type="text" class="form-control" name="max_val">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Roi Women</b> </label>
+                        <input type="text" class="form-control" name="roi_women">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Roi Men</b> </label>
+                        <input type="text" class="form-control" name="roi_men">
+                    </div>
+                </div>
+
+                <div style="text-align:center">
+                    <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}

@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+{% endblock other_css %}
+
+{% block title %}Add Leads{% endblock title %}
+
+{% block other_body %}
+  <div class="container" style="margin:25px auto;">
+      {% csrf_token %}
+      <div class="form-group row"></div>
+      <div class="container">
+        <h1 class=" mt-3 mb-4 display-3 text-center">Add Leads</h1> 
+        <div class="card-body">
+          <div class="container">
+            <form method="POST" action="{% url 'account:add_leads' %}" class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/" data-subproducts-url = "ajax/subproducts/">
+              {% csrf_token %}
+              <div class="row g-4 p-4">
+                  {% for field in form %}
+                          <div class="col-sm-4 mb-2">
+                              <div class="input-group input-group-static">
+                                  <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                  {{ field }}
+                              </div>
+                          </div>
+                  {% endfor %}
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary" name="save" type="submit">Save & Next</button>
+                <button class="btn btn-primary" name="next" type="submit">Next</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock other_body %}
+
+{% block other_js %}
+  <script>
+    $("#id_state").change(function() {
+      const url = $("#leadform").attr("data-cities-url");
+      const stateid = $(this).val();
+      console.log(stateid);
+      $.ajax({
+        url:url,
+        type:'GET',
+        data:{
+          'state_id':stateid
+        },
+        datatype:'JSON',
+        success: function(data){
+          $("#id_city").html(data);
+        },
+        error:function(data){
+          console.log(data);
+        }
+      });
+    });
+    $("#id_product").change(function() {
+      const url = $("#leadform").attr("data-subproducts-url");
+      const productid = $(this).val();
+
+      $.ajax({
+        url : url ,
+        type:'GET',
+        data:{
+          'product_id' : productid
+        },
+        datatype:'JSON',
+        success : function(data){
+          $("#id_sub_product").html(data);
+        },
+        error:function(error){
+          console.log(error);
+        }
+      });
+    });
+  </script>
+
+    
+{% endblock other_js %}

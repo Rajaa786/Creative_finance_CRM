@@ -1,0 +1,24 @@
+{% extends 'base/base.html'%}
+{%block title%} Customer Designtion{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPcustomerdesignation' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Customer Designation</b> </label>
+                            <input type="text" class="form-control" name="cust_desig">
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+            
+                    </div>
+                </div>    
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}

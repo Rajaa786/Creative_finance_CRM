@@ -1,0 +1,20 @@
+{% extends 'base/base.html'%}
+{%block title%}  Products Details  {% endblock title%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'StageOfConstruction_form' %} method="POST">
+            {% csrf_token %}
+                <div class="col-12 md-6 sm-4"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="col-sm-5 col-form-label"> <b>Product Name</b> </label>
+                        <input type="text" class="form-control" name="prod_name">
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+{%endblock other_body%}

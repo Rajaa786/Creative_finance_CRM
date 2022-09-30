@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        {% include 'base/meta.html' %}
+
+        {% include 'base/css.html' %}
+
+        {% include 'base/dashboard_css.html' %}
+
+        {% block other_css %}{% endblock other_css %}
+
+        {% if title %}
+            <title>{{title}}</title>
+            {% else %}
+            <title>{% block title %}{% endblock title %}</title>
+        {% endif %}
+
+        
+        <style>
+        .alert-text{
+            color:white;
+            font-weight:bolder;
+        }
+        </style>
+
+    </head>
+
+    <body {% include 'base/dashboard_body_css.html' %} {% block other_body_css %}{% endblock other_body_css %}>
+
+        {% include 'base/dashboard_sidebar.html' %}
+
+        <main class="main-content position-relative border-radius-lg ">
+
+            {% include 'base/dashboard_nav.html' %}
+
+            {% block other_body %}{% endblock other_body %}
+
+            {% include 'base/js.html' %}
+
+        </main>
+
+        <script>
+            if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
+
+        {% block other_js %}{% endblock other_js %}
+
+    </body>
+
+</html>

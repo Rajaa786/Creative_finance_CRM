@@ -1,0 +1,45 @@
+{% extends 'home/base/base.html' %}
+{% load static %}
+
+{% block title %}Creative Finserve{% endblock title %}
+
+{% block other_body %}
+    <div class="container mt-5 mb-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+                <div class="card z-index-2 shadow-lg">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg p-3 text-center">
+                            <h4 class="card-title fw-bold text-light">Forgot Username</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'forgot_username' %}">
+                            {% csrf_token %}
+                            <div class="card-body ">
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">email</i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="email" id="email" placeholder="Enter Registered Email" class="form-control" required>
+                                    </div>
+                                </span>
+                                <span class="bmd-form-group text-danger">
+                                    {% for message in messages %}
+                                        {{message}}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" name="submit" class="btn bg-gradient-dark mt-4">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock other_body %}

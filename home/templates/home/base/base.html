@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        {% include 'home/base/meta.html' %}
+
+        {% include 'home/base/css.html' %}
+
+        {% block other_css %}{% endblock other_css %}
+
+        {% if title %}
+            <title>{{title}}</title>
+        {% else %}
+            <title>{% block title %}{% endblock title %}</title>
+        {% endif %}
+
+    </head>
+    <body {% block other_body_css %}{% endblock other_body_css %}>
+
+        {% include 'home/base/navbar.html' %}
+
+        {% block other_body %}{% endblock other_body %}
+
+        {% include 'home/base/footer.html' %}
+
+        {% include 'home/base/js.html' %}
+
+        {% block other_js %}{% endblock other_js %}
+
+    </body>
+
+</html>

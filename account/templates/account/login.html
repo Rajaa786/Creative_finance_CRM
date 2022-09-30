@@ -1,0 +1,75 @@
+{% extends 'home/base/base.html' %}
+{% load static %}
+
+{% block title %}Creative Finserve{% endblock title %}
+
+{% block other_body %}
+    <div class="container mt-5 mb-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+                <div class="card z-index-2 pb-3 shadow-lg">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg p-3 text-center">
+                            <h4 class="card-title fw-bold text-light">Login</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action='{% url 'login' %}'>
+                            {% csrf_token %}
+                            <div class="card-body ">
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">face</i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
+                                    </div>
+                                </span>
+                                <span class="bmd-form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                        </div>
+                                        <input type="password" name="password" id="password" placeholder="Password" class="form-control" required>
+                                    </div>
+                                </span>
+                                <span class="bmd-form-group text-danger">
+                                    {% for message in messages %}
+                                        {{message}}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" name="login" class="btn bg-gradient-dark my-4">Login</button>
+                                <div class="container">
+                                    <div class="row justify-content-center mt-3">
+                                        <div class="col-auto">
+                                            <a href="{% url 'reset_password' %}">Forgot password?</a>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a href="{% url 'forgot_username' %}">Forgot Username?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endblock other_body %}
+
+{% block other_js %}
+    <script>
+        window.history.forward();
+        function noBack(){
+            window.history.forward();    
+        }
+    </script>
+{% endblock other_js %}

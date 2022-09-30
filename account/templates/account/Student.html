@@ -1,0 +1,970 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin-2.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Student</title>
+    <style>
+      .form-container{
+        background: rgb(245, 245, 245);
+        padding: 30px;
+        margin-right: -20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px #000;
+        /* margin -100px; */
+      }
+      
+    </style>
+</head>
+<body>
+    <!-- <div class="card-body "> -->
+      <h4 class="card-title text-center"> <b>Student</b></h4>
+
+        <div class="container">
+        <form class=" form-container" action="/account/student/{{cust.add_det_id}}" method = "POST">
+
+          {% csrf_token %}
+          <!-- <p class="card-description"> Personal info </p> -->
+           
+           <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label"> <b>Customer Name</b> </label>
+                    <div class="col-sm-9">
+                      <input type="text" value="{{cust.cust_name}}" class="form-control" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label"> <b>Applicant Type</b> </label>
+                    <div class="col-sm-9">
+                      <input type="text" value="{{cust.applicant_type}}" class="form-control" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>Date Of Birth</b></label>
+                      <div class="col-sm-9">
+                        <input type="date" name='dob' class="form-control">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Age</b></label>
+                    <div class="col-sm-9">
+                      <input type="text" name='age' class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Mobile No.</b></label>
+                    <div class="col-sm-9">
+                      <input type="tel" pattern="[0-9]{10}" class="form-control" name="phone" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-5 col-form-label"><b>Alt Mobile No.</b></label>
+                      <div class="col-sm-9">
+                        <input type="tel" pattern="[0-9]{10}" class="form-control" name="alt_phone">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Email-Id</b></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name='email'>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Gender</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Address/Location</b></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="location">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>State</b></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="state">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label"><b>Pincode</b></label>
+                      <div class="col-sm-9">
+                        <input type="number" class="form-control" name="pincode">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Nationality</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="nationality">
+                        {% for nationalitie in nationalities %}
+                          <option value={{nationalitie.nationality}}>{{nationalitie.nationality}}</option>
+                        {% endfor %}
+                      </select>
+                      <!-- <input type="text" class="form-control"> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Country</b></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="country">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label"><b>End-Use</b></label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" name="end_use">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div><br>
+              
+                
+                <!-- <h1></h1> -->
+                <div class="alert alert-info">
+                  <label for="ExistingLoanDetails">
+                    <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1" />
+                    <b>Existing Loan Details</b>
+                </label>
+                </div>
+                
+                
+                    
+
+
+                    
+
+                
+                <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #007bff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Existing Loan Details</h4>
+        </div>
+        <div class="modal-body">
+          <hr />  
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-8 col-form-label"><b>Bank Name</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="bank_name">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label"><b>Product/Services</b></label>
+              <div class="col-sm-9">
+                <select class="form-control" name="product">
+                  {% for product in products %}
+                    <option value={{ product.product }}>{{ product.product }}</option>
+                  {% endfor %}
+                </select>
+                
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Loan Amount</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="loan_amts">
+              </div>
+                </div>
+              </div>
+
+
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>EMI</b></label>
+                <div class="col-sm-9">
+                
+                  <input type="text" class="form-control" name="emi">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-8 col-form-label"><b>Rate of interest</b></label>
+                <div class="col-sm-9">
+                
+                  <input type="text" class="form-control" name="roi">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Tenure</b></label>
+                <div class="col-sm-9">
+                
+                  <input type="text" class="form-control" name="tenure">
+                </div>
+                  </div>
+                </div>
+
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>EMI Start Date</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="date" class="form-control" name="emi_start_date">
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-5 col-form-label"><b>EMI End Date</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="date" class="form-control" name="emi_end_date">
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-8 col-form-label"><b>Outstanding Paid by Customer if any</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="text" class="form-control" name="outstanding_paid">
+                  </div>
+                    </div>
+                  </div>
+
+
+
+                  </div>
+
+                  
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-6 col-form-label"><b>Outstanding Amount</b></label>
+                    <div class="col-sm-9">
+                      
+                      <input type="text" class="form-control" name="outstanding_amt">
+                    </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-6 col-form-label"><b>Any Bounces?</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="any_bounce">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                      
+                    </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-6 col-form-label"><b>Moratorium Taken?</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="moratorium_taken">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                      
+                    </div>
+                      </div>
+                    </div>
+
+
+
+                    </div>
+                    
+                    <label class="col-md-4 col-form-label"><b>Applicant Type</b></label>
+                    
+                    <select class="form-control col-md-4" name="applicant_type">
+                      <option value="applicant">Applicant</option>
+                      <option value="co_applicant">Co-Applicant</option>
+                      <option value="gurantor">Guarantor</option>
+                    </select>
+        
+                  <div class="form-group-row">
+                    <br>
+                    <div>
+                      <button class="btn btn-primary add_button" id="addCustomerButton" type="button" style="color:white">
+                        + Add </button>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="additionalCustomerDetail">
+                    </div>
+
+                    
+
+                    <script type="text/javascript">
+
+                      var x=1;
+                    
+                        $("#addCustomerButton").click(function(){
+                          // alert("One More Existing Loan Details is Added");
+                          swal("One More", "Existing Loan details is Added", "success");  
+
+                        x++; //Increment field counter
+                        $('.additionalCustomerDetail').append(`
+                        <div class="customerDetails${x}">
+                          <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-8 col-form-label"><b>Bank name</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="bank_name">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label"><b>Product/Services</b></label>
+              <div class="col-sm-9">
+                <select class="form-control" name="product_services">
+                  <option value="Indian">Personal</option>
+                  <option value="Non Resident Indian">Buiness</option>
+                  <option value="Non Resident Indian">Home</option>
+                  <option value="Non Resident Indian">LAP</option>
+                  <option value="Non Resident Indian">2Wheeler</option>
+                  <option value="Non Resident Indian">4Wheeler</option>
+                  <option value="Non Resident Indian">Consumer</option>
+                </select>
+                
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Loan Amount</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="loan_amts">
+              </div>
+                </div>
+              </div>
+
+
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>EMI</b></label>
+                <div class="col-sm-9">
+                  
+                  <input type="text" class="form-control" name="emi">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-8 col-form-label"><b>Rate of interest</b></label>
+                <div class="col-sm-9">
+                  
+                  <input type="text" class="form-control" name= "roi">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label"><b>Tenure</b></label>
+                <div class="col-sm-9">
+                  
+                  <input type="text" class="form-control" name="tenure">
+                </div>
+                  </div>
+                </div>
+
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>EMI Start Date</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="date" class="form-control" name="emi_start_date">
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-5 col-form-label"><b>EMI End Date</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="date" class="form-control" name="emi_end_date">
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-8 col-form-label"><b>Outstanding Paid by Customer if any</b></label>
+                  <div class="col-sm-9">
+                    
+                    <input type="text" class="form-control" name="outstanding_paid">
+                  </div>
+                    </div>
+                  </div>
+
+
+
+                  </div>
+
+                  
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-6 col-form-label"><b>Outstanding Amount</b></label>
+                    <div class="col-sm-9">
+                      
+                      <input type="text" class="form-control" name="outstanding_amt">
+                    </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-6 col-form-label"><b>Any Bounces?</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="any_bounce">
+                        <option value="yes">Yes</option>
+                        <option value="no" Resident Indian">No</option>
+                      </select>
+                      
+                    </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label class="col-sm-8 col-form-label"><b>Moratorium Taken?</b></label>
+                    <div class="col-sm-9">
+                      <select class="form-control" name="moratorium_taken">
+                        <option value="yes">Yes</option>
+                        <option value="no" Resident Indian">No</option>
+                      </select>
+                      
+                    </div>
+                      </div>
+                    </div>
+
+
+
+                    </div>
+                    
+                    <label class="col-md-4 col-form-label"><b>Applicant Type</b></label>
+                    <!-- <input type="text" class="form-control col-md-4"> -->
+                    <select class="form-control col-md-4" name="applicant_type">
+                      <option value="applicant">Applicant</option>
+                      <option value="co_applicant">Co-Applicant</option>
+                      <option value="gurantor">Gurantor</option>
+                    </select>
+                    <br>
+
+                    
+
+                    <div style="text-align:left">
+                <button class="btn btn-primary mr-3 removeCustomerDetails${x}Button" onclick="removeCustomerDetail('customerDetails${x}')" >
+                    Remove 
+                </button>
+        </div>
+        <br>
+                              
+                                      
+
+      
+        
+                    `); //Add field html
+      });
+        function removeCustomerDetail(parentclass){
+            // alert("Remove Existing Loan Details")
+            swal("Existing Loan Details", "have being deleted", "warning");  
+
+
+          $("."+`${parentclass}`).remove();
+        }
+        </script>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div><br>
+              
+              
+
+
+
+
+
+              
+      <div class="alert alert-info">
+        <label for="ExistingCardDetails">
+          <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2" />
+         <b> Existing Card Details</b>
+      </label>
+      </div>
+       <!-- Modal -->
+    <div class="modal fade" id="myModal2" role="dialog">
+      <div class="modal-dialog modal-lg">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header"style="background-color: #007bff">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Existing Card Details</h4>
+          </div>
+          <div class="modal-body">
+            <hr />  
+  
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Bank Name</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="bank_name">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Credit Limit</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="credit_limit">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Limit Utilize</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="limit_utilized">
+              </div>
+                </div>
+              </div>
+  
+  
+  
+              </div>
+  
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label"><b>Minimum Due</b></label>
+                <div class="col-md-9">
+                  
+                  <input type="text" class="form-control" name="min_due">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label"><b>Credit Card Age</b></label>
+                <div class="col-md-9">
+                  
+                  <input type="text" class="form-control" name="card_age">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-8 col-form-label"><b>Any Delay In Payment</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="pay_delay">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  
+                </div>
+                  </div>
+                </div>
+                
+  
+  
+  
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>Year Of Payment Delay</b></label>
+                  <div class="col-sm-9">
+                    <select class="form-control" name="pay_delay_year">
+                      <option value="last_year">Last 1 year</option>
+                      <option value="prior_year">Prior to 1 year</option>
+                    </select>
+                   
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label"><b>Moratorium Taken?</b></label>
+                  <div class="col-sm-9">
+                    <select class="form-control" name="moratorium_taken">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+  
+                  </div>
+                    </div>
+                  </div>
+                </div>
+                  
+  
+                    <!-- <h1></h1> -->
+                    <br>
+                    
+  
+                    
+                      
+                      <div>
+                        <button class="btn btn-primary add_button" id="addCustomerButton1" type="button" style="color:white">
+                          + Add </button>
+  
+                      </div>
+                    
+                    <br>
+  
+                      
+                      <div class="additionalCustomerDetail1">
+                      
+  
+                      <!-- <h1></h1> -->
+  
+                    <script type="text/javascript">
+  
+                        var x=1;
+                      
+                          $("#addCustomerButton1").click(function(){
+                            // alert("One More Existing Card Details is Added");
+                            // alert("One More Existing Card Details is Added");
+                          swal("One More", "Existing Card details is Added", "success");  
+
+  
+                           x++; //Increment field counter
+                           $('.additionalCustomerDetail1').append(`
+                           <div class="customerDetails1${x}">
+                            
+             
+  
+                           
+                            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Bank Name</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="bank_name">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Credit Limit</b></label>
+              <div class="col-sm-9">
+                
+                <input type="text" class="form-control" name="credit_limit">
+              </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label"><b>Limit Utilize</b></label>
+              <div class="col-sm-9">
+               
+                <input type="text" class="form-control" name="limit_utilized">
+              </div>
+                </div>
+              </div>
+  
+  
+  
+              </div>
+  
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label"><b>Minimum Due</b></label>
+                <div class="col-md-9">
+                  
+                  <input type="text" class="form-control" name ="min_due">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label"><b>Credit Card Age</b></label>
+                <div class="col-md-9">
+                  
+                  <input type="text" class="form-control" name="card_age">
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-8 col-form-label"><b>Any Delay In Payment</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="pay_delay">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                  
+                </div>
+                  </div>
+                </div>
+                
+  
+  
+  
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>Year Of Payment Delay</b></label>
+                  <div class="col-sm-9">
+                    <select class="form-control" name="pay_delay_year">
+                      <option value="last_year">Last 1 year</option>
+                      <option value="prior_year">Prior to 1 year</option>
+                    </select>
+                   
+                  </div>
+                    </div>
+                    </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form-label"><b>Moratorium Taken?</b></label>
+                  <div class="col-sm-9">
+                    <select class="form-control" name="moratorium_taken">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+  
+                    </div>
+                    </div>
+                    </div>
+                    
+                  
+                  <div class="form-group-row">
+                  <br>
+                  <div>
+                  <button class="btn btn-primary mr-3 removeCustomerDetails1${x}Button" onclick="removeCustomerDetail1('customerDetails1${x}')" >
+                      Remove 
+                  </button>
+                  </div>
+          </div>
+           <br>
+  
+           
+  
+                            
+                           
+                            
+                                
+                                         
+  
+        
+           
+                      `); //Add field html
+        });
+          function removeCustomerDetail1(parentclass){
+              // alert("Remove Existing Card Details?")
+              swal("Existing Card Details", "have being deleted", "warning");  
+  
+            $("."+`${parentclass}`).remove();
+          }
+          
+          
+          </script>
+  
+  </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    </div><br>
+              
+              
+              
+  
+  <div class="alert alert-info">
+    <label for="Investment">
+      <input type="checkbox" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3"  />
+      <b>Investment</b>
+     </label>
+  </div>
+   <!-- Modal -->
+   <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header"style="background-color: #007bff">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Investment</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-9">
+             <div class="form-group row">
+               
+            <div class="col-sm-9">
+             
+             <select class="form-control" name="investment">
+               <option value="bank_savings">Bank Savings/Deposits</option>
+               <option value="other_properties">Other Properties</option>
+               <option value="current_balance">Current Balance in PF / PPF</option>
+               <option value="lip">Life Insurance Policies /PLI</option>
+               <option value="Sas">Share & Securities</option>
+               <option value="ota">Other Assets (Pl. specify)</option>
+               <option value="oop">Other Owned Property Details</option>
+            
+            
+            
+             </select>
+            </div>
+             </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <hr />
+                    <!-- </div> -->
+                  <!-- </div> -->
+                  
+
+
+            <!-- </div> -->
+
+            
+            
+
+            
+          
+
+          
+
+                      
+
+                  
+              
+
+           <!-- </div> -->
+           
+           <br>
+
+           <!-- <h1></h1> -->
+           <div style="text-align:center">
+            <button class="btn btn-primary mr-3" name='cancel' type="submit">Cancel</button>
+            <button class="btn btn-primary mr-3" name='save' type="submit">Save & Submit</button>
+            <button class="btn btn-primary mr-3" name='next' type="submit">Next</button>
+            
+
+          </div>
+                  
+          </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body>
+</html>

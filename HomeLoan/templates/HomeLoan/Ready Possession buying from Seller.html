@@ -1,0 +1,186 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready Possession buying from Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .form-container{
+          background-color: rgb(245, 245, 245);
+          padding: 30px;
+          margin-right: -20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px 0px #000;
+          /* margin -100px; */
+        }
+        .header{
+          padding: 10px;
+          
+        }
+        
+      </style>
+</head>
+<body>
+    <div class ="container-fluid">
+
+        <!-- Sidebar -->
+        {% include 'account/sidebar.html' %}
+
+        <div class="container" style="width:800px; margin:0 auto;">
+            <h3 class="card-title text-center header">Ready Possession buying from Builder</h3>
+            
+            
+            <form class="form-container" action={% url 'PPReadyPossessionbuyfromseller' %} method="POST">
+                {% csrf_token %}
+                
+                            
+       
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Property Type</b> </label>
+                            <div class="col-sm-9">
+                            <!-- <input type="text" class="form-control" name="cust_type"> -->
+                            <select name="property_type"  class="form-control" >
+                                <option>Select</option>                              
+                                <option>Muncipal</option>
+                                <option>CIDCO</option>
+                                <option>MHADA</option>
+                               
+                            </select>
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Occupation Certificate</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="ocupation_certificate">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-9 col-form-label"> <b>CC & Municipal Plan & Tax receipt</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="cc_muncipal">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Previous Agreements not Available</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="Previous_agreement">
+                            </div>
+                    </div>
+
+                    
+
+                     <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Room Type</b> </label>
+                            <div class="col-sm-9">
+                            <!-- <input type="text" class="form-control" name="cust_type"> -->
+                            <select name="room_type"  class="form-control" >
+                                <option>Select</option>                              
+                                <option>1BHK</option>
+                                <option>2BHK</option>
+                                <option>3BHK</option>
+                                <option> 4BHK</option>
+                                <option>Row House</option>
+                                <option>Bunglow</option>
+                                <option> Plots</option>
+                                <option> Jodi Flats</option>
+                                <option> Duplex</option>
+
+                                
+                            </select>
+                            </div>
+                    </div>
+
+                    
+
+                  <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Negative Area</b> </label>
+                            <div class="col-sm-9">
+                            <!-- <input type="text" class="form-control" name="cust_type"> -->
+                            <select name="negative_area"  class="form-control" >
+                                <option>Select</option>                              
+                                <option>Mira Road-Naya Nagar</option>
+                                <option> Mira Road-Ravi Group
+                                </option>
+                                <option>Dongri</option>
+                                <option>Gorai</option>
+                                <option>  Sion Koliwada
+                                </option>
+                                <option>Dharavi</option>
+                                <option>Govandi</option>
+                                <option>Mumbra</option>
+                                <option>Pathanwadi</option>
+                                <option>Diva</option>
+                                <option> Subject to APF Approved</option>
+
+
+                               
+                            </select>
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Building Age</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="building_age">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>New Case % on Agreement Value</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="new_case">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Balance Transfer  % on Agreement Value</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="balance_transfer">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Tenure</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" name="tenure">
+                            </div>
+                    </div>
+
+
+
+
+                    
+                
+                <br>
+                
+                    <div style="text-align:center">
+                        
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+            
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

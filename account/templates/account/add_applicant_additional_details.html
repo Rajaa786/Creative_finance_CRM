@@ -1,0 +1,33 @@
+{% extends 'base/base.html'%}
+{% load static %}
+{% block other_body %} 
+<div class ="container-fluid">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <h1 class=" mt-3 mb-4 display-3 text-center">Additional Applicant Details</h1> 
+    </div>
+</div>
+<div class="container mb-0">
+    {% for instance in additional_details_instances %}
+        <div class="card z-index-2 pb-3 my-5">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <div class="row">
+                        <div class="col">
+                        <a  href = "{% url 'individual_details' id=instance.pk %}"
+                            role="button"
+                            aria-expanded="false"
+                            >
+                            <h4 class="card-title fw-bold text-light"> {{instance.cust_name}} </h4>
+                            <p class="card-category fw-bold text-light mb-0">
+                                Applicant type : {{instance.applicant_type}}
+                            </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    {% endfor %}
+</div>
+{% endblock other_body %}

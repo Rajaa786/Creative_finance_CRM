@@ -1,0 +1,288 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Member</title>
+    <script>
+      
+    </script>
+    <style>
+      .form-container {
+          background: #fff;
+          padding: 30px;
+          margin-right: -20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px 0px #000;
+          /* margin -100px; */
+      }
+  </style>
+</head>
+<body style="background-image: url({% static 'images/account/bg6.jpg' %});"  >
+    <div class="card-body">
+      <div class="container">
+        
+        <form class="form-container" action="create_mem" method = "POST">
+          {% csrf_token %}
+          <!-- <p class="card-description"> Personal info </p> -->
+          <div class="container bg-white">
+              <h4 align="center">Personal Information</h3>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"> <b>Profession</b> </label>
+                <div class="col-sm-9">
+                  <!-- <input type="text" class="form-control"> -->
+                  <select class="form-control" name="designation">
+                    <option>Select</option>
+                    <option value="Chartered Accountant">Chartered Accountant</option>
+                                                                                        <option value="Tax Consultants">Tax Consultants</option>
+                                                                                        <option value="Banker">Banker</option>
+                                                                                        <option value="Company Secretary">Company Secretary</option>
+                                                                                        <option value="Real Estate Agent">Real Estate Agent</option>
+                                                                                        <option value="Builders">Builders</option>
+                                                                                        <option value="Professional">Professional</option>
+                                                                                        <option value="Others">Others</option>
+                                                                                        <option value="Insurance Agent">Insurance Agent</option>
+                                                                                        <option value="GST Centre">GST Centre</option>
+                                                                                        <option value="Branch">Branch</option>
+                                                                                        <option value="Society">Society</option>
+                                                                                        <option value="Student">Student</option>
+                                                                                        <option value="Medical Store">Medical Store</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label"><b>Member Name</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Member Name" name="name">
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+          <!-- <div class="row"> -->
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Member Role</b></label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="role">
+                        <option>Select</option>
+                        
+                        <option value="Admin">Admin</option>
+                        <option value="Branch user">Branch user</option>
+                        <option value="Business Associates">Business Associates</option>
+                        <option value="Business Partner">Business Partner</option>
+                        <option value="Coordinator">Coordinator</option>
+                        <option value="Creative Finserve Center">Creative Finserve Center</option>
+                        <option value="Development Partner">Development Partner</option>
+                        <option value="Doc boy">Doc boy</option>
+                        <option value="Execution partner">Execution partner</option>
+                        <option value="Execution team internal">Execution team internal</option>
+                        <option value="Field executive">Field executive</option>
+                        <option value="Referral Agent">Referral Agent</option>
+                        <option value="Referral Partner">Referral Partner</option>
+                        <option value="Relationship manager">Relationship manager</option>
+                        <option value="Secured Vertical Head">Secured Vertical Head</option>
+                        <option value="Sr Development Partner">Sr Development Partner</option>
+                        <option value="Team manager">Team manager</option>
+                        <option value="Tele sales">Tele sales</option>
+                        <option value="Users">Users</option>
+                        <option value="Vertical head">Vertical head</option>
+                      </select>
+                  <!-- <input type="text" class="form-control"> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Member Role</b></label>
+                <div class="col-sm-9">
+                  <input class="form-control" name="email" >
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+          <!-- <div class="row"> -->
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Mobile No</b></label>
+                <div class="col-sm-9">
+                  <!-- <select class="form-control">
+                    <option>Category1</option>
+                    <option>Category2</option>
+                    <option>Category3</option>
+                    <option>Category4</option>
+                  </select> -->
+                  <input class="form-control" placeholder="Mobile No" name="phone">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Membership</label>
+                <div class="col-sm-9">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked=""> Free <i class="input-helper"></i></label>
+                  </div>
+                </div>
+              </div>
+                <div class="col-sm-5">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"> Professional <i class="input-helper"></i></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <p class="card-description"> Address </p> -->
+          <!-- <div class="col-md-4">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Password</label>
+              <div class="col-sm-9">
+                 
+                <input class="form-control"  id="password" type="password"/>    
+                <script>
+                    var passwordList = ["password1","password2","password3"];
+                    $("#password").val(passwordList[Math.floor(Math.random()*passwordList.length)];)
+
+                    document.getElementById("password").value =passwordList[Math.floor(Math.random()*passwordList.length)];
+
+                </script>
+              </div>
+            </div>
+          </div>
+          </div> -->
+          <!-- <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Loan Amount</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">addressLocation</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          
+          <div class="row"> 
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Pincode</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div> -->
+          <!-- </div> -->
+          <div class="col-md-4">
+            <div class="form-group row">
+              <label class="col-sm-9 col-form-label"><b>Mobile No</b></label>
+              <div class="col-sm-9">
+                <!-- <select class="form-control">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select> -->
+                <input type="text" class="form-control" name="alt_phone">
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Address</b></label>
+                <div class="col-sm-9">
+                   <!-- <select class="form-control">
+                    <option>Select</option>
+                    <option>India</option>
+                    <option>Aus</option>
+                  </select>  -->
+                  <input type="text" class="form-control" placeholder="Select" name="address">
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+          <!-- <div class="row"> -->
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Mapped To</b></label>
+                <div class="col-sm-9" aria-placeholder="Slect">
+                  <!-- <select class="form-control" name="mapped_to" >
+                    <option>Select</option>
+                    <option>America</option>
+                    <option>Italy</option>
+                    <option>Russia</option>
+                    <option>Britain</option> -->
+                  
+                  <input type="text" class="form-control" name="mapped_to">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-9 col-form-label"><b>Mapped To Name</b></label>
+                <div class="col-sm-9">
+                  <!-- <select class="form-control" name="mapped_to_nm">
+                    <option>Select Mappedto</option>
+                    <option>America</option>
+                    <option>Italy</option>
+                    <option>Russia</option>
+                    <option>Britain</option> -->
+                  <!-- </select> -->
+                  <input type="text" class="form-control"  name="mapped_to_nm">
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- <div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+          
+            
+          </div> -->
+          <div class="col-md-4">
+            <div class="form-group row">
+              <!-- <label class="col-sm-4 col-form-label">Mapped To</label> -->
+              <div class="col-sm-9" aria-placeholder="Slect">
+                <!-- <select class="form-control" name="mapped_to" >
+                  <option>Select</option>
+                  <option>America</option>
+                  <option>Italy</option>
+                  <option>Russia</option>
+                  <option>Britain</option> -->
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                
+                <!-- <input type="text" class="form-control" name="mapped_to"> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+          
+        </form>
+      </div>
+            <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body>
+</html>

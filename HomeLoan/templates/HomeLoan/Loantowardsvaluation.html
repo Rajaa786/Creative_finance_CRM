@@ -1,0 +1,79 @@
+{% extends 'base/base.html'%}
+{%block title%}  Loan Towards Valuation {%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+
+        <div class="container" style="width:800px; margin:0 auto;">
+            
+            
+            <form class="form-container" action={% url 'PPLoantowardsvaluation' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Cost Sheet</b> </label>
+                            <input type="text" class="form-control" name="cost_sheet">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Minmum Amount</b> </label>
+                            <input type="text" class="form-control" name="min_amount">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Maximum Amount</b> </label>
+                            <input type="text" class="form-control" name="max_amount">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Rbi Guidelines</b> </label>
+                            <input type="text" class="form-control" name="rbi_guidelines">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Ammenity</b> </label>
+                            <input type="text" class="form-control" name="ammenity">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Additional</b> </label>
+                            <input type="text" class="form-control" name="additional">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Car Parking</b> </label>
+                            <input type="text" class="form-control" name="car_parking">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Car Parking Percent</b> </label>
+                            <input type="text" class="form-control" name="car_parking_percent">
+                        </div>
+                    </div>
+
+                    
+                    <div style="text-align:center">
+                    
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    
+                    </div>
+                
+
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}

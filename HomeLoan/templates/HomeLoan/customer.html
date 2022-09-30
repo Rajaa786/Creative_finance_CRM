@@ -1,0 +1,39 @@
+{% extends 'base/base.html'%}
+{%block title%} Customer Details{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPcustomer' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Minimum Age</b> </label>
+                            <input type="number" class="form-control" name="min_age">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Total Experience</b> </label>
+                            <input type="number" class="form-control" name="total_Exp">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Form16</b> </label>
+                            <input type="text" class="form-control" name="form16">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Salary Type</b> </label>
+                            <input type="text" class="form-control" name="salary_type">
+                        </div>
+                    </div>
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    

@@ -1,0 +1,423 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+{% endblock other_css %}
+
+{% block title %}Support{% endblock title %}
+
+{% block other_body_css %}id="page-top"{% endblock other_body_css %}
+
+{% block other_body %}
+  <div class ="container-fluid">
+    <h1 class="mb-5 mt-3 display-3 text-center">Support</h1>
+    <div class="container form-container bg-white rounded shadow-blur p-3" style="overflow-x:auto; width: 95%; margin:0 auto">
+      <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCode">Add Code</button>
+      <div class="modal fade" id="addCode" tabindex="-1" role="dialog" aria-labelledby="addCodeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title font-weight-normal" id="addCodeLabel">Add Code</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form method="POST">
+              {% csrf_token %}
+              <div class="modal-body" style="overflow: auto;">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="employee" class="form-label text-primary fw-bold">Employee</label>
+                      <input type="text" name="employee" id="employee" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="product" class="form-label text-primary fw-bold">Product</label>
+                      <input type="text" name="product" id="product" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="relationship_manager" class="form-label text-primary fw-bold">Relationship Manager</label>
+                      <input type="text" name="relationship_manager" id="relationship_manager" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="designation" class="form-label text-primary fw-bold">Designation</label>
+                      <input type="text" name="designation" id="designation" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="email" class="form-label text-primary fw-bold">Email Id</label>
+                      <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group input-group-outline mb-4">
+                      <label  for="mobile_number" class="form-label text-primary fw-bold">Mobile Number</label>
+                      <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="mobile_number" id="mobile_number" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label  for="joined_on" class="form-label text-primary fw-bold">Joined On</label>
+                    <div class="input-group input-group-outline mb-4">
+                        <input type="date" name="joined_on" id="joined_on" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label  for="resigned_on" class="form-label text-primary fw-bold">Resigned On</label>
+                    <div class="input-group input-group-outline mb-4">
+                        <input type="date" name="resigned_on" id="resigned_on" class="form-control" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn bg-gradient-success">Submit</button>
+                <button type="button" class="btn btn-link  ml-auto bg-gradient-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered" width="100%" border="1" cellspacing="0">
+        <thead>
+          <tr>
+            <th scope="col">Sr. No</th>
+            <th scope="col">Employee Code</th>
+            <th scope="col">Product</th>
+            <th scope="col">Name of the Relationship Manager</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Email Id</th>
+            <th scope="col">Mobile No.</th>
+            <th scope="col">Documents</th>
+            <th scope="col">Joined On</th>
+            <th scope="col">Resigned On</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>CFPL-04</td>
+            <td>Personal Loan</td>
+            <td>Piyush Gupta</td>
+            <td>Relationship Officer</td>
+            <td> </td>
+            <td> </td>
+            <td>Upload</td>
+            <td> </td>
+            <td> </td>
+            <td>
+              <a href="" title="Edit Details">
+                <span class="icon text-black-50">
+                  <i class="fas fa-edit"></i>
+                </span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container form-container bg-white rounded shadow-blur p-3 my-5" style="overflow-x:auto; width: 95%; margin:0 auto">
+      <h2 class="text-center">Task</h2>
+      <div class="card-body ">
+        <div class="container">
+          <div class="input-group input-group-static">
+            <label for="task_details" class="ms-0 text-primary fw-bold col-12">Task</label>
+            <select class="form-control" name="task_type" id="task_details">
+              <option value="">-- Select Task --</option>
+              <option value="Appointment">Appointment</option>
+              <option value="Reminders">Reminders</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" id="cardBody1">
+        <div class="container" id="details1" style="display: none">
+          <form action="" method="POST">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="sr_no" class="form-label text-primary fw-bold">Sr.No</label>
+                    <input type="number" name="sr_no" id="sr_no" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="date_of_entry" class="form-label text-primary fw-bold">Date of Entry</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="date_of_entry" id="date_of_entry" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Particulars" class="form-label text-primary fw-bold">Particulars</label>
+                    <input type="text" name="Particulars" id="Particulars" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Appointment_with" class="form-label text-primary fw-bold">Appointment with</label>
+                    <input type="text" name="Appointment_with" id="Appointment_with" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label for="Address" class="col-sm-12 form-label text-primary fw-bold"><b>Address</b></label>
+                  <div class="col-sm-12">
+                    <textarea name="Address" id="Address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="Date_of_Appointment" class="form-label text-primary fw-bold">Date of Appointment</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="Date_of_Appointment" id="Date_of_Appointment" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <div class="input-group input-group-static mb-4">
+                    <label for="Status" class="ms-0 text-primary fw-bold col-12">Status</label>
+                    <select class="form-control col-12" name="Status" id="Status" required>
+                      <option value="">-- Select Status --</option>
+                      <option value="Rescheduled">Rescheduled</option>
+                      <option value="Meeting Successful">Meeting Successful</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="Date_of_Reschedule" class="form-label text-primary fw-bold">Date of Reschedule</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="Date_of_Reschedule" id="Date_of_Reschedule" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label for="Remarks" class="col-sm-12 form-label text-primary fw-bold"><b>Remarks</b></label>
+                  <div class="col-sm-12">
+                    <textarea name="Remarks" id="Remarks" class="form-control" rows="1" placeholder="eg. Remarks" spellcheck="false" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group-row"> 
+              <div class="text-center">
+                <button class="btn btn-primary add_button" id="addOtherButton1" type="button" style="color:white">
+                  + Add Other Task 
+                </button>
+                <button class="btn btn-success mr-3 " type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+          <div class="additionalTask1"></div>
+        </div>
+      </div>
+      <div class="card-body" id="cardBody2">
+        <div class="container" id="details2" style="display: none">
+          <form action="" method="POST">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="sr_no" class="form-label text-primary fw-bold">Sr.No</label>
+                    <input type="number" name="sr_no" id="sr_no" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="date_of_entry" class="form-label text-primary fw-bold">Date of Entry</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="date_of_entry" id="date_of_entry" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Particulars" class="form-label text-primary fw-bold">Particulars</label>
+                    <input type="text" name="Particulars" id="Particulars" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Reminders" class="form-label text-primary fw-bold">Reminders</label>
+                    <input type="text" name="Reminders" id="Reminders" class="form-control" required>
+                </div>
+              </div>
+              <div class="form-group-row">
+              <div class="text-center">
+                <button class="btn btn-primary add_button" id="addOtherButton2" type="button" style="color:white">
+                  + Add Other Reminder 
+                </button>
+                <button class="btn btn-success mr-3 " type="submit">Submit</button>
+              </div>
+              </div>
+              <div class="additionalTask"></div>
+            </div>
+          </form>
+          <div class="additionalTask2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock other_body %}
+
+{% block other_js %}
+  <script>
+    $(document).ready(function() {
+      $('#task_details').on('change', function() {
+        if (this.value == 'Appointment') {
+          $("#details1").show();
+        } else {
+          $("#details1").hide();
+        }
+        if (this.value == 'Reminders') {
+          $("#details2").show();
+        } else {
+          $("#details2").hide();
+        }
+      });
+    });
+  </script>
+  <script>
+    var x = 1;
+    $("#addOtherButton1").click(function() {
+      alert("One More Other Task Details is Added");
+      x++; //Increment field counter
+      $('.additionalTask1').append(`
+        <div class="task_details${x}">
+          <form action="" method="POST">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="sr_no" class="form-label text-primary fw-bold">Sr.No</label>
+                    <input type="number" name="sr_no" id="sr_no" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="date_of_entry" class="form-label text-primary fw-bold">Date of Entry</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="date_of_entry" id="date_of_entry" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Particulars" class="form-label text-primary fw-bold">Particulars</label>
+                    <input type="text" name="Particulars" id="Particulars" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-outline mb-4">
+                    <label  for="Appointment_with" class="form-label text-primary fw-bold">Appointment with</label>
+                    <input type="text" name="Appointment_with" id="Appointment_with" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label for="Address" class="col-sm-12 form-label text-primary fw-bold"><b>Address</b></label>
+                  <div class="col-sm-12">
+                    <textarea name="Address" id="Address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="Date_of_Appointment" class="form-label text-primary fw-bold">Date of Appointment</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="Date_of_Appointment" id="Date_of_Appointment" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <div class="input-group input-group-static mb-4">
+                    <label for="Status" class="ms-0 text-primary fw-bold col-12">Status</label>
+                    <select class="form-control col-12" name="Status" id="Status" required>
+                      <option value="">-- Select Status --</option>
+                      <option value="Rescheduled">Rescheduled</option>
+                      <option value="Meeting Successful">Meeting Successful</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label  for="Date_of_Reschedule" class="form-label text-primary fw-bold">Date of Reschedule</label>
+                <div class="input-group input-group-outline mb-4">
+                    <input type="date" name="Date_of_Reschedule" id="Date_of_Reschedule" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label for="Remarks" class="col-sm-12 form-label text-primary fw-bold"><b>Remarks</b></label>
+                  <div class="col-sm-12">
+                    <textarea name="Remarks" id="Remarks" class="form-control" rows="1" placeholder="eg. Remarks" spellcheck="false" required></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text-center">
+                <button class="btn bg-gradient-danger mr-3 removeOtherDetails${x}Button" onclick="removeOtherDetails('task_details${x}')" >
+                    Remove
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <br>
+      `); //Add field html
+    });
+    function removeOtherDetails(parentclass) {
+      alert("Do You Want to Remove Other Task Details?")
+      $("." + `${parentclass}`).remove();
+    }
+  </script>
+  <script>
+    var x = 1;
+    $("#addOtherButton2").click(function() {
+      alert("One More Other Reminder Details is Added");
+      x++; //Increment field counter
+      $('.additionalTask2').append(`
+        <div class="reminder_details${x}">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                  <label  for="sr_no" class="form-label text-primary fw-bold">Sr.No</label>
+                  <input type="number" name="sr_no" id="sr_no" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label  for="date_of_entry" class="form-label text-primary fw-bold">Date of Entry</label>
+              <div class="input-group input-group-outline mb-4">
+                  <input type="date" name="date_of_entry" id="date_of_entry" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                  <label  for="Particulars" class="form-label text-primary fw-bold">Particulars</label>
+                  <input type="text" name="Particulars" id="Particulars" class="form-control" required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                  <label  for="Reminders" class="form-label text-primary fw-bold">Reminders</label>
+                  <input type="text" name="Reminders" id="Reminders" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="text-center">
+              <button class="btn bg-gradient-danger mr-3 removeOtherDetails${x}Button" onclick="removeOtherDetails('reminder_details${x}')" >
+                  Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        <br>
+      `); //Add field html
+    });
+    function removeOtherDetails(parentclass) {
+      alert("Do You Want to Remove Other Task Details?")
+      $("." + `${parentclass}`).remove();
+    }
+  </script>
+{% endblock other_js %}

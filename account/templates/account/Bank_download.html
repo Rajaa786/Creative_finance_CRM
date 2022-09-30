@@ -1,0 +1,827 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_body %}
+    <h1 class="mb-5 mt-3 display-3 text-center">Apply Now</h1>  
+    <section class="bg-3blue pb-4">
+    <form method="POST" action="/applyNow" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="container p-4 card" style="max-width: 800px">
+        <div class="input-group input-group-outline my-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="input-group input-group-outline my-3">
+          <label class="form-label">Mobile Number</label>
+          <input type="tel" class="form-control" name="phoneNumber" required>
+        </div>
+        <div class="input-group input-group-outline my-3">
+          <label class="form-label">Email ID</label>
+          <input type="email" name="emailID" class="form-control" required>
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <select class="form-control" name="loanTypeSelector" id="loanTypeSelector" required>
+            <option value="">-- Select Loan Type --</option>
+            <option value="Unsecured Personal loan">
+              Unsecured Personal loan
+            </option>
+            <option value="Unsecured Business loan">
+              Unsecured Business loan
+            </option>
+            <option value="Home Loan">Home Loan</option>
+            <option value="Loan Against Property">Loan Against Property</option>
+            <option value="Lease Rental Discount">Lease Rental Discount</option>
+            <option value="Car Refinance">Car Refinance</option>
+            <option value="Construction Finance">Construction Finance</option>
+            <option value="Balance Transfer of Business Loan">
+              Balance Transfer of Business Loan
+            </option>
+            <option value="Balance Transfer of Home Loan">
+              Balance Transfer of Home Loan
+            </option>
+            <option value="Balance Transfer of Loan against Property">
+              Balance Transfer of Loan against Property
+            </option>
+            <option value="Debt Consolidation">Debt Consolidation</option>
+            <option value="Professional Finance">Professional Finance</option>
+            <option value="Over Draft">Over Draft</option>
+            <option value="Cash Credit">Cash Credit</option>
+            <option value="Equipment Finance">Equipment Finance</option>
+            <option value="Commercial Property Purchase">
+              Commercial Property Purchase
+            </option>
+            <option value="Credit Card Receivable">Credit Card Receivable</option>
+          </select>
+        </div>
+        <div id="afterSelect"></div>
+        <div class="input-group input-group-dynamic">
+          <textarea class="form-control"  rows="1" placeholder="Remark" name="remark" spellcheck="false" required></textarea>
+        </div>
+        <div class="form-check form-switch mt-4">
+          <input class="form-check-input" type="checkbox" id="CheckExistingLoan" value="checkedValue">
+          <label class="form-check-label" for="CheckExistingLoan">Existing Loan Details</label>
+        </div>
+        <div class="form-group d-none" id="NumberOfExistingLoanForm">
+          <label class="font-weight-bolder font-weight-bolder" for=""
+            >Number of Loans</label
+          >
+          <input
+            type="number"
+            name="numberOfExistingLoan"
+            id="NumberOfExistingLoan"
+            class="form-control"
+            placeholder=""
+            aria-describedby=""
+            min="1"
+          />
+        </div>
+        <div class="form-group d-none" id="ExistingLoanForm"></div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="checkedValue">
+          <label class="form-check-label" for="flexSwitchCheckDefault">I agree terms and condition</label>
+        </div>
+        <div class="text-center pt-3 pb-3">
+          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock other_body %}
+
+{% block other_js %}
+  <script>
+    var moreDocsNumber = 0;
+    var moreDocsNumber2 = 0;
+    var salariedForm = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="1stMonthPaySlip" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">1st Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="2ndMonthPaySlip" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">2nd Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="3rdMonthPaySlip" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">3rd Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="1stYearFormNo16" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">1st Year Form No 16</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="2ndYearFormNo16" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">2nd Year Form No 16</label>
+          </div>
+      </div>
+      <div id="extraUpload"></div>
+      <div id="moreUpload"></div>
+      <button type="button" class="btn btn-info btn-sm mb-4" id="addMoreDocs">More Documents</button>
+      `;
+    var selfEmployed = `<div class="form-group">
+          <label class="font-weight-bolder font-weight-bolder" for="">Website Url</label>
+          <input
+              type="text"
+              name="websiteUrl"
+              id=""
+              class="form-control"
+              placeholder=""
+              aria-describedby=""
+              required
+          />
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last1stYearITR" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 1st Year ITR</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last2ndYearITR" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 2nd Year ITR</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last3rdYearITR" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 3rd Year ITR</label>
+          </div>
+      </div>
+      <div id="extraUpload"></div>
+      <div id="moreUpload"></div>
+      <button type="button" class="btn btn-primary btn-sm mb-4" id="addMoreDocs">More Documents</button>
+      `;
+    var salariedForm2 = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="1stMonthPaySlip1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">1st Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="2ndMonthPaySlip1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">2nd Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="3rdMonthPaySlip1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">3rd Months pay Slip</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="1stYearFormNo161" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">1st Year Form No 16</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="2ndYearFormNo161" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">2nd Year Form No 16</label>
+          </div>
+      </div>
+      <div id="moreUpload2"></div>
+      <button type="button" class="btn btn-info btn-sm mb-4" id="addMoreDocs2">More Documents</button>
+      `;
+    var selfEmployed2 = `<div class="form-group">
+          <label class="font-weight-bolder font-weight-bolder" for="">Website Url</label>
+          <input
+              type="text"
+              name="websiteUrl2"
+              id=""
+              class="form-control"
+              placeholder=""
+              aria-describedby=""
+              required
+          />
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last1stYearITR1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 1st Year ITR</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last2ndYearITR1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 2nd Year ITR</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="last3rdYearITR1" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Last 3rd Year ITR</label>
+          </div>
+      </div>
+      <div id="moreUpload2"></div>
+      <button type="button" class="btn btn-info btn-sm mb-4" id="addMoreDocs2">More Documents</button>
+      `;
+    var part1 = `<div id="moreDocs">
+          <div id="formRadio">
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                      <label class="font-weight-bolder form-check-label" for="inlineRadio1">Salaried</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                      <label class="font-weight-bolder form-check-label" for="inlineRadio2">Self Employed
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div id="formOption"></div>
+      </div>`;
+    var spouseCheck = `<div id="checkPartner">
+          <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" value="" name="spouseCheck" id="defaultCheck1">
+              <label class="font-weight-bolder form-check-label" for="defaultCheck1">
+              Spouse/Co-applicant
+              </label>
+          </div>
+      </div>`;
+    var part2 = `<div id="moreDocs2">
+          <div id="formRadio2">
+              <div class="form-group">
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option1">
+                      <label class="font-weight-bolder form-check-label" for="inlineRadio3">Salaried</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option2">
+                      <label class="font-weight-bolder form-check-label" for="inlineRadio4">Self Employed
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div id="formOption2"></div>
+      </div>`;
+    var leaseAgr = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="leaseAgreement" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Lease Agreement</label>
+          </div>
+      </div>`;
+    var rcins = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="rcBookCopy" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">RC Book Copy</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="carInsuranceCopy" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Car Insurance Copy</label>
+          </div>
+      </div>`;
+    var pj = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="projectDetials" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Project Details as per CLD format</label>
+          </div>
+      </div>`;
+    var comp = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="companyProfile" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Company Profile</label>
+          </div>
+      </div>`;
+    var existn = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="existingLoanSanctionLetter" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Existing Loan Sanction Letter</label>
+          </div>
+      </div>`;
+    var degprac = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="degreeCertificate" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Degree Certificate</label>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="practiceCertificate" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Practice Certificate</label>
+          </div>
+      </div>`;
+    var provi = `<div class="form-group">
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" name="provisionalITR" id="" required>
+              <label class="font-weight-bolder custom-file-label" for="">Provisional ITR</label>
+          </div>
+      </div>`;
+    $(document).ready(function () {
+      $("#CheckExistingLoan").on("click", function () {
+        if (this.checked == true) {
+          $("#NumberOfExistingLoanForm").removeClass("d-none");
+          $("#ExistingLoanForm").removeClass("d-none");
+        } else {
+          $("#NumberOfExistingLoanForm").addClass("d-none");
+          $("#ExistingLoanForm").addClass("d-none");
+        }
+      });
+      $("#NumberOfExistingLoan").on("keyup", function () {
+        var num = $("#NumberOfExistingLoan").val();
+        var form = $("#ExistingLoanForm");
+        var html = ``;
+        console.log(num);
+        for (var i = 0; i < num; i++) {
+          html += `
+                              <div class="table-responsive mb-5">
+                              <table class="table table-bordered mb-0">
+                              <thead class="bg-2blue text-white">
+                                  <tr>
+                                      <th>Bank Name</th>
+                                      <th>Products/Services</th>
+                                      <th>Loan Amount</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>
+                                          <input
+                                              type="text"
+                                              name="${i}BankName"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                      <td>
+                                          <select
+                                              name="${i}Service"
+                                              id=""
+                                              class="form-control"
+                                          >
+                                              <option
+                                                  value="Unsecured Personal loan"
+                                                  >Unsecured Personal loan</option
+                                              >
+                                              <option
+                                                  value="Unsecured Business loan"
+                                                  >Unsecured Business loan</option
+                                              >
+                                              <option value="Home Loan"
+                                                  >Home Loan</option
+                                              >
+                                              <option
+                                                  value="Loan Against Property"
+                                                  >Loan Against Property</option
+                                              >
+                                              <option
+                                                  value="Lease Rental Discount"
+                                                  >Lease Rental Discount</option
+                                              >
+                                              <option value="Car Refinance"
+                                                  >Car Refinance</option
+                                              >
+                                              <option value="Construction Finance"
+                                                  >Car Loan</option
+                                              >
+                                              <option value="Construction Finance"
+                                                  >Two Wheeler Loan</option
+                                              >
+                                              <option value="Construction Finance"
+                                                  >Construction Finance</option
+                                              >
+                                              <option value="Professional Finance"
+                                                  >Professional Finance</option
+                                              >
+                                              <option value="Over Draft"
+                                                  >Over Draft</option
+                                              >
+                                              <option value="Cash Credit"
+                                                  >Cash Credit</option
+                                              >
+                                              <option value="Equipment Finance"
+                                                  >Equipment Finance</option
+                                              >
+                                          </select>
+                                      </td>
+                                      <td>
+                                          <input
+                                              type="text"
+                                              name="${i}LoanAmount"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                          <table class="table table-bordered mb-0">
+                          <thead class="bg-2blue text-white">
+                                  <tr>
+                                      <th>EMI</th>
+                                      <th>Rate of Interest</th>
+                                      <th>EMI start date</th>
+                                      <th>EMI end date</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>
+                                          <input
+                                              type="text"
+                                              name="${i}Emi"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                      <td>
+                                          <input
+                                              type="text"
+                                              name="${i}RateOfInterest"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                      <td>
+                                          <input
+                                              type="date"
+                                              name="${i}EmiStartDate"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                      <td>
+                                          <input
+                                              type="date"
+                                              name="${i}EmiEndDate"
+                                              id=""
+                                              class="form-control"
+                                          />
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                              </div>
+                          `;
+        }
+        form.html(html);
+      });
+      $("select").on("change", function (e) {
+        var html = ``;
+        console.log(
+          this.value,
+          this.options[this.selectedIndex].value,
+          $(this).find("option:selected").val()
+        );
+        switch (this.value) {
+          case "Unsecured Personal loan":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            break;
+          case "Unsecured Business loan":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            break;
+          case "Home Loan":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            break;
+          case "Loan Against Property":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            break;
+          case "Lease Rental Discount":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(leaseAgr);
+            break;
+          case "Car Refinance":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendrc1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#extraUpload").html(rcins);
+            break;
+          case "Construction Finance":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(pj);
+            $("#extraUpload").append(comp);
+            break;
+          case "Balance Transfer of Business Loan":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendbthl1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(existn);
+            break;
+          case "Balance Transfer of Home Loan":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendbthl1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            $("#extraUpload").html(existn);
+            break;
+          case "Balance Transfer of Loan against Property":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendbthl1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            $("#extraUpload").html(existn);
+            break;
+          case "Debt Consolidation":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            break;
+          case "Professional Finance":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendpro);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#extraUpload").html(degprac);
+            break;
+          case "Over Draft":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(provi);
+            break;
+          case "Cash Credit":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(provi);
+            break;
+          case "Equipment Finance":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            $("#extraUpload").html(comp);
+            break;
+          case "Commercial Property Purchase":
+            $("#afterSelect").html(part1);
+            $("#afterSelect").append(spouseCheck);
+            $("#afterSelect").append(part2);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#defaultCheck1").on("click", spouseCheckFunction);
+            $("#inlineRadio1").prop("checked", true).trigger("click");
+            $("#inlineRadio3").prop("checked", true).trigger("click");
+            $("#defaultCheck1").prop("checked", true);
+            break;
+          case "Credit Card Receivable":
+            $("#afterSelect").html(part1);
+            $("input[name='inlineRadioOptions']").on("click", appendForm1);
+            $("input[name='inlineRadioOptions2']").on("click", appendForm2);
+            $("#inlineRadio2").prop("checked", true).trigger("click");
+            $("#formRadio").hide();
+            break;
+          default:
+            alert("default running");
+            break;
+        }
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    });
+    function appendForm1() {
+      var html = ``;
+      var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+      switch (radioValue) {
+        case "option1":
+          html = salariedForm;
+          $("#formOption").html(html);
+          break;
+        case "option2":
+          html = selfEmployed;
+          $("#formOption").html(html);
+          break;
+      }
+      $("#addMoreDocs").on("click", function () {
+        var moreDoc = `<div class="form-group">
+                              <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="moreDoc${moreDocsNumber}" id="" required>
+                                  <label class="font-weight-bolder custom-file-label" for="">More Documents</label>
+                              </div>
+                          </div>`;
+        moreDocsNumber = moreDocsNumber + 1;
+        $("#moreUpload").append(moreDoc);
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    }
+    function appendForm2() {
+      var html = ``;
+      var radioValue = $("input[name='inlineRadioOptions2']:checked").val();
+      switch (radioValue) {
+        case "option1":
+          html = salariedForm2;
+          $("#formOption2").html(html);
+          break;
+        case "option2":
+          html = selfEmployed2;
+          $("#formOption2").html(html);
+          break;
+      }
+      $("#addMoreDocs2").on("click", function () {
+        var moreDoc = `<div class="form-group">
+                              <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="2moreDoc${moreDocsNumber2}" id="" required>
+                                  <label class="font-weight-bolder custom-file-label" for="">More Documents</label>
+                              </div>
+                          </div>`;
+
+        moreDocsNumber2 = moreDocsNumber2 + 1;
+        $("#moreUpload2").append(moreDoc);
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    }
+    function spouseCheckFunction() {
+      if (this.checked == true) {
+        console.log("checked");
+        $("#moreDocs2").show();
+      } else {
+        console.log("unchecked");
+        $("#moreDocs2").hide();
+      }
+    }
+    function appendrc1() {
+      var html = ``;
+      var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+      switch (radioValue) {
+        case "option1":
+          html = salariedForm;
+          $("#formOption").html(html);
+          $("#extraUpload").html(rcins);
+          break;
+        case "option2":
+          html = selfEmployed;
+          $("#formOption").html(html);
+          $("#extraUpload").html(rcins);
+          break;
+      }
+      $("#addMoreDocs").on("click", function () {
+        var moreDoc = `<div class="form-group">
+                              <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="moreDoc[]" id="" required>
+                                  <label class="font-weight-bolder custom-file-label" for="">More Documents</label>
+                              </div>
+                          </div>`;
+        $("#moreUpload").append(moreDoc);
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    }
+    function appendbthl1() {
+      var html = ``;
+      var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+      switch (radioValue) {
+        case "option1":
+          html = salariedForm;
+          $("#formOption").html(html);
+          $("#extraUpload").html(existn);
+          break;
+        case "option2":
+          html = selfEmployed;
+          $("#formOption").html(html);
+          $("#extraUpload").html(existn);
+          break;
+      }
+      $("#addMoreDocs").on("click", function () {
+        var moreDoc = `<div class="form-group">
+                              <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="moreDoc[]" id="" required>
+                                  <label class="font-weight-bolder custom-file-label" for="">More Documents</label>
+                              </div>
+                          </div>`;
+        $("#moreUpload").append(moreDoc);
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    }
+    function appendpro() {
+      var html = ``;
+      var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+      switch (radioValue) {
+        case "option1":
+          html = salariedForm;
+          $("#formOption").html(html);
+          $("#extraUpload").html(degprac);
+          break;
+        case "option2":
+          html = selfEmployed;
+          $("#formOption").html(html);
+          $("#extraUpload").html(degprac);
+          break;
+      }
+      $("#addMoreDocs").on("click", function () {
+        var moreDoc = `<div class="form-group">
+                              <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="moreDoc[]" id="" required>
+                                  <label class="font-weight-bolder custom-file-label" for="">More Documents</label>
+                              </div>
+                          </div>`;
+        $("#moreUpload").append(moreDoc);
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      });
+    }
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var loan = url.searchParams.get("loan");
+      if (loan != null) {
+        let element = document.getElementsByName("loanTypeSelector")[0];
+        element.value = String(loan);
+        element.dispatchEvent(new Event("change"));
+      }
+    });
+  </script>
+{% endblock other_js %}

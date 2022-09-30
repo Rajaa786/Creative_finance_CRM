@@ -1,0 +1,805 @@
+{% load static %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Product Policy Master</title>
+  <link rel="apple-touch-icon" sizes="76x76" href=" {%static 'assets/img/apple-icon.png' %}" >
+  <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+  <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+
+ 
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div class ="container-fluid">
+
+    <!-- Sidebar -->
+    {% include 'account/sidebar.html' %}
+    <!-- End of Sidebar -->
+    
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        
+
+
+<br><br>
+<br> <br>
+
+<div class="conatiner">
+    <a href={% url 'PPincome' %} class="btn btn-primary">Income</a>
+    <table border="1">
+        <tr>
+            <th>Gross Salary</th>
+            <th>Net Salary</th>
+            <th>Bonus</th>
+            <th>Bonus Average Yearly</th>
+            <th>Bonus Average Yearly percent</th>
+            <th>Bonus Average quaterly</th>
+            <th>Bonus Average quaterly percent</th>
+            <th>Bonus Average half yearly </th>
+            <th>Bonus Average half yearly percent</th>
+            <th>Rent Income</th>
+            <th>Rent Agreement Type</th>
+            <th>Bank Reference</th>
+            <th>Rent Reference in Bank</th>
+            <th>Rent increase Percent</th>
+            <th>Future Rent</th>
+            <th>Future Rent Percent</th>
+            <th>Incentive</th>
+            <th>Incentive average Months</th>
+            <th>Incentive Percent</th>
+            <th>CoApplicant No Income Only Rent Income</th>
+            <th>Bank</th>
+        </tr>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.gross_sal }}</td>
+            <td>{{ income.net_sal }}</td>
+            <td>{{ income.bonus }}</td>
+            <td>{{ income.bonus_avg_yearly }}</td>
+            <td>{{ income.bonus_avg_yearly_percent }}</td>
+            <td>{{ income.bonus_avg_qtr }}</td>
+            <td>{{ income.bonus_avg_qtr_percent }}</td>
+            <td>{{ income.bonus_avg_half_yearly }}</td>
+            <td>{{ income.bonus_avg_half_yearly_percent }}</td>
+            <td>{{ income.rent_income }}</td>
+            <td>{{ income.rent_agreement_type }}</td>
+            <td>{{ income.bank_ref }}</td>
+            <td>{{ income.rent_ref_in_bank }}</td>
+            <td>{{ income.rent_inc_percent }}</td>
+            <td>{{ income.fut_rent }}</td>
+            <td>{{ income.fut_rent_percent }}</td>
+            <td>{{ income.incentive }}</td>
+            <td>{{ income.incen_avg_months }}</td>
+            <td>{{ income.incen_percent }}</td>
+            <td>{{ income.coApplicant_No_Income_only_Rent_income }}</td>
+            <td>{{ income.bank_id.bank_name }}</td
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="container">
+    <div class="conatiner">
+        <a href={% url 'PPbank' %} class="btn btn-primary">Bank</a>
+        <table border="1">
+            <tr>
+                <th>Bank name</th>
+                <th>Customer Type</th>
+            </tr>
+            {% for bank in banks %}
+            <tr>
+                <td>{{ bank.bank_name }}</td>
+                <td>{{ bank.cust_type }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'ProductsAndPolicyEdit' %} class="btn btn-primary">Age</a>
+        <table border="1">
+            <tr>
+                <th>Minimum Age</th>
+                <th>Retire Age</th>
+                <th>Maximum age for consideration other</th>
+                <th>Maximum age for consideration government</th>
+                <th>Bank</th>
+            </tr>
+            {% for age in ages %}
+            <tr>
+                <td>{{ age.min_age }}</td>
+                <td>{{ age.retire_age }}</td>
+                <td>{{ age.max_age_consi_others }}</td>
+                <td>{{ age.max_age_consi_gov }}</td>
+                <td>{{ age.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPCibil' %} class="btn btn-primary">Cibil</a>
+        <table border="1">
+            <tr>
+                <th>Cibil minimum</th>
+                <th>Cibil maximum</th>
+                <th>Bank</th>
+            </tr>
+            {% for cibil in cibils %}
+            <tr>
+                <td>{{ cibil.cibil_range_min }}</td>
+                <td>{{ cibil.cibil_range_max }}</td>
+                <td>{{ cibil.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPcompany' %} class="btn btn-primary">Company</a>
+        <table border="1">
+            <tr>
+                <th>Company Type</th>
+                <th>Bank</th>
+            </tr>
+            {% for company in companys %}
+            <tr>
+                <td>{{ company.comp_type }}</td>
+                <td>{{ company.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPcostsheet' %} class="btn btn-primary">CostSheet</a>
+        <table border="1">
+            <tr>
+                <th>particulars</th>
+            </tr>
+            {% for costsheet in costsheets %}
+            <tr>
+                <td>{{ costsheet.particulars }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPcustomer' %} class="btn btn-primary">Customer</a>
+        <table border="1">
+            <tr>
+                <th>Minimum Age</th>
+                <th>Total Experience</th>
+                <th>form16</th>
+                <th>Salary Type</th>
+                <th>Bank</th>
+            </tr>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.min_age }}</td>
+                <td>{{ customer.total_Exp }}</td>
+                <td>{{ customer.form16 }}</td>
+                <td>{{ customer.salary_type }}</td>
+                <td>{{ customer.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPcustomerdesignation' %} class="btn btn-primary">CustomerDesignation</a>
+        <table border="1">
+            <tr>
+                <th>Customer Designation</th>
+                <th>Bank</th>
+            </tr>
+            {% for customerdesignation in customerdesignations %}
+            <tr>
+                <td>{{ customerdesignation.cust_desig }}</td>
+                <td>{{ customerdesignation.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPcustomernationality' %} class="btn btn-primary">CustomerNationality</a>
+        <table border="1">
+            <tr>
+                <th>Customer Nationality</th>
+                <th>Bank</th>
+            </tr>
+            {% for customernationality in customernationalitys %}
+            <tr>
+                <td>{{ customernationality.cust_nat }}</td>
+                <td>{{ customernationality.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPfees' %} class="btn btn-primary">Fees</a>
+        <table border="1">
+            <tr>
+                <th>Login Fee</th>
+                <th>Procces Fee App</th>
+                <th>Proccess Fee Type</th>
+                <th>Process Fee Flat Loan Amount wise</th>
+                <th>Process Fee percent Loan Amount wise </th>
+                <th>Offers </th>
+                <th>Offline or Online </th>
+                <th>Bank </th>
+            </tr>
+            {% for fee in fees %}
+            <tr>
+                <td>{{ fee.login_fees }}</td>
+                <td>{{ fee.proc_fee_app }}</td>
+                <td>{{ fee.proc_fee_type }}</td>
+                <td>{{ fee.proc_fee_flat_loan_amtwise }}</td>
+                <td>{{ fee.proc_fee_percent_loan_amtwise }}</td>
+                <td>{{ fee.offers }}</td>
+                <td>{{ fee.offline_or_online }}</td>
+                <td>{{ fee.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPincomefoir' %} class="btn btn-primary">IncomeFoir</a>
+        <table border="1">
+            <tr>
+                <th>Minimum amount</th>
+                <th>Maximum amount</th>
+                <th>Percent</th>
+                <th>Bank</th>
+            </tr>
+            {% for incomefoir in incomefoirs %}
+            <tr>
+                <td>{{ incomefoir.min_amt }}</td>
+                <td>{{ incomefoir.max_amt }}</td>
+                <td>{{ incomefoir.percent }}</td>
+                <td>{{ incomefoir.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPLoanAmount' %} class="btn btn-primary">LoanAmount</a>
+        <table border="1">
+            <tr>
+                <th>minimum Loan Amount</th>
+                <th>maximum Loan Amount</th>
+                <th>Percent</th>
+                <th>Bank</th>
+            </tr>
+            {% for loanamount in loanamounts %}
+            <tr>
+                <td>{{ loanamount.min_loan_amt }}</td>
+                <td>{{ loanamount.max_loan_amt }}</td>
+                <td>{{ loanamount.total_Exp }}</td>
+                <td>{{ loanamount.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPLoantowardsvaluation' %} class="btn btn-primary">LoanTowardsValuation</a>
+        <table border="1">
+            <tr>
+                <th>cost_sheet</th>
+                <th>min_amount</th>
+                <th>max_amount</th>
+                <th>rbi_guidelines</th>
+                <th>ammenity</th>
+                <th>additional</th>
+                <th>car_parking</th>
+                <th>car_parking_percent</th>
+                <th>bank_id</th>
+            </tr>
+            {% for loantowardsvaluation in loantowardsvaluations %}
+            <tr>
+                <td>{{ loantowardsvaluation.cost_sheet }}</td>
+                <td>{{ loantowardsvaluation.min_amount }}</td>
+                <td>{{ loantowardsvaluation.max_amount }}</td>
+                <td>{{ loantowardsvaluation.rbi_guidelines }}</td>
+                <td>{{ loantowardsvaluation.ammenity }}</td>
+                <td>{{ loantowardsvaluation.additional }}</td>
+                <td>{{ loantowardsvaluation.car_parking }}</td>
+                <td>{{ loantowardsvaluation.car_parking_percent }}</td>
+                <td>{{ loantowardsvaluation.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPnegativeemployerprofile' %} class="btn btn-primary">NegativeEmployerProfile</a>
+        <table border="1">
+            <tr>
+                <th>meagtive Employer Profile</th>
+                <th>Bank</th>
+            </tr>
+            {% for negativeemployerprofile in negativeemployerprofiles %}
+            <tr>
+                <td>{{ negativeemployerprofile.neg_emp_pro }}</td>
+                <td>{{ negativeemployerprofile.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPnegativearea' %} class="btn btn-primary">NegativeArea</a>
+        <table border="1">
+            <tr>
+                <th>Negative area</th>
+                <th>Bank</th>
+            </tr>
+            {% for negativearea in negativeareas %}
+            <tr>
+                <td>{{ negativearea.neg_are }}</td>
+                <td>{{ negativearea.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPobligation' %} class="btn btn-primary">Obligation</a>
+        <table border="1">
+            <tr>
+                <th>EMI Obligation</th>
+                <th>EMI Obligation Not Considered</th>
+                <th>Credit Card</th>
+                <th>Credit Card obligation percent</th>
+                <th>Gold Loan</th>
+                <th>Gold Loan Percent</th>
+                <th>Bank</th>
+            </tr>
+            {% for obligation in Obligations %}
+            <tr>
+                <td>{{ obligation.emi_oblig }}</td>
+                <td>{{ obligation.emi_oblig_not_consi }}</td>
+                <td>{{ obligation.credit_card }}</td>
+                <td>{{ obligation.credit_card_oblig_percent }}</td>
+                <td>{{ obligation.gold_loan }}</td>
+                <td>{{ obligation.gold_loan_percent }}</td>
+                <td>{{ obligation.bank_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+
+    <div class="conatiner">
+        <a href={% url 'PPOtherDetailsRoi' %} class="btn btn-primary">OtherDetailsROI</a>
+        <table border="1">
+            <tr>
+                <th>minimum Loan Amount</th>
+                <th>maximum Loan Amount</th>
+                <th>minimum value</th>
+                <th>maximum value</th>
+                <th>ROI Woman</th>
+                <th>ROI Man</th>
+                <th>Bank</th>
+            </tr>
+            {% for otherdetailsroi in otherdetailsrois %}
+            <tr>
+                <td>{{ otherdetailsroi.min_loan_amt }}</td>
+                <td>{{ otherdetailsroi.max_loan_amt }}</td>
+                <td>{{ otherdetailsroi.min_val }}</td>
+                <td>{{ otherdetailsroi.max_val }}</td>
+                <td>{{ otherdetailsroi.roi_women }}</td>
+                <td>{{ otherdetailsroi.roi_men }}</td>
+                <td>{{ otherdetailsroi.bank_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPProducts' %} class="btn btn-primary">Products</a>
+        <table border="1">
+            <tr>
+                <th>Product</th>
+                <th>Bank</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.prod_name }}</td>
+                <td>{{ product.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPProperty' %} class="btn btn-primary">Property</a>
+        <table border="1">
+            <tr>
+                <th>Builder CAT</th>
+                <th>Occupation Ceritificate</th>
+                <th>Previous Agreement</th>
+                <th>Sub Scheme</th>
+                <th>Percentage Completion</th>
+                <th>Bank</th>
+            </tr>
+            {% for property in propertys %}
+            <tr>
+                <td>{{ property.builder_cat }}</td>
+                <td>{{ property.occupation_certi }}</td>
+                <td>{{ property.prev_agreement }}</td>
+                <td>{{ property.sub_scheme }}</td>
+                <td>{{ property.perc_completion }}</td>
+                <td>{{ property.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPPropertyType' %} class="btn btn-primary">PropertyType</a>
+        <table border="1">
+            <tr>
+                <th>Property Type</th>
+                <th>Bank</th>
+            </tr>
+            {% for propertytype in propertytypes %}
+            <tr>
+                <td>{{ propertytype.prop_type }}</td>
+                <td>{{ propertytype.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPRoomType' %} class="btn btn-primary">RoomType</a>
+        <table border="1">
+            <tr>
+                <th>Room type</th>
+                <th>Bank</th>
+            </tr>
+            {% for roomtype in roomtypes %}
+            <tr>
+                <td>{{ roomtype.room_type }}</td>
+                <td>{{ roomtype.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPStageOfConstruction' %} class="btn btn-primary">StageOfConstruction</a>
+        <table border="1">
+            <tr>
+                <th>Stage</th>
+                <th>Bank</th>
+            </tr>
+            {% for stageofconstruction in stageofconstructions %}
+            <tr>
+                <td>{{ stageofconstruction.stage }}</td>
+                <td>{{ stageofconstruction.bank_id.bank_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+    <div class="conatiner">
+        <a href={% url 'PPRemarks' %} class="btn btn-primary">Remarks</a>
+        <table border="1">
+            <tr>
+                <th>remark</th>
+            </tr>
+            {% for remark in remarks %}
+            <tr>
+                <td>{{ remark.remark }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
+
+
+
+</div>
+        
+   
+            
+            <!-- End of Main Content -->
+
+
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+    </div>
+  </div>
+  
+    
+  <!-- End of Page Wrapper -->
+
+ 
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  
+  <!--   Core JS Files   -->
+  <script src="{% static 'assets/js/core/jquery.min.js' %} "></script>
+  <script src="{% static 'assets/js/core/popper.min.js'%} "></script>
+  <script src="{% static 'assets/js/core/bootstrap-material-design.min.js' %} "></script>
+  <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %} "></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="{%static 'assets/js/plugins/moment.min.js' %} "></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src=" {% static ' assets/js/plugins/jquery.validate.min.js' %}"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src=" {% static 'assets/js/plugins/jquery.bootstrap-wizard.js' %} "></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="{% static 'assets/js/plugins/bootstrap-selectpicker.js' %} "></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src=" {% static 'assets/js/plugins/bootstrap-datetimepicker.min.js' %} "></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="{% static ' assets/js/plugins/jquery.dataTables.min.js' %}"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="{% static 'assets/js/plugins/bootstrap-tagsinput.js' %} "></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="{% static 'assets/js/plugins/jquery-jvectormap.js' %} "></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="{% static 'assets/js/plugins/nouislider.min.js' %} "></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="{%static 'assets/js/plugins/arrive.min.js"' %} "></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chartist JS -->
+  <script src="{% static 'assets/js/plugins/chartist.min.js'%} "></script>
+  <!--  Notifications Plugin    -->
+  <script src=" {% static ' assets/js/plugins/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'assets/js/material-dashboard.js?v=2.1.2' %} " type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{% static ' assets/demo/demo.js'%}"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+
+        $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+            $('.fixed-plugin .dropdown').addClass('open');
+          }
+
+        }
+
+        $('.fixed-plugin a').click(function(event) {
+          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .active-color span').click(function() {
+          $full_page_background = $('.full-page-background');
+
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data-color', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data-color', new_color);
+          }
+        });
+
+        $('.fixed-plugin .background-color .badge').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('background-color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data-background-color', new_color);
+          }
+        });
+
+        $('.fixed-plugin .img-holder').click(function() {
+          $full_page_background = $('.full-page-background');
+
+          $(this).parent('li').siblings().removeClass('active');
+          $(this).parent('li').addClass('active');
+
+
+          var new_image = $(this).find("img").attr('src');
+
+          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+            $sidebar_img_container.fadeOut('fast', function() {
+              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+              $sidebar_img_container.fadeIn('fast');
+            });
+          }
+
+          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+            $full_page_background.fadeOut('fast', function() {
+              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+              $full_page_background.fadeIn('fast');
+            });
+          }
+
+          if ($('.switch-sidebar-image input:checked').length == 0) {
+            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+          }
+        });
+
+        $('.switch-sidebar-image input').change(function() {
+          $full_page_background = $('.full-page-background');
+
+          $input = $(this);
+
+          if ($input.is(':checked')) {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar_img_container.fadeIn('fast');
+              $sidebar.attr('data-image', '#');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page_background.fadeIn('fast');
+              $full_page.attr('data-image', '#');
+            }
+
+            background_image = true;
+          } else {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar.removeAttr('data-image');
+              $sidebar_img_container.fadeOut('fast');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page.removeAttr('data-image', '#');
+              $full_page_background.fadeOut('fast');
+            }
+
+            background_image = false;
+          }
+        });
+
+        $('.switch-sidebar-mini input').change(function() {
+          $body = $('body');
+
+          $input = $(this);
+
+          if (md.misc.sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            md.misc.sidebar_mini_active = false;
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+          } else {
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+            setTimeout(function() {
+              $('body').addClass('sidebar-mini');
+
+              md.misc.sidebar_mini_active = true;
+            }, 300);
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
+</body>
+
+</html>

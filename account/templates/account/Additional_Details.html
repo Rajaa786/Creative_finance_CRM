@@ -1,0 +1,286 @@
+{% extends 'base/base.html' %} 
+{% load static %} 
+
+{% block other_css %}
+{% comment %} <style> 
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+</style> {% endcomment %}
+{% endblock other_css %} 
+
+{% block title %}Additional Details{% endblock title %}
+
+{% block other_body_css %}id="page-top"{% endblock other_body_css %} 
+{% block other_body %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Edit Applicant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "editpage">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="container mb-0 ">
+    <div class = "mb-3 card-body bg-white rounded shadow-blur">
+      <div class="row justify-content-center mb-5 mt-3">
+				<div class="col-auto">
+					<h1 class="display-6 text-gray-800">Additional Details</h1>
+				</div>
+			</div>
+      <div class="card z-index-2 pb-3 mb-5">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+            <div class="row">
+              <div class="col">
+                <a
+                  data-bs-toggle="collapse"
+                  href="#Applicant"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="Applicant"
+                  id = "addapplicant"
+                  data-url = "{% url 'ajax_add_applicant' %}"
+                  >
+                  <h4 class="card-title fw-bold text-light">Add Applicant</h4>
+                  <p class="card-category fw-bold text-light mb-0">
+                    Add Main Applicant Details
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse card-body" id="Applicant">
+        </div>
+      </div>
+      {% comment %} <div class="card z-index-2 pb-3 mb-5">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+            <div class="row">
+              <div class="col">
+                <a
+                  data-bs-toggle="collapse"
+                  href="#CoApplicant"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="CoApplicant"
+                  id = "addcoapplicant"
+                  data-url = "{% url 'ajax_add_applicant' %}"
+                  >
+                  <h4 class="card-title fw-bold text-light">Add CoApplicant</h4>
+                  <p class="card-category fw-bold text-light mb-0">
+                    Add Co Applicants Details
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse card-body" id="CoApplicant">
+          {{applicant_type_form.applicant_type}}
+          <div id = "response"></div>
+        </div>
+      </div> {% endcomment %}
+      <div class = "row mb-6">
+        {% if applicants %}
+          <div class="card bg-white shadow-blur">
+            <h1 class="text-center display-6 fw-bold text">Applicants </h1>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-align-items-center mb-0" >
+                <thead>
+                  <tr>
+                    <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">Customer Name</th>
+                    <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7 ps-2">Customer Type/Designation</th>
+                    <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">Applicant_Type</th>
+                    <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for app in applicants %}
+                    <tr>
+                      <td class="align-middle text-center">
+                        <p class="text-md font-weight-bold ml-5">{{app.cust_name}}</p>
+                      </td>
+                      <td class="align-middle text-center"> 
+                        <p class="text-md font-weight-bold mb-0">{{app.cust_type}}</p>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <p class="text-md font-weight-bold mb-0">{{app.applicant_type}}</p>
+                      </td>
+                      <td class="align-middle text-center">
+                        <a type ="button" class="btn btn-primary"  id = "delete"  href = "{% url 'deleteapplicant' id=app.pk %}">
+                          <span class="icon text-light">
+                            <i class="fa-lg fa fa-trash"></i>
+                          </span>
+                        </a>
+                        /
+                        <button class="btn btn-primary"  title="Edit Entry" id = "edit" data-id = {{app.pk}} data-url = "{% url 'edit_applicant' %}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <span class="icon text-light">
+                            <i class="fa-lg fa fa-edit"></i>
+                          </span>
+                        </button>
+
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <div style="text-align:center">
+        <a class = "btn btn-primary btn-lg active" role = "button" href = "{% url 'property_details' id=lead_id %}" aria-pressed="true">Next</a>
+      </div>
+    </div>
+  </div>
+{% endblock other_body %} 
+{% block other_js %}
+  <script>
+    $("#edit").click(function(){
+      const add_id = $(this).attr("data-id");
+      const url = $(this).attr("data-url");
+      console.log(add_id);
+       $.ajax({
+        url:url,
+        type:'GET',
+        data:{
+          'id':add_id,
+        }, 
+        datatype:'JSON',
+        success: function(data){
+          $("#editpage").html(data)
+          $("#id_applicant_type").readOnly = true;
+          console.log($("#id_is_diff").attr('checked'));
+          if($("#id_is_diff").attr("checked") == 'checked'){
+            $("#contactperson").css("display","");
+          }
+          $("#id_is_diff").click(function(){
+            if ($("#contactperson").css("display") == "none"){
+              $("#contactperson").css("display","");
+            }
+            else{
+              $("#contactperson").css("display","none");
+              $("#id_con_person_name").val('');
+              $("#id_con_person_phone").val('');
+            }
+
+          });
+          $("#applicant_details").submit(function(e){
+            const _url =  $("#applicant_details").attr('action');
+            console.log(url);
+            const _type = $("#applicant_details").attr('method');
+            var form_data = $(this).serialize();
+            $.ajax({
+              type : _type,
+              url : _url,
+              data: form_data,
+              success:function(data){
+                $('#applicant_details').trigger('reset');
+                
+              }
+
+            });
+
+          });
+        }
+      });
+    })
+    $("#addapplicant").click(function(){
+      const url = $("#addapplicant").attr('data-url');
+      const id =  0;
+      const lead_id = {{lead_id}}
+      console.log("This is lead id ",lead_id);
+      $.ajax({
+        url:url,
+        type:'GET',
+        data:{
+          'id':id,
+          'lead_id':lead_id
+        },
+        datatype:'JSON',
+        success: function(data){
+          $("#Applicant").html(data);
+          $("#id_applicant_type").readOnly = true;
+          $("#id_is_diff").click(function(){
+            console.log("clicked");
+            if ($("#contactperson").css("display") == "none"){
+              $("#contactperson").css("display","");
+            }
+            else{
+              $("#contactperson").css("display","none");
+            }
+
+          });
+          $("#applicant_details").submit(function(e){
+            const _url =  $("#applicant_details").attr('action');
+            console.log(url);
+            const _type = $("#applicant_details").attr('method');
+            var form_data = $(this).serialize();
+            $.ajax({
+              type : _type,
+              url : _url,
+              data: form_data,
+              success:function(data){
+                $('#applicant_details').trigger('reset');
+                
+              }
+
+            });
+
+          });
+        },
+        error:function(data){
+          console.log(data);
+        }
+      });
+    });
+
+    $("#select_applicant_type").change(function(){
+      const url =  $("#addapplicant").attr('data-url');
+      const id = $(this).val();
+      const lead_id = {{lead_id}}
+      $.ajax({
+        url : url,
+        type : 'GET',
+        data:{
+          'id':id,
+          'lead_id':lead_id
+        },
+        datatype:'JSON',
+        success:function(data){
+          $("#response").html(data)
+          $("#id_applicant_type").readOnly = true;          
+          if($("#id_is_diff").attr("checked") == 'checked'){
+            $("#contactperson").css("display","");
+          }
+          $("#id_is_diff").click(function(){
+            if ($("#contactperson").css("display") == "none"){
+              $("#contactperson").css("display","");
+            }
+            else{
+              $("#contactperson").css("display","none");
+              $("#id_con_person_name").val('');
+              $("#id_con_person_phone").val('');
+            }
+
+          });
+        },
+        error:function(data){
+          console.log(data);
+        }
+      });
+    });
+  </script>
+
+{% endblock other_js %}

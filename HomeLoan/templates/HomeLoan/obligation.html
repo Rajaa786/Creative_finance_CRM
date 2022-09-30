@@ -1,0 +1,57 @@
+{% extends 'base/base.html'%}
+{%block title%}Obligation Details{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPobligation' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Emi Obligation</b> </label>
+                            <input type="text" class="form-control" name="emi_oblig">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Emi Obligation Not Considered</b> </label>
+                            <input type="text" class="form-control" name="emi_oblig_not_consi">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Credit Card</b> </label>
+                            <input type="text" class="form-control" name="credit_card">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Credit Card Obligation Percent</b> </label>
+                            <input type="text" class="form-control" name="credit_card_oblig_percent">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Gold Loan Percent</b> </label>
+                            <input type="text" class="form-control" name="gold_loan">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Gold Loan Percent</b> </label>
+                            <input type="text" class="form-control" name="gold_loan_percent">
+                        </div>
+                    </div>
+
+                    <div style="text-align:center">
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}

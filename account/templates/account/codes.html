@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+{% endblock other_css %}
+
+{% block title %}Bank Codes{% endblock title %}
+
+{% block other_body %}
+  <div class ="container-fluid">
+    <div class="container" style="width:95%; margin:20px auto;" >
+      <h1 class="mb-5 mt-3 display-3 text-center">Bank Codes</h1> 
+    </div>
+    <div class="container form-container bg-white rounded p-3 shadow-blur" style="width: 95%; margin:0 auto">
+      <button type="button" class="btn btn-block bg-gradient-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCode">Add Code</button>
+      <div class="modal fade" id="addCode" tabindex="-1" role="dialog" aria-labelledby="addCodeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title font-weight-normal" id="addCodeLabel">Add Code</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <form method="POST" action={% url 'codes' %}>
+              {% csrf_token %}
+              <div class="modal-body" style="overflow: auto;">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="bank" class="ms-0 text-primary fw-bold col-12">Bank Name</label>
+                          <select class="form-control col-12" name="bank" id="bank">
+                            <option value="">-- Select Bank --</option>
+                            {% for bank in banks %}
+                              <option value="{{ bank.bank_id }}">{{ bank.bank_name }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="product" class="ms-0 text-primary fw-bold col-12">Product</label>
+                          <select class="form-control col-12" name="product" id="product">
+                            <option value="">-- Select Product --</option>
+                            {% for product in products %}
+                              <option value="{{ product.id }}">{{ product.product }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline mb-4">
+                          <label  for="code" class="form-label text-primary fw-bold">Code</label>
+                          <input type="text" name="code" id="code" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline mb-4">
+                          <label  for="cmp_name" class="form-label text-primary fw-bold">Name of Company</label>
+                          <input type="text" name="cmp_name" id="cmp_name" class="form-control" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn bg-gradient-success">Submit</button>
+                <button type="button" class="btn btn-link  ml-auto bg-gradient-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered" style='width:100%'>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Bank Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name Of company</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bankcode in bankcodes %}
+            <tr>
+              <th scope="row">1</th>
+              <td>{{ bankcode.bank.bank_name }}</td>
+              <td>{{ bankcode.product.product }}</td>
+              <td>{{ bankcode.code }}</td>
+              <td>{{ bankcode.name_of_company }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock other_body %}
+
+{% block other_js %}
+{% endblock other_js %}
