@@ -1,18 +1,14 @@
-{% if request.user.is_superuser %}
-  {% extends 'base/base.html' %}
-{% else %}
-  {% extends 'base/base_non_admin_template.html' %}
-{% endif %}
+{% extends 'base/base_non_admin_template.html' %}
 
-{% block other_css %}
-{% endblock other_css %}
+{% load static %}
 
-{% block title %}Email{% endblock title %}
+
  
 {% block other_body_css %}id="page-top"{% endblock other_body_css %}
 
-{% block other_body %}
-  <div class ="container-fluid mb-2">
+
+{% block section_content %}
+<div class ="container-fluid mb-2">
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <div class="container-fluid">
@@ -43,7 +39,4 @@
       </div>
     </div>
   </div>
-{% endblock other_body %}
-
-{% block other_js %}
-{% endblock other_js %}
+{% endblock section_content %}

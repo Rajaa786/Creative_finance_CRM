@@ -11,37 +11,42 @@ class LeadsForm(ModelForm):
     class Meta:
         model = Leads
         exclude = ('added_by',)
+
     def __init__(self, *args, **kwargs):
         super(LeadsForm, self).__init__(*args, **kwargs)
-        self.fields['sub_product'].queryset = SubProduct.objects.none() 
-        self.fields['city'].queryset = SubProduct.objects.none() 
+        self.fields['sub_product'].queryset = SubProduct.objects.none()
+        self.fields['city'].queryset = City.objects.none()
         self.fields['address'].widget.attrs['rows'] = 1
         self.fields['address'].widget.attrs['columns'] = 40
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
-                'class':'form-control',
-                'autofocus':''
+                'class': 'form-control',
+                'autofocus': ''
             })
 
         if 'state' in self.data:
             try:
                 state_id = int(self.data.get('state'))
-                self.fields['city'].queryset = City.objects.filter(state = state_id)
-            except(ValueError,TypeError):
+                self.fields['city'].queryset = City.objects.filter(
+                    state=state_id)
+            except(ValueError, TypeError):
                 pass
-        
+
         if 'product' in self.data:
             try:
                 product_id = int(self.data.get('product'))
-                self.fields['sub_product'].queryset = SubProduct.objects.filter(product = product_id)
-            except(ValueError,TypeError):
+                self.fields['sub_product'].queryset = SubProduct.objects.filter(
+                    product=product_id)
+            except(ValueError, TypeError):
                 pass
-        
 
 
 class TempForm(forms.Form):
-    applicant_type = forms.ModelChoiceField(queryset = ApplicantType.objects.filter(~Q(applicant_type = 'Applicant')))
-    applicant_type.widget.attrs.update({'class':'form-control','id':'select_applicant_type'})
+    applicant_type = forms.ModelChoiceField(
+        queryset=ApplicantType.objects.filter(~Q(applicant_type='Applicant')))
+    applicant_type.widget.attrs.update(
+        {'class': 'form-control', 'id': 'select_applicant_type'})
+
 
 class AdditionalDetailsForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -49,11 +54,13 @@ class AdditionalDetailsForm(ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
         self.fields['applicant_type'].widget.attrs.update({'readonly': 'true'})
-        self.fields['is_diff'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['is_diff'].widget.attrs.update(
+            {'class': 'form-check-input'})
 
     class Meta:
         model = AdditionalDetails
-        exclude = ('lead_id',)
+        exclude = ('lead_id', 'prop_owner')
+
 
 class PropertyDetailsType1Form(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -66,15 +73,15 @@ class PropertyDetailsType1Form(ModelForm):
         widgets = {
             'possession_date': widgets.DateInput(attrs={'type': 'date'})}
         labels = {
-            'proj_name':"Project Name",
-            'prop_loc':"Property Location",
+            'proj_name': "Project Name",
+            'prop_loc': "Property Location",
             'const_stage': "Construction Stage",
-            'per_complete':"Percent Complete",
-            'prop_city':"Property City",
-            'prop_state':"Property State",
-            'market_val':"Market Value",
-            'cc_rec':"CC Recieved",
-            'stamp_duty_amt':"Stamp Duty Amount"
+            'per_complete': "Percent Complete",
+            'prop_city': "Property City",
+            'prop_state': "Property State",
+            'market_val': "Market Value",
+            'cc_rec': "CC Recieved",
+            'stamp_duty_amt': "Stamp Duty Amount"
         }
 
 
@@ -83,7 +90,6 @@ class PropertyType2Form(ModelForm):
         super(PropertyType2Form, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
-    
     def clean_data(self):
         cleaned_data = super(PropertyType2Form, self).clean()
         cc_rec = cleaned_data.get('cc_rec')
@@ -105,19 +111,18 @@ class PropertyType2Form(ModelForm):
             'possession_date': widgets.DateInput(attrs={'type': 'date'})
         }
         labels = {
-            'proj_name'      : 'Project Name',
-            'prop_loc'       : "Property Location",
-            'prop_city'      : "Property City",
-            'prop_state'     : "Property State",
-            'per_complete'   : 'Percent Complete',
-            'const_stage'    : 'Construction Stage',
-            'pay_till_date'  : 'Payment Made Till Date',
-            'cost_sheet_amt' : 'Cost Sheet Amount',
-            'stamp_duty_amt' : 'Stamp Duty Amount',
+            'proj_name': 'Project Name',
+            'prop_loc': "Property Location",
+            'prop_city': "Property City",
+            'prop_state': "Property State",
+            'per_complete': 'Percent Complete',
+            'const_stage': 'Construction Stage',
+            'pay_till_date': 'Payment Made Till Date',
+            'cost_sheet_amt': 'Cost Sheet Amount',
+            'stamp_duty_amt': 'Stamp Duty Amount',
             'car_parking_amt': 'Car Parking Amount',
-            'cc_rec'         : 'CC Recieved'
+            'cc_rec': 'CC Recieved'
         }
- 
 
 
 class PropType3Form(ModelForm):
@@ -129,16 +134,16 @@ class PropType3Form(ModelForm):
         model = PropType3
         exclude = ('lead_id',)
         labels = {
-            'proj_name'      : 'Project Name',
-            'per_complete'   : 'Percent Complete',
-            'proj_name'      : 'Project Name',
-            'prop_loc'       : "Property Location",
-            'prop_city'      : "Property City",
-            'prop_state'     : "Property State",
-            'const_stage'    : 'Construction Stage',
-            'pay_till_date'  : 'Payment Made Till Date',
-            'cost_sheet_amt' : 'Cost Sheet Amount',
-            'stamp_duty_amt' : 'Stamp Duty Amount',
+            'proj_name': 'Project Name',
+            'per_complete': 'Percent Complete',
+            'proj_name': 'Project Name',
+            'prop_loc': "Property Location",
+            'prop_city': "Property City",
+            'prop_state': "Property State",
+            'const_stage': 'Construction Stage',
+            'pay_till_date': 'Payment Made Till Date',
+            'cost_sheet_amt': 'Cost Sheet Amount',
+            'stamp_duty_amt': 'Stamp Duty Amount',
             'car_parking_amt': 'Car Parking Amount'
         }
 
@@ -153,10 +158,11 @@ class PropType4Form(ModelForm):
         exclude = ('lead_id',)
         labels = {
             'market_val': "Market Value",
-            'prop_loc'  : "Property Location",
-            'prop_city' : "Property City",
+            'prop_loc': "Property Location",
+            'prop_city': "Property City",
             'prop_state': "Property State",
-            }
+        }
+
 
 class SalIncomeDetailsForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -178,7 +184,8 @@ class SalOtherIncomesForm(ModelForm):
     class Meta:
         model = SalOtherIncomes
         exclude = ('other_inc_id', 'addi_details_id',)
-    
+
+
 class SalAdditionalOtherIncomesForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SalAdditionalOtherIncomesForm, self).__init__(*args, **kwargs)
@@ -212,7 +219,6 @@ class SalPersonalDetailsForm(ModelForm):
         widgets = {
             'dob': widgets.DateInput(attrs={'type': 'date'})
         }
-    
 
 class SalCompanyDetailsForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -246,7 +252,6 @@ class SalExistingLoanDetailsForm(ModelForm):
             'emi_start_date': widgets.DateInput(attrs={'type': 'date'}),
             'emi_end_date': widgets.DateInput(attrs={'type': 'date'}),
         }
-    
 
 class SalExistingCreditCardForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -267,15 +272,16 @@ class SalAdditionalDetailsForm(ModelForm):
         model = SalAdditionalDetails
         exclude = ('sal_add_det_id', 'addi_details_id',)
         widgets = {
-            'loan_inquiry_disbursement_details': forms.Textarea(attrs={'rows':2}),
-            }
-    
+            'loan_inquiry_disbursement_details': forms.Textarea(attrs={'rows': 2}),
+        }
+
 
 class SalInvestmentsForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SalInvestmentsForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+
     class Meta:
         model = SalInvestments
         exclude = ('sal_inv_id', 'addi_details_id',)

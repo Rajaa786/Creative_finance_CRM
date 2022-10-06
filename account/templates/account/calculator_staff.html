@@ -1,22 +1,18 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base_non_admin_template.html' %}
 {% load static %}
 
-{% block other_css %}
-{% endblock other_css %}
-
-{% block title %}Calculator{% endblock title %}
-
-{% block other_body %}
+{% block section_content %}
   <div class ="container-fluid mb-5">
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <div class="container-fluid">
           <div style="width:800px; margin:0 auto;">
             <h1 class="mb-5 mt-3 display-3 text-center">Loan Calculator</h1> 
-            <div class="card-body p-3 bg-white rounded">
+            <div class="card-body p-3 bg-light rounded" 
+            >
               <div class="input-group input-group-static mb-4">
-                <label for="calc_details" class="ms-0 text-primary fw-bold col-12">Calculators</label>
-                <select class="form-control col-12" name="calc_type" id="calc_details">
+                <label for="calc_details" class="ms-0 text-primary fw-bold col-12 mb-3">Calculators</label>
+                <select class="form-control col-12 p-1 border-0" name="calc_type" id="calc_details">
                     <option value="">-- Select Calculator --</option>
                     <option value="Loan Comparison">Loan Comparison</option>
                     <option value="Stamp Duty And Registration">Stamp Duty And Registration</option>
@@ -193,16 +189,15 @@
       </div>
     </div>
   </div>
-{% endblock other_body %}
+{% endblock section_content %}
+
+
 
 {% block other_js %}
   <script>
     $(document).ready(function () {
       $('#calc_details').on('change', function () {
-<<<<<<< HEAD
-      
-=======
->>>>>>> 706de2b7fd3a8033e12efab6e29468f9565f4d5e
+        console.log(this.value)
         if (this.value == 'Loan Comparison') {
           $("#details1").show();
         }
@@ -232,3 +227,7 @@
     });
   </script>
 {% endblock other_js %}
+
+
+
+{% comment %} style="background-color : #e9f4f7;" {% endcomment %}

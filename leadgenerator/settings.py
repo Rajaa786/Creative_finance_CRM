@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'stronghold',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [
@@ -171,12 +172,19 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # SMTP Configuration
-# EMAIL_BACKEND = env('EMAIL_BACKEND')
-# EMAIL_HOST = env('EMAIL_HOST')
-# EMAIL_PORT = env('EMAIL_PORT')
-# EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_PORT = 587
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_USER = 'rajsingh08471@gmail.com'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
 
 django_heroku.settings(locals())
 

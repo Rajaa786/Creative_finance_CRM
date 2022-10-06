@@ -24,22 +24,17 @@ from account.views import view_leads
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('trial/', view_leads, name='view-leads'),
-    path('account/', include('account.urls', namespace='account')),
+    path('account/', include('account.urls')),
     path('homeloan/', include('HomeLoan.urls')),
     path('master/', include('master.urls')),
     path('trial/', TemplateView.as_view(template_name='account/password_reset_form.html')),
 
-    re_path(r'^media/(?P<path>.*)$', serve,
-            {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^static/(?P<path>.*)$', serve,
-            {'document_root': settings.STATIC_ROOT}),
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
 
 handler404 = "home.views.page_not_found_view"
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

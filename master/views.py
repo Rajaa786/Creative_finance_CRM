@@ -366,7 +366,7 @@ def City_form(request):
 
 @login_required (redirect_field_name='login', login_url='login')
 def Masterdetails(request):
-    print(SubProduct.objects.all()[0].product.product)
+    # print(SubProduct.objects.all()[0].product.product)
     context = {
         'qualifications'      : Qualification.objects.all(),
         'professions'         : Profession.objects.all(),

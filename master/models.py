@@ -35,7 +35,7 @@ class MaritalStatus(models.Model):
 
 class Qualification(models.Model): 
     qualification    = models.CharField(max_length=25)
-    is_degree        = models.BooleanField(default=False)
+    degree        = models.BooleanField(default=False)
     effective_date   = models.DateField(null = True)
     ineffective_date = models.DateField(blank=True, null = True)
     def __str__(self): 

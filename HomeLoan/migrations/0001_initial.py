@@ -429,7 +429,7 @@ class Migration(migrations.Migration):
                 ('processing_fees', models.FloatField()),
                 ('effective_date', models.DateTimeField(blank=True, null=True)),
                 ('ineffective_date', models.DateTimeField(blank=True, null=True)),
-                ('cibil_loan_type_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='master.cibilloantype')),
+                # ('cibil_loan_type_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='master.cibilloantype')),
                 ('pid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='HomeLoan.productsandpolicy')),
             ],
         ),

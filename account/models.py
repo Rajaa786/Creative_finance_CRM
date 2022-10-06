@@ -78,7 +78,6 @@ class Leads(models.Model):
     name = models.CharField(max_length=25)
     phone = models.CharField(max_length=10)
     alt_phone = models.CharField(max_length=10)
-    age = models.IntegerField(default=0)
     email = models.EmailField()
     reference = models.CharField(max_length=50)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -89,11 +88,24 @@ class Leads(models.Model):
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     added_by = models.CharField(max_length=50, null=True)
-    # country = models.ForeignKey(
-    #     Country, on_delete=models.CASCADE, default="India")
 
-    def __str__(self):
-        return f"{self.name}"
+
+
+class LoanApplication(models.Model):
+    lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
+    websiteUrl = models.CharField(max_length=254,null=True,blank=True)
+    coApplicantWebsiteUrl = models.CharField(max_length=254,null=True,blank=True)
+    loan = models.CharField(max_length=124)
+    loanCustomerType = models.CharField(max_length=50,null=True,blank=True)
+    loanCustomerCoApplicantType = models.CharField(max_length=50,null=True,blank=True)
+    remark = models.TextField()
+    
+    
+class LoanDocuments(models.Model):
+    loanApplication = models.ForeignKey(LoanApplication, on_delete=models.CASCADE)
+    documentName = models.CharField(max_length=124)
+    document = models.FileField(blank=True, max_length=200)
+
 
 
 class AdditionalDetails(models.Model):
@@ -101,7 +113,6 @@ class AdditionalDetails(models.Model):
     is_diff = models.BooleanField(blank=True)
     cust_type = models.ForeignKey(CustomerType, on_delete=models.CASCADE)
     inc_holder = models.BooleanField(null=False, choices=YES_NO_CHOICES)
-    prop_owner = models.BooleanField(null=False, choices=YES_NO_CHOICES)
     applicant_type = models.ForeignKey(ApplicantType, on_delete=models.CASCADE)
     relation = models.ForeignKey(Relation, on_delete=models.CASCADE)
     lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
@@ -133,7 +144,7 @@ class SalPersonalDetails(models.Model):
     marital_status = models.ForeignKey(
         MaritalStatus, on_delete=models.CASCADE, blank=True, null=True)
     qualification = models.ForeignKey(
-        Qualification, on_delete=models.CASCADE, blank=True, null=True)
+            Qualification, on_delete=models.CASCADE, blank=True, null=True)
     degree_others = models.CharField(max_length=100, blank=True, null=True)
     profession = models.ForeignKey(
         Profession, on_delete=models.CASCADE, blank=True, null=True)
@@ -471,6 +482,7 @@ class StudentDetails(models.Model):
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
     nationality = models.CharField(max_length=10)
+    country = models.CharField(max_length=10)
     end_use = models.CharField(max_length=10)
     add_det_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)
 
@@ -520,6 +532,7 @@ class HousewifeDetails(models.Model):
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
     nationality = models.CharField(max_length=10)
+    country = models.CharField(max_length=10)
     end_use = models.CharField(max_length=10)
     add_det_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)
 
@@ -587,6 +600,7 @@ class RetiredDetails(models.Model):
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
     nationality = models.CharField(max_length=10)
+    country = models.CharField(max_length=10)
     end_use = models.CharField(max_length=10)
     add_det_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)
 

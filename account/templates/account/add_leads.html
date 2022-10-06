@@ -1,5 +1,7 @@
-{% extends 'base/base.html' %}
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
+
 {% load static %}
+
 
 {% block other_css %}
 {% endblock other_css %}
@@ -14,7 +16,7 @@
         <h1 class=" mt-3 mb-4 display-3 text-center">Add Leads</h1> 
         <div class="card-body">
           <div class="container">
-            <form method="POST" action="{% url 'account:add_leads' %}" class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/" data-subproducts-url = "ajax/subproducts/">
+            <form method="POST" action="{% url 'add_leads' %}" class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/" data-subproducts-url = "ajax/subproducts/">
               {% csrf_token %}
               <div class="row g-4 p-4">
                   {% for field in form %}
@@ -27,7 +29,7 @@
                   {% endfor %}
               </div>
               <div class="text-center">
-                <button class="btn btn-primary" name="save" type="submit">Save & Next</button>
+                <button class="btn btn-primary" name="save" type="submit">Save</button>
                 <button class="btn btn-primary" name="next" type="submit">Next</button>
               </div>
             </form>
