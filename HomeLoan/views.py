@@ -283,7 +283,7 @@ def PPage(request, ppid):
         age = Age(min_age=min_age, retire_age=retire_age, max_age_consi_others=max_age_consi_others,
                   max_age_consi_gov=max_age_consi_gov, bank_id=bank)
         age.save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
 
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -300,7 +300,7 @@ def PPeditAge(request, ppid, ageid):
             max_age_consi_others=int(request.POST['max_age_consi_others']),
             max_age_consi_gov=int(request.POST['max_age_consi_gov'])
         )
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'age': Age.objects.filter(age_id=ageid)[0]
@@ -316,7 +316,7 @@ def PPnegativearea(request, ppid):
 
         negativearea = NegativeArea(neg_area=neg_area, bank_id=bank)
         negativearea.save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -329,7 +329,7 @@ def PPeditNegativearea(request, ppid, negativeareaid):
         NegativeArea.objects.filter(neg_area_id=negativeareaid).update(
             neg_area=request.POST['neg_area']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'negativearea': NegativeArea.objects.filter(neg_area_id=negativeareaid)[0]
@@ -343,7 +343,7 @@ def PPbank(request):
         cust_type = request.POST['cust_type']
         bank = Bank(bank_name=bank_name, cust_type=cust_type)
         bank.save()
-        return redirect('AddProductAndPolicy')
+        return redirect('AddProductsAndPolicy')
 
 
 def PPnegativeemployerprofile(request, ppid):
@@ -353,7 +353,7 @@ def PPnegativeemployerprofile(request, ppid):
             prod_id=ppid)[0].bank_id.bank_id)[0]
 
         NegativeEmployerProfile(neg_emp_pro=neg_emp_pro, bank_id=bank).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -366,7 +366,7 @@ def PPeditnegativeemployerprofile(request, ppid, negativeemployerprofileid):
         NegativeEmployerProfile.objects.filter(neg_emp_pro_id=negativeemployerprofileid).update(
             neg_emp_pro=request.POST['neg_emp_pro']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'negativeemployerprofile': NegativeEmployerProfile.objects.filter(neg_emp_pro_id=negativeemployerprofileid)[0]
@@ -383,7 +383,7 @@ def PPCibil(request, ppid):
 
         Cibil(cibil_range_min=cibil_range_min,
               cibil_range_max=cibil_range_max, bank_id=bank).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -397,7 +397,7 @@ def PPeditCibil(request, ppid, cibilid):
             cibil_range_min=request.POST['cibil_range_min'],
             cibil_range_max=request.POST['cibil_range_max']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'cibil': Cibil.objects.filter(cibil_id=cibilid)[0]
@@ -418,7 +418,7 @@ def PPobligation(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -437,11 +437,11 @@ def PPeditobligation(request, ppid, obligationid):
             gold_loan=request.POST['gold_loan'],
             gold_loan_percent=int(request.POST['gold_loan_percent']),
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
-        'pp': ProductAndPolicy.objects.filter(prod_id=ppid)[0],
+        'pp': ProductsAndPolicy.objects.filter(prod_id=ppid)[0],
         'obligation': Obligation.objects.filter(obligation_id=obligationid)[0],
     }
     return render(request, 'HomeLoan/editobligation.html', context=context)
@@ -454,7 +454,7 @@ def PPcompany(request, ppid):
             prod_id=ppid)[0].bank_id.bank_id)[0]
 
         Company(comp_type=comp_type, bank_id=bank).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -467,7 +467,7 @@ def PPeditcompany(request, ppid, companyid):
         Company.objects.filter(comp_id=companyid).update(
             comp_type=request.POST['comp_type']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'company': Company.objects.filter(comp_id=companyid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -495,7 +495,7 @@ def PPOtherDetailsRoi(request, ppid):
             roi_women=roi_women,
             bank_id=bank
         ).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -513,7 +513,7 @@ def PPeditotherdetailsroi(request, ppid, otherdetailsroiid):
             roi_men=request.POST['roi_men'],
             roi_women=request.POST['roi_women']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'otherdetailsroi': OtherDetailsROI.objects.filter(oth_det_roi_id=otherdetailsroiid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -526,7 +526,7 @@ def PPcostsheet(request, ppid):
         particulars = request.POST.get('particulars')
 
         CostSheet(particulars=particulars).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
     }
@@ -538,7 +538,7 @@ def PPeditcostsheet(request, ppid, costsheetid):
         CostSheet.objects.filter(cost_particular_id=costsheetid).update(
             particulars=request.POST['particulars']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'costsheet': CostSheet.objects.filter(cost_particular_id=costsheetid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -565,7 +565,7 @@ def PPcustomerdesignation(request, ppid):
 
         CustomerDesignation(cust_desig=cust_desig, bank_id=Bank.objects.filter(
             bank_id=Product.objects.filter(prod_id=ppid)[0].bank_id.bank_id)[0]).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -578,7 +578,7 @@ def ppeditcustomerdesignation(request, ppid, customerdesignationid):
         CustomerDesignation.objects.filter(cust_desig_id=customerdesignationid).update(
             cust_desig=request.POST['cust_desig'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'customerdesignation': CustomerDesignation.objects.filter(cust_desig_id=customerdesignationid)[0]
@@ -597,7 +597,7 @@ def PPProperty(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -616,10 +616,10 @@ def PPeditproperty(request, ppid, propertyid):
             sub_scheme=request.POST['sub_scheme'],
             perc_completion=int(request.POST['perc_completion']),
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
-        'pp': ProductAndPolicy.objects.filter(prod_id=ppid)[0],
+        'pp': ProductsAndPolicy.objects.filter(prod_id=ppid)[0],
         'property': Property.objects.filter(prop_id=propertyid)[0]
     }
     return render(request, 'HomeLoan/editproperty.html', context)
@@ -635,7 +635,7 @@ def PPcustomer(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -651,7 +651,7 @@ def PPeditcustomer(request, ppid, customerid):
             form16=request.POST['form16'],
             salary_type=request.POST['salary_type'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'customer': Customer.objects.filter(cust_id=customerid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -666,7 +666,7 @@ def PPPropertyType(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -679,7 +679,7 @@ def PPeditPropertyType(request, ppid, propertytypeid):
         PropertyType.objects.filter(prop_type_id=propertytypeid).update(
             prop_type=request.POST['prop_type'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'propertytype': PropertyType.objects.filter(prop_type_id=propertytypeid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -694,7 +694,7 @@ def PPcustomernationality(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', id=ppid)
+        return redirect('editProductsAndPolicy', id=ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -707,7 +707,7 @@ def PPeditcustomernationality(request, ppid, customernationalityid):
         CustomerNationality.objects.filter(cust_nat_id=customernationalityid).update(
             cust_nat=request.POST['cust_nat']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'customernatnality': CustomerNationality.objects.filter(cust_nat_id=customernationalityid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -728,7 +728,7 @@ def PPfees(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -747,7 +747,7 @@ def PPeditfee(request, ppid, feeid):
             offers=request.POST['offers'],
             offline_or_online=request.POST['offline_or_online'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'fee': Fees.objects.filter(fee_id=feeid)[0]
@@ -774,7 +774,7 @@ def PPincomefoir(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -790,7 +790,7 @@ def PPeditincomefoir(request, ppid, incomefoirid):
             percent=int(request.POST['percent']),
 
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'incomefoir': IncomeFoir.objects.filter(inc_foir_id=incomefoirid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -805,7 +805,7 @@ def PPRoomType(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -818,7 +818,7 @@ def PPediRoomType(request, ppid, roomtypeid):
         RoomType.objects.filter(romm_id=roomtypeid).update(
             room_type=request.POST['room_type']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
         context = {
             'roomtype': RoomType.objects.filter(romm_id=roomtypeid)[0],
             'product': Product.objects.filter(prod_id=ppid)[0],
@@ -858,7 +858,7 @@ def PPincome(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -891,7 +891,7 @@ def PPeditincome(request, ppid, incomeid):
             coApplicant_No_Income_only_Rent_income=request.POST[
                 'coApplicant_No_Income_only_Rent_income'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -920,7 +920,7 @@ def PPeditstageofconstruction(request, ppid, stageofconstructionid):
         StageOfConstruction.objects.filter(stage_id=stageofconstructionid).update(
             stage=request.POST['stage'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'stageofconstruction': StageOfConstruction.objects.filter(stage_id=stageofconstructionid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -937,7 +937,7 @@ def PPLoanAmount(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -952,7 +952,7 @@ def PPeditLoanAmount(request, ppid, loanamountid):
             max_loan_amt=int(request.POST['max_loan_amt']),
             total_Exp=int(request.POST['total_Exp'])
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'loanamount': LoanAmount.objects.filter(loan_id=loanamountid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -975,7 +975,7 @@ def PPLtvResale(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -996,7 +996,7 @@ def PPeditLtvResale(request, ppid, ltvresaleid):
             market_value=request.POST['market_value'],
             av_capping=request.POST['av_capping']
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'ltvresale': LtvResale.objects.filter(ltv_id=ltvresaleid)[0],
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -1018,7 +1018,7 @@ def PPLoantowardsvaluation(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
         'banks': Bank.objects.all(),
@@ -1039,11 +1039,11 @@ def PPeditloantowardsvalution(request, ppid, ltvid):
             car_parking_percent=request.POST['car_parking_percent'],
         )
 
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
         'ltv': LoanTowardsValuation.objects.filter(loan_tow_val_id=ltvid)[0],
-        'pp': ProductAndPolicy.objects.filter(prod_id=ppid)[0]
+        'pp': ProductsAndPolicy.objects.filter(prod_id=ppid)[0]
     }
     return render(request, 'HomeLoan/editloantowardsvalution.html', context=context)
 
@@ -1058,7 +1058,7 @@ def PPotherdetails(request, ppid):
             bank_id=Bank.objects.filter(bank_id=Product.objects.filter(
                 prod_id=ppid)[0].bank_id.bank_id)[0]
         ).save()
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
         'product': Product.objects.filter(prod_id=ppid)[0],
@@ -1075,30 +1075,30 @@ def ppeditotherdetail(request, ppid, otherdetailid):
             inward_cheque_return=request.POST['inwardchequereturn'],
             multiple_inquiry=request.POST['multipleinquiry'],
         )
-        return redirect('editproductandpolicy', ppid)
+        return redirect('editProductsAndPolicy', ppid)
 
     context = {
-        'pp': ProductAndPolicy.objects.filter(prod_id=ppid)[0],
+        'pp': ProductsAndPolicy.objects.filter(prod_id=ppid)[0],
         'otherdetail': OtherDetails.objects.filter(oth_det_id=otherdetailid)[0]
     }
     return render(request, 'HomeLoan/editotherdetails.html', context=context)
 
 
-def editproductandpolicy(request, id):
+def editproductsAndPolicy(request, id):
     pass
 
 
-def Productandpolicy(request, action='no'):
+def Productsandpolicy(request, action='no'):
     # action = request.GET['action']
     if action == 'edit':
         id = int(action)
-        product_and_policy_instance = ProductAndPolicy.objects.get(pk=id)
+        product_and_policy_instance = ProductsAndPolicy.objects.get(pk=id)
         if product_and_policy_instance != 'no':
-            productandpolicy_form = ProductandPolicyForm(
+            ProductsAndPolicy_form = ProductsAndPolicyForm(
                 instance=product_and_policy_instance)
             if not product_and_policy_instance.lock:
                 if request.method == 'POST':
-                    current_value_form = ProductandPolicyForm(request.POST)
+                    current_value_form = ProductsAndPolicyForm(request.POST)
                     if current_value_form.is_valid():
                         current_instance = current_value_form.save(
                             commit=False)
@@ -1106,31 +1106,31 @@ def Productandpolicy(request, action='no'):
                         current_instance.save()
                         messages.success(
                             request, "Product And Policy Details Updated Successfully")
-                        return redirect("AddProductAndPolicy", current_instance.pk)
+                        return redirect("AddProductsAndPolicy", current_instance.pk)
                     else:
                         messages.error(request, current_value_from.errors)
                 else:
-                    return render(request, 'HomeLoan/AddProductAndPolicy.html', context={"form": productandpolicy_form, "id": id})
+                    return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsAndPolicy_form, "id": id})
         else:
-            return render(request, 'HomeLoan/AddProductAndPolicy.html', context={"form": ProductandPolicyForm(), "id": 'no'})
+            return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsAndPolicyForm(), "id": 'no'})
     else:
         if request.method == 'POST':
-            current_value_form = ProductandPolicyForm(request.POST)
+            current_value_form = ProductsAndPolicyForm(request.POST)
             if current_value_form.is_valid():
                 current_instance = current_value_form.save(commit=False)
                 current_instance.save()
                 messages.success(
                     request, " Product and Policy Details Added Successfully !")
-                return redirect('ProductAndPolicyBasicDetails', current_instance.pk)
+                return redirect('ProductsAndPolicyBasicDetails', current_instance.pk)
             else:
                 messages.error(request, current_value_form.errors)
-                return redirect('AddProductAndPolicy', 'new')
+                return redirect('AddProductsAndPolicy', 'new')
         else:
             context = {
-                "ProductandPolicy": ProductandPolicyForm(),
+                "ProductsAndPolicy": ProductsAndPolicyForm(),
                 "action": 'new'
             }
-            return render(request, 'HomeLoan/ProductAndPolicy.html', context)
+            return render(request, 'HomeLoan/ProductsAndPolicy.html', context)
 
     # if request.method == 'POST':
     #     product = Product(
@@ -1332,14 +1332,14 @@ def Productandpolicy(request, action='no'):
     #                 bank_id = Bank.objects.filter(bank_id=int(request.POST['bank']))[0]
     #             ).save()
 
-    #     return redirect('editproductandpolicy', id=product.prod_id)
+    #     return redirect('editProductsAndPolicy', id=product.prod_id)
 
     # context = {
     #     'banks': Bank.objects.all(),
     # }
 
 
-def Productandpolicy_basicdetails(request, id):
+def ProductsAndPolicy_basicdetails(request, id):
     if request.method == 'POST':
         previous_instance = HlBasicDetails.objects.filter(pid=id).first()
         if previous_instance is not None:
@@ -1347,7 +1347,7 @@ def Productandpolicy_basicdetails(request, id):
                 if previous_instancec.ineffective_date is not None or previous_instance.ineffective_date >= datetime.now():
                     messages.error(
                         request, "Cannot Change Or Add Basic Details Please check previous effective or ineffective Date")
-                    return redirect('listproductandpolicy')
+                    return redirect('listProductsAndPolicy')
                 else:
                     current_value_form = HlBasicDetailsForm(request.POST)
                     if current_value_form.is_valid():
@@ -1362,81 +1362,81 @@ def Productandpolicy_basicdetails(request, id):
         current_value_form = HlBasicDetailsForm(request.POST)
         if current_value_form.is_valid():
             current_instance = current_value_form.save(commit=False)
-            current_instance.pid = ProductAndPolicy.objects.get(pk=id)
+            current_instance.pid = ProductsAndPolicy.objects.get(pk=id)
             current_instance.save()
             messages.success(request, "Basic Details Added Successfully !")
-            return redirect('ProductAndPolicyIncomeDetails', id)
+            return redirect('ProductsAndPolicyIncomeDetails', id)
         else:
             messages.error(request, current_value_form.errors)
-            return redirect('ProductAndPolicyBasicDetails', id)
+            return redirect('ProductsAndPolicyBasicDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             context = {
                 "basic_details_form": HlBasicDetailsForm(),
                 "id": id
             }
             return render(request, "HomeLoan/pap_basicdetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_incomedetails(request, id):
+def ProductsAndPolicy_incomedetails(request, id):
     if request.method == 'POST':
         previous_instance = HlIncome.objects.filter(pid=id).first()
         if previous_instance is not None:
             messages.error(
                 request, "Income Details is Already Added. If you want to change then please change it during 'Review or Edit'.")
-            return redirect('ProductAndPolicyIncomeFoirDetails', id)
+            return redirect('ProductsAndPolicyIncomeFoirDetails', id)
         else:
             income_details_form = HlIncomeForm(request.POST)
             if income_details_form.is_valid():
                 income_instance = income_details_form.save(commit=False)
-                income_instance.pid = ProductAndPolicy.objects.get(pk=id)
+                income_instance.pid = ProductsAndPolicy.objects.get(pk=id)
                 income_instance.save()
                 messages.success(
                     request, " Income Details Added Successfully !")
-                return redirect('ProductAndPolicyIncomeFoirDetails', id)
+                return redirect('ProductsAndPolicyIncomeFoirDetails', id)
             else:
                 messages.error(request, income_details_form.errors)
-                return redirect('ProductAndPolicyIncomeDetails', id)
+                return redirect('ProductsAndPolicyIncomeDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             context = {
                 "income_details_form": HlIncomeForm(),
                 "id": id
             }
             return render(request, "HomeLoan/pap_incomedetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_incomefoirdetails(request, id):
+def ProductsAndPolicy_incomefoirdetails(request, id):
     if request.method == 'POST':
         if 'next' in request.POST:
             if HlIncomeFoir.objects.filter(pid=id).exists():
-                return redirect('ProductAndPolicyObligationDetails', id)
+                return redirect('ProductsAndPolicyObligationDetails', id)
             else:
                 messages.warning(
                     request, 'Income Foir Details is not added. Please add Income Foir Details.')
-                return redirect('ProductAndPolicyIncomeFoirDetails', id)
+                return redirect('ProductsAndPolicyIncomeFoirDetails', id)
         income_foir_details_form = HlIncomeFoirForm(request.POST)
         if income_foir_details_form.is_valid():
             income_foir_instance = income_foir_details_form.save(commit=False)
-            income_foir_instance.pid = ProductAndPolicy.objects.get(pk=id)
+            income_foir_instance.pid = ProductsAndPolicy.objects.get(pk=id)
             income_foir_instance.save()
             url = request.POST.get('url')
             messages.success(
                 request, "Income Foir Details Added Successfully !")
             if url:
-                return redirect('ProductAndPolicyReviewOrEdit', id)
+                return redirect('ProductsAndPolicyReviewOrEdit', id)
 
             else:
-                return redirect('ProductAndPolicyIncomeFoirDetails', id)
+                return redirect('ProductsAndPolicyIncomeFoirDetails', id)
         else:
             messages.error(request, income_foir_details_form.errors)
-            return redirect('ProductAndPolicyIncomeFoirDetails', id)
+            return redirect('ProductsAndPolicyIncomeFoirDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             income_foir_instances = HlIncomeFoir.objects.filter(pid=id)
             context = {
                 "income_foir_details_form": HlIncomeFoirForm(),
@@ -1445,79 +1445,79 @@ def Productandpolicy_incomefoirdetails(request, id):
             }
             return render(request, "HomeLoan/pap_incomefoirdetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
 def deleteincomefoirdetails(request, id):
     instance = HlIncomeFoir.objects.get(pk=id)
     instance.delete()
     messages.success(request, "Income Foir Details Deleted Successfully !")
-    return redirect('ProductAndPolicyIncomeFoirDetails', instance.pid.pk)
+    return redirect('ProductsAndPolicyIncomeFoirDetails', instance.pid.pk)
 
 
-def Productandpolicy_obligation(request, id):
+def ProductsAndPolicy_obligation(request, id):
     if not HlIncomeFoir.objects.filter(pid=id).exists():
         messages.error(
             request, "Income Foir Details is not added. Please add Income Foir Details.")
-        return redirect('ProductAndPolicyIncomeFoirDetails', id)
+        return redirect('ProductsAndPolicyIncomeFoirDetails', id)
 
     if request.method == 'POST':
         previous_instance = HlObligation.objects.filter(pid=id)
         if previous_instance:
             messages.error(
                 request, "Please Edit Obligation Details during review option")
-            return redirect('ProductAndPolicyOtherDetails', id)
+            return redirect('ProductsAndPolicyOtherDetails', id)
         obligation_details_form = HlObligationForm(request.POST)
         if obligation_details_form.is_valid():
             obligation_instance = obligation_details_form.save(commit=False)
-            obligation_instance.pid = ProductAndPolicy.objects.get(pk=id)
+            obligation_instance.pid = ProductsAndPolicy.objects.get(pk=id)
             obligation_instance.save()
             messages.success(
                 request, "Obligation Details Added Successfully ! ")
-            return redirect('ProductAndPolicyOtherDetails', id)
+            return redirect('ProductsAndPolicyOtherDetails', id)
         else:
             messages.error(request, obligation_details_form.errors)
-            return redirect('ProductAndPolicyObligationDetails', id)
+            return redirect('ProductsAndPolicyObligationDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             context = {
                 "obligation_details_form": HlObligationForm(),
                 "id": id
             }
             return render(request, "HomeLoan/pap_obligationdetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_otherdetails(request, id):
+def ProductsAndPolicy_otherdetails(request, id):
     if request.method == 'POST':
         other_details_form = HlOtherDetailsForm(request.POST)
         previous_instance = HlOtherDetails.objects.filter(pid=id)
         if previous_instance:
             messages.error(
                 request, "Please Edit Other Details during review option")
-            return redirect('ProductAndPolicyPropertyDetails', id)
+            return redirect('ProductsAndPolicyPropertyDetails', id)
         if other_details_form.is_valid():
             other_details_instance = other_details_form.save(commit=False)
-            other_details_instance.pid = ProductAndPolicy.objects.get(pk=id)
+            other_details_instance.pid = ProductsAndPolicy.objects.get(pk=id)
             other_details_instance.save()
             messages.success(request, "Other Details Added Successfully ! ")
-            return redirect('ProductAndPolicyPropertyDetails', id)
+            return redirect('ProductsAndPolicyPropertyDetails', id)
         else:
             messages.error(request, other_details_form.errors)
-            return redirect('ProductAndPolicyOtherDetails', id)
+            return redirect('ProductsAndPolicyOtherDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             context = {
                 "other_details_form": HlOtherDetailsForm(),
                 "id": id
             }
             return render(request, "HomeLoan/pap_otherdetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_propertydetails(request, id):
+def ProductsAndPolicy_propertydetails(request, id):
     if request.method == 'POST':
         property_details_form = HlPropertyForm(request.POST)
         if property_details_form.is_valid():
@@ -1525,46 +1525,46 @@ def Productandpolicy_propertydetails(request, id):
             if previous_instance:
                 messages.error(
                     request, "Please Edit Property Details during review option")
-                return redirect('ProductAndPolicyLoanToValue1Details', id)
+                return redirect('ProductsAndPolicyLoanToValue1Details', id)
             property_details_instance = property_details_form.save(
                 commit=False)
-            property_details_instance.pid = ProductAndPolicy.objects.get(
+            property_details_instance.pid = ProductsAndPolicy.objects.get(
                 pk=id)
             property_details_instance.save()
             messages.success(request, "Property Details Added Successfully ! ")
-            return redirect('ProductAndPolicyLoanToValue1Details', id)
+            return redirect('ProductsAndPolicyLoanToValue1Details', id)
         else:
             messages.error(request, other_details_form.errors)
-            return redirect('ProductAndPolicyPropertyDetails', id)
+            return redirect('ProductsAndPolicyPropertyDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             context = {
                 "property_details_form": HlPropertyForm(),
                 "id": id
             }
             return render(request, "HomeLoan/pap_propertydetailsform.html", context)
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_loantovalue_1_details(request, id):
+def ProductsAndPolicy_loantovalue_1_details(request, id):
     if request.method == 'POST':
         previous_instance = HlLoan_To_Value_Type_1.objects.filter(pid=id)
         if previous_instance:
             messages.error(
                 request, "Loan To Value Type 1 Details is already added. Please edit Loan To Value Type 1 Details during 'Review Or Edit' .")
-            return redirect('ProductAndPolicyLoanToValue2Details', id)
+            return redirect('ProductsAndPolicyLoanToValue2Details', id)
         form = HlLoan_To_Value_Type_1Form(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.pid = ProductAndPolicy.objects.get(pk=id)
+            instance.pid = ProductsAndPolicy.objects.get(pk=id)
             instance.save()
             messages.success(
                 request, "Loan To Value - Fresh Details Added Successfully ! ")
-            return redirect('ProductAndPolicyLoanToValue2Details', id)
+            return redirect('ProductsAndPolicyLoanToValue2Details', id)
         else:
             messages.error(request, form.errors)
-            return redirect('ProductAndPolicyLoanToValue1Details', id)
+            return redirect('ProductsAndPolicyLoanToValue1Details', id)
     else:
         form = HlLoan_To_Value_Type_1Form()
         action = 'Type1'
@@ -1578,24 +1578,24 @@ def Productandpolicy_loantovalue_1_details(request, id):
         return render(request, "HomeLoan/pap_loantovaluedetailsform.html", context)
 
 
-def Productandpolicy_loantovalue_2_details(request, id):
+def ProductsAndPolicy_loantovalue_2_details(request, id):
     if request.method == 'POST':
         previous_instance = HlLoan_To_Value_Type_2.objects.filter(pid=id)
         if previous_instance:
             messages.error(
                 request, "Resale is already added. Please edit Resale Details during 'Review Or Edit' .")
-            return redirect('ProductAndPolicyCibilDetails', id)
+            return redirect('ProductsAndPolicyCibilDetails', id)
         form = HlLoan_To_Value_Type_2Form(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.pid = ProductAndPolicy.objects.get(pk=id)
+            instance.pid = ProductsAndPolicy.objects.get(pk=id)
             instance.save()
             messages.success(
                 request, "Loan To Value - Resale Details Added Successfully ! ")
-            return redirect('ProductAndPolicyCibilDetails', id)
+            return redirect('ProductsAndPolicyCibilDetails', id)
         else:
             messages.error(request, form.errors)
-            return redirect('ProductAndPolicyLoanToValue2Details', id)
+            return redirect('ProductsAndPolicyLoanToValue2Details', id)
     else:
         form = HlLoan_To_Value_Type_2Form()
         action = 'Type1'
@@ -1609,36 +1609,36 @@ def Productandpolicy_loantovalue_2_details(request, id):
         return render(request, "HomeLoan/pap_loantovalue2detailsform.html", context)
 
 
-def Productandpolicy_cibildetails(request, id):
+def ProductsAndPolicy_cibildetails(request, id):
     if request.method == 'POST':
         cibil_form_instance = CibilForm(request.POST)
         previous_instance = Cibil.objects.filter(pid=id)
         if previous_instance:
             messages.error(
                 request, 'Cibil Details is already added. Please edit Cibil Details during "Review Or Edit"  ')
-            return redirect('ProductAndPolicyReviewOrEdit', id)
+            return redirect('ProductsAndPolicyReviewOrEdit', id)
         if cibil_form_instance.is_valid():
             cibil_instance = cibil_form_instance.save(commit=False)
-            cibil_instance.pid = ProductAndPolicy.objects.get(pk=id)
+            cibil_instance.pid = ProductsAndPolicy.objects.get(pk=id)
             cibil_instance.save()
             messages.success(request, "Cibil Details Added Successfully ! ")
-            return redirect('ProductAndPolicyReviewOrEdit', id)
+            return redirect('ProductsAndPolicyReviewOrEdit', id)
         else:
             messages.error(request, cibil_form_instance.errors)
-            return redirect('ProductAndPolicyCibilDetails', id)
+            return redirect('ProductsAndPolicyCibilDetails', id)
     else:
-        if ProductAndPolicy.objects.filter(pk=id):
+        if ProductsAndPolicy.objects.filter(pk=id):
             cibil_form = CibilForm()
             return render(request, 'HomeLoan/pap_cibildetails.html', context={"id": id, "cibil_form": cibil_form})
         else:
-            return redirect('listproductandpolicy')
+            return redirect('listProductsAndPolicy')
 
 
-def Productandpolicy_revieworedit(request, id):
-    if not ProductAndPolicy.objects.filter(pk=id).exists():
+def ProductsAndPolicy_revieworedit(request, id):
+    if not ProductsAndPolicy.objects.filter(pk=id).exists():
         messages.error(request, 'No product and policy Found')
-        return redirect('listproductandpolicy')
-    product_and_policy_instance = ProductAndPolicy.objects.get(pk=id)
+        return redirect('listProductsAndPolicy')
+    product_and_policy_instance = ProductsAndPolicy.objects.get(pk=id)
     hl_basicdetails_instance = HlBasicDetails.objects.filter(pid=id)
     hl_income_instance = HlIncome.objects.filter(
         pid=product_and_policy_instance)
@@ -1657,7 +1657,7 @@ def Productandpolicy_revieworedit(request, id):
         pid=product_and_policy_instance)
     hl_otherdetails_instance = HlOtherDetails.objects.filter(
         pid=product_and_policy_instance)
-    product_and_policy_form = ProductandPolicyForm(
+    product_and_policy_form = ProductsAndPolicyForm(
         instance=product_and_policy_instance)
     hl_basicdetails_form = HlBasicDetailsForm(
         instance=hl_basicdetails_instance.first())
@@ -1696,7 +1696,7 @@ def Productandpolicy_revieworedit(request, id):
         "hl_loan_to_value_type_2_form": hl_loan_to_value_type_2_form,
         "hl_otherdetails_form": hl_otherdetails_form,
     }
-    return render(request, 'HomeLoan/editproductandpolicy.html', context)
+    return render(request, 'HomeLoan/editProductsAndPolicy.html', context)
 
 
 def editbasicdetails(request):
@@ -1710,7 +1710,7 @@ def editbasicdetails(request):
             if len(hl_basicdetails_instances_active) > 0 or len(HlBasicDetails.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Basic Details Please Make current Basic Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_basicdetails_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1718,10 +1718,10 @@ def editbasicdetails(request):
                     current_instance.pk = instance.pk
                 current_instance.save()
                 messages.success(request, 'Basic Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_basicdetails_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -1757,7 +1757,7 @@ def editobligations(request):
             if len(hl_obligations_instances_active) > 0 or len(HlObligation.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Obligations Please Make current Obligations Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_obligations_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1765,10 +1765,10 @@ def editobligations(request):
                     current_instance.pk = instance.pk
                 current_instance.save()
                 messages.success(request, 'Obligations Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_obligations_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', basic_details_id.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', basic_details_id.pid.pk)
     if request.method == 'GET':
         id = request.GET.get('id')
         action = request.GET.get('action')
@@ -1803,7 +1803,7 @@ def editincomedetails(request):
             if len(hl_incomedetails_instances_active) > 0 or len(HlIncome.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Income Details Please Make current Income Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_incomedetails_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1811,10 +1811,10 @@ def editincomedetails(request):
                     current_instance.pk = instance.pk
                 current_instance.save()
                 messages.success(request, 'Income Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_incomedetails_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -1848,7 +1848,7 @@ def editotherdetails(request):
             if len(hl_otherdetails_instances_active) > 0 or len(HlOtherDetails.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Other Details Please Make current Other Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_otherdetails_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1856,10 +1856,10 @@ def editotherdetails(request):
                     current_instance.pk = instance.pk
                 current_instance.save()
                 messages.success(request, 'Other Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_otherdetails_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -1895,7 +1895,7 @@ def editpropertydetails(request):
             if len(hl_propertydetails_instances_active) > 0 or len(HlProperty.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Property Details Please Make current Property Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_propertydetails_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1904,10 +1904,10 @@ def editpropertydetails(request):
                 current_instance.save()
                 messages.success(
                     request, 'Property Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_propertydetails_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -1941,7 +1941,7 @@ def editincomefoirdetails(request):
             if len(hl_incomeforeclosure_instances_active) > 0 or len(HlIncomeFoir.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Income Foir Details Please Make current Income Foir Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_incomeforeclosure_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -1950,10 +1950,10 @@ def editincomefoirdetails(request):
                 current_instance.save()
                 messages.success(
                     request, 'Income Foir Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_incomeforeclosure_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         instance_id = request.GET.get('id')
@@ -2026,7 +2026,7 @@ def editcibildetails(request):
             if len(hl_cibil_instances_active) > 0 or len(Cibil.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Cibil Details Please Make current Cibil Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_cibil_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -2034,10 +2034,10 @@ def editcibildetails(request):
                     current_instance.pk = instance.pk
                 current_instance.save()
                 messages.success(request, 'Cibil Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_cibil_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
     if request.method == 'GET':
         id = request.GET.get('id')
         action = request.GET.get('action')
@@ -2066,7 +2066,7 @@ def editloanvaluetype1(request):
             if len(hl_loantovalue1_instances_active) > 0 or len(HlLoan_To_Value_Type_1.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Loan To Value Details Please Make current Loan To Value Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_loantovalue1_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -2075,10 +2075,10 @@ def editloanvaluetype1(request):
                 current_instance.save()
                 messages.success(
                     request, 'Loan To Value Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_loantovalue1_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -2110,7 +2110,7 @@ def editloanvaluetype2(request):
             if len(hl_loantovalue2_instances_active) > 0 or len(HlLoan_To_Value_Type_2.objects.filter(ineffective_date__isnull=True, effective_date__isnull=False)):
                 messages.error(
                     request, 'Cannot Edit Loan To Value Details Please Make current Loan To Value Details Ineffective')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
             else:
                 current_instance = hl_loantovalue2_form.save(commit=False)
                 current_instance.pid = instance.pid
@@ -2119,10 +2119,10 @@ def editloanvaluetype2(request):
                 current_instance.save()
                 messages.success(
                     request, 'Loan To Value Details Edited Successfully')
-                return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+                return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_loantovalue2_form.errors)
-            return redirect('ProductAndPolicyReviewOrEdit', instance.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
 
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -2144,18 +2144,18 @@ def editloanvaluetype2(request):
 
 
 @login_required(redirect_field_name='login', login_url='login')
-def listproductandpolicy(request):
+def listProductsAndPolicy(request):
     context = {
-        'ProductAndPolicy': ProductAndPolicy.objects.all()
+        'ProductsAndPolicy': ProductsAndPolicy.objects.all()
     }
-    return render(request, 'HomeLoan/listProductandpolicy.html', context=context)
+    return render(request, 'HomeLoan/listProductsAndPolicy.html', context=context)
 
 
-def submitproductandpolicy(request, id):
+def submitProductsAndPolicy(request, id):
     pass
-    # productandpolicy = ProductAndPolicy.objects.filter(pk = id)
-    # if productandpolicy is None:
+    # ProductsAndPolicy = ProductsAndPolicy.objects.filter(pk = id)
+    # if ProductsAndPolicy is None:
     #     messages.error(reqeust,'Product And Policy Not Found')
-    #     return redirect('listproductandpolicy')
+    #     return redirect('listProductsAndPolicy')
     # else:
-    #     productandpolicy = productandpolicy[0]
+    #     ProductsAndPolicy = ProductsAndPolicy[0]

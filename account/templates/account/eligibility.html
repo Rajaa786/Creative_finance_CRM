@@ -26,13 +26,16 @@ Rajaa
     <title>Creative Finserve => {{s.loan_type}} Loan ~ Salaried</title>
 
     <!-- Custom fonts for this template-->
-    {% comment %} <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+    {% comment %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    {% endcomment %}
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    {% comment %} <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% endcomment %}
+    {% comment %}
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% endcomment %}
     <link id="pagestyle" href="{% static 'material_2_pro_assets/css/material-dashboard.min.css?v=3.0.2' %}"
         rel="stylesheet" />
 
@@ -563,7 +566,7 @@ Rajaa
                                                         };
                                                         pdfMake.createPdf(docDefinition).download(
                                                             "{{s.name}}-{{s.loan_type}} Loan ~ Salaried.pdf"
-                                                            );
+                                                        );
                                                     }
                                                 });
                                             }
@@ -598,8 +601,9 @@ Rajaa
                                                             <div style="text-align:center">
                                                                 <a class="nav-link" title="Edit Details"
                                                                     href="/crm_app/cust_edit/{{s.id}}">
-                                                                    <img style="height:40px;width:45px"
+                                                                    <img style="height:40px;width:45px" {% comment %}
                                                                         src="https://th.bing.com/th/id/OIP.4ynpQBQ8r-22AvwXF1s44QHaH5?pid=Api&w=481&h=513&rs=1">
+                                                                    {% endcomment %}
                                                                 </a>
                                                             </div>
                                                         </td>
@@ -610,7 +614,9 @@ Rajaa
                                                                     <a class="nav-link" title="Print">
                                                                         <img style="height:40px;width:60px"
                                                                             class="img-profile rounded-circle"
+                                                                            {% comment %}
                                                                             src="https://th.bing.com/th/id/OIP.afbg5m7llh3iSFR3v1LwsQHaE8?pid=Api&rs=1">
+                                                                        {% endcomment %}
                                                                     </a>
                                                                 </button>
                                                             </div>
@@ -656,7 +662,9 @@ Rajaa
                                                                             title="Send WhatsApp Message">
                                                                             <img style="height:50px;width:60px"
                                                                                 class="img-profile rounded-circle"
-                                                                                {% comment %} src="http://icons.iconarchive.com/icons/dtafalonso/android-l/512/WhatsApp-icon.png"> {% endcomment %}
+                                                                                {% comment %}
+                                                                                src="http://icons.iconarchive.com/icons/dtafalonso/android-l/512/WhatsApp-icon.png">
+                                                                            {% endcomment %}
                                                                         </a>
                                                                     </button>
                                                                 </form>
@@ -669,7 +677,9 @@ Rajaa
                                                                         style="color:white"><img
                                                                             style="height:50px;width:55px"
                                                                             class="img-profile rounded-circle"
-                                                                            {% comment %} src="https://th.bing.com/th/id/OIP.PEyBoZrx1ZK3GgCf4YifEwAAAA?pid=Api&rs=1"></a></button> {% endcomment %}
+                                                                            {% comment %}
+                                                                            src="https://th.bing.com/th/id/OIP.PEyBoZrx1ZK3GgCf4YifEwAAAA?pid=Api&rs=1"></a></button>
+                                                                {% endcomment %}
                                                             </div>
                                                         </td>
                                                     </tr>
