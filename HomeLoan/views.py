@@ -81,7 +81,7 @@ def eligibility(request, id):
 
                         if not property.completionConsiderByBank():
                             remarks[add_det.applicant_type][bank.bank_name].append(
-                                f"{bank.bank_name} considers Completion more than {prop.perc_completion}%")
+                                f"{bank.bank_name} considers Completion more than {property.perc_completion}%")
                             continue
 
                     if property.p_type == 1 or property.p_type == 2:
@@ -1094,11 +1094,11 @@ def Productsandpolicy(request, action='no'):
         id = int(action)
         product_and_policy_instance = ProductsAndPolicy.objects.get(pk=id)
         if product_and_policy_instance != 'no':
-            ProductsAndPolicy_form = ProductsAndPolicyForm(
+            ProductsAndPolicy_form = ProductsandPolicyForm(
                 instance=product_and_policy_instance)
             if not product_and_policy_instance.lock:
                 if request.method == 'POST':
-                    current_value_form = ProductsAndPolicyForm(request.POST)
+                    current_value_form = ProductsandPolicyForm(request.POST)
                     if current_value_form.is_valid():
                         current_instance = current_value_form.save(
                             commit=False)
@@ -1108,14 +1108,14 @@ def Productsandpolicy(request, action='no'):
                             request, "Product And Policy Details Updated Successfully")
                         return redirect("AddProductsAndPolicy", current_instance.pk)
                     else:
-                        messages.error(request, current_value_from.errors)
+                        messages.error(request, current_value_form.errors)
                 else:
                     return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsAndPolicy_form, "id": id})
         else:
-            return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsAndPolicyForm(), "id": 'no'})
+            return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsandPolicyForm(), "id": 'no'})
     else:
         if request.method == 'POST':
-            current_value_form = ProductsAndPolicyForm(request.POST)
+            current_value_form = ProductsandPolicyForm(request.POST)
             if current_value_form.is_valid():
                 current_instance = current_value_form.save(commit=False)
                 current_instance.save()
@@ -1127,7 +1127,7 @@ def Productsandpolicy(request, action='no'):
                 return redirect('AddProductsAndPolicy', 'new')
         else:
             context = {
-                "ProductsAndPolicy": ProductsAndPolicyForm(),
+                "ProductsAndPolicy": ProductsandPolicyForm(),
                 "action": 'new'
             }
             return render(request, 'HomeLoan/ProductsAndPolicy.html', context)
@@ -1344,7 +1344,7 @@ def ProductsAndPolicy_basicdetails(request, id):
         previous_instance = HlBasicDetails.objects.filter(pid=id).first()
         if previous_instance is not None:
             if previous_instance.effective_date is not None:
-                if previous_instancec.ineffective_date is not None or previous_instance.ineffective_date >= datetime.now():
+                if previous_instance.ineffective_date is not None or previous_instance.ineffective_date >= datetime.now():
                     messages.error(
                         request, "Cannot Change Or Add Basic Details Please check previous effective or ineffective Date")
                     return redirect('listProductsAndPolicy')
@@ -1355,7 +1355,7 @@ def ProductsAndPolicy_basicdetails(request, id):
                             commit=False)
                         current_instance.pk = previous_instance.pk
                         current_instance.save()
-                        message.success(
+                        messages.success(
                             request, 'Basic Details Updated Successfully')
                     else:
                         messages.error(request, current_value_form.errors)
@@ -1534,7 +1534,7 @@ def ProductsAndPolicy_propertydetails(request, id):
             messages.success(request, "Property Details Added Successfully ! ")
             return redirect('ProductsAndPolicyLoanToValue1Details', id)
         else:
-            messages.error(request, other_details_form.errors)
+            messages.error(request, property_details_form.errors)
             return redirect('ProductsAndPolicyPropertyDetails', id)
     else:
         if ProductsAndPolicy.objects.filter(pk=id):
@@ -1657,7 +1657,7 @@ def ProductsAndPolicy_revieworedit(request, id):
         pid=product_and_policy_instance)
     hl_otherdetails_instance = HlOtherDetails.objects.filter(
         pid=product_and_policy_instance)
-    product_and_policy_form = ProductsAndPolicyForm(
+    product_and_policy_form = ProductsandPolicyForm(
         instance=product_and_policy_instance)
     hl_basicdetails_form = HlBasicDetailsForm(
         instance=hl_basicdetails_instance.first())
@@ -1768,7 +1768,7 @@ def editobligations(request):
                 return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
         else:
             messages.error(request, hl_obligations_form.errors)
-            return redirect('ProductsAndPolicyReviewOrEdit', basic_details_id.pid.pk)
+            return redirect('ProductsAndPolicyReviewOrEdit', instance.pid.pk)
     if request.method == 'GET':
         id = request.GET.get('id')
         action = request.GET.get('action')
