@@ -1084,17 +1084,17 @@ def ppeditotherdetail(request, ppid, otherdetailid):
     return render(request, 'HomeLoan/editotherdetails.html', context=context)
 
 
-def editproductsAndPolicy(request, id):
+def editproductandpolicy(request, id):
     pass
 
 
-def Productsandpolicy(request, action='no'):
+def Productandpolicy(request, action='no'):
     # action = request.GET['action']
     if action == 'edit':
         id = int(action)
         product_and_policy_instance = ProductsAndPolicy.objects.get(pk=id)
         if product_and_policy_instance != 'no':
-            ProductsAndPolicy_form = ProductsandPolicyForm(
+            Productandpolicy_form = ProductsandPolicyForm(
                 instance=product_and_policy_instance)
             if not product_and_policy_instance.lock:
                 if request.method == 'POST':
@@ -1110,7 +1110,7 @@ def Productsandpolicy(request, action='no'):
                     else:
                         messages.error(request, current_value_form.errors)
                 else:
-                    return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsAndPolicy_form, "id": id})
+                    return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": Productandpolicy_form, "id": id})
         else:
             return render(request, 'HomeLoan/AddProductsAndPolicy.html', context={"form": ProductsandPolicyForm(), "id": 'no'})
     else:
@@ -1339,7 +1339,7 @@ def Productsandpolicy(request, action='no'):
     # }
 
 
-def ProductsAndPolicy_basicdetails(request, id):
+def Productandpolicy_basicdetails(request, id):
     if request.method == 'POST':
         previous_instance = HlBasicDetails.objects.filter(pid=id).first()
         if previous_instance is not None:
@@ -1347,7 +1347,7 @@ def ProductsAndPolicy_basicdetails(request, id):
                 if previous_instance.ineffective_date is not None or previous_instance.ineffective_date >= datetime.now():
                     messages.error(
                         request, "Cannot Change Or Add Basic Details Please check previous effective or ineffective Date")
-                    return redirect('listProductsAndPolicy')
+                    return redirect('listproductandpolicy')
                 else:
                     current_value_form = HlBasicDetailsForm(request.POST)
                     if current_value_form.is_valid():
@@ -1377,10 +1377,10 @@ def ProductsAndPolicy_basicdetails(request, id):
             }
             return render(request, "HomeLoan/pap_basicdetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_incomedetails(request, id):
+def Productandpolicy_incomedetails(request, id):
     if request.method == 'POST':
         previous_instance = HlIncome.objects.filter(pid=id).first()
         if previous_instance is not None:
@@ -1407,10 +1407,10 @@ def ProductsAndPolicy_incomedetails(request, id):
             }
             return render(request, "HomeLoan/pap_incomedetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_incomefoirdetails(request, id):
+def Productandpolicy_incomefoirdetails(request, id):
     if request.method == 'POST':
         if 'next' in request.POST:
             if HlIncomeFoir.objects.filter(pid=id).exists():
@@ -1445,7 +1445,7 @@ def ProductsAndPolicy_incomefoirdetails(request, id):
             }
             return render(request, "HomeLoan/pap_incomefoirdetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
 def deleteincomefoirdetails(request, id):
@@ -1455,7 +1455,7 @@ def deleteincomefoirdetails(request, id):
     return redirect('ProductsAndPolicyIncomeFoirDetails', instance.pid.pk)
 
 
-def ProductsAndPolicy_obligation(request, id):
+def Productandpolicy_obligation(request, id):
     if not HlIncomeFoir.objects.filter(pid=id).exists():
         messages.error(
             request, "Income Foir Details is not added. Please add Income Foir Details.")
@@ -1486,10 +1486,10 @@ def ProductsAndPolicy_obligation(request, id):
             }
             return render(request, "HomeLoan/pap_obligationdetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_otherdetails(request, id):
+def Productandpolicy_otherdetails(request, id):
     if request.method == 'POST':
         other_details_form = HlOtherDetailsForm(request.POST)
         previous_instance = HlOtherDetails.objects.filter(pid=id)
@@ -1514,10 +1514,10 @@ def ProductsAndPolicy_otherdetails(request, id):
             }
             return render(request, "HomeLoan/pap_otherdetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_propertydetails(request, id):
+def Productandpolicy_propertydetails(request, id):
     if request.method == 'POST':
         property_details_form = HlPropertyForm(request.POST)
         if property_details_form.is_valid():
@@ -1544,10 +1544,10 @@ def ProductsAndPolicy_propertydetails(request, id):
             }
             return render(request, "HomeLoan/pap_propertydetailsform.html", context)
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_loantovalue_1_details(request, id):
+def Productandpolicy_loantovalue_1_details(request, id):
     if request.method == 'POST':
         previous_instance = HlLoan_To_Value_Type_1.objects.filter(pid=id)
         if previous_instance:
@@ -1578,7 +1578,7 @@ def ProductsAndPolicy_loantovalue_1_details(request, id):
         return render(request, "HomeLoan/pap_loantovaluedetailsform.html", context)
 
 
-def ProductsAndPolicy_loantovalue_2_details(request, id):
+def Productandpolicy_loantovalue_2_details(request, id):
     if request.method == 'POST':
         previous_instance = HlLoan_To_Value_Type_2.objects.filter(pid=id)
         if previous_instance:
@@ -1609,7 +1609,7 @@ def ProductsAndPolicy_loantovalue_2_details(request, id):
         return render(request, "HomeLoan/pap_loantovalue2detailsform.html", context)
 
 
-def ProductsAndPolicy_cibildetails(request, id):
+def Productandpolicy_cibildetails(request, id):
     if request.method == 'POST':
         cibil_form_instance = CibilForm(request.POST)
         previous_instance = Cibil.objects.filter(pid=id)
@@ -1631,13 +1631,13 @@ def ProductsAndPolicy_cibildetails(request, id):
             cibil_form = CibilForm()
             return render(request, 'HomeLoan/pap_cibildetails.html', context={"id": id, "cibil_form": cibil_form})
         else:
-            return redirect('listProductsAndPolicy')
+            return redirect('listproductandpolicy')
 
 
-def ProductsAndPolicy_revieworedit(request, id):
+def Productandpolicy_revieworedit(request, id):
     if not ProductsAndPolicy.objects.filter(pk=id).exists():
         messages.error(request, 'No product and policy Found')
-        return redirect('listProductsAndPolicy')
+        return redirect('listproductandpolicy')
     product_and_policy_instance = ProductsAndPolicy.objects.get(pk=id)
     hl_basicdetails_instance = HlBasicDetails.objects.filter(pid=id)
     hl_income_instance = HlIncome.objects.filter(
@@ -2144,18 +2144,18 @@ def editloanvaluetype2(request):
 
 
 @login_required(redirect_field_name='login', login_url='login')
-def listProductsAndPolicy(request):
+def listproductandpolicy(request):
     context = {
         'ProductsAndPolicy': ProductsAndPolicy.objects.all()
     }
-    return render(request, 'HomeLoan/listProductsAndPolicy.html', context=context)
+    return render(request, 'HomeLoan/listproductandpolicy.html', context=context)
 
 
-def submitProductsAndPolicy(request, id):
+def submitproductandpolicy(request, id):
     pass
     # ProductsAndPolicy = ProductsAndPolicy.objects.filter(pk = id)
     # if ProductsAndPolicy is None:
     #     messages.error(reqeust,'Product And Policy Not Found')
-    #     return redirect('listProductsAndPolicy')
+    #     return redirect('listproductandpolicy')
     # else:
     #     ProductsAndPolicy = ProductsAndPolicy[0]
