@@ -8,6 +8,30 @@ from django.conf import settings
 
 urlpatterns = [
     path('dashboard/', views.base_dashboard, name="base_dashboard"),
+
+# app_name = "accounts"
+
+
+
+    #--------------------------------------------------------#
+    # new_LEADS
+    path('view/', views.view_leads, name="view-leads"),
+    path('<int:pk>/', views.lead_detail, name="lead-detail"),
+    path('<int:pk>/update/', views.lead_update, name="lead-update"),
+    path('<int:pk>/delete/', views.lead_delete, name="lead-delete"),
+    path('newLeadview.html', views.list_leads, name="list_leads"),
+
+    #     path('list_lead_edit/<int:id>', views.list_lead_edit, name="list_lead_edit"),
+
+
+
+
+
+
+    # NEW URLS
+    #--------------------------------------------------------#
+    #OLD URLS#
+
     path('ajax/cities/', views.load_cities, name="ajax_load_cities"),
     path('ajax/addapplicant', views.add_applicants, name="ajax_add_applicant"),
     path('ajax/subproducts/', views.load_subproducts,

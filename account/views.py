@@ -2,6 +2,7 @@
 from wsgiref.util import request_uri
 from xml.etree.ElementInclude import include
 from django.shortcuts import render, redirect
+from django.views.generic import DeleteView
 from django.views import View
 from django.core import serializers
 from .forms import *
@@ -28,12 +29,135 @@ from django.core.files import File
 import json
 from django.contrib.auth.decorators import login_required
 from django.utils.datastructures import MultiValueDictKeyError
-
 # def random_password(size=8):
 #     return BaseUserManager().make_random_password(size)
 from leadgenerator.settings import EMAIL_HOST_USER
 from HomeLoan.models import *
 from django.core.files.storage import FileSystemStorage
+from stronghold.decorators import public
+
+
+'''
+NEW VIEWS
+'''
+def view_leads(request):
+    leads = Leads.objects.all()
+    context = {
+        "leads": leads
+    }
+    return render(request, 'account/view_leads.html', context)
+
+
+def lead_detail(request, pk):
+    lead = Leads.objects.get(id=pk)
+    context = {
+        "lead": lead
+    }
+
+    return render(request, 'account/lead_detail.html', context)
+
+
+def lead_update(request, pk):
+    lead = Leads.objects.get(id=pk)
+    form = LeadsForm(instance=lead)
+    user = request.user
+
+    if request.method == 'POST':
+        if 'cancel' in request.POST:
+            form = LeadsForm(request.POST, instance=lead)
+            if user.role == "Admin":
+                return redirect('base_dashboard')
+            elif user.role == "Referral Partner":
+                return redirect('base')
+        if 'save' in request.POST:
+            if user.role == "Admin":
+                form = LeadsForm(request.POST)
+                if form.is_valid():
+                    instance = form.save(commit=False)
+                    print(instance)
+                else:
+                    print(form.errors)
+                return redirect("{% url 'account:newLeadview.html' lead.pk %}")
+            elif user.role == "Referral Partner":
+                return redirect('base')
+        if 'next' in request.POST:
+
+            if form.is_valid():
+                form.save()
+            #         instance = form.save(commit=False)
+            #         instance.added_by = request.user.username
+            #         instance.save()
+            #         # additionaldetails/20
+            #         return redirect(f"account:additionaldetails/{instance.pk}")
+            # if form.is_valid():
+            #     name = form.cleaned_data['name']
+            #     ref = request.POST['ref']
+            #     #username   = form.cleaned_data['username']
+            #     email = form.cleaned_data['email']
+            #     #password1  = request.POST['password1']
+            #     #password2  = request.POST['password2']
+            #     product = request.POST['pdt']
+            #     sub_product = request.POST['subpdt']
+            #     loan_amt = form.cleaned_data['amt']
+            #     address = form.cleaned_data['address']
+            #     phone = form.cleaned_data['phone']
+            #     alt_phone = form.cleaned_data['alt_phone']
+            #     city = form.cleaned_data['city']
+            #     state = form.cleaned_data['state']
+            #     pincode = form.cleaned_data['pincode']
+            #     country = request.POST['country']
+            #     added_by = form.cleaned_data.id
+            #     lead.name = name
+            #     lead.referance = ref
+            #     lead.email = email
+            #     lead.product = product
+            #     lead.sub_product = sub_product
+            #     lead.loan_amt = loan_amt
+            #     lead.address = address
+            #     lead.phone = phone
+            #     lead.alt_phone = alt_phone
+            #     lead.city = city
+            #     lead.state = state
+            #     lead.pincode = pincode
+            #     lead.country = country
+            #     lead.added_by = request.user.id
+            #     Leads.objects.filter(pk=id).update(name=name, phone=phone, alt_phone=alt_phone, email=email, reference=ref, product=product,
+            #                                        sub_product=sub_product, loan_amt=loan_amt, address=address, pincode=pincode, country=country, state=state, city=city, added_by=added_by)
+                return redirect("/account/newLeadview.html")
+    products = Product.objects.all()
+    subproducts = SubProduct.objects.all()
+    subproductdict = dict()
+    for subproduct in subproducts:
+        if subproduct.product.id in subproductdict:
+            subproductdict[subproduct.product.id].append({
+                'id': subproduct.id,
+                'sub_product': subproduct.sub_product,
+                # 'effective_date'  : subproduct.effective_date,
+                # 'ineffective_date': subproduct.ineffective_date
+            })
+        else:
+            subproductdict[subproduct.product.id] = []
+            subproductdict[subproduct.product.id].append({
+                'id': subproduct.id,
+                'sub_product': subproduct.sub_product,
+                # 'effective_date'  : subproduct.effective_date,
+                # 'ineffective_date': subproduct.ineffective_date
+            })
+
+    context = {
+        'form': LeadsForm(),
+        "lead": lead
+    }
+
+    return render(request, "account/lead_update.html", context)
+
+
+def lead_delete(request, pk):
+    lead = Leads.objects.get(id=pk)
+    lead.delete()
+    return redirect('account:list_leads')
+
+
 
 
 @login_required()
@@ -44,7 +168,7 @@ def base_dashboard(request):
     return render(request, 'account/base.html', context)
 
 
-# @login_required (redirect_field_name='login', login_url='login')
+@login_required (redirect_field_name='login', login_url='login')
 def register(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -289,7 +413,6 @@ def add_leads(request):
         'form': LeadsForm()
     }
     return render(request, 'account/add_leads.html', context=context)
-
 
 def upload_documents(request, id):
     lead = Leads.objects.get(pk=id)
@@ -674,7 +797,7 @@ def upload_documents(request, id):
 
                 stri = str(i)
 
-                existingLoanDetails = ExistingLoanDetails(
+                existingLoanDetails = SalExistingLoanDetails(
                     loanApplication=loanApplication,
                     bankName=request.POST.get(stri+'BankName'),
                     service=request.POST.get(stri+'Service'),
@@ -866,6 +989,7 @@ def list_leads(request):
     preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(ids)])
     listleads = Leads.objects.filter(pk__in=ids).order_by(preserved)
     # return render(request, 'music/songs.html',  {'song': song})
+    return render(request, 'account/newLeadview.html', {'listleads': listleads})
     return render(request, 'account/list_leads.html', {'listleads': listleads})
 
 
@@ -936,6 +1060,85 @@ def list_lead_edit(request, id):
         'states': State.objects.all(),
     }
     return render(request, 'account/list_lead_edit.html', context=context)
+
+
+# def list_lead_del(request, id):
+#     if request.method == 'POST':
+#         lead = Leads.objects.filter(pk=id)
+#         lead.delete()
+#     return redirect('<int:id>')
+
+# class LeadDeleteView(DeleteView):
+#     template_name = "leads/lead_delete.html"
+#     queryset = Leads.objects.all()
+#     slug_field = 'url'
+#     slug_url_kwarg = 'url'
+
+#     # def get_object(self, queryset=None):
+#     #     return Leads.objects.get(name=self.kwargs.get("name"))
+
+#     def get_success_url(self):
+#         return reverse("leads/newLeadview.html")
+
+
+# def list_lead_edit(request, id):
+#     user = request.user
+#     if request.method == 'POST':
+#         if 'cancel' in request.POST:
+#             if user.role == "Admin":
+#                 return redirect('dashboard')
+#             elif user.role == "Referral Partner":
+#                 return redirect('base')
+#         name = request.POST['name']
+#         ref = request.POST['ref']
+#         #username   = request.POST['username']
+#         email = request.POST['email']
+#         #password1  = request.POST['password1']
+#         #password2  = request.POST['password2']
+#         product = request.POST['pdt']
+#         sub_product = request.POST['subpdt']
+#         loan_amt = request.POST['amt']
+#         address = request.POST['address']
+#         phone = request.POST['phone']
+#         alt_phone = request.POST['alt_phone']
+#         city = request.POST['city']
+#         state = request.POST['state']
+#         pincode = request.POST['pincode']
+#         country = request.POST['country']
+#         added_by = request.user.id
+#         Leads.objects.filter(pk=id).update(name=name, phone=phone, alt_phone=alt_phone, email=email, reference=ref, product=product,
+#                                            sub_product=sub_product, loan_amt=loan_amt, address=address, pincode=pincode, country=country, state=state, city=city, added_by=added_by)
+
+#     lead = Leads.objects.filter(pk=id)[0]
+#     products = Product.objects.all()
+#     subproducts = SubProduct.objects.all()
+#     subproductdict = dict()
+#     for subproduct in subproducts:
+#         if subproduct.product.id in subproductdict:
+#             subproductdict[subproduct.product.id].append({
+#                 'id': subproduct.id,
+#                 'sub_product': subproduct.sub_product,
+#                 # 'effective_date'  : subproduct.effective_date,
+#                 # 'ineffective_date': subproduct.ineffective_date
+#             })
+#         else:
+#             subproductdict[subproduct.product.id] = []
+#             subproductdict[subproduct.product.id].append({
+#                 'id': subproduct.id,
+#                 'sub_product': subproduct.sub_product,
+#                 # 'effective_date'  : subproduct.effective_date,
+#                 # 'ineffective_date': subproduct.ineffective_date
+#             })
+#     # print(json.dumps(subproductdict))
+
+#     context = {
+#         'products': products,
+#         'subproducts': json.dumps(subproductdict),
+#         'lead': lead,
+#         'cities': City.objects.all(),
+#         'states': State.objects.all(),
+#     }
+#     return render(request, 'account/list_lead_edit.html', context=context)
 
 
 def list_lead_view(request, id):
