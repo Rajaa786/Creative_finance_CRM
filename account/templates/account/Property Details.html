@@ -1,0 +1,1804 @@
+{% load static %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Property Details</title>
+  <link rel="apple-touch-icon" sizes="76x76" href=" {%static 'assets/img/apple-icon.png' %}" >
+  <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <title>Property Details</title>
+  <style>
+    .form-container{
+        background-color: rgb(245, 245, 245);
+        padding: 30px;
+        margin-right: -20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px #000;
+        /* margin -100px; */
+      }
+      .header{
+        padding: 10px;
+
+      }
+
+  </style>
+
+
+
+
+</head>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+
+
+
+
+
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div class ="container-fluid">
+
+    <!-- Sidebar -->
+    {% include 'account/sidebar.html' %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+         <h3 class="card-title text-center">Property Details</h3><br>
+
+      <!-- Main Content -->
+      <div class="container">
+      <form class=" form-container" action="/account/property_details/{{lead.lead_id}}" method="POST">
+        {% csrf_token %}
+        <!-- {% csrf_token %} -->
+        <!-- <p class="card-description"> Personal info </p> -->
+
+        <!-- <div class="container"> -->
+        <h4><u>Please Select Appropriate Option From The Following</u></h4><br><br>
+
+        <select class="form-control" name="prop_type" id='prop_details'>
+          <option>Select</option>
+          <option value="Underconstruction and Buying From Builder">Property Status: Underconstruction and Buying From Builder</option>
+          <option value="Underconstruction and Buying From Seller">Property Status: Underconstruction and Buying From Seller</option>
+          <option value="Ready Possession and Buying From Builder">Property Status: Ready Possession and Buying From Builder</option>
+          <option value="Resale and Buying From Seller">Property Status: Resale and Buying From Seller</option>
+          <option value="Balance Transfer">Balance Transfer</option>
+          <option value="Balance Transfer Top Up">Balance Transfer Top Up</option>
+
+        </select>
+        <!-- <div style='display:none;' id='business'>Business Name<br />&nbsp;
+      <br />&nbsp;
+      <input type='text' class='text' name='business' value size='20' />
+      <br />
+    </div> -->
+        <br>
+        <div class="container" id="details1" style="display: none">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Name of The Builder</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" name="builder_name" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Project Name</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="proj_name">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>APF Number</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="apf_num">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>APF Approved Lender</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="apf_approved_lender">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stage of Construction</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="const_stage">
+                    <option value="Yet To Start">Yet To Start</option>
+                    <option value="Plint">Plint</option>
+                    <option value="Underconstruction">Underconstruction</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Interior Work In Progress">Interior Work In Progress</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>% of Completion</b></label>
+                <div class="col-sm-9">
+                <br>  <input type="number" class="form-control" name="per_complete">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Date of Possession</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="date" class="form-control" placeholder="DD-MM-YY" name="possession_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Total Floors</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="total_floors">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Buying on Which Floor</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="buy_floor">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>How Many Slabs Done?</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="slabs_done">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Agreement Value</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="agreement_val">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Market Value</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="market_val">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which Location</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="prop_loc">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which City</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="prop_city">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which State</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="prop_state">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Property In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="prop_in">
+                    {% for propertyin in propertyins %}
+                    <option value="{{ propertyin.property_in }}">{{ propertyin.property_in }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>CC Received</b></label>
+
+                <div class="col-sm-9">
+                  <select class="form-control" name="cc_rec">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>CC Received Upto Which Floor</b></label>
+                <div class="col-sm-9">
+                <br> <br> <input type="number" class="form-control" name="cc_rec_upto">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Municipal Approved Plan</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="municipal_approved">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Area Size</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="area_size">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Area In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_in">
+                    <option value="Sq Feet">Sq Feet</option>
+                    <option value="Sq Mtr">Sq Mtr</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-7 col-form-label"><b>Area Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_type">
+                    <option value="Carpet">Carpet</option>
+                    <option value="Built-Up">Built-Up</option>
+                    <option value="Super Built-Up">Super Built-Up</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Room Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="room_type">
+                    <option value="1RK">1RK</option>
+                    <option value="1BHK">1BHK</option>
+                    <option value="2BHK">2BHK</option>
+                    <option value="3BHK">3BHK</option>
+                    <option value="4BHK">4BHK</option>
+                    <option value="Row House">Row House</option>
+                    <option value="Bunglow">Bunglow</option>
+                    <option value="Plot">Plot</option>
+                    <option value="Jodi Flats">Jodi Flats</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Agreement Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="agreement_type">
+                    {% for agreementtype in agreementtypes %}
+                    <option value="{{ agreementtype.agreement_type }}">{{ agreementtype.agreement_type }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Paymetnt Made Till Date</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="pay_till_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty/Registration Paid</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="stamp_duty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty Amount</b></label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="stamp_duty_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Cost Sheet</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="cost_sheet">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Cost Sheet Amount</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="cost_sheet_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+        </div>
+
+        <!-- <div class="container" id="details2" style="display: none">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Name of The Builder</b></label>
+                <div class="col-sm-9">
+                  <input type="text" name="builder_name" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Project Name</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="proj_name">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>APF Number</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="apf_num">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>APF Approved Lender</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="apf_approved_lender">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stage of Construction</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="const_stage">
+                    <option value="Yet To Start">Yet To Start</option>
+                    <option value="Plint">Plint</option>
+                    <option value="Underconstruction">Underconstruction</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Interior Work In Progress">Interior Work In Progress</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>% of Completion</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="per_complete">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Date of Possession</b></label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" placeholder="DD-MM-YY" name="possession_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Total Floors</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="total_floors">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Buying on Which Floor</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="buy_floor">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>How Many Slabs Done?</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="slabs_done">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Agreement Value</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="agreement_val">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Market Value</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="market_val">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which Location</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_loc">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which City</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_city">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which State</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_state">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Property In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="prop_in">
+                    {% for propertyin in propertyins %}
+                    <option value="{{ propertyin.property_in }}">{{ propertyin.property_in }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>CC Received</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="cc_rec">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>CC Received Upto Which Floor</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="cc_rec_upto">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Municipal Approved Plan</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="municipal_approved">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Area Size</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="area_size">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Area In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_in">
+                    <option value="Sq Feet">Sq Feet</option>
+                    <option value="Sq Mtr">Sq Mtr</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Area Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_type">
+                    <option value="Carpet">Carpet</option>
+                    <option value="Built-Up">Built-Up</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Room Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="room_type">
+                    <option value="1RK">1RK</option>
+                    <option value="1BHK">1BHK</option>
+                    <option value="2BHK">2BHK</option>
+                    <option value="3BHK">3BHK</option>
+                    <option value="4BHK">4BHK</option>
+                    <option value="Row House">Row House</option>
+                    <option value="Bunglow">Bunglow</option>
+                    <option value="Plot">Plot</option>
+                    <option value="Jodi Flats">Jodi Flats</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Agreement Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="agreement_type">
+                    {% for agreementtype in agreementtypes %}
+                    <option value="{{ agreementtype.agreement_type }}">{{ agreementtype.agreement_type }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Paymetnt Made Till Date</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="pay_till_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty/Registration Paid</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="stamp_duty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty Amount</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="stamp_duty_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Cost Sheet</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="cost_sheet">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Cost Sheet Amount</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="cost_sheet_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+        </div>
+
+        <div class="container" id="details3" style="display: none">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Name of The Builder</b></label>
+                <div class="col-sm-9">
+                  <input type="text" name="builder_name" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Project Name</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="proj_name">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>APF Number</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="apf_num">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>APF Approved Lender</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="apf_approved_lender">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stage of Construction</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="const_stage">
+                    <option value="Yet To Start">Yet To Start</option>
+                    <option value="Plint">Plint</option>
+                    <option value="Underconstruction">Underconstruction</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Interior Work In Progress">Interior Work In Progress</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>% of Completion</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="per_complete">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Date of Possession</b></label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" placeholder="DD-MM-YY" name="possession_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Total Floors</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="total_floors">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Buying on Which Floor</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="buy_floor">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>How Many Slabs Done?</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="slabs_done">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Agreement Value</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="agreement_val">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Market Value</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="market_val">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which Location</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_loc">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which City</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_city">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Property In Which State</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="prop_state">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Property In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="prop_in">
+                    {% for propertyin in propertyins %}
+                    <option value="{{ propertyin.property_in }}">{{ propertyin.property_in }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>CC Received</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="cc_rec">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>CC Received Upto Which Floor</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="cc_rec_upto">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Municipal Approved Plan</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="municipal_approved">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Area Size</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="area_size">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Area In</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_in">
+                    <option value="Sq Feet">Sq Feet</option>
+                    <option value="Sq Mtr">Sq Mtr</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Area Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="area_type">
+                    <option value="Carpet">Carpet</option>
+                    <option value="Built-Up">Built-Up</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"><b>Room Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="room_type">
+                    <option value="1RK">1RK</option>
+                    <option value="1BHK">1BHK</option>
+                    <option value="2BHK">2BHK</option>
+                    <option value="3BHK">3BHK</option>
+                    <option value="4BHK">4BHK</option>
+                    <option value="Row House">Row House</option>
+                    <option value="Bunglow">Bunglow</option>
+                    <option value="Plot">Plot</option>
+                    <option value="Jodi Flats">Jodi Flats</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label"><b>Agreement Type</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="agreement_type">
+                    {% for agreementtype in agreementtypes %}
+                    <option value="{{ agreementtype.agreement_type }}">{{ agreementtype.agreement_type }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Paymetnt Made Till Date</b></label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" name="pay_till_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty/Registration Paid</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="stamp_duty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Stamp Duty Amount</b></label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="stamp_duty_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>Cost Sheet</b></label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="cost_sheet">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label><b>Cost Sheet Amount</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="cost_sheet_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+        </div> -->
+
+        <div class="container" id="details4" style="display: none">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Project Name</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="project_name">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Finance Approoved By</label>
+                <div class="col-sm-9">
+                <br>  <input type="text" class="form-control" name="finance_approved_by">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>How Old Is The Building</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="building_age">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Aggrement Value</label>
+                <div class="col-sm-9">
+                <br>  <input type="number" class="form-control" name="agree_val">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Market Value</label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="mkt_val">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Property In Which Location</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="property_loc">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label">Property In Which City</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="property_city">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Property In Which State</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="property_state">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label"><b>CC Available</b></label>
+
+                <div class="col-sm-9">
+                  <select class="form-control" name="cc_available">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                    <label class="col-sm-8 col-form-label"><b>OC Available</b></label>
+
+
+                <div class="col-sm-9">
+                  <select class="form-control" name="oc_available">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Municipal Approoved Plan Available</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="mun_approved">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Area Size</label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="areasize">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Area In</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="areain">
+                    <option value="Sq Feet">Sq Feet</option>
+                    <option value="Sq Mtr">Sq Mtr</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-7 col-form-label">Area Type</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="areatype">
+                    <option value="Carpet">Carpet</option>
+                    <option value="Built-Up">Built-Up</option>
+                    <option value="Super Built-Up">Super Built-Up</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Property Type</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="property_type">
+                    <option value="1RK">1RK</option>
+                    <option value="1BHK">1BHK</option>
+                    <option value="2BHK">2BHK</option>
+                    <option value="3BHK">3BHK</option>
+                    <option value="4BHK">4BHK</option>
+                    <option value="Row House">Row House</option>
+                    <option value="Bunglow">Bunglow</option>
+                    <option value="Plot">Plot</option>
+                    <option value="Jodi Flats">Jodi Flats</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-8 col-form-label">Agreement Type</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="agree_type">
+                    <option value="Same">Same</option>
+                    <option value="Different">Same</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Stamp Duty/Registration Paid</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="stp_duty">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Previous Agreement Available</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="prev_agree_available">
+                    <option value="Yes">Yes</option>
+                    <option value="Lost">Lost</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>If Lost Have You Given Public Notice or Duplicate Available</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="dup_available_or_notice">
+
+                </div>
+              </div>
+            </div>
+
+
+          </div><br>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Registration Done For Previous Agreement</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="reg_prev_agreement">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Concern Area</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="con_area">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Payment Made Till Date</label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="payment_till_date">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+        </div>
+
+        <div class="container" id="details5" style="display: none">
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-7 col-form-label">Bank Name</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="bnk_name">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Product / Services</label>
+                <div class="col-sm-9">
+                 <br> <input type="text" class="form-control" name="prod_services">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Loan Amount</label>
+                <div class="col-sm-9">
+                <br>  <input type="number" class="form-control" name="loan_amt">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">EMI</label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="emi">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Outstanding Amount</label>
+                <div class="col-sm-9">
+                 <br> <input type="number" class="form-control" name="outstanding_amt">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Tenure</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="tenure">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Foreclosure Letter</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="foreclosure">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>LOD Applied</label>
+                <div class="col-sm-9">
+                <br>  <input type="text" class="form-control" name="lod">
+                </div>
+              </div>
+            </div>
+          </div><br>
+        </div>
+
+
+        <!-- <div class="container" id="details6" style="display: none">
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Bank Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Product / Services</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Loan Amount</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">EMI</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Outstanding Amount</label>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Tenure </label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="tenure">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>Foreclosure Letter</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="ofreclosure">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
+                <label>LOD Applied</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div><br>
+        </div> -->
+    </div>
+
+
+  </div>
+
+  <div style="text-align:center">
+    <button class="btn btn-primary mr-3" name="cancel" type="submit">CANCEL</button>
+    <button class="btn btn-primary mr-3" name="save" type="submit">SAVE & SUBMIT</button>
+    <button class="btn btn-primary mr-3" name="next" type="submit">NEXT</button>
+    <br><br>
+  </div>
+  </form>
+  </div>
+
+  <h1> hello</h1>
+
+
+            <!-- End of Main Content -->
+
+
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+    </div>
+  </div>
+
+
+  <!-- End of Page Wrapper -->
+
+
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <script>
+  $(document).ready(function () {
+    $('#prop_details').on('change', function () {
+      if (this.value == 'Underconstruction and Buying From Builder' || this.value == 'Underconstruction and Buying From Seller' || this.value == 'Ready Possession and Buying From Builder') {
+        $("#details1").show();
+      }
+      else {
+        $("#details1").hide();
+      }
+      // if (this.value == 'Underconstruction and Buying From Seller') {
+      //   $("#details2").show();
+      // }
+      // else {
+      //   $("#details2").hide();
+      // }
+      // if (this.value == 'Ready Possession and Buying From Builder') {
+      //   $("#details3").show();
+      // }
+      // else {
+      //   $("#details3").hide();
+      // }
+      if (this.value == 'Resale and Buying From Seller') {
+        $("#details4").show();
+      }
+      else {
+        $("#details4").hide();
+      }
+      if (this.value == 'Balance Transfer' ||  this.value == 'Balance Transfer Top Up') {
+        $("#details5").show();
+      }
+      else {
+        $("#details5").hide();
+      }
+      // if (this.value == 'Balance Transfer Top Up') {
+      //   $("#details5").show();
+      // }
+      // else {
+      //   $("#details5").hide();
+      // }
+    });
+  });
+</script>
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  <!--   Core JS Files   -->
+  <script src="{% static 'assets/js/core/jquery.min.js' %} "></script>
+  <script src="{% static 'assets/js/core/popper.min.js'%} "></script>
+  <script src="{% static 'assets/js/core/bootstrap-material-design.min.js' %} "></script>
+  <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %} "></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="{%static 'assets/js/plugins/moment.min.js' %} "></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="../assets/js/plugins/sweetalert2.js"></script>
+  <!-- Forms Validations Plugin -->
+  <script src=" {% static ' assets/js/plugins/jquery.validate.min.js' %}"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src=" {% static 'assets/js/plugins/jquery.bootstrap-wizard.js' %} "></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="{% static 'assets/js/plugins/bootstrap-selectpicker.js' %} "></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src=" {% static 'assets/js/plugins/bootstrap-datetimepicker.min.js' %} "></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="{% static ' assets/js/plugins/jquery.dataTables.min.js' %}"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="{% static 'assets/js/plugins/bootstrap-tagsinput.js' %} "></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="../assets/js/plugins/fullcalendar.min.js"></script>
+  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="{% static 'assets/js/plugins/jquery-jvectormap.js' %} "></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="{% static 'assets/js/plugins/nouislider.min.js' %} "></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="{%static 'assets/js/plugins/arrive.min.js"' %} "></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chartist JS -->
+  <script src="{% static 'assets/js/plugins/chartist.min.js'%} "></script>
+  <!--  Notifications Plugin    -->
+  <script src=" {% static ' assets/js/plugins/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'assets/js/material-dashboard.js?v=2.1.2' %} " type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="{% static ' assets/demo/demo.js'%}"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+
+        $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+            $('.fixed-plugin .dropdown').addClass('open');
+          }
+
+        }
+
+        $('.fixed-plugin a').click(function(event) {
+          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .active-color span').click(function() {
+          $full_page_background = $('.full-page-background');
+
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data-color', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data-color', new_color);
+          }
+        });
+
+        $('.fixed-plugin .background-color .badge').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('background-color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data-background-color', new_color);
+          }
+        });
+
+        $('.fixed-plugin .img-holder').click(function() {
+          $full_page_background = $('.full-page-background');
+
+          $(this).parent('li').siblings().removeClass('active');
+          $(this).parent('li').addClass('active');
+
+
+          var new_image = $(this).find("img").attr('src');
+
+          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+            $sidebar_img_container.fadeOut('fast', function() {
+              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+              $sidebar_img_container.fadeIn('fast');
+            });
+          }
+
+          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+            $full_page_background.fadeOut('fast', function() {
+              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+              $full_page_background.fadeIn('fast');
+            });
+          }
+
+          if ($('.switch-sidebar-image input:checked').length == 0) {
+            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+          }
+        });
+
+        $('.switch-sidebar-image input').change(function() {
+          $full_page_background = $('.full-page-background');
+
+          $input = $(this);
+
+          if ($input.is(':checked')) {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar_img_container.fadeIn('fast');
+              $sidebar.attr('data-image', '#');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page_background.fadeIn('fast');
+              $full_page.attr('data-image', '#');
+            }
+
+            background_image = true;
+          } else {
+            if ($sidebar_img_container.length != 0) {
+              $sidebar.removeAttr('data-image');
+              $sidebar_img_container.fadeOut('fast');
+            }
+
+            if ($full_page_background.length != 0) {
+              $full_page.removeAttr('data-image', '#');
+              $full_page_background.fadeOut('fast');
+            }
+
+            background_image = false;
+          }
+        });
+
+        $('.switch-sidebar-mini input').change(function() {
+          $body = $('body');
+
+          $input = $(this);
+
+          if (md.misc.sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            md.misc.sidebar_mini_active = false;
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+          } else {
+
+            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+            setTimeout(function() {
+              $('body').addClass('sidebar-mini');
+
+              md.misc.sidebar_mini_active = true;
+            }, 300);
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+{% if request.user.is_superuser %}
+  {% extends 'base/base.html' %}
+{% else %}
+  {% extends 'base/base_non_admin_template.html' %}
+{% endif %}
+
+{% block other_css %}
+{% endblock other_css %}
+
+{% block title %}Email{% endblock title %}
+ 
+{% block other_body_css %}id="page-top"{% endblock other_body_css %}
+
+{% block other_body %}
+  <div class ="container-fluid mb-2">
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+          <div style="width:800px; margin:0 auto;">
+            <h1 class="mb-5 mt-3 display-3 text-center">Send Gmail Message</h1> 
+            <div class="row">
+              <div class="col">
+                <div class="card position-relative">
+                  <div class="card-body p-3">
+                    <form method="POST" action="wMsg" id="form" >
+                      {% csrf_token %}
+                      <div class="input-group input-group-outline mb-4">
+                          <label  for="mobile_no" class="form-label text-primary fw-bold">Email ID</label>
+                          <input type="email" name="mobile_no" id="mobile_no" class="form-control" required>
+                      </div>
+                      <div class="input-group input-group-dynamic">
+                        <textarea class="form-control" name="message" rows="1" placeholder="Message" spellcheck="false"></textarea>
+                      </div>
+                      <div class="text-center">
+                        <button class="btn btn-primary mt-4 mb-0 mx-auto" type="submit">Send</button>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock other_body %}
+
+{% block other_js %}
+{% endblock other_js %}

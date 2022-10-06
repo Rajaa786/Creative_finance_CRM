@@ -1,0 +1,780 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+{% endblock other_css %}
+
+{% block title %}Retired{% endblock title %}
+
+{% block other_body_css %}id="page-top"{% endblock other_body_css %}
+
+{% block other_body %}
+  <div class="container-fluid">
+    <div id="content-wrapper" class="d-flex flex-column">
+      <h1 class=" mt-3 mb-4 display-3 text-center">Details for Retired</h1>
+      <div class="container bg-white shadow-blur rounded">
+        <form class=" form-container" action="/account/selfemployed/{{cust.add_det_id}}" method="POST">
+          {% csrf_token %}
+          <div class="row" align="center">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label text-primary"> <b>Customer Name</b> </label>
+                <div class="col-sm-12">
+                <input type="text" value="{{cust.cust_name}}" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label text-primary"> <b>Applicant Type</b> </label>
+                <div class="col-sm-12">
+                <input type="text" value="{{cust.applicant_type}}" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!--Personal Details-->
+          <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#personalDetailsModal">
+            <b>Personal Details</b>
+          </div>
+          <div class="modal fade" id="personalDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Personal details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="dob" class="ms-0 text-primary fw-bold">Date of Birth</label>
+                          <input type="date" name="dob" id="dob" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="age" class="form-label text-primary fw-bold">Age</label>
+                        <input type="number" name="age" id="age" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label  for="mobile_no" class="form-label text-primary fw-bold"> Mobile No</label>
+                        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="mobile_no" id="mobile_no" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label  for="alt_mobile" class="form-label text-primary fw-bold">Alternate Mobile No</label>
+                        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="alt_mobile" id="alt_mobile" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label  for="email" class="form-label text-primary fw-bold">Email-id</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="address" class="form-label text-primary fw-bold mb-0">Address</label>
+                        <div class="input-group input-group-static mb-4">
+                          <textarea name="address" id="address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                          <div class="input-group input-group-static mb-4">
+                            <label for="state" class="ms-0 text-primary fw-bold col-12">State</label>
+                            <select class="form-control col-12" name="state" id="state" required>
+                              <option value="">-- Select State --</option>
+                              <option value="MAHARASHTRA">MAHARASHTRA</option>
+                              <option value="Gujarat">Gujarat</option>
+                              <option value="Telangana">Telangana</option>
+                              <option value="Karnataka">Karnataka</option>
+                              <option value="Rajasthan">Rajasthan</option>
+                              <option value="Madhya Pradesh">Madhya Pradesh</option>
+                              <option value="test2">test2</option>
+                              <option value="West Bengal">West Bengal</option>
+                              <option value="Telangana">Telangana</option>
+                            </select>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="pincode" class="ms-0 form-label text-primary fw-bold">Pincode</label>
+                        <input type="number" name="pincode" id="pincode" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="gender" class="ms-0 text-primary fw-bold col-12">Gender</label>
+                          <select class="form-control col-12" name="gender" id="gender">
+                            <option value="">-- Select Gender --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="nationality" class="ms-0 text-primary fw-bold col-12">Nationality</label>
+                          <select class="form-control col-12" name="nationality" id="nationality">
+                            <option value="">-- Select Nationality --</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Non Resident Indian">Non Resident Indian</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="nationField" class="form-label text-primary fw-bold">Country</label>
+                        <input type="text" name="nationField" id="nationField" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="enduse" class="form-label text-primary fw-bold">End-Use</label>
+                        <input type="text" name="enduse" id="enduse" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="pensioner" class="form-label text-primary fw-bold">Pensioner</label>
+                        <input type="text" name="pensioner" id="pensioner" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="Submit" class="btn bg-gradient-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Personal Details-->
+
+          <!--Income Details-->
+          <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#incomeDetailsModal">
+            <b>Income Details</b>
+          </div>
+          <div class="modal fade" id="incomeDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Income details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="company_name" class="ms-0 text-primary fw-bold">Company Name</label>
+                          <input type="text" name="company_name" id="company_name" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="bank_name" class="ms-0 text-primary fw-bold">Bank Name</label>
+                          <input type="date" name="bank_name" id="bank_name" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="net_pension" class="ms-0 text-primary fw-bold">Net Pensioin</label>
+                          <input type="number" name="net_pension" id="net_pension" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="Submit" class="btn bg-gradient-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Income Details-->
+
+          <!--Residence Details-->
+          <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#residenceDetailsModal">
+            <b>Residence Details</b>
+          </div>
+          <div class="modal fade" id="residenceDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Residence details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="currentresidence_type" class="ms-0 text-primary fw-bold col-12">Current Residence Type</label>
+                          <select class="form-control col-12" name="currentresidence_type" id="currentresidence_type">
+                            <option value="">-- Select Residence --</option>
+                            <option value="Owned">Owned</option>
+                            <option value="Rented">Rented</option>
+                            <option value="Parental">Parental</option>
+                            <option value="Co. Provided Accomodation">Co. Provided Accomodation</option>
+                            <option value="Paying Guest">Paying Guest</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label for="current_location" class="form-label text-primary fw-bold">Current Location</label>
+                        <input type="text" name="current_location" id="current_location" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="state">State</label>
+                        <input type="text" name="state" id="state" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="Submit" class="btn bg-gradient-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <!--Residence Details-->
+
+          <!--Existing Loan Details-->
+          <div class="alert alert-primary fs-4 text-white" id="ExistingLoanDetails" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#existingloanDetailModal">
+            <b>Existing Loan Details</b>
+          </div>
+          <div class="modal fade" id="existingloanDetailModal" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Existing Loan Details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="bank_name">Bank Name</label>
+                        <input type="text" name="bank_name" id="bank_name" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="product" class="ms-0 text-primary fw-bold col-12">Product/Services</label>
+                          <select class="form-control col-12" name="product" id="product">
+                            {% for product in products %}
+                              <option value={{ product.product }}>{{ product.product }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="loan_amt">Loan Amount</label>
+                        <input type="number" name="loan_amt" id="loan_amt" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="emi">EMI</label>
+                        <input type="number" name="emi" id="emi" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="roi">Rate of interest</label>
+                        <input type="text" name="roi" id="roi" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="tenure">Tenure</label>
+                        <input type="text" name="tenure" id="tenure" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="emi_start_date">EMI Start Date</label>
+                        <input type="date" name="emi_start_date" id="emi_start_date" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="emi_end_date">EMI End Date</label>
+                        <input type="date" name="emi_end_date" id="emi_end_date" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="outstanding_paid">Outstanding Paid, if any</label><!--Outstanding Paid, by Customer if any-->
+                        <input type="number" name="outstanding_paid" id="outstanding_paid" class="form-control">
+                      </div>
+                    </div>
+                    {% comment %} <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="outstanding_amt">Outstanding Amount</label>
+                        <input type="number" name="outstanding_amt" id="outstanding_amt" class="form-control">
+                      </div>
+                    </div> {% endcomment %}
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="any_bounce" class="ms-0 text-primary fw-bold col-12">Any Bounces?</label>
+                          <select class="form-control col-12" name="any_bounce" id="any_bounce">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="moratorium_taken" class="ms-0 text-primary fw-bold col-12">Moratorium Taken?</label>
+                          <select class="form-control col-12" name="moratorium_taken" id="moratorium_taken">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="applicant_type" class="ms-0 text-primary fw-bold col-12">Applicant Type</label>
+                          <select class="form-control col-12" name="applicant_type" id="applicant_type">
+                            <option value="applicant">Applicant</option>
+                            <option value="co_applicant">Co-Applicant</option>
+                            <option value="gurantor">Guarantor</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="additionalexistingLoanDetails"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="row">
+                    <div class="col-auto justify-content-start">
+                      <button class="btn btn-primary" id="additionalexistingLoanDetailsButton1" type="button" style="color:white">
+                        <i class="fas fa-plus"></i> Add Other Existing Loan Details
+                      </button>
+                    </div>
+                    <div class="col-auto">
+                      <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div class="col-auto">
+                      <button type="Submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Existing Loan Details-->
+
+          <!--Existing Card Details-->
+          <div class="alert alert-primary fs-4 text-white" id="ExistingCardDetails" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#existingcardDetailModal">
+            <b>Existing Card Details</b>
+          </div>
+          <div class="modal fade" id="existingcardDetailModal" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Existing Card Details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="bank_name">Bank Name</label>
+                        <input type="text" name="bank_name" id="bank_name" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="credit_limit">Credit Limit</label>
+                        <input type="number" name="credit_limit" id="credit_limit" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="limit_utilized">Limit Utilize</label>
+                        <input type="number" name="limit_utilized" id="limit_utilized" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="min_due">Minimum Due</label>
+                        <input type="text" name="min_due" id="min_due" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="card_due">Credit Card Age</label>
+                        <input type="number" name="card_due" id="card_due" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="pay_delay" class="ms-0 text-primary fw-bold col-12">Any Delay In Payment</label>
+                          <select class="form-control col-12" name="pay_delay" id="pay_delay">
+                            <option value="">-- Select Yes or No --</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="pay_delay_year" class="ms-0 text-primary fw-bold col-12">Year of Payment Delay</label>
+                          <select class="form-control col-12" name="pay_delay_year" id="pay_delay_year">
+                            <option value="">-- Select Year of Payment Delay --</option>
+                            <option value="last_year">Last 1 year</option>
+                            <option value="prior_year">Prior to 1 year</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="moratorium_taken" class="ms-0 text-primary fw-bold col-12">Moratorium Taken?</label>
+                          <select class="form-control col-12" name="moratorium_taken" id="moratorium_taken">
+                            <option value="">-- Select Yes or No --</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="inw_cheque_return">Inward Cheque Return Last 6 Months</label>
+                        <input type="int" name="inw_cheque_return" id="inw_cheque_return" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group input-group-outline mb-4">
+                        <label class="form-label text-primary fw-bold" for="inqin_last3months">Multiple Inquiry in Last 3 Months</label>
+                        <input type="int" name="inqin_last3months" id="inqin_last3months" class="form-control">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="additionalexistingCardDetails"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="row">
+                    <div class="col-auto justify-content-start">
+                      <button class="btn btn-primary" id="additionalexistingCardDetailsButton1" type="button" style="color:white">
+                        <i class="fas fa-plus"></i> Add Other Existing Card Details
+                      </button>
+                    </div>
+                    <div class="col-auto">
+                      <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div class="col-auto">
+                      <button type="Submit" class="btn bg-gradient-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!--Existing Card Details-->
+
+        </form>
+      </div><!--container bg-white shadow-blur rounded-->
+    </div><!--End of Content-Wrapper-->
+  </div><!--End of Container-fluid-->
+{% endblock other_body %}
+
+{% block other_js %}
+  <!--Existing Loan Details-->
+  <script>
+    $("#additionalexistingLoanDetailsButton1").click(function(){
+      // swal("One More", "Existing Loan Details is Added", "success");
+      x++; //Increment field counter
+      $('.additionalexistingLoanDetails').append(`
+        <div class="additionalexistingLoanDetails${x}">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="bank_name">Bank Name</label>
+                <input type="text" name="bank_name" id="bank_name" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="product" class="ms-0 text-primary fw-bold col-12">Product/Services</label>
+                  <select class="form-control col-12" name="product" id="product">
+                    {% for product in products %}
+                      <option value={{ product.product }}>{{ product.product }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="loan_amt">Loan Amount</label>
+                <input type="number" name="loan_amt" id="loan_amt" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="emi">EMI</label>
+                <input type="number" name="emi" id="emi" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="roi">Rate of interest</label>
+                <input type="text" name="roi" id="roi" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="tenure">Tenure</label>
+                <input type="text" name="tenure" id="tenure" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="emi_start_date">EMI Start Date</label>
+                <input type="date" name="emi_start_date" id="emi_start_date" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="emi_end_date">EMI End Date</label>
+                <input type="date" name="emi_end_date" id="emi_end_date" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="outstanding_paid">Outstanding Paid, if any</label>
+                <input type="number" name="outstanding_paid" id="outstanding_paid" class="form-control">
+              </div>
+            </div>
+            {% comment %} <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="outstanding_amt">Outstanding Amount</label>
+                <input type="number" name="outstanding_amt" id="outstanding_amt" class="form-control">
+              </div>
+            </div> {% endcomment %}
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="any_bounce" class="ms-0 text-primary fw-bold col-12">Any Bounces?</label>
+                  <select class="form-control col-12" name="any_bounce" id="any_bounce">
+                    <option value="">-- Select Yes or No --</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="moratorium_taken" class="ms-0 text-primary fw-bold col-12">Moratorium Taken?</label>
+                  <select class="form-control col-12" name="moratorium_taken" id="moratorium_taken">
+                    <option value="">-- Select Yes or No --</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="applicant_type" class="ms-0 text-primary fw-bold col-12">Applicant Type</label>
+                  <select class="form-control col-12" name="applicant_type" id="applicant_type">
+                    <option value="">-- Select Applicant Type --</option>
+                    <option value="applicant">Applicant</option>
+                    <option value="co_applicant">Co-Applicant</option>
+                    <option value="gurantor">Guarantor</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="text-align:left">
+                <button class="btn btn-primary mr-3 removeexistingLoanDetails1${x}Button1 " onclick="removeexistingLoanDetails1('additionalexistingLoanDetails${x}')" >
+                  <i class="fas fa-window-close fa-lg"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `); //Add field html
+    });
+    function removeexistingLoanDetails1(parentclass){
+      // swal("Additional Existing Loan Details", "have been deleted", "warning");
+      $("."+`${parentclass}`).remove();
+    }
+  </script>
+
+  <!--Existing Card Details-->
+  <script>
+    $("#additionalexistingCardDetailsButton1").click(function(){
+      // swal("One More", "Existing Card Details is Added", "success");
+      x++; //Increment field counter
+      $('.additionalexistingCardDetails').append(`
+        <div class="additionalexistingCardDetails${x}">
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="bank_name">Bank Name</label>
+                <input type="text" name="bank_name" id="bank_name" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="credit_limit">Credit Limit</label>
+                <input type="number" name="credit_limit" id="credit_limit" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="limit_utilized">Limit Utilize</label>
+                <input type="number" name="limit_utilized" id="limit_utilized" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="min_due">Minimum Due</label>
+                <input type="text" name="min_due" id="min_due" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="card_due">Credit Card Age</label>
+                <input type="number" name="card_due" id="card_due" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="pay_delay" class="ms-0 text-primary fw-bold col-12">Any Delay In Payment</label>
+                  <select class="form-control col-12" name="pay_delay" id="pay_delay">
+                    <option value="">-- Select Yes or No --</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="pay_delay_year" class="ms-0 text-primary fw-bold col-12">Year of Payment Delay</label>
+                  <select class="form-control col-12" name="pay_delay_year" id="pay_delay_year">
+                    <option value="">-- Select Year of Payment Delay --</option>
+                    <option value="last_year">Last 1 year</option>
+                    <option value="prior_year">Prior to 1 year</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="input-group input-group-static mb-4">
+                  <label for="moratorium_taken" class="ms-0 text-primary fw-bold col-12">Moratorium Taken?</label>
+                  <select class="form-control col-12" name="moratorium_taken" id="moratorium_taken">
+                    <option value="">-- Select Yes or No --</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="inw_cheque_return">Inward Cheque Return Last 6 Months</label>
+                <input type="int" name="inw_cheque_return" id="inw_cheque_return" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group input-group-outline mb-4">
+                <label class="form-label text-primary fw-bold" for="inqin_last3months">Multiple Inquiry in Last 3 Months</label>
+                <input type="int" name="inqin_last3months" id="inqin_last3months" class="form-control">
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>      
+      `); //Add field html
+    });
+    function remmoveexistingCardDetails1(parentclass){
+      // swal("Additional Existing Card Details", "have been deleted", "warning");
+      $("."+`${parentclass}`).remove();
+    }
+  </script>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin-2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+{% endblock other_js %}

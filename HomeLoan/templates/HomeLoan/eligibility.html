@@ -1,0 +1,70 @@
+{% extends 'base/base.html'%}
+{%block title%}Customer's Eligibility {%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <h3 class="card-title text-center header"> Bank Details</h3>
+
+        {% for key, value in display.items %}
+        <h3>{{key}}</h3>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Bank</th>
+                <th>Tenure (in months)</th>
+                <th>Total Income</th>
+                <th>Total Income Eligibility</th>
+                <th>Rate of Interest</th>
+                <th>Per Lac EMI</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for key1, value1 in value.items %}
+            <tr>
+                <td><b>{{key1}}</b></td>
+                {% if value1 == 0 %}
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                {% else %}
+                    {% for key3, value3 in value1.items %}
+                    <td>{{value3}}</td>
+                    {%endfor%}
+                {% endif %}
+
+            </tr>
+            {%endfor%}
+        </tbody>
+
+
+    </table>
+    {%endfor%}
+    <br><br>
+
+    <h2>Total Loan Approved</h2>
+    {% for key, value in loan_approved.items %}
+    <b>{{key}}</b> : {{value}} <br>
+    {%endfor%}
+
+    <h2>Total EMI to be paid</h2>
+    {% for key, value in total_emi.items %}
+    <b>{{key}}</b> : {{value}} <br>
+    {%endfor%}
+
+    <br><br>
+    <h2>Remarks:</h2>
+    {% for key, value in remarks.items %}
+    <h3>{{key}}:</h3>
+    {% for keys, values in value.items %}
+    <b>{{keys}}:</b><br>
+    {% for e in values %}
+    {{e}}<br>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+
+        </div>
+    </div>
+{%endblock other_body%}

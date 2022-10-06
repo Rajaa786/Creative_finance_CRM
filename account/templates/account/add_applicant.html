@@ -1,0 +1,70 @@
+<form class="form-container" method = "POST" action = {% url 'additionaldetails' id=lead_id %} id = "applicant_details" >
+    {% csrf_token %}
+    <div class = "row mt-2 ml-0">
+      <div class = "col-12">
+        <div class="form-check ps-0">
+          {{form.is_diff}}
+          <label class="custom-control-label" for="customCheck1">Is Customer and Contact Person Different ? </label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 mb-2" id = "contactperson" style = "display : none;">
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label  class="ms-0 text-primary fw-bold">Contact Person Name</label>
+            {{form.con_person_name}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label  class="ms-0 text-primary fw-bold">Contact Person Phone</label>
+            {{form.con_person_phone}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-3">
+          <label class="ms-0 text-primary fw-bold">Customer Name</label>
+          {{form.cust_name}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-3">
+          <label class="ms-0 text-primary fw-bold">Applicant Type</label>
+          {{form.applicant_type}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label  class="ms-0 text-primary fw-bold">Income Holder</label>
+          {{form.inc_holder}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label  class="ms-0 text-primary fw-bold">Customer Type</label>
+            {{form.cust_type}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label  class="ms-0 text-primary fw-bold">Relation</label>
+          {{form.relation}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label class="ms-0 text-primary fw-bold">Contact No </label>
+          {{form.con_phone}}
+        </div>
+      </div>
+    </div>  
+  
+    <div style="text-align:center">
+      {% comment %} <button class="btn btn-primary" name="cancel" type="submit">Cancel</button> {% endcomment %}
+      <button class="btn btn-primary" name="save" type="submit">Save & Submit</button>
+    </div>
+  </form>

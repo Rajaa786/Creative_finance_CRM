@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{%block title%}Underconstruction Buying from Builder {% endblock title %}
+{% block other_body_css %}id="page-top"{% endblock other_body_css %} 
+{% block other_body %}
+<div class="container mb-0">
+    <div class="mb-3 card-body bg-white rounded shadow-blur">
+        <div class="row justify-content-center mb-5 mt-3">
+            <div class="col-auto">
+                <h1 class="display-6 text-gray-800">ReadyPossession Buying from Seller</h1>
+            </div>
+        </div>
+        <form class ="form-container" action = "{% url 'property_type_1' id=lead_id %}" method = "POST">
+            {% csrf_token %} 
+            <div class = "row g-4 p-4">
+                {% for field in form %}
+                    <div class="col-sm-4" id = "{{field.label}}">
+                        <div class="input-group input-group-static">
+                            <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div style="text-align:center">
+                {% comment %} <button class="btn btn-primary" name="cancel" type="submit">Cancel</button> {% endcomment %}
+                <button class="btn btn-primary" name="next" type = "submit">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock other_body %}
+{% block other_js %}
+<script>
+   if($("#id_car_parking").val() != "True"){
+    $("#id_car_parking_amt").val("");
+    document.getElementById("Car parking amt").style['display']="none";
+    $("#id_car_parking_amt").attr('required', 'false');
+   }
+
+   if($('#id_stamp_duty_registration_paid').val() != "True"){
+       $("#id_stamp_duty_amt").val("");
+       document.getElementById("Stamp duty amt").style['display']="none";
+       $("#id_stamp_duty_amt").attr('required', '');
+   }
+
+   if($('#id_oc_rec').val() != "True"){
+       $("#id_oc_rec_floor").val("");
+       $("#id_oc_rec_floor").attr('required', '');
+       document.getElementById("Oc rec floor").style['display']="none";
+   }
+
+   $(document).on('change','#id_oc_rec',function(){
+        if ($(this).val() == "True"){
+            document.getElementById("Oc rec floor").style['display']="";
+            $("#id_oc_rec_floor").attr('required', 'required');
+        }
+        else{
+            $("#id_oc_rec_floor").val("");
+            document.getElementById("Oc rec floor").style['display']="none";
+            $("#id_oc_rec_floor").attr('required', '');
+
+        }
+    });
+
+   $(document).on('change','#id_car_parking',function(){
+        if ($(this).val() == "True"){
+            document.getElementById("Car parking amt").style['display']="";
+            $("#id_car_parking_amt").attr('required', 'required');
+        }
+        else{
+            $("#id_car_parking_amt").val("");
+            document.getElementById("Car parking amt").style['display']="none";
+            $("#id_car_parking_amt").attr('required', '');
+
+        }
+    });
+
+    $(document).on('change','#id_stamp_duty_registration_paid',function(){
+        if ($(this).val() == "True"){
+            document.getElementById("Stamp duty amt").style['display']="";
+            $("#id_stamp_duty_amt").attr('required', 'required');
+        }
+        else{
+            $("#id_stamp_duty_amt").val("");
+            document.getElementById("Stamp duty amt").style['display']="none";
+            $("#id_stamp_duty_amt").attr('required', '');
+
+        }
+    });
+
+
+</script>
+{% endblock other_js %}

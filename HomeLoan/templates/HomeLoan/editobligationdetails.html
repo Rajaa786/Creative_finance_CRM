@@ -1,0 +1,20 @@
+{% include 'base/messages.html' %}
+{% load static %}
+
+<form method="POST" action="{% url 'EditObligationDetails' %}" id="hlobligationdetailsform" name='obligationform'>
+    {% csrf_token %}
+    <div class="row g-4 p-4">
+        {% for field in hl_obligations_form %}
+                <div class="col-sm-4 mb-2">
+                    <div class="input-group input-group-static">
+                        <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                        {{ field }}
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+    <input type = "hidden" name = "id" id = "hidden_id_obligation_details">
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+</form>

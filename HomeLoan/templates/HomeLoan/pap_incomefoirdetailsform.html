@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Income Foir Details {% endblock title %}
+
+{% block other_body %}
+<h1 class="mb-5 mt-3 display-3 text-center text-dark">Income Foir Details</h1>
+    <div class="container" style="width:95%; margin:25px auto;">
+        <div class = "table-responsive text-center my-3 bg-white rounded p-5 shadow-blur">
+            <table class = 'table'>
+              <thead>
+                <tr>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Min Income Foir </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Max Income Foir </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Income Foir Percentage </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for income_foir_details in income_foir_instances %}
+                  <tr>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.min_income_foir}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.max_income_foir}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.income_foir_percentage}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>
+                        <a href = {% url 'DeleteIncomeFoirDetails' id=income_foir_details.pk %} ><i class="fas fa-trash"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        <form action={% url 'ProductsAndPolicyIncomeFoirDetails' id=id %} method="POST" class="bg-white rounded p-5 pb-0 shadow-blur">
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in income_foir_details_form %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a type="button" name='next' href="{% url 'ProductsAndPolicyObligationDetails' id=id %}" class="btn btn-primary">Next</a>
+            </div>
+        </form>
+    </div>
+{% endblock other_body%}

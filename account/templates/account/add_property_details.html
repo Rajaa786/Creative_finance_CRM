@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %} 
+{% load static %} 
+
+{% block other_css %}
+{% endblock other_css %} 
+
+{% block title %}Property Details{% endblock title %}
+
+{% block other_body_css %}id="page-top"{% endblock other_body_css %} 
+{% block other_body %}
+<div class="container mb-0">
+  <div class="mb-3 card-body bg-white rounded shadow-blur">
+        <div class="row justify-content-center mb-5 mt-3">
+            <div class="col-auto">
+                <h1 class="display-6 text-gray-800">Property Details</h1>
+            </div>
+        </div>
+        <div class="card z-index-2 pb-3 mb-5">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <div class="row">
+                        <div class="col">
+                        <a  href = "{% url 'property_type_1' id=lead_id %}"
+                            role="button"
+                            aria-expanded="false"
+                            id="addapplicant">
+                            <h4 class="card-title fw-bold text-light">Underconstruction Buying from Builder</h4>
+                            <p class="card-category fw-bold text-light mb-0">
+                                From Builder
+                            </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card z-index-2 pb-3 mb-5">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <div class="row">
+                        <div class="col">
+                        <a  href = "{% url 'property_type_2' id=lead_id %}"
+                            role="button"
+                            aria-expanded="false"
+                            id="addapplicant">
+                            <h4 class="card-title fw-bold text-light">Underconstruction Buying from Seller</h4>
+                            <p class="card-category fw-bold text-light mb-0">
+                                From Builder
+                            </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card z-index-2 pb-3 mb-5">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <div class="row">
+                        <div class="col">
+                        <a  href = "{% url 'property_type_3' id=lead_id %}"
+                            role="button"
+                            aria-expanded="false"
+                            id="addapplicant">
+                            <h4 class="card-title fw-bold text-light">ReadyPossession Buying from Builder</h4>
+                            <p class="card-category fw-bold text-light mb-0">
+                                From Builder
+                            </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card z-index-2 pb-3 mb-5">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <div class="row">
+                        <div class="col">
+                        <a  href = "{% url 'property_type_4' id=lead_id %}"
+                            role="button"
+                            aria-expanded="false"
+                            id="addapplicant">
+                            <h4 class="card-title fw-bold text-light">ReadyPossession Buying from Seller</h4>
+                            <p class="card-category fw-bold text-light mb-0">
+                                From Builder
+                            </p>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div style="text-align:center">
+            {% comment %} <button class="btn btn-primary" name="cancel" type="submit">Cancel</button> {% endcomment %}
+            <a href="{% url 'add_applicant_additional_details' id=lead_id %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Next</a>
+        </div>
+  </div>
+</div>
+{% endblock other_body %}

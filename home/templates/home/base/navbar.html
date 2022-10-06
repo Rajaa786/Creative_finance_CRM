@@ -1,0 +1,70 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-gradient-warning">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'material_2_pro_assets/img/brand_logo.jpg' %}" alt="brand_logo" class="img-fluid rounded"/>
+        </a>
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars fa-2x"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 mx-auto text-dark">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><span style="color: black;">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"><span style="color: black;">About Us</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span style="color: black;">Services</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Know your Eligibility</a></li>
+                        <li><a class="dropdown-item" href="#">Free Consultation</a></li>
+                        <li><a class="dropdown-item" href="#">Join as a Partner</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"><span style="color: black;">Contact Us</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"><span style="color: black;">Blog</span></a>
+                </li>
+                <li class="nav-item mr-5 list-unstyled">
+                    <a class="nav-link" href="tel:8828824242">
+                        <strong>
+                            <span style="color: black;">
+                                <i class="fas fa-phone-alt"></i> 
+                            </span>
+                            <span style="color: black;">8828824142</span>
+                        </strong>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span style="color: black;">More</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'register' %}">Join As A Partner</a></li>
+                        <li><a class="dropdown-item" href="#">Services</a></li>
+                        <li><a class="dropdown-item" href="#">Apply For A Loan</a></li>
+                        <li><a class="dropdown-item" href="#">Get Insurance</a></li>
+                        <li><a class="dropdown-item" href="#">Book A Property</a></li>
+                        <li><a class="dropdown-item" href="#">Calculators</a></li>
+                        <li><a class="dropdown-item" href="#">Download Checklist</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'register' %}"><span style="color: black;">Register</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'login' %}"><span style="color: black;">Login</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

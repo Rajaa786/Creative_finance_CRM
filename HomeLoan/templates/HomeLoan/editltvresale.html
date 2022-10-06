@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Towards Valuation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .form-container{
+          background-color: rgb(245, 245, 245);
+          padding: 30px;
+          margin-right: -20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px 0px #000;
+          /* margin -100px; */
+        }
+        .header{
+          padding: 10px;
+          
+        }
+        
+      </style>
+</head>
+<body>
+    <div class ="container-fluid">
+
+        <!-- Sidebar -->
+        {% include 'account/sidebar.html' %}
+
+        <div class="container" style="width:800px; margin:0 auto;">
+            <h3 class="card-title text-center header"> Ltv Resale</h3>
+            
+            
+            <form class="form-container" action={% url 'PPeditLtvResale' ppid=product.prod_id ltvresaleid=ltvresale.ltv_id %} method="POST">
+                {% csrf_token %}
+                <div class="form-group row"></div>
+                
+                    
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Minmum Amount</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.min_amount }}' name="min_amount">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Maximum Amount</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.max_amount }}' name="max_amount">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Rbi Guidelines</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.rbi_guidelines }}' name="rbi_guidelines">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Document Cost</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.doccument_cost }}' name="doccument_cost">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Additional</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.additional }}' name="additional">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Rbi Guidelines</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.rbi_guidelines }}' name="rbi_guidelines">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Car Parking</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.car_parking }}' name="car_parking">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Total</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.total }}' name="total">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>Market Value</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.market_value }}' name="market_value">
+                            </div>
+                    </div>
+
+                    <div class="col-12 md-6 sm-4"> 
+                        <label class="col-sm-5 col-form-label"> <b>AV Capping</b> </label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control" value='{{ ltvresale.av_capping }}' name="av_capping">
+                            </div>
+                    </div>
+
+                   
+                    
+                
+                <br>
+                
+                    <div style="text-align:center">
+                        
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+            
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

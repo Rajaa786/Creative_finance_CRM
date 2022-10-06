@@ -1,0 +1,154 @@
+{% extends 'base/base.html'%}
+{%block title%}Income Details{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPincome' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Gross Salaray</b> </label>
+                        <input type="text" class="form-control" name="gross_sal">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Net Salary</b> </label>
+                        <input type="text" class="form-control" name="net_sal">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus</b> </label>
+                        <input type="text" class="form-control" name="bonus">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Yearly</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_yearly">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Yearly Percent</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_yearly_percent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Quaterly</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_qtr">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Quaterly Percent</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_qtr_percent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Half Yearly</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_half_yearly">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bonus Average Half Yearly Percent</b> </label>
+                        <input type="text" class="form-control" name="bonus_avg_half_yearly_percent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Rent Income</b> </label>
+                        <input type="text" class="form-control" name="rent_income">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Rent Income Type</b> </label>
+                        <input type="text" class="form-control" name="rent_agreement_type">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Bank Reference</b> </label>
+                        <input type="text" class="form-control" name="bank_ref">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Rent Reference In Bank</b> </label>
+                        <input type="text" class="form-control" name="rent_ref_in_bank">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Rent Increment Percent</b> </label>
+                        <input type="text" class="form-control" name="rent_inc_percent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Future Rent</b> </label>
+                        <input type="text" class="form-control" name="fut_rent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Future Rent Percent </b> </label>
+                        <input type="text" class="form-control" name="fut_rent_percent">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Incentive</b> </label>
+                        <input type="text" class="form-control" name="incentive">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Incentive Average Months</b> </label>
+                        <input type="text" class="form-control" name="incen_avg_months">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Incentive Percent</b> </label>
+                        <input type="text" class="form-control" name="incen_percent">
+                    </div>
+                </div>
+                    
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Coapplicant No </b> </label>
+                        <input type="text" class="form-control" name="coApplicant_No_Income_only_Rent_income">
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}
+    

@@ -1,0 +1,50 @@
+
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <h3 class="card-title text-center header"> Property Details</h3>
+            <form class="form-container" action={% url 'PPProperty' ppid=product.prod_id %} method="POST">
+                {% csrf_token %}
+                <div class="row"></div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Builder Category</b> </label>
+                            <input type="text" class="form-control" name="builder_cat">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Occupation Certificate</b> </label>
+                            <input type="text" class="form-control" name="occupation_certi">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Previous Agreement</b> </label>
+                            <input type="text" class="form-control" name="prev_agreement">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Sub Scheme</b> </label>
+                            <input type="text" class="form-control" name="sub_scheme">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Percentage Completion</b> </label>
+                            <input type="text" class="form-control" name="perc_completion">
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+{%endblock other_body%}
+

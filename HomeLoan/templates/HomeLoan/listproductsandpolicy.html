@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+  <style>
+    .form-container{
+      background-color: rgb(245, 245, 245);
+      padding: 30px;
+      margin-right: -20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px #000;
+      /* margin -100px; */
+    }
+    .header{
+      padding: 10px;
+      
+    }
+  </style>
+{% endblock other_css %}
+
+{% block title %}Add Products And Policy{% endblock title %}
+
+{% block other_body %}
+  <div class ="container-fluid">
+    <div class="row justify-content-center mb-5 mt-3">
+      <div class="col-auto">
+        <h1 class="display-3 text-center">Product & Policy</h1> 
+      </div>
+    </div>
+    <div class="card" style='width:80%; margin:0px auto;'>
+        <div class="card-header py-3">
+          <a href={% url 'AddProductsAndPolicy' action='add' %} class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Add Product & Policy</span>
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered sortable" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Edit</th>
+                  <th>Product & Policy ID</th>
+                  <th>Bank Name</th>
+                  <th>Product Name</th>
+                  <th>Effective Date</th>
+                  <th>Ineffective Date</th>
+                  <th>Turn to ineffective</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in ProductsAndPolicy %}
+                  <tr class="item">
+                    <td>{{product.prod_id}}</td>
+                    <td>
+                      <a href={% url 'ProductsAndPolicyReviewOrEdit' id=product.prod_id %}>
+                        <span class="icon text-black-50">
+                          <i class="fas fa-edit"></i>
+                        </span>
+                      </a>
+                    </td>
+                    <td>{{ product.bank_name.bank_name|slice:":3"|upper }}{{ product.prod_name.product|slice:":3"|upper }}</td>
+                    <td>{{product.bank_name.bank_name}}</td>
+                    <td>{{product.prod_name.product}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock other_body %}

@@ -1,0 +1,52 @@
+{% extends 'base/base.html'%}
+{%block title%}New Age Details  for {{ product.bank_id.bank_name|slice:":3"|upper }}{{ product.prod_name|slice:":3"|upper }}{%endblock title%}
+{%block other_body%}
+    <div class="container" style="width:800px; margin:0 auto;">
+       
+        
+        
+        <form class="form-container" action={% url 'PPAge' ppid=product.prod_id %} method="POST">
+            {% csrf_token %}
+            <div class="row"></div>
+            
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Minimum Age</b> </label>
+                            <input type="text" class="form-control" name="min_age">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                        <label class="form-label"> <b>Retire Age</b> </label>
+                        <input type="text" class="form-control" name="retire_age">
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Maximum Age Considered Others</b> </label>
+                        <input type="text" class="form-control" name="max_age_consi_others">
+                    </div>
+                </div>
+
+                <div class="col-md-6"> 
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label"> <b>Maximum Age Considered Goverment </b> </label>
+                        <input type="text" class="form-control" name="max_age_consi_gov">
+                    </div>
+                </div>
+
+                
+
+                
+            
+            <br>
+            
+                <div style="text-align:center">
+                    
+                    <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+        
+                </div>
+            
+        </form>
+    </div>
+{%endblock other_body%}

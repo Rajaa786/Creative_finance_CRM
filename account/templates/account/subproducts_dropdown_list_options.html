@@ -1,0 +1,4 @@
+<option value="">-- Select Sub-Products --</option>
+{% for subproduct in subproducts %}
+    <option value="{{ subproduct.pk }}">{{subproduct.sub_product}}</option>
+{% endfor %}

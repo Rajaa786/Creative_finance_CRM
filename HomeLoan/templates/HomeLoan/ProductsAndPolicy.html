@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{%block title%}Add Products And Policy{% endblock title %}
+
+{%block other_body%}
+    <h1 class="mb-5 mt-3 display-3 text-center text-dark">Product & Policy Details {{i}}</h1>
+    <div class="container" style="width:95%; margin:25px auto;">
+        <form action={% url 'AddProductsAndPolicy' action=action %} method="POST" class="bg-white rounded p-5 shadow-blur" id = "productandpolicyform"  data-subproducts-url = "/homeloan/ajax/subproducts/">
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in ProductsandPolicy %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Save & Next</button>
+            </div>
+        </form>
+    </div>
+{%endblock other_body%}
+
+{% block other_js %}
+  <script>
+    $("#id_prod_name").change(function() {
+        const url = $("#productandpolicyform").attr("data-subproducts-url");
+        const productid = $(this).val();
+
+        $.ajax({
+          url : url ,
+          type:'GET',
+          data:{
+            'product_id' : productid
+          },
+          datatype:'JSON',
+          success : function(data){
+            $("#id_sub_product").html(data);
+          },
+          error:function(error){
+            console.log(error);
+          }
+        });
+      });
+  </script>
+{% endblock other_js %}
+

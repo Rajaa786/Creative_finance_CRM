@@ -1,0 +1,791 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Products And Policy{% endblock title %}
+
+{% block other_body %}
+  <div class ="container-fluid">
+    <h1 class=" mt-3 mb-4 display-3 text-center">Review or Edit</h1> 
+    <div class="container bg-white shadow-blur rounded mb-4" style="width: 95%;margin:auto; padding:25px">
+      <div class="row" align="center">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label for="productname" class="col-sm-12 col-form-label text-primary"> <b>Product Name</b> </label>
+            <div class="col-sm-12">
+              <b>{{product_and_policy_instance.prod_name.product}}</b>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label for="Bank Name" class="col-sm-12 col-form-label text-primary"> <b>Bank Name</b> </label>
+            <div class="col-sm-12">
+              <b>{{product_and_policy_instance.bank_name.bank_name}}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#ProductAndPolicy" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Product & Policy</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="ProductAndPolicy">
+          <form method="POST" action="{% url 'ProductsAndPolicyCibilDetails' id=id %}" >
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in product_and_policy_form %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#BasicDetails" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Basic Details</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="BasicDetails">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for basic_details in hl_basicdetails_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{basic_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{basic_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if basic_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "basic_details_ineffective_and_update" data-basic_details_id = {{basic_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "basic_details_view_or_edit" data-basic_details_id = {{basic_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "basic_details_form">
+          </div>
+        </div> 
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#CibilDetails" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Cibil Details</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="CibilDetails">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cibil_details in hl_cibil_details_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{cibil_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{cibil_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if cibil_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "cibil_details_ineffective_and_update" data-cibil_details_id = {{cibil_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "cibil_details_view_or_edit" data-cibil_details_id = {{cibil_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "cibil_details_form">
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#OtherDetails" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Other Details</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="OtherDetails">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for other_details in hl_other_details_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{other_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{other_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if other_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "other_details_ineffective_and_update" data-other_details_id = {{other_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "other_details_view_or_edit" data-other_details_id = {{other_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "other_details_form">
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#Obligations" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Obligations</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="Obligations">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for obligation_details in hl_obligations_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{obligation_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{obligation_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if obligation_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "obligation_details_ineffective_and_update" data-obligation_details_id = {{obligation_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "obligation_details_view_or_edit" data-obligation_details_id = {{obligation_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "obligation_details_form">
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#Property" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Property</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="Property">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for property_details in hl_property_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{property_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{property_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if property_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "property_details_ineffective_and_update" data-property_details_id = {{property_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "property_details_view_or_edit" data-property_details_id = {{property_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "property_details_form">
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#Income" role="button" aria-expanded="false" aria-controls="Qualification">
+                  <h4 class="card-title fw-bold text-light">Income</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="Income">
+          <div class = "table-responsive text-center my-2">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">effective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">ineffective date </th>
+                  <th class = "text-uppercase text-secondary text-md font-weight-bolder ps-3">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for income_details in hl_income_instance %}
+                  <tr>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{income_details.effective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">{{income_details.ineffective_date}}</td>
+                    <td class = "text-secondary text-md font-weight-bolder ps-3">
+                      {% if income_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "income_details_ineffective_and_update" data-income_details_id = {{income_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "income_details_view_or_edit" data-income_details_id = {{income_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = "income_details_form">
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#IncomeFoir" role="button" aria-expanded="false" aria-controls="IncomeFoir">
+                  <h4 class="card-title fw-bold text-light">Income Foir</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="IncomeFoir">
+          <span class = "btn btn-primary my-4 mx-4 pd-3" role="button" aria-pressed="true" onclick = "$('#income_foir_new_form').toggle()">Add New Range</span>
+          <div class = "table-responsive">
+            <table class = 'table'>
+              <thead>
+                <tr>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Min Income Foir </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Max Income Foir </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Income Foir Percentage </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>effective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>ineffective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for income_foir_details in hl_income_foir_instance %}
+                  <tr>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.min_income_foir}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.max_income_foir}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.income_foir_percentage}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.effective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{income_foir_details.ineffective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>
+                      {% if income_foir_details.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "income_foir_details_ineffective_and_update" data-income_foir_details_id = {{income_foir_details.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "income_foir_details_view_or_edit" data-income_foir_details_id = {{income_foir_details.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div id = 'income_foir_new_form'>
+            <form method="POST" action="{% url 'ProductsAndPolicyIncomeFoirDetails' id=id %}" id="hlincomefoirdetailsform">
+              {% csrf_token %}
+              <input type = 'hidden' name = 'url' value = 'something'>
+              <div class="row g-4 p-4">
+                  {% for field in hl_incomefoirdetails_form %}
+                          <div class="col-sm-4 mb-2">
+                              <div class="input-group input-group-static">
+                                  <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                  {{ field }}
+                              </div>
+                          </div>
+                  {% endfor %}
+              </div>
+              <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Update</button>
+              </div>
+            </form>
+          </div>
+          <div id = 'income_foir_details_form'>
+          </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#LoanToValueType1" role="button" aria-expanded="false" aria-controls="LoanToValueType1">
+                  <h4 class="card-title fw-bold text-light">Loan To Value Type 1</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="LoanToValueType1">
+          {% comment %} <form method="POST" action="{% url 'ProductsAndPolicyCibilDetails' id=id %}" >
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in hl_loan_to_value_type_1_form %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+          </form> {% endcomment %}
+          <div class = "table-responsive">
+            <table class = 'table'>
+              <thead>
+                <tr>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Effective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Ineffective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for hltvt1i in hl_loan_to_value_type_1_instance %}
+                  <tr>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{hltvt1i.effective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{hltvt1i.ineffective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>
+                      {% if hltvt1i.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "hltvt1i_ineffective_and_update" data-hltvt1i_id = {{hltvt1i.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "hltvt1i_view_or_edit" data-hltvt1i_id = {{hltvt1i.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        <div id = "loan_to_value_type_1">
+        </div>
+        </div>
+      </div>
+      <div class="card z-index-2 my-5">
+        <div class="card-header p-0 position-relative mt-n4 z-index-2 bg-transparent">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+            <div class="row">
+              <div class="col">
+                <a data-bs-toggle="collapse" href="#LoanToValueType2" role="button" aria-expanded="false" aria-controls="LoanToValueType2">
+                  <h4 class="card-title fw-bold text-light">Loan To Value Type 2</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse" id="LoanToValueType2">
+          {% comment %} <form method="POST" action="{% url 'ProductsAndPolicyCibilDetails' id=id %}" >
+            {% csrf_token %}
+            <div class="row g-4 p-4">
+                {% for field in hl_loan_to_value_type_2_form %}
+                        <div class="col-sm-4 mb-2">
+                            <div class="input-group input-group-static">
+                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+          </form> {% endcomment %}
+          <div class = "table-responsive">
+            <table class = 'table'>
+              <thead>
+                <tr>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Effective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Ineffective date </th>
+                  <th class = 'text-secondary text-md font-weight-bolder ps-3'>Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for hltvt2i in hl_loan_to_value_type_2_instance %}
+                  <tr>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{hltvt2i.effective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>{{hltvt2i.ineffective_date}}</td>
+                    <td class = 'text-secondary text-md font-weight-bolder ps-3'>
+                      {% if hltvt2i.effective_date %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "hltvtli2_ineffective_and_update" data-hltvt2i_id = {{hltvt2i.pk}}>Make It Ineffective And Edit</span>
+                      {% else %}
+                        <span class="btn btn-primary " role="button" aria-pressed="true" id = "hltvtli2_view_or_edit" data-hltvt2i_id = {{hltvt2i.pk}}>View And Edit</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        <div id = "loan_to_value_type_2">
+        </div>
+        </div>
+      </div>
+      <div class="text-center my-3">
+        <button class="btn btn-primary" type="submit" href = {%url 'SubmitProductAndPolicy' id=id%}>Submit</button>
+      </div>
+    </div>
+  </div>
+{% endblock other_body %}
+
+{% block other_js %}
+<script>
+  $('#income_foir_new_form').hide();
+  $(document).on('click', '#basic_details_view_or_edit', function(){
+    $.ajax({
+      url: "{% url 'EditBasicDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-basic_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#basic_details_form').html(data);
+        $('#hidden_id_basic_details').val($('#basic_details_view_or_edit').attr('data-basic_details_id'));
+      }
+    }
+  );});
+  $(document).on('click', '#basic_details_ineffective_and_update', function(){
+    $.ajax({
+      url: "{% url 'EditBasicDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-basic_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#basic_details_form').html(data);
+        $('#hidden_id_basic_details').val($('#basic_details_ineffective_and_update').attr('data-basic_details_id'));
+      }
+
+    })
+  }); 
+  $(document).on('click','#obligation_details_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditObligationDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-obligation_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#obligation_details_form').html(data);
+        $('#hidden_id_obligation_details').val($('#obligation_details_ineffective_and_update').attr('data-obligation_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#obligation_details_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditObligationDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-obligation_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#obligation_details_form').html(data);
+        $('#hidden_id_obligation_details').val($('#obligation_details_view_or_edit').attr('data-obligation_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#cibil_details_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditCibilDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-cibil_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#cibil_details_form').html(data);
+        $('#hidden_id_cibil_details').val($('#cibil_details_ineffective_and_update').attr('data-cibil_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#cibil_details_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditCibilDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-cibil_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#cibil_details_form').html(data);
+        $('#hidden_id_cibil_details').val($('#cibil_details_view_or_edit').attr('data-cibil_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#property_details_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditPropertyDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-property_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#property_details_form').html(data);
+        $('#hidden_id_property_details').val($('#property_details_ineffective_and_update').attr('data-property_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#property_details_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditPropertyDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-property_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#property_details_form').html(data);
+        $('#hidden_id_property_details').val($('#property_details_view_or_edit').attr('data-property_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#income_details_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditIncomeDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-income_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#income_details_form').html(data);
+        $('#hidden_id_income_details').val($('#income_details_view_or_edit').attr('data-income_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#income_details_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditIncomeDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-income_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#income_details_form').html(data);
+        $('#hidden_id_income_details').val($('#income_details_ineffective_and_update').attr('data-income_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#other_details_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditOtherDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-other_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#other_details_form').html(data);
+        $('#hidden_id_other_details').val($('#other_details_ineffective_and_update').attr('data-other_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#other_details_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditOtherDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-other_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#other_details_form').html(data);
+        $('#hidden_id_other_details').val($('#other_details_view_or_edit').attr('data-other_details_id'));
+      }
+    })
+  });
+  $(document).on('click','#income_foir_details_view_or_edit',function(){
+    console.log($(this).attr('data-income_foir_details_id'));
+    $.ajax({
+      url: "{% url 'EditIncomeFoirDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-income_foir_details_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#income_foir_details_form').html(data);
+        $('#hidden_id_incomefoir_details').val($('#income_foir_details_view_or_edit').attr('data-income_foir_details_id'));
+      }
+    });
+  });
+  $(document).on('click','#income_foir_details_ineffective_and_update',function(){
+    console.log($(this).attr('data-income_foir_details_id'));
+    $.ajax({
+      url: "{% url 'EditIncomeFoirDetails' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-income_foir_details_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#income_foir_details_form').html(data);
+        $('#hidden_id_incomefoir_details').val($('#income_foir_details_ineffective_and_update').attr('data-income_foir_details_id'));
+      }
+    });
+  });
+  $(document).on('click','#hltvt1i_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditHltvt1i' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-hltvt1i_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#loan_to_value_type_1').html(data);
+        $('#hidden_id_loan_to_value_type_1').val($('#hltvt1i_ineffective_and_update').attr('data-hltvt1i_id'));
+      }
+    })
+  });
+  $(document).on('click','#hltvt1i_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditHltvt1i' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-hltvt1i_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#loan_to_value_type_1').html(data);
+        $('#hidden_id_loan_to_value_type_1').val($('#hltvt1i_view_or_edit').attr('data-hltvt1i_id'));
+      }
+    })
+  });
+  $(document).on('click','#hltvtli2_view_or_edit',function(){
+    $.ajax({
+      url: "{% url 'EditHltvtli2' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-hltvt2i_id'),
+        'action':"edit",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#loan_to_value_type_2').html(data);
+        $('#hidden_id_loan_to_value_type_2').val($('#hltvtli2_view_or_edit').attr('data-hltvt2i_id'));
+      }
+    });
+  });
+  $(document).on('click','#hltvtli2_ineffective_and_update',function(){
+    $.ajax({
+      url: "{% url 'EditHltvtli2' %}",
+      type: "GET",
+      data:{
+        'id': $(this).attr('data-hltvt2i_id'),
+        'action':"ineffective",
+      },
+      datatype: "JSON",
+      success:function(data){
+        $('#loan_to_value_type_2').html(data);
+        $('#hidden_id_loan_to_value_type_2').val($('#hltvtli2_ineffective_and_update').attr('data-hltvt2i_id'));
+      }
+    });
+  });
+</script>
+{% endblock other_js %}

@@ -1,0 +1,595 @@
+<div class="conatiner">
+    <a href={% url 'Qualification_form' %} class="btn btn-primary">Add Qualification</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>Qualification</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for qualification in qualifications %}
+        <tr>
+            <td>
+                <a href={% url 'editqualification' id=qualification.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a>
+            </td>
+            <td>{{ qualification.qualification }}</td>
+            <td>{{ qualification.effective_date }}</td>
+            <td>{{ qualification.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Profession_form' %} class="btn btn-primary">Add Profession</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>Profession</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for profession in professions %}
+        <tr>
+            <td><a href={% url 'editprofession' id=profession.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ profession.profession }}</td>
+            <td>{{ profession.effective_date }}</td>
+            <td>{{ profession.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Role_form' %} class="btn btn-primary">Add Role</a>
+    <table border="1">
+        <tr>
+            <th>Role</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+            <th>Edit</th>
+        </tr>
+        {% for role in roles %}
+        <tr>
+            <td><a href={% url 'editrole' id=role.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ role.role }}</td>
+            <td>{{ role.effective_date }}</td>
+            <td>{{ role.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Product_form' %} class="btn btn-primary">Add Product</a>
+    <table border="1">
+        <tr>
+            <th>Product</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td><a href={% url 'editproduct' id=product.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ product.product }}</td>
+            <td>{{ product.effective_date }}</td>
+            <td>{{ product.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'SubProduct_form' %} class="btn btn-primary">Add SubProduct</a>
+    <table border="1">
+        <tr>
+            <th>Product</th>
+            <th>SubProduct</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for subproduct in subproducts %}
+        <tr>
+            <td>{{ subproduct.product.product }}</td>
+            <td>{{ subproduct.sub_product }}</td>
+            <td>{{ subproduct.effective_date }}</td>
+            <td>{{ subproduct.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'CustomerType_form' %} class="btn btn-primary">Add CustomerType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>CustomerType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for customertype in customertypes %}
+        <tr>
+            <td><a href={% url 'editcustomertype' id=customertype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+
+            <td>{{ customertype.cust_type }}</td>
+            <td>{{ customertype.effective_date }}</td>
+            <td>{{ customertype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'DesignationType_form' %} class="btn btn-primary">Add DesignationType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>DesignationType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for designationtype in designationtypes %}
+        <tr>
+            <td><a href={% url 'editdesignationtype' id=designationtype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ designationtype.desg_type }}</td>
+            <td>{{ designationtype.effective_date }}</td>
+            <td>{{ designationtype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'CompanyType_form' %} class="btn btn-primary">Add CompanyType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>CompanyType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for companytype in companytypes %}
+        <tr>
+            <td><a href={% url 'editcompanytype' id=companytype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ companytype.company_type }}</td>
+            <td>{{ companytype.effective_date }}</td>
+            <td>{{ companytype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'SalaryType_form' %} class="btn btn-primary">Add SalaryType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>SalaryType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for salarytype in salarytypes %}
+        <tr>
+            <td><a href={% url 'editsalarytype' id=salarytype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ salarytype.salary_type }}</td>
+            <td>{{ salarytype.effective_date }}</td>
+            <td>{{ salarytype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'ResidenceType_form' %} class="btn btn-primary">Add ResidenceType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>ResidenceType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for residencetype in residencetypes %}
+        <tr>
+            <td><a href={% url 'editresidencetype' id=residencetype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ residencetype.residence_type }}</td>
+            <td>{{ residencetype.effective_date }}</td>
+            <td>{{ residencetype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'BankName_form' %} class="btn btn-primary">Add BankName</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>BankName</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for bankname in banknames %}
+        <tr>
+            <td><a href={% url 'editbankname' id=bankname.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ bankname.bank_name }}</td>
+            <td>{{ bankname.effective_date }}</td>
+            <td>{{ bankname.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'LeadSource_form' %} class="btn btn-primary">Add LeadSource</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>LeadSource</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for leadsource in leadsources %}
+        <tr>
+            <td><a href={% url 'editleadsource' id=leadsource.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ leadsource.lead_source }}</td>
+            <td>{{ leadsource.effective_date }}</td>
+            <td>{{ leadsource.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Degree_form' %} class="btn btn-primary">Add Degree</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>Degree</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for degree in degrees %}
+        <tr>
+            <td><a href={% url 'editdegree' id=degree.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ degree.degree }}</td>
+            <td>{{ degree.effective_date }}</td>
+            <td>{{ degree.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Nationality_form' %} class="btn btn-primary">Add Nationality</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>Nationality</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for nationality in nationalitys %}
+        <tr>
+            <td><a href={% url 'editnationality' id=nationality.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+
+            <td>{{ nationality.nationality }}</td>
+            <td>{{ nationality.effective_date }}</td>
+            <td>{{ nationality.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'State_form' %} class="btn btn-primary">Add State</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>State</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for state in states %}
+        <tr>
+            <td><a href={% url 'editstate' id=state.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ state.state }}</td>
+            <td>{{ state.effective_date }}</td>
+            <td>{{ state.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'City_form' %} class="btn btn-primary">Add City</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>City</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for city in citys %}
+        <tr>
+            <td><a href={% url 'editcity' id=city.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ city.city_name }}</td>
+            <td>{{ city.effective_date }}</td>
+            <td>{{ city.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Applicanttype_form' %} class="btn btn-primary">Add ApplicantType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>ApplicantType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for applicanttype in applicanttypes %}
+        <tr>
+            <td><a href={% url 'editapplicanttype' id=applicanttype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ applicanttype.applicant_type }}</td>
+            <td>{{ applicanttype.effective_date }}</td>
+            <td>{{ applicanttype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'PropertyIn_form' %} class="btn btn-primary">Add PropertyIn</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>PropertyIn</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for propertyin in propertyins %}
+        <tr>
+        <tr>
+            <td><a href={% url 'editpropertyln' id=propertyin.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ propertyin.property_in }}</td>
+            <td>{{ propertyin.effective_date }}</td>
+            <td>{{ propertyin.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Status_form' %} class="btn btn-primary">Add Status</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>Status</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for status in statues %}
+        <tr>
+            <td><a href={% url 'editstatus' id=status.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ status.status }}</td>
+            <td>{{ status.effective_date }}</td>
+            <td>{{ status.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'NatureOfBusiness_form' %} class="btn btn-primary">Add NatureOfBusiness</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>NatureOfBusiness</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for natureofbusiness in natureofbusinesss %}
+        <tr>
+            <td><a href={% url 'editnatureofbusiness' id=natureofbusiness.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ natureofbusiness.nature_business }}</td>
+            <td>{{ natureofbusiness.effective_date }}</td>
+            <td>{{ natureofbusiness.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="conatiner">
+    <a href={% url 'AYyear_form' %} class="btn btn-primary">Add AYYear</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>AYYear</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for ayyear in ayyears %}
+        <tr>
+            <td><a href={% url 'editayyear' id=ayyear.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ ayyear.ay_year }}</td>
+            <td>{{ ayyear.effective_date }}</td>
+            <td>{{ ayyear.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'Agreementtype_form' %} class="btn btn-primary">Add AgreementType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>AgreementType</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for agreementtype in agreementtypes %}
+        <tr>
+            <td><a href={% url 'editagreementtype' id=agreementtype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ agreementtype.agreement_type }}</td>
+            <td>{{ agreementtype.effective_date }}</td>
+            <td>{{ agreementtype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'StageOfConstruction_form' %} class="btn btn-primary">Add StageOfConstruction</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+            <th>StageOfConstruction</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for stageOfconstruction in stageOfconstructions %}
+        <tr>
+            <td><a href={% url 'editstageofconstruction' id=stageOfconstruction.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ stageOfconstruction.stage }}</td>
+            <td>{{ stageOfconstruction.effective_date }}</td>
+            <td>{{ stageOfconstruction.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<hr>
+<div class="conatiner">
+    <a href={% url 'RejectionType_form' %} class="btn btn-primary">Add RejectionType</a>
+    <table border="1">
+        <tr>
+            <th>Edit</th>
+
+            <th>RejectionType</th>
+            <th>Rejection Reason</th>
+            <th>Effective Date</th>
+            <th>Ineffective Date</th>
+        </tr>
+        {% for rejectiontype in rejectiontypes %}
+        <tr>
+            <td><a href={% url 'editrejectiontype' id=rejectiontype.id %}>
+                    <span class="icon text-black-50">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </a></td>
+            <td>{{ rejectiontype.rejection_type }}</td>
+            <td>{{ rejectiontype.rejection_reason }}</td>
+            <td>{{ rejectiontype.effective_date }}</td>
+            <td>{{ rejectiontype.ineffective_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>

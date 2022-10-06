@@ -1,0 +1,33 @@
+{% extends 'base/base.html'%}
+{%block title%} Income Foir Details{%endblock title%}
+{%block other_body%}
+    <div class ="container-fluid">
+        <div class="container" style="width:800px; margin:0 auto;">
+            <form class="form-container" action={% url 'PPincomefoir' ppid=product.prod_id%} method="POST">
+                {% csrf_token %}
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Minimum Amount</b> </label>
+                            <input type="text" class="form-control" name="min_amt">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Maximum Amount</b> </label>
+                            <input type="text" class="form-control" name="max_amt">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label"> <b>Percent</b> </label>
+                            <input type="text" class="form-control" name="percent">
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        <button class="btn btn-primary mr-3 !important" type="submit">Submit</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+{%endblock other_body%}

@@ -1,0 +1,219 @@
+<div class="row g-4 p-4">
+    <div class="col-sm-4">
+      <button class="btn btn-primary add_button" id="addOtherButton" type="button" style="color:white">
+        + Add Other Income 
+      </button>
+    </div>
+</div>
+<div class="additionalCustomerDetail"></div>
+<script type="text/javascript">
+  var x=1;
+  $("#addOtherButton").click(function(){
+  // swal("One More", "Other Income is Added", "success");
+  x++; //Increment field counter
+  $('.additionalCustomerDetail').append(`
+    <div class="customerDetails${x}">
+      <div class="row g-4 p-4">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-8 col-form-label"><b>Rental Income</b></label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" name="rent_inc">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><b>Lessee Type</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="Lessee_type">
+                <option value="Individual">Individual</option>
+                <option value="Corporate">Corporate</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Lessee Name</b></label>
+            <div class="col-sm-9">
+              <input type="text" name="Lessee_name" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-8 col-form-label"><b>Rent Amount</b></label>
+            <div class="col-sm-9">
+              <input type="number" name="rent_amt" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Tenure of Agreement</b></label>
+            <div class="col-sm-9">
+              <input type="number" name="ten_of_agmnt" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Tenure Pending</b></label>
+            <div class="col-sm-9">
+              <input type="number" name="ten_pending" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class=><b>Valid Rent Agreement</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="validRentAgreement">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>If No, Will You Make Agreement</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="make_agreement">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>How Old is Agreement</b></label>
+            <div class="col-sm-9">
+              <input type="text" name="old_agreement" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Agreement Type</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="agreementType">
+                <option value="Registered">Registered</option>
+                <option value="Not Registered">Not Registered</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Reflection in Bank Account</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="reflectionInAccount">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Reflection in ITR</b></label>
+            <div class="col-sm-9">
+              <select class="form-control" name="reflectionInItr">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label><b>Extension Expected In Years</b></label>
+            <div class="col-sm-9">
+              <input type="number" name="ext_exp_in_years" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:left">
+        <button class="btn btn-primary mr-3 removeOtherDetails${x}Button" onclick="removeOtherDetails('customerDetails${x}')" >
+            Remove
+        </button><hr>
+      </div>
+    `); //Add field html
+  });
+  function removeOtherDetails(parentclass){
+    // swal("Other Incomes", "have been deleted", "warning");
+    $("."+`${parentclass}`).remove();
+  }
+</script>
+
+<div class="col-auto justify-content-start">
+  <button class="btn btn-primary" id="addAdditionalIncomeButton1" type="button" style="color:white">
+    <i class="fas fa-plus"></i> Add Other Than Income Mentioned Above
+  </button>
+</div>
+<div class="additionalCustomerDetail1"></div>
+<script>
+  var x=1;
+    $("#addAdditionalIncomeButton1").click(function(){
+      // swal("One More", "Additional Other Income is Added", "success");                           
+      x++; //Increment field counter
+      $('.additionalCustomerDetail1').append(`
+        <div class="customerDetail1${x}">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="input-group input-group-outline mb-4">
+                <label  for="other_income" class="form-label text-primary fw-bold">Other Income than Mentioned Above</label>
+                <input type="text" name="other_income" id="other_income" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="input-group input-group-outline mb-4">
+                <label for="income_amount" class="form-label text-primary fw-bold">Income Amount</label>
+                <input type="number" name="income_amount" id="income_amount" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button class="btn bg-gradient-danger mr-3 removeAdditionalIncomeDetails1${x}Button" onclick="removeAdditionalIncomeDetails1('customerDetail1${x}')" >
+                <i class="fas fa-window-close fa-lg"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `); //Add field html
+    });
+    function removeAdditionalIncomeDetails1(parentclass){
+      // swal("Additional Other Incomes", "have been deleted", "warning");
+      $("."+`${parentclass}`).remove();
+    }
+</script>
+
+<label><b>Company Name Not Listed Above?</b>
+  <a href="http://www.mca.gov.in/mcafoportal/login.do" target="_blank">Click Here</a> OR
+  <a href="https://www.zaubacorp.com/" target="_blank">Click Here</a><br>
+</label><br>
+
+<div class="col-auto justify-content-start">
+  <button class="btn btn-primary" id="existingLoadDetailsButton1" type="button" style="color:white">
+    <i class="fas fa-plus"></i> Add Other Existing Loan Details
+  </button>
+</div>
+
+<div class="additionalCustomerDetail1"></div>
+<div class="col-auto justify-content-start">
+  <button class="btn btn-primary" id="existingCardDetailsButton1" type="button" style="color:white">
+    <i class="fas fa-plus"></i> Add Other Existing Card Details
+  </button>
+</div>

@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block other_css %}
+    <style>
+        img {
+            height: 200px;
+            width: 200px;
+        }
+        iframe {
+            height: 200px;
+            width: 300px;
+        }
+    </style>
+{% endblock other_css %}
+
+{% block title %}Training{% endblock title %}
+
+{% block other_body %}
+        <h1 class="mb-5 mt-3 display-3 text-center">Training</h1> 
+        <table align="center" cellspacing="20" cellpadding="20">
+            <tr>
+                <td>
+                    <a href={% static 'images/account/all.jpg' %} download="All">
+                    <img src={% static 'images/account/all.jpg' %} alt="All Product">
+                    </a>
+                </td>
+                <td>
+                    <a href={% static 'images/account/balance.jpg' %} download="Balance">
+                    <img src={% static 'images/account/balance.jpg' %} alt="Balance Transfer">
+                    </a>
+                </td>
+                <td>
+                    <a href={% static 'images/account/referral.jpg' %} download="Referral">
+                    <img src={% static 'images/account/referral.jpg' %} alt="Referral">
+                    </a>
+                </td>
+                <td>
+                    <iframe src="https://www.youtube.com/embed/pfxjT4c_dZA" allowfullscreen ></iframe>
+                </td>
+            </tr>
+        </table>
+{% endblock other_body %}
+

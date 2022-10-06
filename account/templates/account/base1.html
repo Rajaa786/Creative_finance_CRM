@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{{title}}</title>
+        <!-- Required meta tags -->
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="format-detection" content="telephone=no" />
+        
+        <link rel="shortcut icon" type="image/png" href="{% static 'website/images/cf.png' %}"/>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static "website/css/bootstrap.min.css" %}" />
+        <link rel="stylesheet" href="{% static "website/css/shards.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "website/css/animate.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "website/font-awesome/css/font-awesome.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "website/css/common.css" %}"/>
+
+        {% block customCSS %} {% endblock customCSS %}
+
+    </head>
+    <body>
+
+
+        {% block mainBlock %}    {% endblock %}
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+        <script src="{% static "website/js/jquery.min.js" %}"></script>
+        <script src="{% static "website/js/popper.min.js" %}"></script>
+        <script src="{% static "website/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "website/js/shards.min.js" %}"></script>
+        <script src="{% static "website/js/jquery.waypoints.min.js" %}"></script>
+        <script src="{% static "website/js/jquery.counterup.min.js" %}"></script>
+        {% if active == "loan" %} 
+            <script src="{% static "website/js/loans.js" %}"></script>
+        {% elif header == "dark" %}
+            <script src="{% static "website/js/loans.js" %}"></script>
+        {% else %}
+            <script src="{% static "website/js/common.js" %}"></script>
+        {% endif %}
+          
+        {% block postVendorScripts %} {% endblock %}
+
+    </body>
+</html>

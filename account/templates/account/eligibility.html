@@ -1,0 +1,725 @@
+{% comment %} {% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
+
+{% load static %}
+
+{% block other_body %}
+Rajaa
+
+
+
+
+
+{% endblock other_body %} {% endcomment %}
+
+{% load static %}
+{% load mathfilters%}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Creative Finserve => {{s.loan_type}} Loan ~ Salaried</title>
+
+    <!-- Custom fonts for this template-->
+    {% comment %} <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    {% comment %} <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% endcomment %}
+    <link id="pagestyle" href="{% static 'material_2_pro_assets/css/material-dashboard.min.css?v=3.0.2' %}"
+        rel="stylesheet" />
+
+    <style>
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+
+
+        .button5 {
+            background-color: white;
+            color: black;
+            border: 2px solid #FFFFFF;
+        }
+    </style>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {% include 'account/topbar.html' %}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-1 text-gray-800">{{s.loan_type}} Loan ~ Salaried</h1>
+                    {% csrf_token %}
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Fade In Utility -->
+                        <div class="col">
+                            <div class="card position-relative">
+                                <div id="print">
+
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Applicant Details</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>Name:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.name}}" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>Mobile No.:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.mobile}}" readonly></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>Email ID:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.email}}" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>Customer Required
+                                                    loan:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.loan_amt}}" readonly></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>Company Name:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.company_name}}" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>Net Salary:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.net_sal}}" readonly></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>State:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.stt}}" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>City:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" style="width:300px"
+                                                    value="{{s.sttt}}" readonly></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--                      <div class="card position-relative">-->
+                                    <!--                        <div class="card-header py-3">-->
+                                    <!--                          <h6 class="m-0 font-weight-bold text-primary">Multiplier Calculation</h6>-->
+                                    <!--                        </div>-->
+                                    <!--                                <div class="card-body">-->
+                                    <!--                                  <div class="form-group form-inline">-->
+                                    <!--                                    <label class="col-2" style="color: black"><b>Banks:</b></label>-->
+                                    <!--                                    <br>-->
+                                    <!--                                    {% for i in li %}-->
+                                    <!--                                      {% if i != '' %}-->
+                                    <!--                                        <div class="mr-3">-->
+                                    <!--                                          <input class="form-control" type="text" style="width:1200px" value="{{i}}"></label>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <br><br>-->
+                                    <!--                                      {% endif %}-->
+                                    <!--                                    {% endfor %}-->
+                                    <!--                                  </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                <div class="card-body">-->
+                                    <!--                                  <div class="form-group form-inline">-->
+                                    <!--                                    <label class="col-2" style="color: black"><b>Banks:</b></label>-->
+                                    <!--                                    <br>-->
+                                    <!--                                        <div class="mr-3">-->
+                                    <!--                                          <input class="form-control" type="text" style="width:1200px" value="{{ds}}"></label>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <br><br>-->
+                                    <!--                                  </div>-->
+                                    <!--                                </div>-->
+                                    <!--                      </div>-->
+
+
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Multiplier Calculation</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable1" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:black">Bank Name</th>
+                                                        <th style="color:black">Tenure</th>
+                                                        <th style="color:black">Co-Category</th>
+                                                        <th style="color:black">Rate of Interest</th>
+                                                        <th style="color:black">Loan Amount
+                                                        <th style="color:black">Loan Eligibility</th>
+                                                        <th style="color:#CD472A">Bank Capping</th>
+                                                        <th style="color:#CD472A">Eligibility</th>
+                                                        <th style="color:black">Processing Fee</th>
+                                                        <th style="color:green">Reason</th>
+                                                        <th style="color:blue">Multiplier</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i,j in sid.items %}
+                                                    {% for key, value in ds.items %}
+                                                    {% if i == key %}
+                                                    {% if j == 'ELIGIBLE' %}
+                                                    <tr>
+                                                        <td style="color:#000005">{{ key }}</td>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% else %}
+                                                    <input type="hidden" value="{{ a|add:1 }}">
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    <input type="hidden" value="{{ b|add:1 }}">
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                    <!--                                  {{msg2}}-{{cal}}-{{cal2}}~{{set}}-->
+                                                    {% if msg2 == 1 %}
+                                                    {% for i,j in sid.items %}
+                                                    {% for key, value in ds.items %}
+                                                    {% if i == key %}
+                                                    {% if j == 'NOT ELIGIBLE' %}
+                                                    <tr>
+                                                        <td style="color:#000005">{{ key }}</td>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    {% if foircal == 1 %}
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">FOIR Calculation</h6>
+                                    </div>
+                                    <!--                        <div class="mr-3">-->
+                                    <!--                          <input class="form-control" type="text" style="width:1000px" value="{{m2}}" readonly></label>-->
+                                    <!--                        </div>-->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable2" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:black">Bank Name</th>
+                                                        <th style="color:black">Tenure</th>
+                                                        <th style="color:black">Co-Category</th>
+                                                        <th style="color:black">Rate of Interest</th>
+                                                        <th style="color:black">Loan Eligibility</th>
+                                                        <th style="color:#CD472A">Bank Capping</th>
+                                                        <th style="color:#CD472A">Eligibility</th>
+                                                        <th style="color:blue">Net Salary</th>
+                                                        <th style="color:blue">FOIR</th>
+                                                        <th style="color:blue">Obligation</th>
+                                                        <th style="color:blue">New EMI</th>
+                                                        <th style="color:blue">Per Lakh EMI</th>
+                                                        <th style="color:black">Processing Fee</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i,j in sid2.items %}
+                                                    {% for key, value in ds2.items %}
+                                                    {% if i == key %}
+                                                    {% if j == 'ELIGIBLE' %}
+                                                    <tr>
+                                                        <td style="color:#000005">{{ key }}</td>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% else %}
+                                                    <input type="hidden" value="{{ a|add:1 }}">
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    <input type="hidden" value="{{ b|add:1 }}">
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if exist == 1 %}
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Final Eligibility</h6>
+                                    </div>
+                                    <!--                        <div class="mr-3">-->
+                                    <!--                          <input class="form-control" type="text" style="width:1000px" value="{{m2}}" readonly></label>-->
+                                    <!--                        </div>-->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable3" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:black">Bank Name</th>
+                                                        <th style="color:black">Loan Amount</th>
+                                                        <th style="color:black">Loan Eligibility</th>
+                                                        <th style="color:black">Bank Capping</th>
+                                                        <th style="color:black">Processing Fee</th>
+                                                        <th style="color:#CD472A">Tenure</th>
+                                                        <th style="color:#CD472A">ROI</th>
+                                                        <th style="color:#CD472A">Calculation</th>
+                                                        <th style="color:#65c3c4">ELIGIBILITY</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for key, value in finalize.items %}
+                                                    <tr>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% endfor %}
+                                                    {% for key, value in finalize2.items %}
+                                                    <tr>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if mul == 0 %}
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Rejections</h6>
+                                    </div>
+                                    <!--                        <div class="mr-3">-->
+                                    <!--                          <input class="form-control" type="text" style="width:1000px" value="{{m2}}" readonly></label>-->
+                                    <!--                        </div>-->
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable4" width="100%"
+                                                cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="color:black">Bank Name</th>
+                                                        <th style="color:black">Loan Amount</th>
+                                                        <th style="color:black">Loan Eligibility</th>
+                                                        <th style="color:black">Bank Capping</th>
+                                                        <th style="color:black">Processing Fee</th>
+                                                        <th style="color:#CD472A">Tenure</th>
+                                                        <th style="color:#CD472A">ROI</th>
+                                                        <th style="color:#CD472A">Calculation</th>
+                                                        <th style="color:#65c3c4">ELIGIBILITY</th>
+                                                        <th style="color:#65c3c4">Reasons</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for key, value in reject.items %}
+                                                    <tr>
+                                                        {% for key2,value2 in value.items %}
+                                                        <td style="color:#000005">{{ value2 }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Add Processing Fee</h6>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <input type="hidden" value="{{s.id}}" name="id">
+                                        <input class="form-control" type="hidden" style="width:300px" name="names"
+                                            value="{{s.name}}">
+                                        <div class="form-group form-inline">
+
+                                            <table align="center" cellpadding="10">
+
+                                            </table>
+                                        </div>
+                                        {% for m in p %}
+                                        {% if m.uid_id == s.id %}
+                                        <div class="form-group form-inline">
+                                            <input class="form-control" type="hidden" name="r" value="{{m.id}}"
+                                                style="width:50px" readonly></label>
+                                            <label class="col-2" style="color: black"><b>Bank:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" name="r" value="{{m.rdate}}"
+                                                    style="width:250px" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>Processing Fee:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" name="r" value="{{m.pro}}"
+                                                    style="width:550px" readonly></label>
+                                            </div>
+                                            <div class="mr-3">
+                                                <form action="/crm_app/pro_delete" method="POST"
+                                                    onsubmit="return confirm('Are You Sure You Want To Delete ?')">
+                                                    {% csrf_token %}
+
+                                                    <input type="hidden" value="{{s.id}}" name="custid">
+                                                    <input type="hidden" value="{{m.id}}" name="remid">
+                                                    <button type="submit" class="button button5">
+                                                        <span class="icon text-black-50">
+                                                            <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        <form method="POST" class="user" action="/crm_app/add_pro">
+                                            {% csrf_token %}
+                                            <div class="form-group form-inline">
+                                                <label class="col-2" style="color: black"><b>Selected Bank:</b></label>
+                                                <div class="mr-3">
+
+                                                    <input type="hidden" value="{{s.id}}" name="id">
+                                                    <input type="hidden" value="{{s.name}}" name="names">
+                                                    <select class="custom-select col-10" style="width:300px" name="now">
+                                                        <option selected>Select Bank</option>
+                                                        {% for i,j in sid.items %}
+                                                        {% for key, value in ds.items %}
+                                                        {% if i == key %}
+                                                        {% if j == 'ELIGIBLE' %}
+                                                        <option value={{ key }}>{{ key }}</option>
+                                                        {% endif %}
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <label class="col-2" style="color: black"><b>Processing Fee:</b></label>
+                                                <div class="mr-3">
+                                                    <input class="form-control" type="number" name="pro"
+                                                        style="width:550px"></label>
+                                                </div>
+                                            </div>
+
+                                            <div style="text-align:center">
+                                                <button class="btn btn-primary mr-3" type="submit">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Remarks</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {% for m in r %}
+                                        {% if m.uid_id == s.id %}
+                                        <div class="form-group form-inline">
+                                            <input class="form-control" type="hidden" name="r" value="{{m.id}}"
+                                                style="width:50px" readonly></label>
+                                            <label class="col-2" style="color: black"><b>Date:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" name="r" value="{{m.rdate}}"
+                                                    style="width:250px" readonly></label>
+                                            </div>
+                                            <label class="col-2" style="color: black"><b>Previous Remarks:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="text" name="r" value="{{m.rem}}"
+                                                    style="width:550px" readonly></label>
+                                            </div>
+                                            <div class="mr-3">
+                                                <form action="/crm_app/rem_delete" method="POST"
+                                                    onsubmit="return confirm('Are You Sure You Want To Delete ?')">
+                                                    {% csrf_token %}
+
+                                                    <input type="hidden" value="{{s.id}}" name="custid">
+                                                    <input type="hidden" value="{{m.id}}" name="remid">
+                                                    <button type="submit" class="button button5">
+                                                        <span class="icon text-black-50">
+                                                            <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        <form method="POST" class="user" action="/crm_app/add_remark">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" value="{{s.id}}" name="id">
+                                            <input type="hidden" value="{{s.name}}" name="names">
+                                            <div class="form-group form-inline">
+                                                <label class="col-2" style="color: black"><b>Remark:</b></label>
+                                                <div class="mr-3">
+                                                    <input class="form-control" type="text" name="rem"
+                                                        style="width:1050px"></label>
+                                                </div>
+                                            </div>
+
+                                            <div style="text-align:center">
+                                                <button class="btn btn-primary mr-3" type="submit">Add Remark</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    REFERENCE
+                                    {% for key, value in ds.items %}
+
+                                    <tr>
+                                        <td>{{ key }} <br></td>
+                                        {% for key2,value2 in value.items %}
+                                        <td>{{ key2 }}:{{ value2 }}</td>
+                                        {% endfor %}
+                                    </tr>
+
+                                    {% endfor %}
+                                    </table>
+                                    MULTIPLIER
+                                    {% for s in mulcal %}
+                                    {{s}}
+                                    {% endfor %}
+                                    <br>
+                                    MULT
+                                    {% for key, value in ds.items %}
+                                    {% for key2,value2 in value.items %}
+                                    {{ key2 }}:{{ value2 }}
+                                    {% endfor %}
+                                    {% endfor %}
+                                    <br>
+                                    FOIR
+                                    {% for s in foical %}
+                                    {{s}}
+                                    {% endfor %}
+                                    <br>
+                                    {{dict}}
+                                    {{dict2}}
+                                    {{m2}}
+                                    MULTIPLIER
+                                    {{mulcal}}
+                                    MESSAGE
+                                    {{foical}}
+                                    <div class="card position-relative">
+                                        <script type="text/javascript"
+                                            src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js">
+                                        </script>
+                                        <script type="text/javascript"
+                                            src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
+                                        </script>
+                                        <script type="text/javascript">
+                                            function Export() {
+                                                html2canvas(document.getElementById('print'), {
+                                                    onrendered: function (canvas) {
+                                                        var data = canvas.toDataURL();
+                                                        var docDefinition = {
+                                                            content: [{
+                                                                image: data,
+                                                                width: 500
+                                                            }]
+                                                        };
+                                                        pdfMake.createPdf(docDefinition).download(
+                                                            "{{s.name}}-{{s.loan_type}} Loan ~ Salaried.pdf"
+                                                            );
+                                                    }
+                                                });
+                                            }
+                                        </script>
+                                        <script>
+                                            function printDiv(divName) {
+                                                var printContents = document.getElementById(divName).innerHTML;
+                                                var originalContents = document.body.innerHTML;
+
+                                                document.body.innerHTML = printContents;
+
+                                                window.print();
+
+                                                document.body.innerHTML = originalContents;
+                                            }
+                                        </script>
+                                        <div class="form-group form-inline">
+                                            <div class="card-body">
+                                                <table align="center">
+                                                    <tr>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <a class="nav-link" title="View Details"
+                                                                    href="/crm_app/cust_view/{{s.id}}">
+                                                                    <img style="height:40px;width:50px"
+                                                                        class="img-profile rounded-circle"
+                                                                        src="https://cdn3.iconfinder.com/data/icons/databases-3/512/search_data-512.png">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <a class="nav-link" title="Edit Details"
+                                                                    href="/crm_app/cust_edit/{{s.id}}">
+                                                                    <img style="height:40px;width:45px"
+                                                                        src="https://th.bing.com/th/id/OIP.4ynpQBQ8r-22AvwXF1s44QHaH5?pid=Api&w=481&h=513&rs=1">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <button class="button button5"
+                                                                    onclick="printDiv('print')" type="submit">
+                                                                    <a class="nav-link" title="Print">
+                                                                        <img style="height:40px;width:60px"
+                                                                            class="img-profile rounded-circle"
+                                                                            src="https://th.bing.com/th/id/OIP.afbg5m7llh3iSFR3v1LwsQHaE8?pid=Api&rs=1">
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <button class="button button5" onclick="Export()">
+                                                                    <a class="nav-link" title="Download PDF">
+                                                                        <img style="height:45px;width:45px"
+                                                                            class="img-profile rounded-circle"
+                                                                            src="data:image/jpeg;base64,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">
+                                                                    </a>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <script src="https://smtpjs.com/v3/smtp.js"></script>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <form action="/crm_app/smail" method="POST">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="id" value="{{s.id}}">
+                                                                    <input type="hidden" name="email"
+                                                                        value="{{s.email}}">
+                                                                    <button class="button button5">
+                                                                        <a class="nav-link" title="Send Mail">
+                                                                            <img style="height:50px;width:70px"
+                                                                                class="img-profile rounded-circle"
+                                                                                src="https://centaur-wp.s3.eu-central-1.amazonaws.com/designweek/prod/content/uploads/2020/10/07113122/gmail-1.jpg">
+                                                                        </a>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <form action="/crm_app/wMsg" method="POST">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="id" value="{{s.id}}">
+                                                                    <input type="hidden" name="mobile"
+                                                                        value="{{s.mobile}}">
+                                                                    <button class="button button5">
+                                                                        <a class="nav-link"
+                                                                            title="Send WhatsApp Message">
+                                                                            <img style="height:50px;width:60px"
+                                                                                class="img-profile rounded-circle"
+                                                                                {% comment %} src="http://icons.iconarchive.com/icons/dtafalonso/android-l/512/WhatsApp-icon.png"> {% endcomment %}
+                                                                        </a>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align:center">
+                                                                <button class="button button5" type="submit"><a
+                                                                        href="/crm_app/index_calc" title="Calculator"
+                                                                        style="color:white"><img
+                                                                            style="height:50px;width:55px"
+                                                                            class="img-profile rounded-circle"
+                                                                            {% comment %} src="https://th.bing.com/th/id/OIP.PEyBoZrx1ZK3GgCf4YifEwAAAA?pid=Api&rs=1"></a></button> {% endcomment %}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.container-fluid -->
+                        </div>
+                    </div>
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright &copy; Your Website 2019</span>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- End of Footer -->
+
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Logout Modal-->
+            {% include 'account/logout.html' %}
+        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static 'material_2_pro_assets/js/core/jquery.min.js' %}"></script>
+        <script src="{% static "material_2_pro_assets/js/core/bootstrap.min.js" %}"></script>
+
+        <!-- Core plugin JavaScript-->
+        {% comment %} <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script> {% endcomment %}
+
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'material_2_pro_assets/js/core/sb-admin-2.min.js' %}"></script>
+
+    </div>
+</body>
+
+</html>
