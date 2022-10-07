@@ -5,13 +5,11 @@ from .views import VerificationView
 from django.conf.urls.static import static
 from django.conf import settings
 
+app_name = 'account'
 
 # app_name = "accounts"
 urlpatterns = [
     path('dashboard/', views.base_dashboard, name="base_dashboard"),
-
-
-
 
     #--------------------------------------------------------#
     # new_LEADS
