@@ -2667,15 +2667,18 @@ def support(request):
 
 
 def handle_applicant_additional_details(request , additional_details_count, additional_details_instance , id):
+    tmp = None
 
     if 'Salaried' not in additional_details_instance.cust_type.cust_type:
         messages.error(
             request, "Rejected. Applicant must be salaried.")
+        tmp = redirect('additionaldetails', id)
         
 
-        if additional_details_count < 1:
-            if additional_details_instance.inc_holder is False:
-                messages.error(
-                    request, "Rejected. First applicant should be a income holder.")
-        return redirect('additionaldetails', id)
-    return None
+    if additional_details_count < 1:
+        if additional_details_instance.inc_holder is False:
+            messages.error(
+                request, "Rejected. First applicant should be a income holder.")
+            tmp = redirect('additionaldetails', id)
+
+    return tmp
