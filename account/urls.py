@@ -6,10 +6,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
+# app_name = "accounts"
 urlpatterns = [
     path('dashboard/', views.base_dashboard, name="base_dashboard"),
 
-# app_name = "accounts"
 
 
 
@@ -70,7 +70,7 @@ urlpatterns = [
     path('create_mem', views.create_mem, name="create_mem"),
     #     path('dashboard', views.dashboard, name="dashboard"),
 
-    path('check_eligibility<int:id>',
+    path('check_eligibility/<int:id>',
          views.check_eligibility, name='account_eligibility'),
     path('base', views.base, name="base"),
     path('list_leads/', views.list_leads, name="list_leads"),

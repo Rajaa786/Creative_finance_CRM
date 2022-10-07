@@ -1,8 +1,7 @@
-{% if request.user.is_superuser %}
-  {% extends 'base/base.html' %}
-{% else %}
-  {% extends 'base/base_non_admin_template.html' %}
-{% endif %}
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
+
+{% load static %}
+
 
 {% block other_css %}
 {% endblock other_css %}

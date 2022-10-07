@@ -20,7 +20,7 @@
             </div>
             <div class="ms-auto my-auto mt-lg-0 mt-4">
               <div class="ms-auto my-auto">
-              <a href="{% url 'account:add_leads' %}" class="btn bg-gradient-primary btn-sm mb-0">
+              <a href="{% url 'add_leads' %}" class="btn bg-gradient-primary btn-sm mb-0">
                 <span class="icon text-white-50">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -51,7 +51,7 @@
                   <td>{{ lead.name }}</td>
                   <td>{{ lead.phone }}</td>
                   <td class="text-sm">
-                    <a href={% url 'eligibility' id=lead.pk %} title="Check Eligibility">
+                    <a href={% url 'account_eligibility' id=lead.pk %} title="Check Eligibility">
                           <span class="text-warning">
                             <i class="fa fa-check-circle"></i>
                           </span>
@@ -70,7 +70,7 @@
                       >
                     </a>
                     <a
-                      href="{% url 'account:lead-update' lead.pk %}"
+                      href="{% url 'lead-update' lead.pk %}"
                       class="mx-3"
                       data-bs-toggle="tooltip"
                       data-bs-original-title="Edit product"
@@ -81,7 +81,7 @@
                       >
                     </a>
                     <a
-                      href="{% url 'account:lead-delete' lead.pk %}"
+                      href="{% url 'lead-delete' lead.pk %}"
                       data-bs-toggle="tooltip"
                       data-bs-original-title="Delete product"
                     >

@@ -1,4 +1,5 @@
 
+import pkgutil
 from wsgiref.util import request_uri
 from xml.etree.ElementInclude import include
 from django.shortcuts import render, redirect
@@ -146,7 +147,8 @@ def lead_update(request, pk):
 
     context = {
         'form': LeadsForm(),
-        "lead": lead
+        "lead": lead,
+        "subproducts" : subproducts
     }
 
     return render(request, "account/lead_update.html", context)
@@ -155,7 +157,7 @@ def lead_update(request, pk):
 def lead_delete(request, pk):
     lead = Leads.objects.get(id=pk)
     lead.delete()
-    return redirect('account:list_leads')
+    return redirect('list_leads')
 
 
 
@@ -2667,15 +2669,18 @@ def support(request):
 
 
 def handle_applicant_additional_details(request , additional_details_count, additional_details_instance , id):
+    tmp = None
 
     if 'Salaried' not in additional_details_instance.cust_type.cust_type:
         messages.error(
             request, "Rejected. Applicant must be salaried.")
+        tmp = redirect('additionaldetails', id)
         
 
-        if additional_details_count < 1:
-            if additional_details_instance.inc_holder is False:
-                messages.error(
-                    request, "Rejected. First applicant should be a income holder.")
-        return redirect('additionaldetails', id)
-    return None
+    if additional_details_count < 1:
+        if additional_details_instance.inc_holder is False:
+            messages.error(
+                request, "Rejected. First applicant should be a income holder.")
+            tmp = redirect('additionaldetails', id)
+
+    return tmp
