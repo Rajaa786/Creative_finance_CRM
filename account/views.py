@@ -80,7 +80,7 @@ def lead_update(request, pk):
                     print(instance)
                 else:
                     print(form.errors)
-                return redirect("{% url 'account:newLeadview.html' lead.pk %}")
+                return redirect("newLeadview.html", lead.pk)
             elif user.role == "Referral Partner":
                 return redirect('base')
         if 'next' in request.POST:
@@ -158,7 +158,7 @@ def lead_update(request, pk):
 def lead_delete(request, pk):
     lead = Leads.objects.get(id=pk)
     lead.delete()
-    return redirect('account:list_leads')
+    return redirect('list_leads')
 
 
 @login_required()
@@ -992,7 +992,6 @@ def list_leads(request):
     listleads = Leads.objects.filter(pk__in=ids).order_by(preserved)
     # return render(request, 'music/songs.html',  {'song': song})
     return render(request, 'account/newLeadview.html', {'listleads': listleads})
-    return render(request, 'account/list_leads.html', {'listleads': listleads})
 
 
 def list_lead_del(request, id):
