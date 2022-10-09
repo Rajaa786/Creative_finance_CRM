@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
 {% load static %}
 
 {% block title %}Edit Lead{% endblock title %}
@@ -8,7 +8,7 @@
 {% block other_body %}
   <div class="container mb-3">
     <h1 class="mb-5 mt-3 display-3 text-center">Edit Lead</h1> 
-    <form class="form-container bg-white rounded p-3 shadow-blur" action={% url 'account:lead-update' lead.pk %} method="POST">
+    <form class="form-container bg-white rounded p-3 shadow-blur" action={% url 'lead-update' lead.pk %} method="POST">
       {% csrf_token %}
       <div class="row">
         <div class="col-md-4">
@@ -286,7 +286,7 @@
         </div>
       </div>
       <div class="text-center">
-        <a href={% url 'account:list_leads' %} class="btn btn-primary">Cancel</a>
+        <a href={% url 'list_leads' %} class="btn btn-primary">Cancel</a>
         <button class="btn btn-primary" name="next" type="submit">Update</button>
       </div>
     </form>

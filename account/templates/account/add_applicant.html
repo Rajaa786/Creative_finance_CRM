@@ -1,70 +1,131 @@
-<form class="form-container" method = "POST" action = {% url 'additionaldetails' id=lead_id %} id = "applicant_details" >
-    {% csrf_token %}
-    <div class = "row mt-2 ml-0">
-      <div class = "col-12">
-        <div class="form-check ps-0">
-          {{form.is_diff}}
-          <label class="custom-control-label" for="customCheck1">Is Customer and Contact Person Different ? </label>
-        </div>
+{{applicant_main}}
+<form class="form-container" method="POST" action={% url 'additionaldetails' id=lead_id %} id="applicant_details">
+  {% csrf_token %}
+  <div class="row mt-2 ml-0">
+    <div class="col-12">
+      <div class="form-check ps-0 d-inline-flex align-items-center mb-2" data-bs-toggle="collapse"
+        data-bs-target="#co_applicant" role="button" aria-expanded="false" aria-controls="co_applicant">
+
+        <input class=" form-check-input m-0 mx-0" name="joint_app_checkbox" type="checkbox" value="joint_checked"
+          id="flexCheckDefault">
+        <label class="form-check-label mb-0 ml-1" for="flexCheckDefault">
+          Do you want to add a joint applicant?
+
+        </label>
+
+        {% comment %} {{form.is_diff}}
+        <label class="custom-control-label" for="customCheck1">Is Customer and Contact Person Different ?
+        </label> {% endcomment %}
       </div>
     </div>
-    <div class="row mt-2 mb-2" id = "contactperson" style = "display : none;">
-      <div class="col-md-4">
-        <div class="input-group input-group-static mb-4">
-          <label  class="ms-0 text-primary fw-bold">Contact Person Name</label>
-            {{form.con_person_name}}
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="input-group input-group-static mb-4">
-          <label  class="ms-0 text-primary fw-bold">Contact Person Phone</label>
-            {{form.con_person_phone}}
-        </div>
-      </div>
-    </div>
+  </div>
+  {% if not applicant_main %}
+  <div>
+
     <div class="row">
       <div class="col-md-4">
         <div class="input-group input-group-static mb-3">
-          <label class="ms-0 text-primary fw-bold">Customer Name</label>
-          {{form.cust_name}}
+          <label class="ms-0 text-primary fw-bold">Customer Name {{applicant_main}}
+          </label>
+          {{form_1.cust_name}}
         </div>
       </div>
       <div class="col-md-4">
         <div class="input-group input-group-static mb-3">
           <label class="ms-0 text-primary fw-bold">Applicant Type</label>
-          {{form.applicant_type}}
+          {{form_1.applicant_type}}
         </div>
       </div>
       <div class="col-md-4">
         <div class="input-group input-group-static mb-4">
-          <label  class="ms-0 text-primary fw-bold">Income Holder</label>
-          {{form.inc_holder}}
+          <label class="ms-0 text-primary fw-bold">Income Holder</label>
+          {{form_1.inc_holder}}
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <div class="input-group input-group-static mb-4">
-          <label  class="ms-0 text-primary fw-bold">Customer Type</label>
-            {{form.cust_type}}
+          <label class="ms-0 text-primary fw-bold">Customer Type</label>
+          {{form_1.cust_type}}
         </div>
       </div>
       <div class="col-md-4">
         <div class="input-group input-group-static mb-4">
-          <label  class="ms-0 text-primary fw-bold">Relation</label>
-          {{form.relation}}
+          <label class="ms-0 text-primary fw-bold">Relation</label>
+          {{form_1.relation}}
         </div>
       </div>
       <div class="col-md-4">
         <div class="input-group input-group-static mb-4">
           <label class="ms-0 text-primary fw-bold">Contact No </label>
-          {{form.con_phone}}
+          {{form_1.con_phone}}
         </div>
       </div>
-    </div>  
-  
-    <div style="text-align:center">
-      {% comment %} <button class="btn btn-primary" name="cancel" type="submit">Cancel</button> {% endcomment %}
-      <button class="btn btn-primary" name="save" type="submit">Save & Submit</button>
+      {% comment %} {{form_2.as_p}} {% endcomment %}
     </div>
-  </form>
+  </div>
+  {% endif %}
+
+
+  <div class="collapse mt-5" id="co_applicant">
+
+
+    <p class="h4">Co-Applicant Details</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-3">
+          <label class="ms-0 text-primary fw-bold">Customer Name</label>
+          {{form_2.cust_name}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-3">
+          <label class="ms-0 text-primary fw-bold">Applicant Type</label>
+          {{form_2.applicant_type}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label class="ms-0 text-primary fw-bold">Income Holder</label>
+          {{form_2.inc_holder}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label class="ms-0 text-primary fw-bold">Customer Type</label>
+          {{form_2.cust_type}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label class="ms-0 text-primary fw-bold">Relation</label>
+          {{form_2.relation}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group input-group-static mb-4">
+          <label class="ms-0 text-primary fw-bold">Contact No </label>
+          {{form_2.con_phone}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center">
+    {% comment %} <button class="btn btn-primary" name="cancel" type="submit">Cancel</button> {% endcomment %}
+    <button class="btn btn-primary" name="save" type="submit">Save & Submit</button>
+  </div>
+</form>
+
+
+{% comment %} <script>
+  $('#joint_app_checkbox').click(() => {
+    console.log("clickedd")
+    $('#co_applicant_field').prop("required", function (i, prev_Val) {
+      return prev_Val == 'false' ? true : false;
+    });
+  })
+</script> {% endcomment %}

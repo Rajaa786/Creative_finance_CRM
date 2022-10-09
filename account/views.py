@@ -1,4 +1,5 @@
 
+from sys import prefix
 from wsgiref.util import request_uri
 from xml.etree.ElementInclude import include
 from django.shortcuts import render, redirect
@@ -40,6 +41,8 @@ from stronghold.decorators import public
 '''
 NEW VIEWS
 '''
+
+
 def view_leads(request):
     leads = Leads.objects.all()
     context = {
@@ -158,8 +161,6 @@ def lead_delete(request, pk):
     return redirect('account:list_leads')
 
 
-
-
 @login_required()
 def base_dashboard(request):
     context = {
@@ -168,7 +169,7 @@ def base_dashboard(request):
     return render(request, 'account/base.html', context)
 
 
-@login_required (redirect_field_name='login', login_url='login')
+@login_required(redirect_field_name='login', login_url='login')
 def register(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -273,11 +274,11 @@ def register(request):
             email.send()
             # return render(request, 'account/terms.html')
         # else:
-            #messages.info(request, 'Password did not match')
+            # messages.info(request, 'Password did not match')
             # return redirect('register')
             return redirect('email_ver_msg')
         # else:
-            #messages.info(request, 'Password did not match')
+            # messages.info(request, 'Password did not match')
             # return redirect('register')
     else:
         return render(request, 'account/register.html')
@@ -407,12 +408,13 @@ def add_leads(request):
                 instance.save()
                 if instance.product.product == 'Personal Loan':
                     return redirect('additionaldetails', instance.pk)
-                else :
+                else:
                     return redirect('base_dashboard')
     context = {
         'form': LeadsForm()
     }
     return render(request, 'account/add_leads.html', context=context)
+
 
 def upload_documents(request, id):
     lead = Leads.objects.get(pk=id)
@@ -1012,10 +1014,10 @@ def list_lead_edit(request, id):
                 return redirect('base')
         name = request.POST['name']
         ref = request.POST['ref']
-        #username   = request.POST['username']
+        # username   = request.POST['username']
         email = request.POST['email']
-        #password1  = request.POST['password1']
-        #password2  = request.POST['password2']
+        # password1  = request.POST['password1']
+        # password2  = request.POST['password2']
         product = request.POST['pdt']
         sub_product = request.POST['subpdt']
         loan_amt = request.POST['amt']
@@ -1161,53 +1163,75 @@ def is_ajax(request):
 
 
 def additionaldetails(request, id):
+    redirect_temp = None
+    add_instance_form_1 = None
+    add_instance_form_2 = None
     lead = Leads.objects.get(pk=id)
     applicant_type_form = TempForm()
+    main_applicant = AdditionalDetails.objects.filter(lead_id=lead , applicant_type__applicant_type = 'Applicant').first()
     current_additional_details = AdditionalDetails.objects.filter(lead_id=lead)
+    print(request.POST)
     if request.method == 'POST':
-        add_form = AdditionalDetailsForm(request.POST)
-        if add_form.is_valid():
-            add_instance = add_form.save(commit=False)
-            add_instance.lead_id = lead
-            tmp =handle_applicant_additional_details(
-              request , current_additional_details.count(), add_instance , id)
-            if tmp :
-                return tmp
-            if current_additional_details.filter(lead_id__name=add_instance.lead_id.name).first():
-                add_instance.pk = current_additional_details.filter(
-                    lead_id__name=add_instance.lead_id.name).first().pk
-                messages.success(
-                    request, f"Additional Details of {add_instance.applicant_type}  updated successfully ")
-                add_instance.save()
+        add_form_1 = AdditionalDetailsForm(request.POST, prefix="form1")
+        add_form_2 = AdditionalDetailsForm(request.POST, prefix="form2")
 
-                if 'next' in request.POST :
-                    return redirect('base_dashboard')
-                
-                elif 'save' in request.POST and lead.product.product == 'Personal Loan':
-                    return redirect('salaried', id, add_instance.pk)
-                else:
-                    return redirect('additionaldetails', id)
-
+        if 'joint_app_checkbox' in request.POST:
+            if add_form_2.is_valid():
+                add_instance_form_2 = add_form_2.save(commit=False)
+                add_instance_form_2.lead_id = lead
+                print("Form 2 Valid")
             else:
-                messages.success(
-                    request, f"Additional Details of {add_instance.applicant_type} added successfully ")
-                add_instance.save()
+                messages.error(request, add_form_2.errors)
+                redirect_temp =  redirect('additionaldetails', id)
+        else :
+            # for field in add_form_2.fields:
+            #     add_form_2.fields[field].required = False
+            pass
 
-                if 'next' in request.POST:
-                    return redirect('base_dashboard')
 
-                elif 'save' in request.POST and lead.product.product == 'Personal Loan':
-                    return redirect('salaried', id,  add_instance.pk)
-                else:
-                    return redirect('additionaldetails', id)
+        if not main_applicant :
+            if add_form_1.is_valid():
+                add_instance_form_1 = add_form_1.save(commit=False)
+                add_instance_form_1.lead_id = lead
+                print("Form 1 Valid")
+            else:
+                messages.error(request, add_form_1.errors)
+                redirect_temp =  redirect('additionaldetails', id)
 
+        if redirect_temp : 
+            return redirect_temp        
+
+        
+
+        tmp = handle_form_data(
+            request, add_instance_form_1, add_instance_form_2, id)
+        if tmp:
+            return tmp
+
+        if add_instance_form_1 : 
+            add_instance_form_1.save()
+
+        if add_instance_form_2 :
+            add_instance_form_2.save()
+
+
+        if 'save' in request.POST:
+            print("Reached here save")
+            return redirect('additionaldetails', id)
+        # elif 'next' in request.POST and main_applicant:
+        #
         else:
-            messages.error(request, add_form.errors)
-    else:
-        add_form = AdditionalDetailsForm()
+            return redirect('additionaldetails', id)
 
     # return redirect(f"additionaldetails/{lead.pk}") # additionaldetails/20
-    return render(request, 'account/Additional_Details.html', context={'applicant_type_form': applicant_type_form, 'lead_id': id, "applicants": current_additional_details, 'number_of_applicants': current_additional_details.count()})
+    return render(request, 'account/Additional_Details.html', context={'applicant_type_form': applicant_type_form, 'lead_id': id, "applicants": current_additional_details, 'number_of_applicants': current_additional_details.count() , 'main_applicant' : main_applicant.applicant_type if main_applicant else ""})
+
+
+def addtionalDetailsNext_Btn_Handler(request, lead_id):
+    lead = Leads.objects.get(pk=lead_id)
+    main_applicant = AdditionalDetails.objects.filter(
+        lead_id=lead, applicant_type__applicant_type='Applicant').first()
+    return redirect('salaried', lead_id, main_applicant.pk)
 
 
 def delapplicant(request, id):
@@ -1226,6 +1250,18 @@ def editapplicant(request):
 
 
 def add_applicants(request):
+    add_form_2 = AdditionalDetailsForm(prefix="form2")
+    add_form_2.fields['applicant_type'].queryset = ApplicantType.objects.filter(
+        applicant_type="1st Co-Applicant")
+    add_form_2.fields['relation'].queryset = Relation.objects.filter(
+        name='Spouse')
+
+    print(request.GET.get('applicant_main'))
+    main_applicant = request.GET.get('applicant_main') != "None"
+    print(main_applicant)
+    for field in add_form_2.fields:
+        add_form_2.fields[field].required = False
+
     id = int(request.GET.get('id'))
     if id > 0:
         id = id - 1
@@ -1234,12 +1270,20 @@ def add_applicants(request):
     lead_name = Leads.objects.get(pk=lead_id).name
     lead_phone = Leads.objects.get(pk=lead_id).phone
     if id == 0:
-        form = AdditionalDetailsForm(initial={
-                                     "applicant_type": applicant_type, "cust_name": lead_name, "con_phone": lead_phone})
+        add_form_1 = AdditionalDetailsForm(initial={
+            "applicant_type": applicant_type, "cust_name": lead_name, "con_phone": lead_phone}, prefix="form1")
+
     else:
-        form = AdditionalDetailsForm(
-            initial={"applicant_type": applicant_type})
-    return render(request, 'account/add_applicant.html', context={'form': form, 'lead_id': lead_id})
+        add_form_1 = AdditionalDetailsForm(
+            initial={"applicant_type": applicant_type}, prefix="form1")
+
+    add_form_1.fields['cust_name'].widget.attrs['readonly'] = True
+    add_form_1.fields['con_phone'].widget.attrs['readonly'] = True
+    add_form_1.fields['applicant_type'].queryset = ApplicantType.objects.filter(
+        applicant_type="Applicant")
+    add_form_1.fields['relation'].queryset = Relation.objects.filter(
+        name='Self')
+    return render(request, 'account/add_applicant.html', context={'form_1': add_form_1, 'form_2': add_form_2, 'lead_id': lead_id, 'applicant_main': main_applicant})
 
 
 def load_cities(request):
@@ -1881,18 +1925,25 @@ check_salaried_details_form_list = {
 
 
 def salaried(request, lead_id, additionaldetails_id):
+    co_applicant = None
+    lead = Leads.objects.get(pk = lead_id)
+    co_applicant = AdditionalDetails.objects.filter(
+        lead_id=lead, applicant_type__applicant_type="1st Co-Applicant").first()
     if request.method == 'POST':
         print(request.POST)
-        if 'cancel' in request.POST:
-            return redirect('base_dashboard')
 
         if 'next' in request.POST:
             for key in check_salaried_details_form_list:
                 if check_salaried_details_form_list[key] == False:
                     pass
+
+                            
                     # messages.info(
                     #     request, "Please add every details to proceed.")
                     # return redirect('salaried', lead_id, additionaldetails_id)
+
+            if co_applicant and co_applicant.pk != additionaldetails_id:
+               return redirect('salaried' , lead_id , co_applicant.pk)
             return redirect('account_eligibility', lead_id)
 
         if 'personal_details' in request.POST:
@@ -1904,6 +1955,8 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Personal Details" Saved Successfully')
+                check_salaried_details_form_list['personal_details'] = True
+
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
@@ -1917,10 +1970,15 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Income Details" Saved Successfully')
+                check_salaried_details_form_list['income_details'] = True
+
                 return redirect('salaried', id)
+
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
+
         elif 'other_incomes' in request.POST:
             form = SalOtherIncomesForm(request.POST)
             if form.is_valid():
@@ -1930,10 +1988,13 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Other Incomes Details" Saved Successfully')
+                check_salaried_details_form_list['other_incomes'] = True
+    
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
         elif 'additional_other_incomes' in request.POST:
             form = SalAdditionalOtherIncomesForm(request.POST)
             if form.is_valid():
@@ -1943,10 +2004,12 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Other than Income Mentioned Above Details" Saved Successfully')
+                check_salaried_details_form_list['additional_other_incomes'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
         elif 'company_details' in request.POST:
             form = SalCompanyDetailsForm(request.POST)
             if form.is_valid():
@@ -1956,10 +2019,12 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Company Details" Saved Successfully')
+                check_salaried_details_form_list['company_details'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
         elif 'residence_details' in request.POST:
             form = SalResidenceDetailsForm(request.POST)
             if form.is_valid():
@@ -1969,10 +2034,13 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Residence Details" Saved Successfully')
+                check_salaried_details_form_list['residence_details'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
+
         elif 'existing_loan_details' in request.POST:
             form = SalExistingLoanDetailsForm(request.POST)
             if form.is_valid():
@@ -1982,10 +2050,13 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Existing Loan Details" Saved Successfully')
+                check_salaried_details_form_list['existing_loan_details'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
+
         elif 'existing_card_details' in request.POST:
             form = SalExistingCreditCardForm(request.POST)
             if form.is_valid():
@@ -1995,10 +2066,13 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Existing Card Details" Saved Successfully')
+                check_salaried_details_form_list['existing_card_details'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
+
+
         elif 'additional_details' in request.POST:
             form = SalAdditionalDetailsForm(request.POST)
             if form.is_valid():
@@ -2008,6 +2082,7 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Additional Details" Saved Successfully')
+                check_salaried_details_form_list['additional_details'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
@@ -2021,6 +2096,7 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(
                     request, '"Investment Details" Saved Successfully')
+                check_salaried_details_form_list['investment'] = True
                 return redirect('salaried', id)
             else:
                 messages.error(request, form.errors)
@@ -2294,7 +2370,7 @@ def salaried(request, lead_id, additionaldetails_id):
 
 def check_eligibility(request, id):
 
-    return render(request , 'account/eligibility.html')
+    return render(request, 'account/eligibility.html')
 
 
 def selfemployed(request):
@@ -2568,13 +2644,13 @@ def register2(request):
             # return render(request, 'account/terms.html')
 
         # else:
-            #messages.info(request, 'Password did not match')
+            # messages.info(request, 'Password did not match')
             # return redirect('register')
 
             return redirect('email_ver_msg')
 
         # else:
-            #messages.info(request, 'Password did not match')
+            # messages.info(request, 'Password did not match')
             # return redirect('register')
     else:
         return render(request, 'account/register2.html')
@@ -2666,16 +2742,33 @@ def support(request):
     return render(request, 'account/support.html', context=context)
 
 
-def handle_applicant_additional_details(request , additional_details_count, additional_details_instance , id):
+def handle_form_data(request, form_1_instance, form_2_instance, id):
 
-    if 'Salaried' not in additional_details_instance.cust_type.cust_type:
-        messages.error(
-            request, "Rejected. Applicant must be salaried.")
+    tmp = None
+
+    if form_1_instance is not None :
+        if not 'Salaried' == form_1_instance.cust_type.cust_type :
+            messages.error(
+                request, "Rejected. Applicants must be salaried.")
+            tmp = redirect('additionaldetails', id)
+
+        if form_1_instance.inc_holder is False :
+            messages.error(
+                request, "Rejected. Applicants should be income holders.")
+            tmp = redirect('additionaldetails', id)
+
+
         
 
-        if additional_details_count < 1:
-            if additional_details_instance.inc_holder is False:
-                messages.error(
-                    request, "Rejected. First applicant should be a income holder.")
-        return redirect('additionaldetails', id)
-    return None
+    if form_2_instance is not None :
+        if not 'Salaried' == form_2_instance.cust_type.cust_type:
+            messages.error(
+                request, "Rejected. Applicants must be salaried.")
+            tmp = redirect('additionaldetails', id)
+        if form_2_instance.inc_holder is False:
+            messages.error(
+                request, "Rejected. Applicants should be income holders.")
+            tmp = redirect('additionaldetails', id)
+       
+
+    return tmp

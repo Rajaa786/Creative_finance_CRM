@@ -120,6 +120,9 @@ class AdditionalDetails(models.Model):
     con_person_name = models.CharField(max_length=25, blank=True)
     con_person_phone = models.CharField(max_length=10, blank=True)
 
+    def __str__(self):
+        return self.applicant_type.applicant_type
+
 
 class SalPersonalDetails(models.Model):
     per_det_id = models.AutoField(primary_key=True)

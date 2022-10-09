@@ -9,10 +9,6 @@ from django.conf import settings
 urlpatterns = [
     path('dashboard/', views.base_dashboard, name="base_dashboard"),
 
-# app_name = "accounts"
-
-
-
     #--------------------------------------------------------#
     # new_LEADS
     path('view/', views.view_leads, name="view-leads"),
@@ -20,6 +16,7 @@ urlpatterns = [
     path('<int:pk>/update/', views.lead_update, name="lead-update"),
     path('<int:pk>/delete/', views.lead_delete, name="lead-delete"),
     path('newLeadview.html', views.list_leads, name="list_leads"),
+    path('additional_details_next/<int:lead_id>/' , views.addtionalDetailsNext_Btn_Handler , name='handle_next_addtional_details'),
 
     #     path('list_lead_edit/<int:id>', views.list_lead_edit, name="list_lead_edit"),
 

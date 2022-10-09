@@ -34,8 +34,11 @@ Rajaa
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    {% comment %}
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% endcomment %}
+
+
+
+    <link href="{% static 'material_2_pro_assets/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
     <link id="pagestyle" href="{% static 'material_2_pro_assets/css/material-dashboard.min.css?v=3.0.2' %}"
         rel="stylesheet" />
 
@@ -90,7 +93,7 @@ Rajaa
                     <div class="row">
 
                         <!-- Fade In Utility -->
-                        <div class="col">
+                        <div class="col-12">
                             <div class="card position-relative">
                                 <div id="print">
 
@@ -98,53 +101,54 @@ Rajaa
                                         <h6 class="m-0 font-weight-bold text-primary">Applicant Details</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group form-inline">
-                                            <label class="col-2" style="color: black"><b>Name:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.name}}" readonly></label>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Name:</b></label>
+                                                <input class="form-control" type="text" value="{{s.name}}"
+                                                    readonly></label>
                                             </div>
-                                            <label class="col-2" style="color: black"><b>Mobile No.:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.mobile}}" readonly></label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group form-inline">
-                                            <label class="col-2" style="color: black"><b>Email ID:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.email}}" readonly></label>
-                                            </div>
-                                            <label class="col-2" style="color: black"><b>Customer Required
-                                                    loan:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.loan_amt}}" readonly></label>
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Mobile No.:</b></label>
+                                                <input class="form-control" type="text" value="{{s.mobile}}"
+                                                    readonly></label>
                                             </div>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label class="col-2" style="color: black"><b>Company Name:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.company_name}}" readonly></label>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Email ID:</b></label>
+                                                <input class="form-control" type="text" value="{{s.email}}"
+                                                    readonly></label>
                                             </div>
-                                            <label class="col-2" style="color: black"><b>Net Salary:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.net_sal}}" readonly></label>
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Customer Required
+                                                        loan:</b></label>
+                                                <input class="form-control" type="text" value="{{s.loan_amt}}"
+                                                    readonly></label>
                                             </div>
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label class="col-2" style="color: black"><b>State:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.stt}}" readonly></label>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Company
+                                                        Name:</b></label>
+                                                <input class="form-control" type="text" value="{{s.company_name}}"
+                                                    readonly></label>
                                             </div>
-                                            <label class="col-2" style="color: black"><b>City:</b></label>
-                                            <div class="mr-3">
-                                                <input class="form-control" type="text" style="width:300px"
-                                                    value="{{s.sttt}}" readonly></label>
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>Net Salary:</b></label>
+                                                <input class="form-control" type="text" value="{{s.net_sal}}"
+                                                    readonly></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>State:</b></label>
+                                                <input class="form-control" type="text" value="{{s.stt}}"
+                                                    readonly></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="" style="color: black"><b>City:</b></label>
+                                                <input class="form-control" type="text" value="{{s.sttt}}"
+                                                    readonly></label>
                                             </div>
                                         </div>
                                     </div>

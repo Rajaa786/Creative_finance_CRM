@@ -57,9 +57,12 @@ class AdditionalDetailsForm(ModelForm):
         self.fields['is_diff'].widget.attrs.update(
             {'class': 'form-check-input'})
 
+        self.fields['cust_type'].queryset = CustomerType.objects.filter(cust_type__in = ['Salaried' , 'Non-Salaried'])
+        
+
     class Meta:
         model = AdditionalDetails
-        exclude = ('lead_id', 'prop_owner')
+        exclude = ('lead_id',)
 
 
 class PropertyDetailsType1Form(ModelForm):

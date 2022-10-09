@@ -10,6 +10,9 @@
     border-collapse: collapse;
   }
 </style> {% endcomment %}
+
+    {% comment %} <link rel="stylesheet" href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}" /> {% endcomment %}
+
 {% endblock other_css %}
 
 {% block title %}Additional Details{% endblock title %}
@@ -50,6 +53,7 @@
                 <h4 class="card-title fw-bold text-light">Add Applicant</h4>
                 <p class="card-category fw-bold text-light mb-0">
                   Add Main Applicant Details
+
                 </p>
               </a>
             </div>
@@ -135,8 +139,8 @@
       {% endif %}
     </div>
     <div style="text-align:center">
-      <a class="btn btn-primary btn-lg active" role="button" href="{% url 'property_details' id=lead_id %}"
-        aria-pressed="true">Next</a>
+      <a class="btn btn-primary btn-lg active" role="button"
+        href="{% url 'handle_next_addtional_details' lead_id=lead_id %}" aria-pressed="true">Next</a>
     </div>
   </div>
 </div>
@@ -149,6 +153,9 @@
   }else{
       $('#addapplicant').css('pointer-events','');
   }*/
+
+
+  
 
   $("#edit").click(function () {
     const add_id = $(this).attr("data-id");
@@ -189,7 +196,7 @@
             data: form_data,
             success: function (data) {
               $('#applicant_details').trigger('reset');
-              
+
             }
 
           });
@@ -202,21 +209,24 @@
 
 
   $("#addapplicant").click(function () {
-    if ({{number_of_applicants}} < 2 ){
+    if ({{number_of_applicants}} < 2) {
       const url = $("#addapplicant").attr('data-url');
       const id = 0;
       const lead_id = {{lead_id}}
+      const main_Applicant = {% if main_applicant %}"{{main_applicant}}"{% else %}"None"{% endif %}
       console.log("This is lead id ", lead_id);
+      console.log("Main Applicant", main_Applicant);
       $.ajax({
         url: url,
         type: 'GET',
         data: {
           'id': id,
-          'lead_id': lead_id
+          'lead_id': lead_id,
+          'applicant_main' : main_Applicant
         },
         datatype: 'JSON',
         success: function (data) {
-          
+
           $("#Applicant").html(data);
           $("#id_applicant_type").readOnly = true;
           $("#id_is_diff").click(function () {
@@ -227,25 +237,25 @@
               $("#contactperson").css("display", "none");
             }
 
-        });
-        /*$("#applicant_details").submit(function (e) {
-          const _url = $("#applicant_details").attr('action');
-          console.log(url);
-          const _type = $("#applicant_details").attr('method');
-          var form_data = $(this).serialize();
-          $.ajax({
-            type: _type,
-            url: _url,
-            data: form_data,
-            success: function (data) {
-              console.log(data)
-             // $('#applicant_details').trigger('reset');
-             console.log("Reset")
-            }
-
           });
+          /*$("#applicant_details").submit(function (e) {
+            const _url = $("#applicant_details").attr('action');
+            console.log(url);
+            const _type = $("#applicant_details").attr('method');
+            var form_data = $(this).serialize();
+            $.ajax({
+              type: _type,
+              url: _url,
+              data: form_data,
+              success: function (data) {
+                console.log(data)
+               // $('#applicant_details').trigger('reset');
+               console.log("Reset")
+              }
 
-        });*/
+            });
+
+          });*/
         },
         error: function (data) {
           console.log(data);
@@ -253,8 +263,9 @@
       });
     }
     //Else -> (more applicants can be added)
-    else{
-        $("#Applicant").html('<h4 style="letter-spacing : 0.01rem">Maximum limit reached. Cannot add more applicants.</h4>');
+    else {
+      $("#Applicant").html(
+        '<h4 style="letter-spacing : 0.01rem">Maximum limit reached. Cannot add more applicants.</h4>');
     }
   });
 
