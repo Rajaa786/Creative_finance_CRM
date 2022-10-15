@@ -9,7 +9,7 @@
 
 {% block other_body %}
 <h1 class="mb-5 mt-3 display-3 text-center bg-transparent text-dark">New Partner Registration</h1>
-<form action="register" method="POST" class="bg-white rounded p-5 shadow-blur border-0"
+<form action="{% url 'register' %}" method="POST" class="bg-white rounded p-5 shadow-blur border-0"
   style="width: 95%; margin: 25px auto;">
   {% csrf_token %}
   <div class="row">
@@ -85,7 +85,7 @@
   </div>
   <div class="container text-center">
     <p>Already have an account?
-      <a href="login" class="text-info">Login</a>.
+      <a href={% url "login" %} class="text-info">Login</a>.
     </p>
   </div>
 </form>

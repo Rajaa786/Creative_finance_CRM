@@ -1,8 +1,20 @@
+from email.utils import formatdate
+from hashlib import blake2b
+from tokenize import blank_re
 from django.db import models
 from django.conf import settings
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+YES_NO_CHOICES = (
+    (None, ('Select Yes Or No')),
+    (True, ('Yes')),
+    (False, ('No'))
+)
+
+
+
 
 class Prefix(models.Model): 
     prefix           = models.CharField(max_length=5)
@@ -74,30 +86,27 @@ class CustomerType(models.Model):
     ineffective_date = models.DateField(blank=True, null = True)
     def __str__(self): 
         return self.cust_type
+
+
 class DesignationType(models.Model): 
     desg_type        = models.CharField(max_length=25)
     effective_date   = models.DateField(null = True)
     ineffective_date = models.DateField(blank=True, null = True)
     def __str__(self): 
         return self.desg_type
+
+
 class CompanyType(models.Model): 
     company_type     = models.CharField(max_length=30)
     effective_date   = models.DateField(null = True)
     ineffective_date = models.DateField(blank=True, null = True)
     def __str__(self): 
         return self.company_type
-class SalaryType(models.Model): 
-    salary_type      = models.CharField(max_length=25)
-    effective_date   = models.DateField(null = True)
-    ineffective_date = models.DateField(blank=True, null = True)
-    def __str__(self): 
-        return self.salary_type
-class ResidenceType(models.Model): 
-    residence_type   = models.CharField(max_length=25)
-    effective_date   = models.DateField(null = True)
-    ineffective_date = models.DateField(blank=True, null = True)
-    def __str__(self): 
-        return self.residence_type
+
+
+
+
+
 class BankName(models.Model): 
     bank_name        = models.CharField(max_length=25)
     effective_date   = models.DateField(null = True)
@@ -311,6 +320,93 @@ class ProductsOrServices(models.Model):
     ineffective_date     = models.DateField(blank=True, null = True)
     def __str__(self): 
         return self.products_or_services
+
+
+class CompanyCategory(models.Model):
+    cocat_type = models.CharField(max_length=200)
+    multiplier_number = models.IntegerField()
+    roi = models.FloatField()
+    min_loan_amt = models.BigIntegerField()
+    max_loan_amt = models.BigIntegerField()
+
+
+class CompanyCatergoryTypes(models.Model):
+    cocat_type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.cocat_type
+
+
+class Foir(models.Model):
+    min_amt = models.BigIntegerField()
+    max_amt = models.BigIntegerField()
+    cutoff = models.IntegerField()
+
+
+class SalaryType(models.Model):
+    salary_type = models.CharField(max_length=25)
+    def __str__(self):
+        return self.salary_type
+
+
+class ResidenceType(models.Model):
+    residence_type = models.CharField(max_length=25)
+    def __str__(self):
+        return self.residence_type
+
+
+class Cibil(models.Model):
+    cibil_score = models.IntegerField()
+
+
+class Tenure(models.Model):
+    ten_type = models.IntegerField()
+    def __str__(self):
+        return str(self.ten_type)
+
+
+
+
+
+class product_and_policy_master(models.Model):
+    product_name = models.ForeignKey(
+        Product, null=False, blank=False, on_delete=models.CASCADE)
+    bank_names = models.ForeignKey(BankName, on_delete=models.CASCADE , null=False , blank = False)
+    customer_type = models.ForeignKey(
+        CustomerType, on_delete=models.CASCADE, null=False, blank=False , related_name = "cust_types")
+    is_salary_account = models.BooleanField(
+        null=False, choices=YES_NO_CHOICES)
+    salary_existing = models.BigIntegerField()
+    salary_new = models.BigIntegerField()
+    designation = models.ForeignKey(
+        DesignationType, on_delete=models.CASCADE, null=False, blank=False)
+    min_age = models.IntegerField()
+    max_age = models.IntegerField()
+    current_experience = models.IntegerField()
+    multiplier = models.IntegerField(null=False , blank=False)
+    effective_date = models.DateField(blank=True, null=True)
+    ineffective_date = models.DateField(null=True, blank=True)
+    processing_fee = models.BigIntegerField()
+    months_for_foir = models.BigIntegerField()
+    foir = models.ManyToManyField(
+        Foir)
+    company_category = models.ManyToManyField(
+        CompanyCategory)
+    cibil_score = models.BigIntegerField(
+        null=False , blank=False)
+    salary_type = models.ManyToManyField(
+        SalaryType)
+    residence_type = models.ManyToManyField(
+        ResidenceType)
+    tenure = models.ManyToManyField(
+        Tenure)
+    company_type = models.ManyToManyField(CompanyType)
+
+    def __str__(self):
+        s = self.bank_names.bank_name[:4] + self.product_name.product[:3] + self.customer_type.cust_type[:3]
+        return s.upper()
+
+
 
 
 class CibilLoanType(models.Model): 

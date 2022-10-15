@@ -1,5 +1,6 @@
 
 from sys import prefix
+from unicodedata import name
 from wsgiref.util import request_uri
 from xml.etree.ElementInclude import include
 from django.shortcuts import render, redirect
@@ -8,7 +9,7 @@ from django.views import View
 from django.core import serializers
 from .forms import *
 from django.db.models import Q
-from django.contrib.auth.models import auth
+from django.contrib.auth.models import auth , Group
 from .models import *
 from master.models import *
 from django.contrib import messages
@@ -27,12 +28,13 @@ from django.template.loader import get_template
 from django.http import HttpResponse
 from io import BytesIO
 from django.core.files import File
+from django.core.files.base import ContentFile
 import json
 from django.contrib.auth.decorators import login_required
 from django.utils.datastructures import MultiValueDictKeyError
 # def random_password(size=8):
 #     return BaseUserManager().make_random_password(size)
-from leadgenerator.settings import EMAIL_HOST_USER
+from leadgenerator.settings import BASE_DIR, EMAIL_HOST_USER
 from HomeLoan.models import *
 from django.core.files.storage import FileSystemStorage
 from stronghold.decorators import public
@@ -173,6 +175,7 @@ def base_dashboard(request):
 @login_required(redirect_field_name='login', login_url='login')
 def register(request):
     if request.method == 'POST':
+        group = Group.objects.get(name = "Referral Partner")
         fname = request.POST['fname']
         Email = request.POST['email']
         phone = request.POST['phone']
@@ -192,6 +195,7 @@ def register(request):
             user = CustomUser.objects.create_user(username=Email, password="", email=Email, first_name=fname, phone=phone, alt_phone=alt_phone,
                                                   designation=designation, address=address, role=role, mapped_to=mapped_to, mapped_to_name=mapped_to_nm, by_online=by_online)
             user.is_active = False
+            user.groups.add(group)
             user.save()
             ini = ""
             if user.designation == "Salaried":
@@ -228,12 +232,12 @@ def register(request):
             newusername = ini+num
             user.username = newusername
             user.save()
-            # if user.role == "Referral Partner":
-            #     ini = "ORP"
-            #     num = '{:03d}'.format(user.id)
-            #     newusername = ini+num
-            #     user.username = newusername
-            #     user.save()
+            if user.role == "Referral Partner":
+                ini = "ORP"
+                num = '{:03d}'.format(user.id)
+                newusername = ini+num
+                user.username = newusername
+                user.save()
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             domain = get_current_site(request).domain
             link = reverse('activate', kwargs={
@@ -248,18 +252,20 @@ def register(request):
                 [Email],
             )
             email.send(fail_silently=False)
-            template = get_template('account/Agreement.html')
+            # template = get_template('account/Agreement.html')
             context = {
                 "partner_name": user.first_name
             }
-            html = template.render(context)
+            # html = template.render(context)
             pdf = render_to_pdf('account/Agreement.html', context)
+      
             response = HttpResponse(pdf, content_type='application/pdf')
             filename = "Agreement_%s.pdf" % (user.username)
+        
             content = "attachment; filename='%s'" % (filename)
-            # response['Content-Disposition'] = content
             response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-            user.agreement.save(filename, File(BytesIO(pdf.content)))
+            user.agreement.save(filename , ContentFile(pdf.content))
+            print(user.agreement)
             message = "this is test mail"
             subject = "terms and conditions"
             mail_id = request.POST.get('email', '')
@@ -329,15 +335,21 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(username=username, password=password)
-        print("here", user)
 
         if user is not None:
 
             auth.login(request, user)
+         
+            if 'next' in request.POST:
+                print("POST " , request.POST['next'])
+                return redirect(request.POST['next'])
+                
+            
+            print("After Next")
             if user.role == "Admin":
                 return redirect('base_dashboard')
             elif user.role == "Referral Partner":
-                return redirect('base')
+                return redirect('base_dashboard')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('login')
@@ -1944,7 +1956,7 @@ def salaried(request, lead_id, additionaldetails_id):
                 return redirect('salaried', lead_id, co_applicant.pk)
 
                 
-            return redirect('account_eligibility', lead_id)
+            return redirect('upload_documents', lead_id)
 
         if 'personal_details' in request.POST:
             form = SalPersonalDetailsForm(request.POST)

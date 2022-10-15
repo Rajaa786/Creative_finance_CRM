@@ -1,0 +1,567 @@
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
+{% load static %}
+
+
+
+    {% block title %}
+
+    <title>SB Admin 2 - Animation Utilities</title>
+    {% endblock title %}
+
+    {% block other_css %}
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'material_2_pro_assets/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    {% endblock other_css %}
+
+
+    {% block other_body %}
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'topbar.html' %}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-1 text-gray-800">Add Product & Policy</h1>
+                <br><br>
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Fade In Utility -->
+                    <div class="col">
+
+                        <div class="card position-relative">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Add Product & Policy</h6>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" class="user" action="add_prod_policy_table" id="form"
+                                    data-company-url="{% url 'ajax_load_company' %}"
+                                    data-cocat-url="{% url 'ajax_load_cocat' %}">
+                                    {% csrf_token %}
+
+                                    <!--
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-user" name="cust_type" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Customer Type...">
+                  </div>
+<<<<<<< HEAD
+                  <div class="small mb-1">select Relevant Option</div>
+                  <div class="dropdown mb-4">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">select relevant option
+                                                </button>
+                      <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">salaried</a>
+                        <a class="dropdown-item" href="#">Self enployed</a>
+                        <a class="dropdown-item" href="#">professional</a>
+                      </div>
+                  </div>
+=======
+                  -->
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Customer Type:</b></label>
+                                        <select class="custom-select col-10 " name="cust_type">
+                                            <option selected>Select Customer Type:</option>
+                                            {% for cust in cust_type %}
+                                            <option value="{{cust.type}}">{{cust.type}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Loan Type:</b></label>
+                                        <select class="custom-select col-10" name="loan_type">
+                                            <option selected>Select Loan Type:</option>
+                                            {% for loan in l_type %}
+                                            <option value="{{loan.loan_type}}">{{loan.loan_type}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Bank Name:</b></label>
+                                        <select class="custom-select col-10" name="bank_name" id="bank_name">
+                                            <option selected>Select Bank Name:</option>
+                                            {% for bank_name in bank %}
+                                            <option value="{{bank_name.b_name}}">{{bank_name.b_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <!--
+                  <div class="form-group form-inline">
+                    <label class="col-2" style="color: black"><b>Company Name:</b></label>
+                    <select class="custom-select col-10" name="company_name" id="company_name">
+                    </select>
+                  </div>
+                    <div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Co-Category Type:</b></label>
+                      <select class="custom-select col-10" name="cocat_type" id="cocat_type">
+                      </select>
+                    </div>
+                    </div>
+                    <div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Loan Amount Basis Co-Category:</b></label>
+                      <div class="mr-3">
+                        <input class="form-control" type="number" style="width:200px" name = "loan_cocat">
+                      </div>
+                    </div>
+                    <div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Gross Salary:</b></label>
+                      <div class="mr-3">
+                        <input class="form-control" type="number" style="width:200px" name = "gross_salary">
+                      </div>
+                    </div>
+                    <div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Net Salary</b></label>
+                      <div class="mr-3">
+                        <input class="form-control" type="number" style="width:200px" name = "net_salary">
+                      </div>
+                    </div>
+                    <div class="form-group form-inline">
+                          <label class="col-2" style="color: black"><b>Company Type:</b></label>
+                          <select class="custom-select col-10" name="company_type">
+                            <option selected>Select Company Type:</option>
+                            {% for com in com_type %}
+                            <option value="{{com.co_type}}">{{com.co_type}}</option>
+                            {% endfor %}
+                          </select>
+                          </div>
+                        -->
+
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Salary Account:</b></label>
+                                        <select class="custom-select col-10" name="salary_acc">
+                                            <option selected>Select Salary Account:</option>
+                                            <option>Yes</option>
+                                            <option>No</option>
+                                        </select>
+                                    </div>
+
+                                    <!--
+                  <div class="form-group form-inline">
+                    <label class="col-2" style="color: black"><b>Salary Type:</b></label>
+                    <select class="custom-select col-10" name="salary_type">
+                      <option selected>Select Salary Type:</option>
+                      {% for salary_type in s_type %}
+                      <option value="{{salary_type.s_type}}">{{salary_type.s_type}}</option>
+                      {% endfor %}
+                    </select>
+                    </div>
+                    <div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Residence Type:</b></label>
+                      <select class="custom-select col-10" name = "res_type">
+                        <option selected>Select Residence Type:</option>
+                        {% for residence_type in res_type %}
+                        <option value="{{residence_type.r_type}}">{{residence_type.r_type}}</option>
+                        {% endfor %}
+                      </select>
+                      </div>
+                      -->
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Designation:</b></label>
+                                        <select class="custom-select col-10" name="designation">
+                                            <option selected>Select Designation:</option>
+                                            {% for designation in des_type %}
+                                            <option value="{{designation.design}}">{{designation.design}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Min Age:</b></label>
+                                        <div class="mr-3">
+                                            <input class="form-control" type="number" style="width:65px" name="min_age">
+                                        </div>
+                                        <label class="mr-3" style="color: black"><b>Max. Age:</b></label>
+                                        <div class="mr-3">
+                                            <input class="form-control" type="number" style="width:65px" name="max_age">
+                                        </div>
+                                        <label class="mr-3" style="color: black"><b>Existing Customer
+                                                Salary:</b></label>
+                                        <div class="mr-3">
+                                            <input class="form-control" type="number" style="width:150px"
+                                                name="salary_exist">
+                                        </div>
+                                        <label class="mr-3" style="color: black"><b>New Customer Salary:</b></label>
+                                        <div class="mr-3">
+                                            <input class="form-control" type="number" style="width:150px"
+                                                name="salary_new">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Current Experience:</b></label>
+                                        <div class="mr-3">
+                                            <input class="form-control" type="number" style="width:80px"
+                                                name="current_exp">
+                                            <label class="d-inline" style="color: black"> Years</label>
+                                        </div>
+                                    </div>
+
+                                    <!--
+                  <div class="form-group form-inline">
+                    <label class="col-2" style="color: black"><b>Total Experience:</b></label>
+                    <div class="mr-3">
+                      <input class="form-control" type="number" style="width:80px" name = "total_exp">
+                      <label class="d-inline" style="color: black"> Months</label>
+                    </div>
+                  </div>
+                  -->
+
+                                    <div class="field_wrapper_2">
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>Cibil Score:</b></label>
+                                            <div class="mr-3">
+                                                <input class="form-control" type="number" style="width:80px"
+                                                    name="cibil_score">
+                                                <!--                        <label class="d-inline" style="color: black"> +</label>-->
+                                            </div>
+                                            <!--                      <div class="form-group form-inline">-->
+                                            <!--                        <button class="btn btn-primary add_button_2" type="button">+ Add one more Cibil Score</button>-->
+                                            <!--                      </div>-->
+                                        </div>
+                                    </div>
+
+                                    <!--                  <div class="field_wrapper_3">-->
+                                    <!--                    <div class="form-group form-inline">-->
+                                    <!--                      <label class="col-2" style="color: black"><b>Max Age:</b></label>-->
+                                    <!--                      <div class="mr-3">-->
+                                    <!--                        <input class="form-control" type="number" style="width:80px" name = "max_age_n">-->
+                                    <!--                        <label class="d-inline" style="color: black"> +</label>-->
+                                    <!--                      </div>-->
+                                    <!--                      <div class="form-group form-inline">-->
+                                    <!--                        <button class="btn btn-primary add_button_3" type="button">+ Add one more Max Age</buton>-->
+                                    <!--                      </div>-->
+                                    <!--                    </div>-->
+                                    <!--                  </div>-->
+
+                                    <!--
+                  <div class="form-group form-inline">
+                    <label class="col-2" style="color: black"><b>Tenure:</b></label>
+                    <div class="mr-3">
+                      <input class="form-control" type="number" style="width:80px" name = "tenure">
+                      <label class="d-inline" style="color: black"> Months</label>
+                    </div>
+                  </div>
+                  -->
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Processing Fee:</b></label>
+                                        <input class="form-control" name="pf">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Months for Foir:</b></label>
+                                        <input class="form-control" type="number" name="mon">
+                                    </div>
+
+
+                                    <label class="col-2" style="color: black"><b>Add Multiplier:</b></label>
+
+                                    <div class="field_wrapper">
+                                        <div class="form-group form-inline">
+                                            <label class="col-2" style="color: black"><b>Company
+                                                    Category:</b></label>
+                                            <select class="custom-select" name="cocat_type">
+                                                <option selected>Select Multiplier Type:</option>
+                                                {% for cocat in cocatt_type %}
+                                                <option value="{{cocat.c_type}}">{{cocat.c_type}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label class="ml-3" style="color: black"><b>ROI:</b></label>
+                                            <input class="form-control ml-1" name="roi" placeholder="ROI">
+                                            <label>
+                                                <label class="ml-3" style="color: black"><b>Loan Amount:</b></label>
+                                                <input class="form-control ml-1" type="number" name="min_loan_amt"
+                                                    placeholder="Min Loan Amount">
+                                                <label class="ml-1" style="color: black"><b>-</b></label>
+                                                <input class="form-control ml-1" type="number" name="max_loan_amt"
+                                                    placeholder="Max Loan Amount">
+                                                <label class="ml-4 mt-2" style="color: black"><b>Multiplier
+                                                        No:</b></label>
+                                            </label>
+                                            <input class="form-control ml-1 mt-2" type="number" name="cocat_no">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <button class="btn btn-primary add_button" type="button">+ Add one more
+                                            Co-Category Type</button>
+                                    </div>
+
+                                    <label class="col-2" style="color: black"><b>Add FOIR:</b></label>
+                                    <div class="field_wrapper_FOIR">
+                                        <div class="form-group form-inline">
+                                            <label class="ml-3" style="color: black"><b>Minimum Net
+                                                    Salary:</b></label>
+                                            <input class="form-control ml-1" type="number" name="min_net_sal"
+                                                placeholder="Min Net Salary">
+                                            <label class="ml-1" style="color: black"><b>Maximum Net
+                                                    Salary</b></label>
+                                            <input class="form-control ml-1" type="number" name="max_net_sal"
+                                                placeholder="Max Net Salary">
+                                            <label class="ml-4 mt-2" style="color: black"><b>Foir:</b></label>
+                                            <input class="form-control ml-1 mt-2" type="number" name="cutoff"
+                                                placeholder="Foir">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <button class="btn btn-primary add_button_FOIR" type="button">+ Add one more
+                                            FOIR Type</button>
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Company Type:</b></label>
+                                        {% for com in com_type %}
+                                        <input type="checkbox" class="ml-4 mr-2" value="{{com.co_type}}"
+                                            name="company_type">
+                                        <label style="color: black"><b>{{com.co_type}}</b></label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Salary Type:</b></label>
+                                        {% for salary_type in s_type %}
+                                        <input type="checkbox" class="ml-4 mr-2" value="{{salary_type.s_type}}"
+                                            name="salary_type">
+                                        <label style="color: black"><b>{{salary_type.s_type}}</b></label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Residence Type:</b></label>
+                                        {% for residence_type in res_type %}
+                                        <input type="checkbox" class="ml-4 mr-2" value="{{residence_type.r_type}}"
+                                            name="res_type">
+                                        <label style="color: black"><b>{{residence_type.r_type}}</b></label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label class="col-2" style="color: black"><b>Tenure:</b></label>
+                                        {% for t in tenures %}
+                                        <input type="checkbox" class="ml-4 mr-2" value="{{t.tenure}}" name="tenure">
+                                        <label style="color: black"><b>{{t.tenure}}</b></label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div style="text-align:center">
+                                        <button class="btn btn-primary mr-3" type="submit">Submit</button>
+                                        <button class="btn btn-secondary" type="reset">Reset</button>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    {% endblock other_body %}
+    <!--
+        <script>
+            $("#bank_name").on('change', function() {
+                var url = $("#form").attr("data-company-url");
+                var bankname = $(this).val();
+                $.ajax({
+                    url : url,
+                    data: {
+                        'bank': bankname
+                    },
+                    success: function(data){
+                        $("#company_name").html(data);
+                    }
+                });
+            });
+        </script>
+        <script>
+            $("#company_name").on('change', function() {
+                var url = $("#form").attr("data-cocat-url");
+                var companyname = $(this).val();
+                $.ajax({
+                    url : url,
+                    data: {
+                        'company': companyname
+                    },
+                    success: function(data){
+                        $("#cocat_type").html(data);
+                    }
+    });
+  });
+</script>
+-->
+
+
+    {% block other_js %}
+
+    <script src="{% static 'js/core/sb-admin-2.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var addButton = $('.add_button'); //Add button selector
+            var wrapper = $('.field_wrapper'); //Input field wrapper
+
+            var fieldHTML = `<div class="form-group form-inline">
+            <label class="col-2" style="color: black"><b>Multiplier Type:</b></label>
+            <select class="custom-select" name="cocat_type">
+                <option selected>Select Multiplier Type:</option>
+                {% for cocat in cocatt_type %}
+                <option value="{{cocat.c_type}}">{{cocat.c_type}}</option>
+                {% endfor %}
+            </select>
+            <label class="ml-3" style="color: black"><b>ROI:</b></label>
+                      <input class="form-control ml-1" type="number" name="roi" placeholder="ROI">
+                        <label>
+                        <label class="ml-3" style="color: black"><b>Loan Amount:</b></label>
+                        <input class="form-control ml-1" type="number" name="min_loan_amt" placeholder="Min Loan Amount">
+                        <label class="ml-1" style="color: black"><b>-</b></label>
+                        <input class="form-control ml-1" type="number" name="max_loan_amt" placeholder="Max Loan Amount">
+                        </label>
+                        <label class="ml-4 mt-2" style="color: black"><b>Multiplier No:</b></label>
+                        <input class="form-control ml-1 mt-2" type="number" name="cocat_no">
+                        <span class="icon text-black-50 remove_button ml-2">
+                          <i class="fas fa-times"></i>
+                        </span>
+                      </div>`; //New input field html
+
+            var x = 1; //Initial field counter is 1
+
+            var addButton2 = $('.add_button_2'); //Add button selector
+            var wrapper2 = $('.field_wrapper_2'); //Input field wrapper
+
+            var fieldHTML2 = `<div class="form-group form-inline">
+                            <label class="col-2" style="color: black"><b>Cibil Score:</b></label>
+                            <div class="mr-3">
+                              <input class="form-control" type="number" style="width:80px" name = "cibil_score">
+                              <label class="d-inline" style="color: black"> +</label>
+                            </div>
+                            <span class="icon text-black-50 remove_button_2 ml-2">
+                              <i class="fas fa-times"></i>
+                            </span>
+                          </div>`;
+
+            var y = 1;
+
+            var addButton3 = $('.add_button_3'); //Add button selector
+            var wrapper3 = $('.field_wrapper_3'); //Input field wrapper
+
+            var fieldHTML3 = `<div class="form-group form-inline">
+                      <label class="col-2" style="color: black"><b>Max Age:</b></label>
+                      <div class="mr-3">
+                        <input class="form-control" type="number" style="width:80px" name = "max_age_n">
+                        <label class="d-inline" style="color: black"> +</label>
+                      </div>
+                      <span class="icon text-black-50 remove_button_3 ml-2">
+                        <i class="fas fa-times"></i>
+                      </span>
+                    </div>`;
+
+            var z = 1;
+
+            var addButton4 = $('.add_button_FOIR'); //Add button selector
+            var wrapper4 = $('.field_wrapper_FOIR'); //Input field wrapper
+
+            var fieldHTML4 = `<div class="form-group form-inline">
+                          <label class="ml-3" style="color: black"><b>Minimum Net Salary:</b></label>
+                          <input class="form-control ml-1" type="number" name="min_net_sal" placeholder="Min Net Salary">
+                          <label class="ml-1" style="color: black"><b>Maximum Net Salary</b></label>
+                          <input class="form-control ml-1" type="number" name="max_net_sal" placeholder="Max Net Salary">
+                          <label class="ml-4 mt-2" style="color: black"><b>Foir:</b></label>
+                          <input class="form-control ml-1 mt-2" type="number" name="cutoff">
+                          <span class="icon text-black-50 remove_button_4 ml-2">
+                            <i class="fas fa-times"></i>
+                          </span>
+                      </div>`;
+
+            var u = 1;
+
+            //Once add button is clicked
+
+            $(addButton4).click(function () {
+                u++; //Increment field counter
+                $(wrapper4).append(fieldHTML4); //Add field html
+            });
+
+            $(wrapper4).on('click', '.remove_button_4', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                u--; //Decrement field counter
+            });
+
+            $(addButton).click(function () {
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            });
+
+            $(wrapper).on('click', '.remove_button', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+
+            $(addButton2).click(function () {
+                y++; //Increment field counter
+                $(wrapper2).append(fieldHTML2); //Add field html
+            });
+
+            $(wrapper2).on('click', '.remove_button_2', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                y--; //Decrement field counter
+            });
+
+            $(addButton3).click(function () {
+                z++; //Increment field counter
+                $(wrapper3).append(fieldHTML3); //Add field html
+            });
+
+            $(wrapper3).on('click', '.remove_button_3', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                z--; //Decrement field counter
+            });
+
+
+        });
+    </script>
+
+
+    {% endblock other_js %}

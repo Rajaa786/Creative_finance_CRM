@@ -38,6 +38,8 @@ class ProductsAndPolicy(models.Model):
     lock                  = models.BooleanField(default = False)
 
 
+
+
 class CostSheet(models.Model): 
     cost_particular_id = models.AutoField(primary_key=True)
     particulars        = models.CharField(max_length=90)

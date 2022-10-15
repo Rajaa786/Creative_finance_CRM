@@ -55,6 +55,21 @@ urlpatterns = [
 
     path('editqualification/<int:id>', views.editqualification, name="editqualification"),
 
+    path('add_products_and_policy_view/',
+         views.addProductAndPolicyView, name='add_products_and_policy_view'),
+
+    path('products_and_policy/<str:action>',
+         views.Productandpolicy, name='action_products_and_policy'),
+
+    path('listproductsandpolicy/',
+         views.listProductAndPolicy, name='list_product_and_policy'),
+
+    path('delete_product_and_policy/<int:id>',
+         views.deleteProductAndPolicy, name='delete_product_and_policy'),
+
+
+
+
 ]
 
 

@@ -4,351 +4,300 @@
 
 <html lang="en">
 
-    <head>
+<head>
 
-        {% include 'base/meta.html' %}
+  {% include 'base/meta.html' %}
 
-        {% include 'base/css.html' %}
+  {% include 'base/css.html' %}
 
-        {% include 'base/dashboard_css.html' %}
+  {% include 'base/dashboard_css.html' %}
 
-        {% block other_css %}{% endblock other_css %}
+  {% block other_css %}{% endblock other_css %}
 
-        {% if title %}
-            <title>{{title}}</title>
-            {% else %}
-            <title>{% block title %}{% endblock title %}</title>
-        {% endif %}
+  {% if title %}
+  <title>{{title}}</title>
+  {% else %}
+  <title>{% block title %}{% endblock title %}</title>
+  {% endif %}
 
-        <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
-    />
-
-    <link rel="stylesheet" href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}" />
-
-        <style>
-        .alert-text{
-            color:white;
-            font-weight:bolder;
-        }
-        </style>
-
-    </head>
-
-    <body {% block other_body_css %}{% endblock other_body_css %}>
-
-        <aside class="navbar-vertical p-3">
-            <div class="sidenav-header">
-              <a class="navbar-brand m-0" href="">
-                <img
-                  src="{% static 'material_2_pro_assets/img/brand_logo.jpg' %}"
-                  class="navbar-brand-img h-6 rounded"
-                  alt="main_logo"
-                />
-              </a>
-      
-              <button type="button"
-              id="nav-toggle-button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler" style="opacity: 1;">
-                <i id="left_collapse_btn" class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template="<div class='tooltip d-none d-md-block' role='tooltip'><div class='arrow'></div><div class='tooltip-inner'></div></div>" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Collapse"></i>
-      
-                
-                <i id="right_collapse_btn"class="hide bi-arrow-bar-right navbar-toggler-full-align" data-bs-template="<div class='tooltip d-none d-md-block' role='tooltip'><div class='arrow'></div><div class='tooltip-inner'></div></div>" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Expand"></i>
-              </button>
-              
-            </div>
-      
-            <ul class="navbar-nav">
-
-              {% comment %} {% if request.user.groups.includes('Staff') %} {% endcomment %}
-              {% if request.user.is_superuser %}
-              
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                id="nav-child"
-                data-bs-toggle="collapse"
-                href="#Registration"
-                class="nav-link"
-                aria-controls="Registration"
-                role="button"
-                aria-expanded="false"
-                >
-                <i class="fas fa-book" aria-hidden="true"></i>
-                <span class="nav-link-text ms-2 ps-1">Registration</span>
-                </a>
-                <div class="collapse" id="Registration" style="">
-                <ul class="nav">
-                    <li class="nav-item w-100">
-                        <a class="nav-link" href="">
-                            <span class="sidenav-mini-icon w-15">S</span>
-                            <span class="sidenav-normal ms-3 ps-1">Staff</span>
-                        </a>
-                        </li>
-                    <li class="nav-item w-100">
-                    <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15">R</span>
-                        <span class="sidenav-normal ms-3 ps-1">Referral</span>
-                    </a>
-                    </li>
-                    <li class="nav-item w-100">
-                    <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15">V</span>
-                        <span class="sidenav-normal ms-3 ps-1">Vendor</span>
-                    </a>
-                    </li>
-                </ul>
-                </div>
-            </li>
-
-            {% endif %}
-      
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                  id="nav-child"
-                  data-bs-toggle="collapse"
-                  href="#Lead"
-                  class="nav-link"
-                  aria-controls="Lead"
-                  role="button"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-book" aria-hidden="true"></i>
-                  <span class="nav-link-text ms-2 ps-1">Lead</span>
-                </a>
-                <div class="collapse" id="Lead" style="">
-                  <ul class="nav">
-                    {% comment %} {% if  %}{% endif %} {% endcomment %}
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> RP </span>
-                        <span class="sidenav-normal ms-3 ps-1">Add List</span>
-                      </a>
-                    </li>
-                
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> CFC </span>
-                        <span class="sidenav-normal ms-3 ps-1">List</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-      
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                  id="nav-child"
-                  data-bs-toggle="collapse"
-                  href="#Eligibility"
-                  class="nav-link"
-                  aria-controls="Eligibility"
-                  role="button"
-                  aria-expanded="false"
-                >
-                  <i class="fab fa-wpforms" aria-hidden="true"></i>
-                  <span class="nav-link-text ms-2 ps-1">Eligibility</span>
-                </a>
-                <div class="collapse" id="Eligibility" style="">
-                  <ul class="nav">
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> RP </span>
-                        <span class="sidenav-normal ms-3 ps-1">Quick</span>
-                      </a>
-                    </li>
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> CFC </span>
-                        <span class="sidenav-normal ms-3 ps-1">Comprehensive</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-      
-              {% comment %} Approved Projects {% endcomment %} 
-           
-              {% comment %} {% if request.user.groups.includes('Staff') %} {% endcomment %}
-              {% if request.user.is_superuser %}
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                id="nav-child"
-                data-bs-toggle="collapse"
-                href="#Approved"
-                class="nav-link"
-                aria-controls="Approved"
-                role="button"
-                aria-expanded="false"
-                >
-                <i class="fas fa-book" aria-hidden="true"></i>
-                <span class="nav-link-text ms-2 ps-1">Approved Projects</span>
-                </a>
-                <div class="collapse" id="Approved" style="">
-                <ul class="nav">
-                    <li class="nav-item w-100">
-                        <a class="nav-link" href="">
-                            <span class="sidenav-mini-icon w-15">A</span>
-                            <span class="sidenav-normal ms-3 ps-1">Axis</span>
-                        </a>
-                        </li>
-                    <li class="nav-item w-100">
-                    <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15">H</span>
-                        <span class="sidenav-normal ms-3 ps-1">HDFC</span>
-                    </a>
-                    </li>
-                    <li class="nav-item w-100">
-                    <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15">K</span>
-                        <span class="sidenav-normal ms-3 ps-1">Kotak</span>
-                    </a>
-                    </li>
-                </ul>
-                </div>
-            </li>        
-              
-              {% endif %}
-
-
-              {% comment %} App
-              {%endcomment %}
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                  id="nav-child"
-                  data-bs-toggle="collapse"
-                  href="#App"
-                  class="nav-link"
-                  aria-controls="App"
-                  role="button"
-                  aria-expanded="false"
-                >
-                  <i class="fab fa-app-store-ios" aria-hidden="true"></i>
-                  <span class="nav-link-text ms-2 ps-1">App</span>
-                </a>
-                <div class="collapse" id="App" style="">
-                  <ul class="nav">
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> RP </span>
-                        <span class="sidenav-normal ms-3 ps-1"> Email </span>
-                      </a>
-                    </li>
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> CFC </span>
-                        <span class="sidenav-normal ms-3 ps-1"> Whatsapp </span>
-                      </a>
-                    </li>
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> CFC </span>
-                        <span class="sidenav-normal ms-3 ps-1"> Calculator </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
-                <a
-                  id="nav-child"
-                  data-bs-toggle="collapse"
-                  href="#Support"
-                  class="nav-link"
-                  aria-controls="Support"
-                  role="button"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-headset" aria-hidden="true"></i>
-                  <span class="nav-link-text ms-2 ps-1">Support</span>
-                </a>
-                <div class="collapse" id="Support" style="">
-                  <ul class="nav">
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> RP </span>
-                        <span class="sidenav-normal ms-3 ps-1">Training</span>
-                      </a>
-                    </li>
-                    <li class="nav-item w-100">
-                      <a class="nav-link" href="">
-                        <span class="sidenav-mini-icon w-15"> CFC </span>
-                        <span class="sidenav-normal ms-3 ps-1">Promotion</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-      
-              <li id="nav-parent" class="nav-item mb-2 mt-0">
-                <a
-                  
-                  href=""
-                  class="nav-link"
-                  aria-controls=""
-                  role="button"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                  <span id="logout" class="nav-link-text ms-2 ps-1">Logout</span>
-                </a>
-              </li>
-            </ul>
-          </aside>
-      
-      
-      
-          <section>
-            
-            {% block section_content %}{% endblock section_content %}
-
-        </section>
-
-
-
-
-
-
-        <script>
-            if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-            }
-        </script>
-        
-        {% include 'base/js.html' %}
-
-
-        {% block other_js %}{% endblock other_js %}
-
-        <script>
-          $(document).ready(() => {
-            $('#nav-toggle-button').on('click' , () => {
-              console.log("clicked")
-              $("#nav-child>span").toggleClass('hide-nav')
-              $("#logout").toggleClass('hide-nav')
-              $('#nav-child>span').toggleClass('opacity-0')
-              $('#logout').toggleClass('opacity-0')
-              $(":root").toggleClass('width-6')
-              $('#right_collapse_btn').toggle()
-              $('#left_collapse_btn').toggle()
-              $('.sidenav-normal').toggle()
-
-            })
-          })
-        </script>
-
+  {% comment %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+  {% endcomment %}
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   
 
+  {% comment %} <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" /> {% endcomment %}
 
-    
+  <link rel="stylesheet" href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}" />
 
-    </body>
+  <style>
+    .alert-text {
+      color: white;
+      font-weight: bolder;
+    }
+  </style>
+
+</head>
+
+<body {% block other_body_css %}{% endblock other_body_css %}>
+
+  <aside class="navbar-vertical p-3">
+    <div class="sidenav-header">
+      <a class="navbar-brand m-0" href="">
+        <img src="{% static 'material_2_pro_assets/img/brand_logo.jpg' %}" class="navbar-brand-img h-6 rounded"
+          alt="main_logo" />
+      </a>
+
+      <button type="button" id="nav-toggle-button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler"
+        style="opacity: 1;">
+        <i id="left_collapse_btn" class="bi-arrow-bar-left navbar-toggler-short-align"
+          data-bs-template="<div class='tooltip d-none d-md-block' role='tooltip'><div class='arrow'></div><div class='tooltip-inner'></div></div>"
+          data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Collapse"></i>
+
+
+        <i id="right_collapse_btn" class="hide bi-arrow-bar-right navbar-toggler-full-align"
+          data-bs-template="<div class='tooltip d-none d-md-block' role='tooltip'><div class='arrow'></div><div class='tooltip-inner'></div></div>"
+          data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Expand"></i>
+      </button>
+
+    </div>
+
+    <ul class="navbar-nav">
+
+      {% comment %} {% if request.user.groups.includes('Staff') %} {% endcomment %}
+      {% if request.user.is_superuser %}
+
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#Registration" class="nav-link" aria-controls="Registration"
+          role="button" aria-expanded="false">
+          <i class="fas fa-book" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">Registration</span>
+        </a>
+        <div class="collapse" id="Registration" style="">
+          <ul class="nav">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">S</span>
+                <span class="sidenav-normal ms-3 ps-1">Staff</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">R</span>
+                <span class="sidenav-normal ms-3 ps-1">Referral</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">V</span>
+                <span class="sidenav-normal ms-3 ps-1">Vendor</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      {% endif %}
+
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#Lead" class="nav-link" aria-controls="Lead" role="button"
+          aria-expanded="false">
+          <i class="fas fa-book" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">Lead</span>
+        </a>
+        <div class="collapse" id="Lead" style="">
+          <ul class="nav">
+            {% comment %} {% if  %}{% endif %} {% endcomment %}
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> RP </span>
+                <span class="sidenav-normal ms-3 ps-1">Add List</span>
+              </a>
+            </li>
+
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1">List</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#Eligibility" class="nav-link" aria-controls="Eligibility"
+          role="button" aria-expanded="false">
+          <i class="fab fa-wpforms" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">Eligibility</span>
+        </a>
+        <div class="collapse" id="Eligibility" style="">
+          <ul class="nav">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> RP </span>
+                <span class="sidenav-normal ms-3 ps-1">Quick</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1">Comprehensive</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      {% comment %} Approved Projects {% endcomment %}
+
+      {% comment %} {% if request.user.groups.includes('Staff') %} {% endcomment %}
+      {% if request.user.is_superuser %}
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#Approved" class="nav-link" aria-controls="Approved"
+          role="button" aria-expanded="false">
+          <i class="fas fa-book" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">Approved Projects</span>
+        </a>
+        <div class="collapse" id="Approved" style="">
+          <ul class="nav">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">A</span>
+                <span class="sidenav-normal ms-3 ps-1">Axis</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">H</span>
+                <span class="sidenav-normal ms-3 ps-1">HDFC</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15">K</span>
+                <span class="sidenav-normal ms-3 ps-1">Kotak</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      {% endif %}
+
+
+      {% comment %} App
+      {%endcomment %}
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#App" class="nav-link" aria-controls="App" role="button"
+          aria-expanded="false">
+          <i class="fab fa-app-store-ios" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">App</span>
+        </a>
+        <div class="collapse" id="App" style="">
+          <ul class="nav">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> RP </span>
+                <span class="sidenav-normal ms-3 ps-1"> Email </span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1"> Whatsapp </span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1"> Calculator </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li id="nav-parent" class="nav-item w-100 mb-2 mt-0">
+        <a id="nav-child" data-bs-toggle="collapse" href="#Support" class="nav-link" aria-controls="Support"
+          role="button" aria-expanded="false">
+          <i class="fas fa-headset" aria-hidden="true"></i>
+          <span class="nav-link-text ms-2 ps-1">Support</span>
+        </a>
+        <div class="collapse" id="Support" style="">
+          <ul class="nav">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> RP </span>
+                <span class="sidenav-normal ms-3 ps-1">Training</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="">
+                <span class="sidenav-mini-icon w-15"> CFC </span>
+                <span class="sidenav-normal ms-3 ps-1">Promotion</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li id="nav-parent" class="nav-item mb-2 mt-0">
+        <a href="" class="nav-link" aria-controls="" role="button" aria-expanded="false">
+          <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+          <span id="logout" class="nav-link-text ms-2 ps-1">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+
+
+  <section>
+
+    {% block other_body %}{% endblock other_body %}
+
+  </section>
+
+
+
+
+
+
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+
+  {% include 'base/js.html' %}
+
+
+  {% block other_js %}{% endblock other_js %}
+
+  <script>
+    $(document).ready(() => {
+      $('#nav-toggle-button').on('click', () => {
+        console.log("clicked")
+        $("#nav-child>span").toggleClass('hide-nav')
+        $("#logout").toggleClass('hide-nav')
+        $('#nav-child>span').toggleClass('opacity-0')
+        $('#logout').toggleClass('opacity-0')
+        $(":root").toggleClass('width-6')
+        $('#right_collapse_btn').toggle()
+        $('#left_collapse_btn').toggle()
+        $('.sidenav-normal').toggle()
+
+      })
+    })
+  </script>
+
+
+
+
+
+
+</body>
 
 </html>

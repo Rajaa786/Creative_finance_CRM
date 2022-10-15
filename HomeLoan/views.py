@@ -1696,7 +1696,7 @@ def Productandpolicy_revieworedit(request, id):
         "hl_loan_to_value_type_2_form": hl_loan_to_value_type_2_form,
         "hl_otherdetails_form": hl_otherdetails_form,
     }
-    return render(request, 'HomeLoan/editProductsAndPolicy.html', context)
+    return render(request, 'HomeLoan/editproductandpolicy.html', context)
 
 
 def editbasicdetails(request):
@@ -2146,9 +2146,9 @@ def editloanvaluetype2(request):
 @login_required(redirect_field_name='login', login_url='login')
 def listproductandpolicy(request):
     context = {
-        'ProductsAndPolicy': ProductsAndPolicy.objects.all()
+        # 'ProductsAndPolicy': ProductsAndPolicy.objects.all()
     }
-    return render(request, 'HomeLoan/listproductandpolicy.html', context=context)
+    return render(request, 'HomeLoan/listproductsandpolicy.html', context=context)
 
 
 def submitproductandpolicy(request, id):

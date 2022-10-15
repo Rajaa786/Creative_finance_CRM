@@ -6,6 +6,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from django.conf.locale.en import formats as en_formats
 import os
 from pathlib import Path
 import django_heroku
@@ -140,7 +141,7 @@ AUTH_USER_MODEL = 'account.CustomUser'
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'UTC'
 
@@ -151,6 +152,10 @@ USE_L10N = True
 USE_TZ = True
 
 
+en_formats.DATE_FORMAT = "M d, Y"
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -159,7 +164,7 @@ STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [MEDIA_DIR]
+MEDIA_ROOT = MEDIA_DIR
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

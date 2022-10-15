@@ -1,3 +1,4 @@
+import os
 from email.policy import default
 from django.conf import settings
 from django.db import models
@@ -55,6 +56,19 @@ def year_choices():
 
 def current_year():
     return datetime.date.today().year
+
+
+def create_path(instance, filename):
+    return os.path.join(
+        'documents',
+        f"DocList_{instance.loanApplication.lead_id.name}",
+        filename
+    )
+
+
+
+
+
 # Create your models here.
 
 
@@ -104,7 +118,7 @@ class LoanApplication(models.Model):
 class LoanDocuments(models.Model):
     loanApplication = models.ForeignKey(LoanApplication, on_delete=models.CASCADE)
     documentName = models.CharField(max_length=124)
-    document = models.FileField(blank=True, max_length=200)
+    document = models.FileField(blank=True, upload_to=create_path)
 
 
 

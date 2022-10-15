@@ -1,4 +1,4 @@
-@import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 
 * , *::after , *::before{
   box-sizing: border-box;
@@ -78,12 +78,12 @@ li > a:nth-child(1):hover {
 
 #nav-child > span{
     width: 100%;
-    transition : width 50ms linear , opacity 200ms linear 50ms , padding 300ms linear;
+    transition : width 50ms linear , opacity 100ms linear 50ms , padding 300ms linear;
 }
 
 #logout{
     width: 100%;
-    transition : width 50ms linear , opacity 200ms linear 50ms , padding 300ms linear;
+    transition : width 50ms linear , opacity 100ms linear 50ms , padding 300ms linear;
 }
 
 
@@ -154,7 +154,7 @@ section > header > h4{
 
 .hide-nav{
     width: 0 !important;
-    margin: 0 !important;
+    /* margin: 0 !important; */
     padding: 0 !important;
 }
 

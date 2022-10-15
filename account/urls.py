@@ -5,15 +5,12 @@ from .views import VerificationView
 from django.conf.urls.static import static
 from django.conf import settings
 
-app_name = 'account'
+# app_name = 'account'
 
-<<<<<<< HEAD
-=======
 # app_name = "accounts"
 urlpatterns = [
     path('dashboard/', views.base_dashboard, name="base_dashboard"),
 
->>>>>>> 117c48406a686d6c929bbb1961eee899b803a02f
     #--------------------------------------------------------#
     # new_LEADS
     path('view/', views.view_leads, name="view-leads"),
@@ -39,7 +36,7 @@ urlpatterns = [
     path('ajax/subproducts/', views.load_subproducts,
          name="ajax_load_subproducts"),
     path('homeloan/', include('HomeLoan.urls')),
-    path('register', views.register, name="register"),
+    path('register/', views.register, name="register"),
     path('login/', views.login, name="login"),
     path('logout', views.logout, name="logout"),
     path('deleteapplicant/<int:id>', views.delapplicant, name="deleteapplicant"),
@@ -68,7 +65,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', VerificationView.as_view(), name="activate"),
     path('uname_pw_gen', views.uname_pw_gen, name="uname_pw_gen"),
 
-    path('add_leads', views.add_leads, name="add_leads"),
+    path('add_leads/', views.add_leads, name="add_leads"),
     path('create_mem', views.create_mem, name="create_mem"),
     #     path('dashboard', views.dashboard, name="dashboard"),
 
@@ -121,5 +118,4 @@ urlpatterns = [
 
 
 ]
-urlpatterns = urlpatterns + \
-    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
