@@ -5,6 +5,7 @@ import django.contrib.auth.validators
 from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
+import account.models
 
 
 class Migration(migrations.Migration):
@@ -526,9 +527,165 @@ class Migration(migrations.Migration):
                  primary_key=True, serialize=False, verbose_name='ID')),
                 ('documentName', models.CharField(max_length=124)),
                 ('document', models.FileField(
-                    blank=True, max_length=200, upload_to='')),
+                    blank=True, upload_to=account.models.create_path)),
                 ('loanApplication', models.ForeignKey(
                     on_delete=django.db.models.deletion.CASCADE, to='account.loanapplication')),
+            ],
+        ),
+
+
+
+
+        migrations.CreateModel(
+            name="SalPersonalDetails",
+            fields=[
+                ("per_det_id", models.AutoField(primary_key=True, serialize=False)),
+                ("loan_amount", models.IntegerField(null=True)),
+                ("cibil_score", models.IntegerField(blank=True, null=True)),
+                (
+                    "loan_taken",
+                    models.BooleanField(
+                        choices=[
+                            (None, "Select Yes Or No"),
+                            (True, "Yes"),
+                            (False, "No"),
+                        ],
+                        default=False,
+                    ),
+                ),
+                (
+                    "repayment_history",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            (None, "-- Good or Bad --"),
+                            ("Good", "Good"),
+                            ("Bad", "Bad"),
+                        ],
+                        default=None,
+                        max_length=4,
+                        null=True,
+                    ),
+                ),
+                ("details_about_default", models.CharField(
+                    blank=True, max_length=200)),
+                ("dob", models.DateField(blank=True, null=True)),
+                ("age", models.IntegerField()),
+                (
+                    "retirement_age",
+                    models.IntegerField(
+                        blank=True,
+                        null=True,
+                        validators=[
+                            django.core.validators.MinValueValidator(50),
+                            django.core.validators.MaxValueValidator(70),
+                        ],
+                    ),
+                ),
+                (
+                    "degree_others",
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
+                ("enduse", models.CharField(blank=True, max_length=200, null=True)),
+                (
+                    "additional_details_id",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="account.additionaldetails",
+                    ),
+                ),
+                (
+                    "country",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.country",
+                    ),
+                ),
+                (
+                    "default_year",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.defaultyear",
+                    ),
+                ),
+                (
+                    "degree",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.degree",
+                    ),
+                ),
+                (
+                    "gender",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.gender",
+                    ),
+                ),
+                (
+                    "lawyerType",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.lawyertype",
+                    ),
+                ),
+                (
+                    "marital_status",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.maritalstatus",
+                    ),
+                ),
+                (
+                    "nationality",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.nationality",
+                    ),
+                ),
+                (
+                    "product_id",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.product",
+                    ),
+                ),
+                (
+                    "profession",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.profession",
+                    ),
+                ),
+                (
+                    "qualification",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.qualification",
+                    ),
+                ),
             ],
         ),
 
@@ -614,51 +771,6 @@ class Migration(migrations.Migration):
         ),
 
 
-        migrations.CreateModel(
-            name='SalPersonalDetails',
-            fields=[
-                ('per_det_id', models.AutoField(primary_key=True, serialize=False)),
-                ('loan_amount', models.IntegerField(null=True)),
-                ('cibil_score', models.IntegerField(blank=True, null=True)),
-                ('loan_taken', models.BooleanField(choices=[
-                 (None, 'Select Yes Or No'), (True, 'Yes'), (False, 'No')], default=False)),
-                ('repayment_history', models.CharField(blank=True, choices=[
-                 (None, '-- Good or Bad --'), ('Good', 'Good'), ('Bad', 'Bad')], default=None, max_length=4, null=True)),
-                ('details_about_default', models.CharField(
-                    blank=True, max_length=200)),
-                ('dob', models.DateField(blank=True, null=True)),
-                ('age', models.IntegerField()),
-                ('retirement_age', models.IntegerField(blank=True, null=True, validators=[
-                 django.core.validators.MinValueValidator(50), django.core.validators.MaxValueValidator(70)])),
-                ('degree_others', models.CharField(
-                    blank=True, max_length=100, null=True)),
-                ('enduse', models.CharField(blank=True, max_length=200, null=True)),
-                ('additional_details_id', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='account.additionaldetails')),
-                ('cibil_type', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.cibiltype')),
-                ('country', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.country')),
-                ('default_year', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.defaultyear')),
-                ('degree', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.degree')),
-                ('gender', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.gender')),
-                ('lawyerType', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.lawyertype')),
-                ('marital_status', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.maritalstatus')),
-                ('nationality', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.nationality')),
-                ('product_id', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.product')),
-                ('profession', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.profession')),
-                ('qualification', models.ForeignKey(blank=True, null=True,
-                 on_delete=django.db.models.deletion.CASCADE, to='master.qualification')),
-            ],
-        ),
         migrations.CreateModel(
             name='SalOtherIncomes',
             fields=[

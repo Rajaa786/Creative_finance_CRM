@@ -591,6 +591,33 @@ class Migration(migrations.Migration):
                 ('ineffective_date', models.DateField(blank=True, null=True)),
             ],
         ),
+
+
+        migrations.CreateModel(
+            name="Qualification",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("qualification", models.CharField(max_length=25)),
+                ("degree", models.BooleanField(default=False)),
+                ("effective_date", models.DateField(null=True)),
+                ("ineffective_date", models.DateField(blank=True, null=True)),
+            ],
+        ),
+
+
+
+
+
+
+
         migrations.CreateModel(
             name='PropertyType',
             fields=[
@@ -601,17 +628,7 @@ class Migration(migrations.Migration):
                 ('ineffective_date', models.DateField(blank=True, null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='Qualification',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True,
-                 primary_key=True, serialize=False, verbose_name='ID')),
-                ('qualification', models.CharField(max_length=25)),
-                ('degree', models.BooleanField(default=False)),
-                ('effective_date', models.DateField(null=True)),
-                ('ineffective_date', models.DateField(blank=True, null=True)),
-            ],
-        ),
+      
         migrations.CreateModel(
             name='RateOfInterest',
             fields=[

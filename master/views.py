@@ -13,6 +13,72 @@ from stronghold.decorators import public
 # Create your views here.
 
 
+def CompanyName_form(request):
+    if request.method == 'POST':
+        companynameformvalue = request.POST['CompanyName'].strip()
+        effective_date = date.today()
+        ineffective_date = request.POST['CompanyNameIdate']
+        if CompanyName.objects.filter(company_name=companynameformvalue).exists():
+            messages.info(request, 'Company Name already exists')
+            return redirect('Master_details')
+        else:
+            newcompanytype = CompanyName.objects.create(
+                company_name=companynameformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+            newcompanytype.save()
+            return redirect('Master_details')
+
+    return render(request, 'master/master_details.html')
+
+
+def CompanyType_form(request):
+    if request.method == 'POST':
+        companytypeformvalue = request.POST['CompanyType'].strip()
+        effective_date = date.today()
+        ineffective_date = request.POST['CompanyTypeIdate']
+        if CompanyType.objects.filter(company_type=companytypeformvalue).exists():
+            messages.info(request, 'Company Type already exists')
+            return redirect('Master_details')
+        else:
+            newcompanytype = CompanyType.objects.create(
+                company_type=companytypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+            newcompanytype.save()
+            return redirect('Master_details')
+
+    return render(request, 'master/master_details.html')
+
+
+def CompanyCat_form(request):
+    if request.method == 'POST':
+        companycatformvalue = request.POST['CompanyCat'].strip()
+        if CompanyCatergoryTypes.objects.filter(company_cat=companycatformvalue).exists():
+            messages.info(request, 'Company Category already exists')
+            return redirect('Master_details')
+        else:
+            newcompanycat = CompanyCatergoryTypes.objects.create(
+                cocat_type=companycatformvalue)
+            newcompanycat.save()
+            return redirect('Master_details')
+
+    return render(request, 'master/master_details.html')
+
+
+def Tenure_form(request):
+    if request.method == 'POST':
+        tenureformvalue = request.POST['Tenure'].strip()
+        if Tenure.objects.filter(ten_type=tenureformvalue).exists():
+            messages.info(request, 'Tenure already exists')
+            return redirect('Master_details')
+        else:
+            newtenure = Tenure.objects.create(
+                ten_type=tenureformvalue)
+            newtenure.save()
+            return redirect('Master_details')
+
+    return render(request, 'master/master_details.html')
+
+
+
+
 def Agreementtype_form(request):
     if request.method == 'POST':
         agreementtypeformvalue = request.POST['AgreementType'].strip()
@@ -423,7 +489,10 @@ def Masterdetails(request):
         'subproducts': SubProduct.objects.all(),
         'customertypes': CustomerType.objects.all(),
         'designationtypes': DesignationType.objects.all(),
-        'companytypes': CompanyType.objects.all(),
+        'company_types' : CompanyType.objects.all(),
+        'company_cat': CompanyCatergoryTypes.objects.all(),
+        'company_names': CompanyName.objects.all(),
+        'tenure' : Tenure.objects.all(),
         'salarytypes': SalaryType.objects.all(),
         'residencetypes': ResidenceType.objects.all(),
         'banknames': BankName.objects.all(),
@@ -468,6 +537,45 @@ def editprofession(request, id):
         'profession': Profession.objects.filter(id=id)[0]
     }
     return render(request, 'master/profession_edit.html', context=context)
+
+
+def editcompanyname(request, id):
+    company_name = CompanyName.objects.get(pk=id)
+    if request.method == 'POST':
+        company_name_updated = request.POST['Profession']
+        company_name.update(profession=company_name_updated)
+        return redirect('Master_details')
+    context = {
+        'profession': company_name
+    }
+    return render(request, 'master/companyname_edit.html', context=context)
+
+
+def editcompanycat(request, id):
+    company_cat = CompanyCatergoryTypes.objects.get(pk=id)
+    if request.method == 'POST':
+        company_cat_updated = request.POST['Profession']
+        company_cat.update(cocat_type=company_cat_updated)
+        return redirect('Master_details')
+    context = {
+        'profession': company_cat
+    }
+    return render(request, 'master/companycat_edit.html', context=context)
+
+
+def edittenure(request, id):
+    tenure = Tenure.objects.get(pk=id)
+    if request.method == 'POST':
+        tenure_updated = request.POST['Profession']
+        tenure.update(ten_type=tenure_updated)
+        return redirect('Master_details')
+
+    context = {
+        'profession': tenure
+    }
+    return render(request, 'master/tenure_edit.html', context=context)
+
+
 
 
 def editrole(request, id):
@@ -1062,7 +1170,7 @@ def addProductAndPolicyView(request):
             for sal_type in salary_type_:
                 salary_type = SalaryType.objects.filter(
                     salary_type=sal_type).first()
-                product_and_policy_instance.salary_type.add(salary_type)
+                product_and_policy_instance.salary_type.add(salary_type)    
 
             for ten_type in tenure_:
                 tenure_type = Tenure.objects.filter(ten_type=ten_type).first()

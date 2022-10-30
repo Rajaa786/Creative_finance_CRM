@@ -173,6 +173,356 @@
 					</div>
 				</div>
 			</div>
+
+
+
+
+
+
+
+
+
+
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#CompanyName" role="button" aria-expanded="false"
+									aria-controls="CompanyName">
+									<h4 class="card-title fw-bold text-light">Company Name</h4>
+									<p class="card-category fw-bold text-light mb-0">
+										Here is a subtitle for this table
+									</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center ">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyName"><span
+										class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="CompanyName">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<tr>
+									<th class="px-2">Company Name</th>
+									<th class="px-2">Effective Date</th>
+									<th class="px-2">Ineffective Date</th>
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for name in company_names %}
+								<tr>
+									<td>{{ name.company_name }}</td>
+									<td>{{ name.effective_date }}</td>
+									<td>{{ name.ineffective_date }}</td>
+									<td>
+										<a href={% url 'editcompanyname' id=name.id %}>
+											<span class="icon text-black-50">
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addCompanyName" tabindex="-1" role="dialog" aria-labelledby="addCompanyName"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addCompanyName"><i class="fas fa-graduation-cap"></i>
+								Add Company Name</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'CompanyName_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Company Name</label>
+									<input type="text" name="CompanyName" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
+								</div>
+								<div class="input-group input-group-static my-3">
+									<label>Ineffective Date</label>
+									<input type="date" name="CompanyNameIdate" class="form-control">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+			{% comment %} Company Type  {% endcomment %}
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#CompanyType" role="button" aria-expanded="false"
+									aria-controls="CompanyType">
+									<h4 class="card-title fw-bold text-light">Company Type</h4>
+									<p class="card-category fw-bold text-light mb-0">
+										Here is a subtitle for this table
+									</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center ">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyType"><span
+										class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="CompanyType">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<tr>
+									<th class="px-2">Company Type</th>
+									<th class="px-2">Effective Date</th>
+									<th class="px-2">Ineffective Date</th>
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for type in company_types %}
+								<tr>
+									<td>{{ type.company_type }}</td>
+									<td>{{ type.effective_date }}</td>
+									<td>{{ type.ineffective_date }}</td>
+									<td>
+										<a href={% url 'editcompanytype' id=type.id %}>
+											<span class="icon text-black-50">
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addCompanyType" tabindex="-1" role="dialog" aria-labelledby="addCompanyType"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addCompanyType"><i class="fas fa-graduation-cap"></i>
+								Add Company Type</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'CompanyType_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Company Type</label>
+									<input type="text" name="CompanyType" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
+								</div>
+								<div class="input-group input-group-static my-3">
+									<label>Ineffective Date</label>
+									<input type="date" name="CompanyTypeIdate" class="form-control">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+			{% comment %} Company Category  {% endcomment %}
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#CompanyCat" role="button" aria-expanded="false"
+									aria-controls="CompanyCat">
+									<h4 class="card-title fw-bold text-light">Company Category</h4>
+									<p class="card-category fw-bold text-light mb-0">
+										Here is a subtitle for this table
+									</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center ">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyCat"><span
+										class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="CompanyCat">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<tr>
+									<th class="px-2">Company Category</th>
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for category in company_cat %}
+								<tr>
+									<td>{{ category.cocat_type }}</td>
+									<td>
+										<a href={% url 'editcompanycat' id=category.id%}>
+											<span class="icon text-black-50">
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addCompanyCat" tabindex="-1" role="dialog" aria-labelledby="addCompanyCat"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addCompanyCat"><i class="fas fa-graduation-cap"></i>
+								Add Company Category</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'CompanyCat_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Company Category</label>
+									<input type="text" name="CompanyCat" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			{% comment %} Tenure  {% endcomment %}
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#Tenure" role="button" aria-expanded="false"
+									aria-controls="Tenure">
+									<h4 class="card-title fw-bold text-light">Tenure</h4>
+									<p class="card-category fw-bold text-light mb-0">
+										Here is a subtitle for this table
+									</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center ">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addTenure"><span
+										class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="Tenure">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<tr>
+									<th class="px-2">Tenure</th>
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for t in tenure %}
+								<tr>
+									<td>{{ t.ten_type }}</td>
+									<td>
+										<a href={% url 'edittenure' id=t.id %}>
+											<span class="icon text-black-50">
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addTenure" tabindex="-1" role="dialog" aria-labelledby="addTenure" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addTenure"><i class="fas fa-graduation-cap"></i> Add
+								Tenure</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'Tenure_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Tenure</label>
+									<input type="number" name="Tenure" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
+								</div>
+								
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+			
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">

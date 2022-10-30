@@ -141,8 +141,8 @@ class AdditionalDetails(models.Model):
 class SalPersonalDetails(models.Model):
     per_det_id = models.AutoField(primary_key=True)
     loan_amount = models.IntegerField(null=True)
-    cibil_type = models.ForeignKey(
-        CibilType, on_delete=models.CASCADE, blank=True, null=True)
+    # cibil_type = models.ForeignKey(
+    #     CibilType, on_delete=models.CASCADE, blank=True, null=True)
     cibil_score = models.IntegerField(null=True, blank=True)
     loan_taken = models.BooleanField(choices=YES_NO_CHOICES, default=False)
     repayment_history = models.CharField(
