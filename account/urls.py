@@ -18,7 +18,8 @@ urlpatterns = [
     path('<int:pk>/update/', views.lead_update, name="lead-update"),
     path('<int:pk>/delete/', views.lead_delete, name="lead-delete"),
     path('newLeadview.html', views.list_leads, name="list_leads"),
-    path('additional_details_next/<int:lead_id>/' , views.addtionalDetailsNext_Btn_Handler , name='handle_next_addtional_details'),
+    path('additional_details_next/<int:lead_id>/',
+         views.addtionalDetailsNext_Btn_Handler, name='handle_next_addtional_details'),
 
     #     path('list_lead_edit/<int:id>', views.list_lead_edit, name="list_lead_edit"),
 
@@ -69,7 +70,7 @@ urlpatterns = [
     path('create_mem', views.create_mem, name="create_mem"),
     #     path('dashboard', views.dashboard, name="dashboard"),
 
-    path('check_eligibility/<int:id>',
+    path('check_eligibility/<int:id>/',
          views.check_eligibility, name='account_eligibility'),
     path('base', views.base, name="base"),
     path('list_leads/', views.list_leads, name="list_leads"),
@@ -118,4 +119,5 @@ urlpatterns = [
 
 
 ]
-urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = urlpatterns + \
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

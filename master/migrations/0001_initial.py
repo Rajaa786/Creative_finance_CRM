@@ -235,81 +235,6 @@ class Migration(migrations.Migration):
 
 
 
-        migrations.CreateModel(
-            name="product_and_policy_master",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "is_salary_account",
-                    models.BooleanField(
-                        choices=[
-                            (None, "Select Yes Or No"),
-                            (True, "Yes"),
-                            (False, "No"),
-                        ]
-                    ),
-                ),
-                ("salary_existing", models.BigIntegerField()),
-                ("salary_new", models.BigIntegerField()),
-                ("min_age", models.IntegerField()),
-                ("max_age", models.IntegerField()),
-                ("current_experience", models.IntegerField()),
-                ("multiplier", models.IntegerField()),
-                ("effective_date", models.DateField(blank=True, null=True)),
-                ("ineffective_date", models.DateField(blank=True, null=True)),
-                ("processing_fee", models.BigIntegerField()),
-                ("months_for_foir", models.BigIntegerField()),
-                ("cibil_score", models.BigIntegerField()),
-                (
-                    "bank_names",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="master.bankname",
-                    ),
-                ),
-                (
-                    "company_category",
-                    models.ManyToManyField(to="master.companycategory"),
-                ),
-                (
-                    "customer_type",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="cust_types",
-                        to="master.customertype",
-                    ),
-                ),
-                (
-                    "designation",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="master.designationtype",
-                    ),
-                ),
-                ("foir", models.ManyToManyField(to="master.foir")),
-                (
-                    "product_name",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="master.product"
-                    ),
-                ),
-                ("residence_type", models.ManyToManyField(
-                    to="master.residencetype")),
-                ("salary_type", models.ManyToManyField(to="master.salarytype")),
-                ("tenure", models.ManyToManyField(to="master.tenure")),
-                ("company_type", models.ManyToManyField(to="master.companytype")),
-            ],
-        ),
-
-
 
         migrations.CreateModel(
             name="CompanyCatergoryTypes",
@@ -326,10 +251,6 @@ class Migration(migrations.Migration):
                 ("cocat_type", models.CharField(max_length=50)),
             ],
         ),
-
-
-
-
 
 
 
@@ -499,6 +420,12 @@ class Migration(migrations.Migration):
 
 
 
+
+
+
+
+
+
         migrations.CreateModel(
             name='ProductsOrServices',
             fields=[
@@ -628,7 +555,7 @@ class Migration(migrations.Migration):
                 ('ineffective_date', models.DateField(blank=True, null=True)),
             ],
         ),
-      
+
         migrations.CreateModel(
             name='RateOfInterest',
             fields=[
@@ -739,4 +666,124 @@ class Migration(migrations.Migration):
                     on_delete=django.db.models.deletion.CASCADE, to='master.state')),
             ],
         ),
+
+
+
+
+        migrations.CreateModel(
+            name="product_and_policy_master",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_salary_account",
+                    models.BooleanField(
+                        choices=[
+                            (None, "Select Yes Or No"),
+                            (True, "Yes"),
+                            (False, "No"),
+                        ]
+                    ),
+                ),
+                ("salary_existing", models.BigIntegerField()),
+                ("salary_new", models.BigIntegerField()),
+                ("min_age", models.IntegerField()),
+                ("max_age", models.IntegerField()),
+                ("current_experience", models.IntegerField()),
+                ("multiplier", models.IntegerField()),
+                ("effective_date", models.DateField(blank=True, null=True)),
+                ("ineffective_date", models.DateField(blank=True, null=True)),
+                ("processing_fee", models.BigIntegerField()),
+                ("months_for_foir", models.BigIntegerField()),
+                ("cibil_score", models.BigIntegerField()),
+                (
+                    "bank_names",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.bankname",
+                    ),
+                ),
+                (
+                    "company_category",
+                    models.ManyToManyField(to="master.companycategory"),
+                ),
+                (
+                    "customer_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="cust_types",
+                        to="master.companycategory",
+                    ),
+                ),
+                (
+                    "designation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.designationtype",
+                    ),
+                ),
+                ("foir", models.ManyToManyField(to="master.foir")),
+                (
+                    "product_name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="master.product"
+                    ),
+                ),
+                ("residence_type", models.ManyToManyField(
+                    to="master.residencetype")),
+                ("salary_type", models.ManyToManyField(to="master.salarytype")),
+                ("tenure", models.ManyToManyField(to="master.tenure")),
+                ("company_type", models.ManyToManyField(to="master.companytype")),
+            ],
+        ),
+
+
+
+        migrations.CreateModel(
+            name="BankCategory",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("effective_date", models.DateField(blank=True, null=True)),
+                (
+                    "bank_name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.bankname",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.companycatergorytypes",
+                    ),
+                ),
+                (
+                    "company_name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.companyname",
+                    ),
+                ),
+            ],
+        ),
+
+
+
+
     ]
