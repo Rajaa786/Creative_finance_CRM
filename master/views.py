@@ -50,7 +50,7 @@ def CompanyType_form(request):
 def CompanyCat_form(request):
     if request.method == 'POST':
         companycatformvalue = request.POST['CompanyCat'].strip()
-        if CompanyCatergoryTypes.objects.filter(company_cat=companycatformvalue).exists():
+        if CompanyCatergoryTypes.objects.filter(cocat_type=companycatformvalue).exists():
             messages.info(request, 'Company Category already exists')
             return redirect('Master_details')
         else:

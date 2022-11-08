@@ -432,6 +432,76 @@
 					</div>
 				</div>
 			</div>
+			{% comment %} companycategorytypes {% endcomment %}
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#CompanyCategoryTypes" role="button" aria-expanded="false" aria-controls="CompanyCategoryTypes">
+									<h4 class="card-title fw-bold text-light">Company Category Type</h4>
+									
+								</a>
+							</div>
+							<div class="col-auto  d-flex align-items-center">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyCategoryType"><span class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="collapse card-body" id="CompanyCategoryTypes">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<tr>
+									<th class="px-2">Company Category Types</th>
+									
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								 {% for company_cat in company_cat %} 
+								<tr>
+									<td>{{ company_cat.cocat_type }}</td>
+									
+									<td><a ><span class="icon text-black-50"><i
+													class="fa fa-edit"></i></span></a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		
+			<div class="modal fade" id="addCompanyCategoryType" tabindex="-1" role="dialog" aria-labelledby="addCompanyCategoryType" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addCompanyCategoryType">Add Company Category Type</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'CompanyCat_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Company Category Type</label>
+									<input type="text" name="CompanyCat" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+								</div>
+								
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			{% comment %} end here  {% endcomment %}
 
 
 
