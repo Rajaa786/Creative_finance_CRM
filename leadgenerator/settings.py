@@ -30,7 +30,8 @@ MEDIA_DIR = BASE_DIR / 'media'
 # SECRET_KEY = env('SECRET_KEY')
 # print("There", os.environ.get('SECRET_KEY'))
 # SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = "abcdefghijklmn"
+#SECRET_KEY = "abcdefghijklmn"
+SECRET_KEY = "django-insecure-b3o1q&u(b8_)wa*-d^^*%n^2tpagx0z()7jj$+9aploi()yd$"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'stronghold',
-    'mathfilters'
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -102,12 +103,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'creativefinserve$leadgen',
         # 'NAME': os.environ.get('DATABASES_NAME'),
-        'NAME': 'django-test',
+        'NAME': 'django-tst',
         # 'USER': 'creativefinserve',
         # 'USER': os.environ.get('DATABASES_USER'),
         'USER': 'root',
         # 'PASSWORD': '_HP@B99_',
-        'PASSWORD': '',
+        'PASSWORD': 'vinayjain',
         # 'HOST': 'creativefinservecrm.mysql.pythonanywhere-services.com',
         # 'HOST': os.environ.get('DATABASES_HOST'),
         'HOST': 'localhost',
@@ -188,7 +189,7 @@ EMAIL_PORT = 587
 # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_USER = 'rajsingh08471@gmail.com'
+EMAIL_HOST_USER = 'vinayjain449@gmail.com'
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
 
