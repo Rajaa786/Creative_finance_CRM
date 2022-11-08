@@ -49,7 +49,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for qualification in qualifications %}
+								{% for qualification in qualification %}
 								<tr>
 									<td>{{ qualification.qualification }}</td>
 									<td>{{ qualification.effective_date }}</td>
@@ -2039,6 +2039,110 @@
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
 									<input type="date" name="RejectionTypeIdate" class="form-control">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#Commission" role="button" aria-expanded="false" aria-controls="Commission">
+									<h4 class="card-title fw-bold text-light">Earning Calculator Details</h4>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center ">
+								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addcommission"><span class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="Commission">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<tr>
+									<th class="px-2">Type of Commission</th>
+									<th class="px-2">Rate of Interest</th>
+									<th class="px-2">Effective Date</th>
+									<th class="px-2">Ineffective Date</th>
+									<th class="px-2">Edit</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for commission in commissionrates %}
+								<tr>
+									<td>{{ commission.Commissiontype }}</td>
+									<td>{{ commission.Commissionrate }}</td>
+									<td>{{ commission.effective_date }}</td>
+									<td>{{ commission.ineffective_date }}</td>
+									<td>
+										<a >
+											
+											<span class="icon text-black-50">
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addcommission" tabindex="-1" role="dialog" aria-labelledby="addcommission" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addcommission"><i class="fas fa-graduation-cap"></i> Add Commission Details</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'Commission_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<!-- <label class="form-label">Commission Types</label> -->
+									<div class="col-md-6">
+										<div class="form-group row">
+										  <div class="input-group input-group-static mb-4"   class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+											<label for="sel_tenure" class="ms-0 text-primary fw-bold col-12">Select type</label>
+											<select class="form-control col-12" name="Commission" id="sel_tenure">
+											  <option value="">-- Type of commission --</option>
+											  <option value="Home Loan">Home Loan</option>
+											  <option value="Loan against property">Loan against property</option>
+											  <option value="Personal Loan">Personal Loan</option>
+											  <option value="Business Loan">Business Loan</option>
+											  <option value="Car Refinance">Car Refinance</option>
+											  <option value="Real Estate (Buying and selling)">Real Estate (buying and selling)</option>
+											  <option value="Real Estate (50% of rental)">Real Estate (50% of rental)</option>
+											  <option value="General Insurance">General Insurance</option>
+											  <option value="Life Insurance">Life Insurance</option>
+											</select>
+										  </div>
+										</div>
+									  </div>
+									<!-- <input type="text" name="Commission" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)"> -->
+								</div>
+								<div class="col-md-6">
+									<div class="input-group input-group-outline mb-4">
+									  <label  for="Ent_roi" class="form-label text-primary fw-bold">Enter rate</label>
+									  <input type="number" name="Ent_roi" id="Ent_roi" class="form-control" required>
+									</div>
+								</div>
+								<div class="input-group input-group-static my-3">
+									<label>Ineffective Date</label>
+									<input type="date" name="Commissiondate" class="form-control">
 								</div>
 							</div>
 							<div class="modal-footer">

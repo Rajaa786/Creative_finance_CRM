@@ -305,6 +305,24 @@ def Qualification_form(request):
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
 
+def Commission_form(request):
+    if request.method == 'POST':
+        Commission_type = request.POST['Commission'].strip()
+        Commission_rate = request.POST['Ent_roi'].strip()
+        effective_date = date.today()
+        ineffective_date = request.POST['Commissiondate']
+        if Commission.objects.filter(Commissiontype=Commission_type).exists():
+            messages.info(request, 'Commission already exists')
+            return redirect('Master_details')
+        else:
+            commission = Commission.objects.create(Commissiontype = Commission_type)
+            commission.save()
+            commissioninst = Commission.objects.get(Commissiontype = Commission_type).id
+            newcommission = Comissionrates.objects.create(Commissiontype_id = commissioninst,Commissionrate = Commission_rate,effective_date = effective_date,ineffective_date=ineffective_date)
+            newcommission.save()
+            return redirect('Master_details')
+    return render(request, 'master/master_details.html')
+
 
 def Role_form(request):
     if request.method == 'POST':
@@ -324,7 +342,7 @@ def Role_form(request):
 
 def BankName_form(request):
     if request.method == 'POST':
-        banknameformvalue = request.POST['bankName'].strip()
+        banknameformvalue = request.POST['BankName'].strip()
         effective_date = date.today()
         ineffective_date = request.POST['BankNameIdate']
         if BankName.objects.filter(bank_name=banknameformvalue).exists():
@@ -509,6 +527,7 @@ def Masterdetails(request):
         'agreementtypes': AgreementType.objects.all(),
         'stageOfconstructions': StageOfConstruction.objects.all(),
         'rejectiontypes': RejectionType.objects.all(),
+        'commissionrates':Comissionrates.objects.all(),
     }
     return render(request, 'master/master_details.html', context=context)
 

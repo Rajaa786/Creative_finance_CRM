@@ -3132,3 +3132,19 @@ def handle_form_data(request, form_1_instance, form_2_instance, id):
             tmp = redirect('additionaldetails', id)
 
     return tmp
+
+#-----------------------------------------------------------------#
+def calculatecommission(request):
+    commissiontypes = Comissionrates.objects.all()
+    # context = {"commissiontype":commissiontype}
+    return render(request, 'account/calculator.html',{'commissiontypes': commissiontypes})
+
+def commissionrate(request):
+    commissiontype_id = request.GET.get('Commission_selected')
+    commissionrates = Comissionrates.objects.filter(Commissiontype_id = commissiontype_id).order_by("Commissiontype")
+    return render(request, 'account/ajax_load_rates.html', {'commissionrates':commissionrates})
+
+
+def calculatortypeshow(request):
+    commissiontypesshow = Commission.objects.all()
+    return render(request, 'account/calculator.html', {'commissiontypes': commissiontypesshow} )
