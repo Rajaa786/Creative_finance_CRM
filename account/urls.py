@@ -116,6 +116,12 @@ urlpatterns = [
 
     path('bank_download', views.bank_download, name='bank_download'),
     path('calculator', views.calculator, name="calculator"),
+    #---------------------------------------------------------------#
+     path('ajax/commissionrates/', views.commissionrate,
+         name="ajax_load_rates"),
+     path('calculatecommission/', views.calculatecommission, name="calculatecommission"),
+      path('showtype/', views.calculatortypeshow,
+         name="showtype"),
 
 
 ]
