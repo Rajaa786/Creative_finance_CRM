@@ -997,12 +997,12 @@ def base(request):
     return render(request, 'account/home.html')
 
 
-@login_required(redirect_field_name='login', login_url='login')
+@login_required()
 def list_leads(request):
     if request.user.role == "Admin":
         ll = Leads.objects.all()
     elif request.user.role == "Referral Partner":
-        ll = Leads.objects.filter(added_by=str(request.user.id))
+        ll = Leads.objects.filter(added_by=request.user.username)
     ids = []
     for i in ll:
         ids.append(i.pk)
