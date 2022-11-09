@@ -59,6 +59,20 @@ class Qualification(models.Model):
     def __str__(self):
         return self.qualification
 
+class Commission(models.Model): 
+    Commissiontype    = models.CharField(max_length=100)
+    effective_date   = models.DateField(null = True)
+    ineffective_date = models.DateField(blank=True, null = True)
+    def __str__(self): 
+        return self.Commissiontype
+
+class Comissionrates(models.Model):
+    Commissionrate    = models.IntegerField(null = True) 
+    Commissiontype   = models.ForeignKey(Commission, on_delete = models.CASCADE)
+    effective_date   = models.DateField(null = True)
+    ineffective_date = models.DateField(blank=True, null = True)
+    def __str__(self): 
+        return self.Commissionrate
 
 class Profession(models.Model):
     profession = models.CharField(max_length=25)

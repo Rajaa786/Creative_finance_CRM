@@ -57,6 +57,7 @@ urlpatterns = [
     path('editagreementtype/<int:id>', views.editagreementtype, name="editagreementtype"),
     path('editstageofconstruction/<int:id>', views.editstageofconstruction, name="editstageofconstruction"),
     path('editrejectiontype/<int:id>', views.editrejectiontype, name="editrejectiontype"),
+    path('addCommission/', views.Commission_form, name="Commission_form"),
 
 
     path('editqualification/<int:id>', views.editqualification, name="editqualification"),
