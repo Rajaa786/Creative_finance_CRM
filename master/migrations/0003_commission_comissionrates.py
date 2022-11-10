@@ -7,14 +7,15 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('master', '0002_alter_product_and_policy_master_company_category_and_more'),
+        ('master', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Commission',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('Commissiontype', models.CharField(max_length=100)),
                 ('effective_date', models.DateField(null=True)),
                 ('ineffective_date', models.DateField(blank=True, null=True)),
@@ -23,11 +24,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comissionrates',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('Commissionrate', models.IntegerField(null=True)),
                 ('effective_date', models.DateField(null=True)),
                 ('ineffective_date', models.DateField(blank=True, null=True)),
-                ('Commissiontype', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='master.commission')),
+                ('Commissiontype', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='master.commission')),
             ],
         ),
     ]

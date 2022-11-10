@@ -23,5 +23,9 @@ class ProductAndPolicyMasterForm(ModelForm):
     class Meta:
         model = product_and_policy_master
 
+        labels = {
+            "current_experience": "Current Experience (in months)"
+        }
+
         exclude = ('effective_date', 'ineffective_date', 'foir',
-                   'company_category', 'salary_type', 'residence_type', 'tenure' ,'company_type')
+                   'company_category', 'salary_type', 'residence_type', 'tenure', 'company_type')

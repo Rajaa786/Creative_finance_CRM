@@ -141,7 +141,7 @@ class SalPersonalDetails(models.Model):
     loan_amount = models.IntegerField(null=True)
     # cibil_type = models.ForeignKey(
     #     CibilType, on_delete=models.CASCADE, blank=True, null=True)
-    cibil_score = models.IntegerField(null=True, blank=True)
+    cibil_score = models.IntegerField(null=True, blank=False)
     loan_taken = models.BooleanField(choices=YES_NO_CHOICES, default=False)
     tenure = models.ForeignKey(
         Tenure,  on_delete=models.CASCADE, blank=False, null=False)

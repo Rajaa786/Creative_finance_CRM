@@ -102,12 +102,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'creativefinserve$leadgen',
         # 'NAME': os.environ.get('DATABASES_NAME'),
-        'NAME': 'django-test2',
+        'NAME': 'django-test',
         # 'USER': 'creativefinserve',
         # 'USER': os.environ.get('DATABASES_USER'),
         'USER': 'root',
         # 'PASSWORD': '_HP@B99_',
-        'PASSWORD': 'Yash@2106',
+        'PASSWORD': '',
         # 'HOST': 'creativefinservecrm.mysql.pythonanywhere-services.com',
         # 'HOST': os.environ.get('DATABASES_HOST'),
         'HOST': 'localhost',
@@ -153,7 +153,6 @@ USE_TZ = True
 
 
 en_formats.DATE_FORMAT = "M d, Y"
-
 
 
 # Static files (CSS, JavaScript, Images)

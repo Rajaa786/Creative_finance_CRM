@@ -1945,7 +1945,9 @@ def salaried(request, lead_id, additionaldetails_id):
     co_applicant = AdditionalDetails.objects.filter(
         lead_id=lead, applicant_type__applicant_type="1st Co-Applicant").first()
     if request.method == 'POST':
-        print(request.POST)
+        # print(" AT POST  Personal Details *********** ",
+        #       request.session.personal_details)
+        # print(request.POST)
 
         if 'next' in request.POST:
             for key in check_salaried_details_form_list:
@@ -1956,12 +1958,15 @@ def salaried(request, lead_id, additionaldetails_id):
                     #     request, "Please add every details to proceed.")
                     # return redirect('salaried', lead_id, additionaldetails_id)
 
+            print("inside next")
+
             if co_applicant and co_applicant.pk != additionaldetails_id:
                 for key in check_salaried_details_form_list:
                     check_salaried_details_form_list[key] = False
                 return redirect('salaried', lead_id, co_applicant.pk)
 
-            return redirect('upload_documents', lead_id)
+            # return redirect('salaried', lead_id, additionaldetails_id)
+            return redirect('account_eligibility', lead_id)
 
         if 'personal_details' in request.POST:
             form = SalPersonalDetailsForm(request.POST)
@@ -2120,6 +2125,15 @@ def salaried(request, lead_id, additionaldetails_id):
     # qualifications_list = []
     # for qualification_instance in Qualification.objects.all():
     #     qualifications_list.append({qualification_instance.qualification:qualification_instance.is_degree})
+
+    # request.user.perosnal_details = False
+    # print("****************************************************************************************")
+    # request.session.personal_details = True
+    # print(request.session.testing)
+    # print("Personal Details *********** ",
+    #   request.session.personal_details)
+    # check_salaried_details_form_list['personal_details'] = True
+    # request.session.personal_details = True
 
     context = {
         "additionaldetails_id": additionaldetails_id,
@@ -2444,23 +2458,26 @@ def check_eligibility(request, id):
         amt = 1
         roi = 1
         qr = 0
+        print("TEsting customer type ",
+              main_applicant.cust_type == i.customer_type)
         if v.product == i.product_name:
-            msg = msg + i.bank_names + '['
-            if v.custo_type == i.type_of_cust:
+            msg = msg + i.bank_names.bank_name + '['
+            if main_applicant.cust_type == i.customer_type:
                 msg = msg + 'Salaried, '
-                sid[i.bank_names] = 'NOT ELIGIBLE'
-                sid2[i.bank_names] = 'NOT ELIGIBLE'
+                sid[i.bank_names.bank_name] = 'NOT ELIGIBLE'
+                sid2[i.bank_names.bank_name] = 'NOT ELIGIBLE'
                 x = 'NOT ELIGIBLE'
-                ds[i.bank_names] = {'tenure': v.tenure, 'category': "Couldn't be calculated",
-                                    'roi': "Couldn't be found",
-                                    'loanamt': v.loan_amt, 'loanelig': "Couldn't be calculated",
-                                    'loancap': "Couldn't be calculated", 'elig': 'NOT ELIGIBLE',
-                                    'pro': i.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated"}
+                ds[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type, 'category': "Couldn't be calculated",
+                                              'roi': "Couldn't be found",
+                                              'loanamt': v.loan_amt, 'loanelig': "Couldn't be calculated",
+                                              'loancap': "Couldn't be calculated", 'elig': 'NOT ELIGIBLE',
+                                              'pro': i.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated"}
                 r = ''
                 mal = False
 
                 if (int(main_applicant_personal_details.cibil_score) >= i.cibil_score):
-                    msg = msg + 'Cibil->' + str(v.cibil_score) + ','
+                    msg = msg + 'Cibil->' + \
+                        str(main_applicant_personal_details.cibil_score) + ','
                     mal = True
                 if int(main_applicant_personal_details.cibil_score) == 9999 or int(main_applicant_personal_details.cibil_score) == 0 or int(main_applicant_personal_details.cibil_score) == -1:
                     mal = False
@@ -2514,39 +2531,39 @@ def check_eligibility(request, id):
                                         if main_applicant_personal_details.tenure.ten_type == j.ten_type:
                                             msg = msg + 'Tenure' + '->' + \
                                                 str(j.ten_type) + ','
-                                            ds[i.bank_names]['tenure'] = v.tenure
+                                            ds[i.bank_names.bank_name]['tenure'] = main_applicant_personal_details.tenure.ten_type
                                             for n in b:
-                                                if main_applicant_company_details.company_name.company_name == n.company_name and i.bank_names == n.bank_name:
+                                                if main_applicant_company_details.company_name.company_name == n.company_name and i.bank_names.bank_name == n.bank_name.bank_name:
                                                     categ = n.category
-                                                    ds[i.bank_names]['category'] = n.category
+                                                    ds[i.bank_names.bank_name]['category'] = n.category.cocat_type
                                                     msg = msg + main_applicant_company_details.company_name.company_name + \
-                                                        '->' + n.category + '->'
+                                                        '->' + n.category.cocat_type + '->'
                                                     for q in i.company_category.all():
                                                         if q.cocat_type == n.category:
-                                                            ds[i.bank_names]['cocat_no'] = q.multiplier_number
+                                                            ds[i.bank_names.bank_name]['cocat_no'] = q.multiplier_number
                                                             roi = q.roi
                                                             amt = q.multiplier_number * \
                                                                 int(main_applicant_income_details.net_sal)
-                                                            ds[i.bank_names]['loanelig'] = amt
+                                                            ds[i.bank_names.bank_name]['loanelig'] = amt
                                                             msg = msg + str(q.multiplier_number) + '->' + str(
                                                                 amt) + ','
                                                             if amt > q.max_loan_amt:
                                                                 amt = q.max_loan_amt
                                                             if amt > v.loan_amt:
                                                                 amt = v.loan_amt
-                                                            ds[i.bank_names]['loancap'] = amt
+                                                            ds[i.bank_names.bank_name]['loancap'] = amt
                                                             mulcal.append(
                                                                 amt)
-                                                            ds[i.bank_names]['roi'] = roi
-                                                            ds[i.bank_names]['loanamt'] = v.loan_amt
+                                                            ds[i.bank_names.bank_name]['roi'] = roi
+                                                            ds[i.bank_names.bank_name]['loanamt'] = v.loan_amt
 
                                                             msg = msg + 'Eligible->' + str(
                                                                 amt) + '{MULTIPLIER}'
-                                                            ds[i.bank_names]['elig'] = 'ELIGIBLE'
-                                                            sid[i.bank_names] = 'ELIGIBLE'
+                                                            ds[i.bank_names.bank_name]['elig'] = 'ELIGIBLE'
+                                                            sid[i.bank_names.bank_name] = 'ELIGIBLE'
                                                             x = 'ELIGIBLE'
-                                                            print(ds)
-                                                            print(sid)
+                                                            # print(ds)
+                                                            # print(sid)
                                                     for fo in i.foir.all():
                                                         if (int(main_applicant_income_details.net_sal) > fo.min_amt) and (
                                                                 int(main_applicant_income_details.net_sal) <= fo.max_amt):
@@ -2590,7 +2607,7 @@ def check_eligibility(request, id):
                                                                 lo.emi_end_date) + '~' + str(
                                                                 res) + '~' + str(sum)
 
-                                                            if sum != 0 and ds[i.bank_names][
+                                                            if sum != 0 and ds[i.bank_names.bank_name][
                                                                     'tenure'] != 'Tenure not applicable' and qr == 1:
                                                                 ob = sum
                                                                 pri = 100000
@@ -2615,26 +2632,26 @@ def check_eligibility(request, id):
                                                                     elgb = round(
                                                                         elgb, 2)
 
-                                                                    ds2[i.bank_names] = {'tenure': main_applicant_personal_details.tenure.ten_type,
-                                                                                         'cocat': categ,
-                                                                                         'roi': roi,
-                                                                                         'elgb': elg,
-                                                                                         'foi': foi,
-                                                                                         'elg': 'ELIGIBLE',
-                                                                                         'net_sal': main_applicant_income_details.net_sal,
-                                                                                         'cutoff': int(cut),
-                                                                                         'obligation': int(
-                                                                                             ob),
-                                                                                         'totalemi': int(
-                                                                                             tot),
-                                                                                         'emi': emis,
-                                                                                         'pro': i.processing_fee}
+                                                                    ds2[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type,
+                                                                                                   'cocat': categ,
+                                                                                                   'roi': roi,
+                                                                                                   'elgb': elg,
+                                                                                                   'foi': foi,
+                                                                                                   'elg': 'ELIGIBLE',
+                                                                                                   'net_sal': main_applicant_income_details.net_sal,
+                                                                                                   'cutoff': int(cut),
+                                                                                                   'obligation': int(
+                                                                                                       ob),
+                                                                                                   'totalemi': int(
+                                                                                                       tot),
+                                                                                                   'emi': emis,
+                                                                                                   'pro': i.processing_fee}
                                                                     foical.append(
                                                                         foi)
-                                                                    sid2[i.bank_names] = 'ELIGIBLE'
+                                                                    sid2[i.bank_names.bank_name] = 'ELIGIBLE'
                                                                     foircal = 1
 
-                ds[i.bank_names]['reason'] = r
+                ds[i.bank_names.bank_name]['reason'] = r
                 cal = cal + 1
                 set.append(x)
 
@@ -2723,9 +2740,10 @@ def check_eligibility(request, id):
     # r = remarks.objects.all()
     # process = profee.objects.all()
 
-    print("here")
+    print("here are items sid")
     print(sid)
     print(ds)
+    print(sid2)
 
     return render(request, 'account/eligibility.html',
                   {'ds2': ds2, 'msg': msg, 's': v, 'select': l, 'li': li, 'ds': ds, 'r': "r", 'sid': sid, 'm2': m2,
@@ -3134,17 +3152,21 @@ def handle_form_data(request, form_1_instance, form_2_instance, id):
     return tmp
 
 #-----------------------------------------------------------------#
+
+
 def calculatecommission(request):
     commissiontypes = Comissionrates.objects.all()
     # context = {"commissiontype":commissiontype}
-    return render(request, 'account/calculator.html',{'commissiontypes': commissiontypes})
+    return render(request, 'account/calculator.html', {'commissiontypes': commissiontypes})
+
 
 def commissionrate(request):
     commissiontype_id = request.GET.get('Commission_selected')
-    commissionrates = Comissionrates.objects.filter(Commissiontype_id = commissiontype_id).order_by("Commissiontype")
-    return render(request, 'account/ajax_load_rates.html', {'commissionrates':commissionrates})
+    commissionrates = Comissionrates.objects.filter(
+        Commissiontype_id=commissiontype_id).order_by("Commissiontype")
+    return render(request, 'account/ajax_load_rates.html', {'commissionrates': commissionrates})
 
 
 def calculatortypeshow(request):
     commissiontypesshow = Commission.objects.all()
-    return render(request, 'account/calculator.html', {'commissiontypes': commissiontypesshow} )
+    return render(request, 'account/calculator.html', {'commissiontypes': commissiontypesshow})

@@ -77,8 +77,6 @@ def Tenure_form(request):
     return render(request, 'master/master_details.html')
 
 
-
-
 def Agreementtype_form(request):
     if request.method == 'POST':
         agreementtypeformvalue = request.POST['AgreementType'].strip()
@@ -305,6 +303,7 @@ def Qualification_form(request):
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
 
+
 def Commission_form(request):
     if request.method == 'POST':
         Commission_type = request.POST['Commission'].strip()
@@ -315,10 +314,13 @@ def Commission_form(request):
             messages.info(request, 'Commission already exists')
             return redirect('Master_details')
         else:
-            commission = Commission.objects.create(Commissiontype = Commission_type)
+            commission = Commission.objects.create(
+                Commissiontype=Commission_type)
             commission.save()
-            commissioninst = Commission.objects.get(Commissiontype = Commission_type).id
-            newcommission = Comissionrates.objects.create(Commissiontype_id = commissioninst,Commissionrate = Commission_rate,effective_date = effective_date,ineffective_date=ineffective_date)
+            commissioninst = Commission.objects.get(
+                Commissiontype=Commission_type).id
+            newcommission = Comissionrates.objects.create(
+                Commissiontype_id=commissioninst, Commissionrate=Commission_rate, effective_date=effective_date, ineffective_date=ineffective_date)
             newcommission.save()
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
@@ -507,10 +509,10 @@ def Masterdetails(request):
         'subproducts': SubProduct.objects.all(),
         'customertypes': CustomerType.objects.all(),
         'designationtypes': DesignationType.objects.all(),
-        'company_types' : CompanyType.objects.all(),
+        'company_types': CompanyType.objects.all(),
         'company_cat': CompanyCatergoryTypes.objects.all(),
         'company_names': CompanyName.objects.all(),
-        'tenure' : Tenure.objects.all(),
+        'tenure': Tenure.objects.all(),
         'salarytypes': SalaryType.objects.all(),
         'residencetypes': ResidenceType.objects.all(),
         'banknames': BankName.objects.all(),
@@ -527,7 +529,7 @@ def Masterdetails(request):
         'agreementtypes': AgreementType.objects.all(),
         'stageOfconstructions': StageOfConstruction.objects.all(),
         'rejectiontypes': RejectionType.objects.all(),
-        'commissionrates':Comissionrates.objects.all(),
+        'commissionrates': Comissionrates.objects.all(),
     }
     return render(request, 'master/master_details.html', context=context)
 
@@ -593,8 +595,6 @@ def edittenure(request, id):
         'profession': tenure
     }
     return render(request, 'master/tenure_edit.html', context=context)
-
-
 
 
 def editrole(request, id):
@@ -1152,6 +1152,7 @@ def listProductAndPolicy(request):
 def addProductAndPolicyView(request):
 
     if request.method == "POST":
+        print("Inside REquest Post")
         roi = request.POST.getlist('roi')
         # roi = int(roi)
         # if roi > 40:
@@ -1189,7 +1190,7 @@ def addProductAndPolicyView(request):
             for sal_type in salary_type_:
                 salary_type = SalaryType.objects.filter(
                     salary_type=sal_type).first()
-                product_and_policy_instance.salary_type.add(salary_type)    
+                product_and_policy_instance.salary_type.add(salary_type)
 
             for ten_type in tenure_:
                 tenure_type = Tenure.objects.filter(ten_type=ten_type).first()
@@ -1198,10 +1199,10 @@ def addProductAndPolicyView(request):
             for (min_sal, max_sal, cut_off) in zip(min_net_sal, max_net_sal, cutoff):
 
                 if Foir.objects.filter(
-                    min_amt=min_sal, max_amt=max_sal, cutoff=cut_off).exists():
+                        min_amt=min_sal, max_amt=max_sal, cutoff=cut_off).exists():
                     foir = Foir.objects.filter(
                         min_amt=min_sal, max_amt=max_sal, cutoff=cut_off).first()
-                else :
+                else:
                     foir = Foir.objects.create(
                         min_amt=min_sal, max_amt=max_sal, cutoff=cut_off)
                 product_and_policy_instance.foir.add(foir)
@@ -1209,14 +1210,13 @@ def addProductAndPolicyView(request):
             for (cocat_type, multiplier_num, roi, min_loan_amnt, max_loan_amnt) in zip(cocat_type_,  multiplier_number, roi, min_loan_amount, max_loan_amount):
                 print("Comm Comm i am here")
                 if CompanyCategory.objects.filter(
-                    cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt).exists():
+                        cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt).exists():
                     company_category = CompanyCategory.objects.filter(
                         cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt).first()
 
-                else :
+                else:
                     comp_category = CompanyCategory.objects.create(
                         cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt)
-
 
                 product_and_policy_instance.company_category.add(comp_category)
 
@@ -1251,5 +1251,5 @@ def deleteProductAndPolicy(request, id):
 
     product_and_policy_object = product_and_policy_master.objects.get(pk=id)
     product_and_policy_object.delete()
-    messages.info(request , "Deleted Product and Policy Successfully.")
+    messages.info(request, "Deleted Product and Policy Successfully.")
     return redirect('list_product_and_policy')
