@@ -233,12 +233,19 @@
 
 <script>
     $(document).ready(() => {
+
+        let wrapper = $('.field_wrapper');
+
+
         $("#addFoirBtn").click(() => {
             console.log("Foir Clicked")
 
             $("#foir_row").append(`<div class="row g-4 p-4">
 
                 <label class="ms-0 col-sm-12" style="color: black"><b>Add FOIR:</b></label>
+                 <span class="icon text-black-100 remove_button col-sm-6 ms-0">
+                     <i class="fas fa-times"></i>
+                 </span>
                 <div class="col-sm-4 mb-2">
                     <div class="input-group input-group-static">
                         <label class="ml-3 ms-0 text-primary fw-bold"><b>Minimum Net
@@ -269,6 +276,10 @@
             $("#category_row").append(`<div class="field_wrapper" id="category_row">
                 <div class="row g-4 p-4">
                     <label class="col-sm-4 ms-0" style="color: black"><b>Add Multiplier:</b></label>
+
+                    <span class="icon text-black-100 remove_button col-sm-4 ms-0">
+                        <i class="fas fa-times"></i>
+                    </span>
 
                     <div class="col-sm-12 mb-2">
                         <div class="input-group input-group-static">
@@ -311,6 +322,12 @@
                 </div>
             </div>`)
         })
+
+
+        $(wrapper).on('click', '.remove_button', function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+        });
     })
 </script>
 {% endblock other_js %}
