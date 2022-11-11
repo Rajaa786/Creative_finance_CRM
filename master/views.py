@@ -1153,22 +1153,62 @@ def addProductAndPolicyView(request):
 
     if request.method == "POST":
         print("Inside REquest Post")
-        roi = request.POST.getlist('roi')
-        # roi = int(roi)
-        # if roi > 40:
-        #     roi = roi / 100
-        # effective_date = str(datetime.now())[:22]
-        cocat_type_ = request.POST.getlist('cocat_type')
-        min_loan_amount = request.POST.getlist('min_loan_amt')
-        max_loan_amount = request.POST.getlist('max_loan_amt')
+
+        multiplier_fresh_roi = request.POST.getlist('multiplier_fresh_roi')
+        multiplier_bt_roi = request.POST.getlist('multiplier_bt_roi')
+        foir_fresh_roi = request.POST.getlist('foir_fresh_roi')
+        foir_bt_roi = request.POST.getlist('foir_bt_roi')
+
+        multiplier_fresh_cocat_type = request.POST.getlist(
+            'multiplier_fresh_cocat_type')
+        multiplier_bt_cocat_type = request.POST.getlist(
+            'multiplier_bt_cocat_type')
+        foir_fresh_cocat_type = request.POST.getlist('foir_fresh_cocat_type')
+        foir_bt_cocat_type = request.POST.getlist(
+            'foir_bt_cocat_type')
+
+        multiplier_fresh_min_loan_amt = request.POST.getlist(
+            'multiplier_fresh_min_loan_amt')
+        multiplier_bt_min_loan_amt = request.POST.getlist(
+            'multiplier_bt_min_loan_amt')
+        foir_fresh_min_loan_amt = request.POST.getlist(
+            'foir_fresh_min_loan_amt')
+        foir_bt_min_loan_amt = request.POST.getlist(
+            'foir_bt_min_loan_amt')
+
+        multiplier_fresh_max_loan_amt = request.POST.getlist(
+            'multiplier_fresh_max_loan_amt')
+        multiplier_bt_max_loan_amt = request.POST.getlist(
+            'multiplier_bt_max_loan_amt')
+        foir_fresh_max_loan_amt = request.POST.getlist(
+            'foir_fresh_max_loan_amt')
+        foir_bt_max_loan_amt = request.POST.getlist(
+            'foir_bt_max_loan_amt')
+
+        multiplier_fresh_gross = request.POST.getlist('multiplier_fresh_gross')
+        multiplier_bt_gross = request.POST.getlist('multiplier_bt_gross')
+        foir_fresh_gross = request.POST.getlist('foir_fresh_gross')
+        foir_bt_gross = request.POST.getlist('foir_bt_gross')
+
+        multiplier_fresh_net = request.POST.getlist('multiplier_fresh_net')
+        multiplier_bt_net = request.POST.getlist('multiplier_bt_net')
+        foir_fresh_net = request.POST.getlist('foir_fresh_net')
+        foir_bt_net = request.POST.getlist('foir_bt_net')
+
         co_type = request.POST.getlist('company_type')
-        min_net_sal = request.POST.getlist('min_net_sal')
-        max_net_sal = request.POST.getlist('max_net_sal')
-        cutoff = request.POST.getlist('cutoff')
         salary_type_ = request.POST.getlist('salary_type')
         res_type_ = request.POST.getlist('res_type')
         tenure_ = request.POST.getlist('tenure')
-        multiplier_number = request.POST.getlist('multiplier_number')
+
+        multiplier_fresh_number = request.POST.getlist(
+            'multiplier_fresh_number')
+        multiplier_bt_number = request.POST.getlist(
+            'multiplier_bt_number')
+
+        foir_fresh_percentage = request.POST.getlist(
+            'foir_fresh_percentage')
+        foir_bt_percentage = request.POST.getlist(
+            'foir_bt_percentage')
 
         print(request.POST)
 
@@ -1196,29 +1236,58 @@ def addProductAndPolicyView(request):
                 tenure_type = Tenure.objects.filter(ten_type=ten_type).first()
                 product_and_policy_instance.tenure.add(tenure_type)
 
-            for (min_sal, max_sal, cut_off) in zip(min_net_sal, max_net_sal, cutoff):
+            # Adding Foir Fresh Category to P&P
+            for (cocat_type, percentage, roi, gross, net, min_loan_amt, max_loan_amt) in zip(foir_fresh_cocat_type, foir_fresh_percentage, foir_fresh_roi, foir_fresh_gross, foir_fresh_net, foir_fresh_min_loan_amt, foir_fresh_max_loan_amt):
 
-                if Foir.objects.filter(
-                        min_amt=min_sal, max_amt=max_sal, cutoff=cut_off).exists():
-                    foir = Foir.objects.filter(
-                        min_amt=min_sal, max_amt=max_sal, cutoff=cut_off).first()
+                if FoirCategory.objects.filter(cocat_type=cocat_type, cutoff=percentage, roi=roi,
+                                               min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net).exists():
+                    foir_fresh = FoirCategory.objects.filter(cocat_type=cocat_type, cutoff=percentage, roi=roi,
+                                                             min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net).first()
                 else:
-                    foir = Foir.objects.create(
-                        min_amt=min_sal, max_amt=max_sal, cutoff=cut_off)
-                product_and_policy_instance.foir.add(foir)
+                    foir_fresh = FoirCategory.objects.create(cocat_type=cocat_type, cutoff=percentage, roi=roi,
+                                                             min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net)
+                product_and_policy_instance.foir_fresh.add(foir_fresh)
 
-            for (cocat_type, multiplier_num, roi, min_loan_amnt, max_loan_amnt) in zip(cocat_type_,  multiplier_number, roi, min_loan_amount, max_loan_amount):
-                print("Comm Comm i am here")
-                if CompanyCategory.objects.filter(
-                        cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt).exists():
-                    company_category = CompanyCategory.objects.filter(
-                        cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt).first()
+            # Adding Multiplier Fresh Category to P&P
+            for (cocat_type, multiplier_no, roi, gross, net, min_loan_amt, max_loan_amt) in zip(multiplier_fresh_cocat_type, multiplier_fresh_number, multiplier_fresh_roi, multiplier_fresh_gross, multiplier_fresh_net, multiplier_fresh_min_loan_amt, multiplier_fresh_max_loan_amt):
+
+                if MultiplierCategory.objects.filter(cocat_type=cocat_type, multiplier_number=multiplier_no, roi=roi,
+                                                     min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net).exists():
+                    multiplier_fresh = MultiplierCategory.objects.filter(cocat_type=cocat_type, multiplier_number=multiplier_no, roi=roi,
+                                                                         min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net).first()
+                else:
+                    multiplier_fresh = MultiplierCategory.objects.create(
+                        cocat_type=cocat_type, multiplier_number=multiplier_no, roi=roi, min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt, gross_salary=gross, net_salary=net)
+
+                product_and_policy_instance.multiplier_fresh.add(
+                    multiplier_fresh)
+
+             # Adding Foir Balanced Transfer Category to P&P
+            for (cocat_type_bt, percentage_bt, roi_bt, gross_bt, net_bt, min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_gross, foir_bt_net, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
+                if FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
+                                               min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt).exists():
+                    foir_bt = FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
+                                                          min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt).first()
 
                 else:
-                    comp_category = CompanyCategory.objects.create(
-                        cocat_type=cocat_type, multiplier_number=multiplier_num, roi=roi, min_loan_amt=min_loan_amnt, max_loan_amt=max_loan_amnt)
+                    foir_bt = FoirCategory.objects.create(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
+                                                          min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt)
 
-                product_and_policy_instance.company_category.add(comp_category)
+                product_and_policy_instance.foir_bt.add(foir_bt)
+
+            # Adding Multiplier Balanced Transfer Category to P&P
+            for (cocat_type_bt, multiplier_no_bt, roi_bt, gross_bt, net_bt, min_loan_amt_bt, max_loan_amt_bt) in zip(multiplier_bt_cocat_type, multiplier_bt_number, multiplier_bt_roi, multiplier_bt_gross, multiplier_bt_net, multiplier_bt_min_loan_amt, multiplier_bt_max_loan_amt):
+
+                if MultiplierCategory.objects.filter(cocat_type=cocat_type_bt, multiplier_number=multiplier_no_bt, roi=roi_bt,
+                                                     min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt).exists():
+                    multiplier_bt = MultiplierCategory.objects.filter(cocat_type=cocat_type_bt, multiplier_number=multiplier_no_bt, roi=roi_bt,
+                                                                      min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt).first()
+
+                else:
+                    multiplier_bt = MultiplierCategory.objects.create(cocat_type=cocat_type_bt, multiplier_number=multiplier_no_bt, roi=roi_bt,
+                                                                      min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt, gross_salary=gross_bt, net_salary=net_bt)
+
+                product_and_policy_instance.multiplier_bt.add(multiplier_bt)
 
             product_and_policy_instance.save()
             return redirect('list_product_and_policy')

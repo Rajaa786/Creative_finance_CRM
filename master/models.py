@@ -411,14 +411,6 @@ class ProductsOrServices(models.Model):
         return self.products_or_services
 
 
-class CompanyCategory(models.Model):
-    cocat_type = models.CharField(max_length=200)
-    multiplier_number = models.IntegerField()
-    roi = models.FloatField()
-    min_loan_amt = models.BigIntegerField()
-    max_loan_amt = models.BigIntegerField()
-
-
 class CompanyCatergoryTypes(models.Model):
     cocat_type = models.CharField(max_length=50)
 
@@ -426,10 +418,14 @@ class CompanyCatergoryTypes(models.Model):
         return self.cocat_type
 
 
-class Foir(models.Model):
-    min_amt = models.BigIntegerField()
-    max_amt = models.BigIntegerField()
+class FoirCategory(models.Model):
+    cocat_type = models.CharField(max_length=200)
     cutoff = models.IntegerField()
+    roi = models.FloatField()
+    min_loan_amt = models.BigIntegerField()
+    max_loan_amt = models.BigIntegerField()
+    gross_salary = models.BigIntegerField()
+    net_salary = models.BigIntegerField()
 
 
 class SalaryType(models.Model):
@@ -470,33 +466,56 @@ class BankCategory(models.Model):
         return str(self.bank_name.bank_name + "_" + self.company_name.company_name + "_"+self.category.cocat_type)
 
 
+class MultiplierCategory(models.Model):
+    cocat_type = models.CharField(max_length=200)
+    multiplier_number = models.IntegerField()
+    roi = models.FloatField()
+    min_loan_amt = models.BigIntegerField()
+    max_loan_amt = models.BigIntegerField()
+    gross_salary = models.BigIntegerField()
+    net_salary = models.BigIntegerField()
+
+
 class product_and_policy_master(models.Model):
+    customer_type = models.ForeignKey(
+        CustomerType, on_delete=models.CASCADE, null=False, blank=False, related_name="cust_types")
     product_name = models.ForeignKey(
         Product, null=False, blank=False, on_delete=models.CASCADE)
     bank_names = models.ForeignKey(
         BankName, on_delete=models.CASCADE, null=False, blank=False)
-    customer_type = models.ForeignKey(
-        CustomerType, on_delete=models.CASCADE, null=False, blank=False, related_name="cust_types")
     is_salary_account = models.BooleanField(
         null=False, choices=YES_NO_CHOICES)
-    salary_existing = models.BigIntegerField()
-    salary_new = models.BigIntegerField()
     designation = models.ForeignKey(
         DesignationType, on_delete=models.CASCADE, null=False, blank=False)
     min_age = models.IntegerField()
     max_age = models.IntegerField()
+    internal_customer = models.BigIntegerField()
+    external_customer = models.BigIntegerField()
     current_experience = models.IntegerField()
-    multiplier = models.IntegerField(null=False, blank=False)
-    effective_date = models.DateField(blank=True, null=True)
-    ineffective_date = models.DateField(null=True, blank=True)
-    processing_fee = models.BigIntegerField()
-    months_for_foir = models.BigIntegerField()
-    foir = models.ManyToManyField(
-        Foir)
-    company_category = models.ManyToManyField(
-        CompanyCategory)
+    total_experience = models.IntegerField()
     cibil_score = models.BigIntegerField(
         null=False, blank=False)
+    processing_fee = models.BigIntegerField()
+    months_for_foir = models.BigIntegerField()
+    effective_date = models.DateField(blank=True, null=True)
+    ineffective_date = models.DateField(null=True, blank=True)
+    gross_min = models.BigIntegerField()
+    gross_max = models.BigIntegerField()
+    net_min = models.BigIntegerField()
+    net_max = models.BigIntegerField()
+    multiple_enquiry = models.IntegerField()
+    emi_bounces = models.IntegerField()
+    credit_card_dpd = models.IntegerField()
+    credit_card_obligation = models.IntegerField()
+    emi_obligation = models.IntegerField()
+    foir_fresh = models.ManyToManyField(
+        FoirCategory, related_name="foir_fresh")
+    foir_bt = models.ManyToManyField(
+        FoirCategory, related_name="foir_bt")
+    multiplier_fresh = models.ManyToManyField(
+        MultiplierCategory, related_name="multiplier_fresh")
+    multiplier_bt = models.ManyToManyField(
+        MultiplierCategory, related_name="multiplier_bt")
     salary_type = models.ManyToManyField(
         SalaryType)
     residence_type = models.ManyToManyField(

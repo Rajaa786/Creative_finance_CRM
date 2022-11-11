@@ -24,8 +24,10 @@ class ProductAndPolicyMasterForm(ModelForm):
         model = product_and_policy_master
 
         labels = {
-            "current_experience": "Current Experience (in months)"
+            "current_experience": "Current Experience (in months)",
+            "is_salary_account": "Salary account in this Bank?",
+            "total_experience": "Total Experience (in years)"
         }
 
-        exclude = ('effective_date', 'ineffective_date', 'foir',
-                   'company_category', 'salary_type', 'residence_type', 'tenure', 'company_type')
+        exclude = ('effective_date', 'ineffective_date', 'foir_fresh', 'foir_bt', 'multiplier_fresh',
+                   'multiplier_bt', 'salary_type', 'residence_type', 'tenure', 'company_type')

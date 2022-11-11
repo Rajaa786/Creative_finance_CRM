@@ -151,42 +151,7 @@ class Migration(migrations.Migration):
                 ("cibil_score", models.IntegerField()),
             ],
         ),
-        migrations.CreateModel(
-            name="CompanyCategory",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("cocat_type", models.CharField(max_length=200)),
-                ("multiplier_number", models.IntegerField()),
-                ("roi", models.FloatField()),
-                ("min_loan_amt", models.BigIntegerField()),
-                ("max_loan_amt", models.BigIntegerField()),
-            ],
-        ),
-        migrations.CreateModel(
-            name="Foir",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("min_amt", models.BigIntegerField()),
-                ("max_amt", models.BigIntegerField()),
-                ("cutoff", models.IntegerField()),
-            ],
-        ),
+
         migrations.CreateModel(
             name="ResidenceType",
             fields=[
@@ -670,77 +635,28 @@ class Migration(migrations.Migration):
 
 
 
+
+
         migrations.CreateModel(
-            name="product_and_policy_master",
+            name='Commission',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "is_salary_account",
-                    models.BooleanField(
-                        choices=[
-                            (None, "Select Yes Or No"),
-                            (True, "Yes"),
-                            (False, "No"),
-                        ]
-                    ),
-                ),
-                ("salary_existing", models.BigIntegerField()),
-                ("salary_new", models.BigIntegerField()),
-                ("min_age", models.IntegerField()),
-                ("max_age", models.IntegerField()),
-                ("current_experience", models.IntegerField()),
-                ("multiplier", models.IntegerField()),
-                ("effective_date", models.DateField(blank=True, null=True)),
-                ("ineffective_date", models.DateField(blank=True, null=True)),
-                ("processing_fee", models.BigIntegerField()),
-                ("months_for_foir", models.BigIntegerField()),
-                ("cibil_score", models.BigIntegerField()),
-                (
-                    "bank_names",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="master.bankname",
-                    ),
-                ),
-                (
-                    "company_category",
-                    models.ManyToManyField(to="master.companycategory"),
-                ),
-                (
-                    "customer_type",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="cust_types",
-                        to="master.companycategory",
-                    ),
-                ),
-                (
-                    "designation",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="master.designationtype",
-                    ),
-                ),
-                ("foir", models.ManyToManyField(to="master.foir")),
-                (
-                    "product_name",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="master.product"
-                    ),
-                ),
-                ("residence_type", models.ManyToManyField(
-                    to="master.residencetype")),
-                ("salary_type", models.ManyToManyField(to="master.salarytype")),
-                ("tenure", models.ManyToManyField(to="master.tenure")),
-                ("company_type", models.ManyToManyField(to="master.companytype")),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('Commissiontype', models.CharField(max_length=100)),
+                ('effective_date', models.DateField(null=True)),
+                ('ineffective_date', models.DateField(blank=True, null=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Comissionrates',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('Commissionrate', models.IntegerField(null=True)),
+                ('effective_date', models.DateField(null=True)),
+                ('ineffective_date', models.DateField(blank=True, null=True)),
+                ('Commissiontype', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='master.commission')),
             ],
         ),
 
@@ -780,6 +696,152 @@ class Migration(migrations.Migration):
                         to="master.companyname",
                     ),
                 ),
+            ],
+        ),
+
+
+
+        migrations.CreateModel(
+            name="FoirCategory",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cocat_type", models.CharField(max_length=200)),
+                ("cutoff", models.IntegerField()),
+                ("roi", models.FloatField()),
+                ("min_loan_amt", models.BigIntegerField()),
+                ("max_loan_amt", models.BigIntegerField()),
+                ("gross_salary", models.BigIntegerField()),
+                ("net_salary", models.BigIntegerField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name="MultiplierCategory",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cocat_type", models.CharField(max_length=200)),
+                ("multiplier_number", models.IntegerField()),
+                ("roi", models.FloatField()),
+                ("min_loan_amt", models.BigIntegerField()),
+                ("max_loan_amt", models.BigIntegerField()),
+                ("gross_salary", models.BigIntegerField()),
+                ("net_salary", models.BigIntegerField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name="product_and_policy_master",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_salary_account",
+                    models.BooleanField(
+                        choices=[
+                            (None, "Select Yes Or No"),
+                            (True, "Yes"),
+                            (False, "No"),
+                        ]
+                    ),
+                ),
+                ("min_age", models.IntegerField()),
+                ("max_age", models.IntegerField()),
+                ("internal_customer", models.BigIntegerField()),
+                ("external_customer", models.BigIntegerField()),
+                ("current_experience", models.IntegerField()),
+                ("total_experience", models.IntegerField()),
+                ("cibil_score", models.BigIntegerField()),
+                ("processing_fee", models.BigIntegerField()),
+                ("months_for_foir", models.BigIntegerField()),
+                ("effective_date", models.DateField(blank=True, null=True)),
+                ("ineffective_date", models.DateField(blank=True, null=True)),
+                ("gross_min", models.BigIntegerField()),
+                ("gross_max", models.BigIntegerField()),
+                ("net_min", models.BigIntegerField()),
+                ("net_max", models.BigIntegerField()),
+                ("multiple_enquiry", models.IntegerField()),
+                ("emi_bounces", models.IntegerField()),
+                ("credit_card_dpd", models.IntegerField()),
+                ("credit_card_obligation", models.IntegerField()),
+                ("emi_obligation", models.IntegerField()),
+                (
+                    "bank_names",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.bankname",
+                    ),
+                ),
+                ("company_type", models.ManyToManyField(to="master.companytype")),
+                (
+                    "customer_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="cust_types",
+                        to="master.customertype",
+                    ),
+                ),
+                (
+                    "designation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.designationtype",
+                    ),
+                ),
+                (
+                    "foir_bt",
+                    models.ManyToManyField(
+                        related_name="foir_bt", to="master.foircategory"
+                    ),
+                ),
+                (
+                    "foir_fresh",
+                    models.ManyToManyField(
+                        related_name="foir_fresh", to="master.foircategory"
+                    ),
+                ),
+                (
+                    "multiplier_bt",
+                    models.ManyToManyField(
+                        related_name="multiplier_bt", to="master.multipliercategory"
+                    ),
+                ),
+                (
+                    "multiplier_fresh",
+                    models.ManyToManyField(
+                        related_name="multiplier_fresh", to="master.multipliercategory"
+                    ),
+                ),
+                (
+                    "product_name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="master.product"
+                    ),
+                ),
+                ("residence_type", models.ManyToManyField(
+                    to="master.residencetype")),
+                ("salary_type", models.ManyToManyField(to="master.salarytype")),
+                ("tenure", models.ManyToManyField(to="master.tenure")),
             ],
         ),
 

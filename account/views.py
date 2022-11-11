@@ -2410,10 +2410,6 @@ def check_eligibility(request, id):
     print(main_applicant_personal_details)
     print(main_applicant_income_details)
     print(main_applicant_company_details)
-    t = Tenure.objects.all()
-    resi = ResidenceType.objects.all()
-    comp = CompanyType.objects.all()
-    cocat = CompanyCategory.objects.all()
     b = BankCategory.objects.all()
     # c = pp_cibil.objects.all()
     lo = SalExistingLoanDetails.objects.filter(
@@ -2427,7 +2423,6 @@ def check_eligibility(request, id):
     ds2 = {}
     sid = {}
     foircal = 0
-    foir = Foir.objects.all()
     sid2 = {}
     l = ''
     li = []

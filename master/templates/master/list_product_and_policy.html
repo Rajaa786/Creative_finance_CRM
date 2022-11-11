@@ -47,7 +47,6 @@
                             <th>Product & Policy ID</th>
                             <th>Bank Name</th>
                             <th>Customer Type</th>
-                            <th>Company Category</th>
                             <th>Product Name</th>
                             <th>Effective Date</th>
                             <th>Turn to ineffective</th>
@@ -68,15 +67,15 @@
                             </td>
                             <td>{{product.bank_names.bank_name}}</td>
                             <td>{{product.customer_type.cust_type}}</td>
-                            <td>
+                            {% comment %} <td>
                                 {% for comp_category in product.company_category.all %}
-                                    {{comp_category.cocat_type}} {% if not forloop.last %},{% endif %}
+                                {{comp_category.cocat_type}} {% if not forloop.last %},{% endif %}
                                 {% endfor %}
-                            </td>
+                            </td> {% endcomment %}
                             <td>{{product.product_name.product}}</td>
                             <td>{{product.effective_date}}</td>
                             <td><a href={% url 'delete_product_and_policy' id=product.pk %}>
-                                <i class="far fa-calendar-alt"></i></a></td>
+                                    <i class="far fa-calendar-alt"></i></a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
