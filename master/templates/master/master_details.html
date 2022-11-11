@@ -910,8 +910,12 @@
 								<thead class=" text-primary">
 									<tr>
 										<th class="px-2">SalaryType</th>
+
+										<!--
 										<th class="px-2">Effective Date</th>
 										<th class="px-2">Ineffective Date</th>
+										-->
+
 										<th class="px-2">Edit</th>
 									</tr>
 								</thead>
@@ -919,8 +923,13 @@
 									{% for salarytype in salarytypes %}
 									<tr>
 										<td>{{ salarytype.salary_type }}</td>
+
+										<!--
+
 										<td>{{ salarytype.effective_date }}</td>
 										<td>{{ salarytype.ineffective_date }}</td>
+										-->
+
 										<td><a href={% url 'editsalarytype' id=salarytype.id %}><span class="icon text-black-50"><i
 														class="fa fa-edit"></i></span></a></td>
 									</tr>
@@ -983,8 +992,12 @@
 							<thead class=" text-primary">
 								<tr>
 									<th class="px-2">ResidenceType</th>
+
+									<!--
 									<th class="px-2">Effective Date</th>
 									<th class="px-2">Ineffective Date</th>
+									-->
+
 									<th class="px-2">Edit</th>
 								</tr>
 							</thead>
@@ -992,8 +1005,12 @@
 								{% for residencetype in residencetypes %}
 								<tr>
 									<td>{{ residencetype.residence_type }}</td>
+
+									<!--
 									<td>{{ residencetype.effective_date }}</td>
 									<td>{{ residencetype.ineffective_date }}</td>
+									-->
+									
 									<td><a href={% url 'editresidencetype' id=residencetype.id %}><span class="icon text-black-50"><i
 													class="fa fa-edit"></i></span></a></td>
 								</tr>

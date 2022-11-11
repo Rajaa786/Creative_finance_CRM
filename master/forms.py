@@ -14,8 +14,7 @@ from django.db.models import Q
 class ProductAndPolicyMasterForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProductAndPolicyMasterForm, self).__init__(*args, **kwargs)
-        self.fields['product_name'] = ModelChoiceField(queryset=Product.objects.filter(
-            Q(ineffective_date__lte=datetime.now()) | Q(ineffective_date=None)), empty_label="-- Select Product --")
+        self.fields['product_name'] = ModelChoiceField(queryset=Product.objects.all(), empty_label="-- Select Product --")
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})

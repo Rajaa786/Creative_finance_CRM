@@ -155,7 +155,6 @@ USE_TZ = True
 en_formats.DATE_FORMAT = "M d, Y"
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
