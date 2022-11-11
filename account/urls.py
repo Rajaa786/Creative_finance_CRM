@@ -31,9 +31,9 @@ urlpatterns = [
     #--------------------------------------------------------#
     #OLD URLS#
 
-    path('ajax/cities/', views.load_cities, name="ajax_load_cities"),
+    path('add_leads/ajax/cities/', views.load_cities, name="ajax_load_cities"),
     path('ajax/addapplicant', views.add_applicants, name="ajax_add_applicant"),
-    path('ajax/subproducts/', views.load_subproducts,
+    path('add_leads/ajax/subproducts/', views.load_subproducts,
          name="ajax_load_subproducts"),
     path('homeloan/', include('HomeLoan.urls')),
     path('register/', views.register, name="register"),

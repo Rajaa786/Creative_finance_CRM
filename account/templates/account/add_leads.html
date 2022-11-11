@@ -1,12 +1,10 @@
-{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
-
+{% extends 'base/base.html' %}
 {% load static %}
 
-
+{% block other_css %}
+{% endblock other_css %}
 
 {% block title %}Add Leads{% endblock title %}
-
-{% block other_body_css %}id="page-top"{% endblock other_body_css %}
 
 {% block other_body %}
   <div class="container" style="margin:25px auto;">
@@ -16,7 +14,7 @@
         <h1 class=" mt-3 mb-4 display-3 text-center">Add Leads</h1> 
         <div class="card-body">
           <div class="container">
-            <form method="POST" action="{% url 'add_leads' %}" class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/" data-subproducts-url = "ajax/subproducts/">
+            <form method="POST" action="{% url 'add_leads' %}" enctype="multipart/form-data" class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/" data-subproducts-url = "ajax/subproducts/">
               {% csrf_token %}
               <div class="row g-4 p-4">
                   {% for field in form %}

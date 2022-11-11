@@ -438,7 +438,7 @@ def add_leads(request):
 def upload_documents(request, id):
     lead = Leads.objects.get(pk=id)
     if 'skip' in request.POST:
-        return redirect(f"additionaldetails", id)
+        return redirect(f"list_leads")
 
     if request.method == 'POST':
         loanSelector = request.POST.get('loanTypeSelector')
@@ -1244,8 +1244,9 @@ def additionaldetails(request, id):
 
 def addtionalDetailsNext_Btn_Handler(request, lead_id):
     lead = Leads.objects.get(pk=lead_id)
-    main_applicant = AdditionalDetails.objects.filter(
-        lead_id=lead, applicant_type__applicant_type='Applicant').first()
+    main_applicant = AdditionalDetails.objects.filter(lead_id=lead).first()
+        #lead_id=lead, applicant_type__applicant_type='Applicant').first()
+        
     return redirect('salaried', lead_id, main_applicant.pk)
 
 

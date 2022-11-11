@@ -30,13 +30,14 @@ class LeadsForm(ModelForm):
                 self.fields['city'].queryset = City.objects.filter(
                     state=state_id)
             except(ValueError, TypeError):
+                print("error")
                 pass
 
         if 'product' in self.data:
             try:
                 product_id = int(self.data.get('product'))
-                self.fields['sub_product'].queryset = SubProduct.objects.filter(
-                    product=product_id)
+                self.fields['sub_product'].queryset = SubProduct.objects.filter(product=product_id)
+                    
             except(ValueError, TypeError):
                 pass
 
