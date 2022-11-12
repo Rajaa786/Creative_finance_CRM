@@ -346,7 +346,7 @@ def BankName_form(request):
     if request.method == 'POST':
         banknameformvalue = request.POST['BankName'].strip()
         effective_date = date.today()
-        ineffective_date = request.POST['BankNameIdate']
+        ineffective_date = request.POST.get('BankNameIdate')
         if BankName.objects.filter(bank_name=banknameformvalue).exists():
             messages.info(request, 'Bank Name already exists')
             return redirect('Master_details')
@@ -408,7 +408,7 @@ def Nationality_form(request):
 
 def ResidenceType_form(request):
     if request.method == 'POST':
-        residencetypeformvalue = request.POST['resType'].strip()
+        residencetypeformvalue = request.POST['ResidenceType'].strip()
         effective_date = date.today()
         ineffective_date = request.POST['ResidenceTypeIdate']
         if ResidenceType.objects.filter(residence_type=residencetypeformvalue).exists():
@@ -416,7 +416,7 @@ def ResidenceType_form(request):
             return redirect('Master_details')
         else:
             newresidencetype = ResidenceType.objects.create(
-                residence_type=residencetypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+                residence_type=residencetypeformvalue)
             newresidencetype.save()
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
@@ -424,15 +424,17 @@ def ResidenceType_form(request):
 
 def SalaryType_form(request):
     if request.method == 'POST':
-        salarytypeformvalue = request.POST['salaryType'].strip()
+        salarytypeformvalue = request.POST.get('SalaryType').strip()
         effective_date = date.today()
         ineffective_date = request.POST['SalaryTypeIdate']
         if SalaryType.objects.filter(salary_type=salarytypeformvalue).exists():
             messages.info(request, 'Salary Type already exists')
             return redirect('Master_details')
         else:
+            # newsalarytype = SalaryType.objects.create(
+            #     salary_type=salarytypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
             newsalarytype = SalaryType.objects.create(
-                salary_type=salarytypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+                salary_type=salarytypeformvalue)
             newsalarytype.save()
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
@@ -1214,7 +1216,7 @@ def addProductAndPolicyView(request):
 
         product_and_policy_instance = ProductAndPolicyMasterForm(request.POST)
         if product_and_policy_instance.is_valid():
-            product_and_policy_instance = product_and_policy_instance.save()
+            #product_and_policy_instance = product_and_policy_instance.save()
             product_and_policy_instance.effective_date = date.today().strftime("%Y-%m-%d")
 
             for company_type in co_type:
