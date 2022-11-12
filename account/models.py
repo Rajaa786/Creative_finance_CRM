@@ -66,9 +66,6 @@ def create_path(instance, filename):
     )
 
 
-
-
-
 # Create your models here.
 
 
@@ -104,22 +101,23 @@ class Leads(models.Model):
     added_by = models.CharField(max_length=50, null=True)
 
 
-
 class LoanApplication(models.Model):
     lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
-    websiteUrl = models.CharField(max_length=254,null=True,blank=True)
-    coApplicantWebsiteUrl = models.CharField(max_length=254,null=True,blank=True)
+    websiteUrl = models.CharField(max_length=254, null=True, blank=True)
+    coApplicantWebsiteUrl = models.CharField(
+        max_length=254, null=True, blank=True)
     loan = models.CharField(max_length=124)
-    loanCustomerType = models.CharField(max_length=50,null=True,blank=True)
-    loanCustomerCoApplicantType = models.CharField(max_length=50,null=True,blank=True)
+    loanCustomerType = models.CharField(max_length=50, null=True, blank=True)
+    loanCustomerCoApplicantType = models.CharField(
+        max_length=50, null=True, blank=True)
     remark = models.TextField()
-    
-    
+
+
 class LoanDocuments(models.Model):
-    loanApplication = models.ForeignKey(LoanApplication, on_delete=models.CASCADE)
+    loanApplication = models.ForeignKey(
+        LoanApplication, on_delete=models.CASCADE)
     documentName = models.CharField(max_length=124)
     document = models.FileField(blank=True, upload_to=create_path)
-
 
 
 class AdditionalDetails(models.Model):
@@ -135,7 +133,7 @@ class AdditionalDetails(models.Model):
     con_person_phone = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
-        return self.applicant_type.applicant_type
+        return self.applicant_type.applicant_type+"_"+self.cust_name
 
 
 class SalPersonalDetails(models.Model):
@@ -143,8 +141,10 @@ class SalPersonalDetails(models.Model):
     loan_amount = models.IntegerField(null=True)
     # cibil_type = models.ForeignKey(
     #     CibilType, on_delete=models.CASCADE, blank=True, null=True)
-    cibil_score = models.IntegerField(null=True, blank=True)
+    cibil_score = models.IntegerField(null=True, blank=False)
     loan_taken = models.BooleanField(choices=YES_NO_CHOICES, default=False)
+    tenure = models.ForeignKey(
+        Tenure,  on_delete=models.CASCADE, blank=False, null=False)
     repayment_history = models.CharField(
         max_length=4, choices=GOOD_BAD_CHOICES, default=None, blank=True, null=True)
     product_id = models.ForeignKey(
@@ -161,7 +161,7 @@ class SalPersonalDetails(models.Model):
     marital_status = models.ForeignKey(
         MaritalStatus, on_delete=models.CASCADE, blank=True, null=True)
     qualification = models.ForeignKey(
-            Qualification, on_delete=models.CASCADE, blank=True, null=True)
+        Qualification, on_delete=models.CASCADE, blank=True, null=True)
     degree_others = models.CharField(max_length=100, blank=True, null=True)
     profession = models.ForeignKey(
         Profession, on_delete=models.CASCADE, blank=True, null=True)
@@ -267,7 +267,7 @@ class SalExistingLoanDetails(models.Model):
     existing_loan_det_id = models.AutoField(primary_key=True)
     bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE)
     products_or_services = models.ForeignKey(
-        ProductsOrServices, on_delete=models.CASCADE)
+        Product, on_delete=models.CASCADE, null=False)
     loan_amount = models.IntegerField()
     emi = models.DecimalField(max_digits=12, decimal_places=2)
     rate_of_interest = models.DecimalField(max_digits=12, decimal_places=2)
