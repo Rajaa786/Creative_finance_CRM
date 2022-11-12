@@ -72,6 +72,7 @@ python-dotenv==0.21.0
 pyttsx3==2.90
 pytz==2022.1
 pytz-deprecation-shim==0.1.0.post0
+pywin32==305
 PyYAML==6.0
 qrcode==7.3.1
 reportlab==3.6.11
