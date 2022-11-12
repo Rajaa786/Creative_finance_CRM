@@ -18,7 +18,8 @@ urlpatterns = [
     path('<int:pk>/update/', views.lead_update, name="lead-update"),
     path('<int:pk>/delete/', views.lead_delete, name="lead-delete"),
     path('newLeadview.html', views.list_leads, name="list_leads"),
-    path('additional_details_next/<int:lead_id>/' , views.addtionalDetailsNext_Btn_Handler , name='handle_next_addtional_details'),
+    path('additional_details_next/<int:lead_id>/',
+         views.addtionalDetailsNext_Btn_Handler, name='handle_next_addtional_details'),
 
     #     path('list_lead_edit/<int:id>', views.list_lead_edit, name="list_lead_edit"),
 
@@ -31,9 +32,9 @@ urlpatterns = [
     #--------------------------------------------------------#
     #OLD URLS#
 
-    path('add_leads/ajax/cities/', views.load_cities, name="ajax_load_cities"),
+    path('ajax/cities/', views.load_cities, name="ajax_load_cities"),
     path('ajax/addapplicant', views.add_applicants, name="ajax_add_applicant"),
-    path('add_leads/ajax/subproducts/', views.load_subproducts,
+    path('ajax/subproducts/', views.load_subproducts,
          name="ajax_load_subproducts"),
     path('homeloan/', include('HomeLoan.urls')),
     path('register/', views.register, name="register"),
@@ -69,7 +70,7 @@ urlpatterns = [
     path('create_mem', views.create_mem, name="create_mem"),
     #     path('dashboard', views.dashboard, name="dashboard"),
 
-    path('check_eligibility/<int:id>',
+    path('check_eligibility/<int:id>/',
          views.check_eligibility, name='account_eligibility'),
     path('base', views.base, name="base"),
     path('list_leads/', views.list_leads, name="list_leads"),
@@ -115,7 +116,14 @@ urlpatterns = [
 
     path('bank_download', views.bank_download, name='bank_download'),
     path('calculator', views.calculator, name="calculator"),
+    #---------------------------------------------------------------#
+     path('ajax/commissionrates/', views.commissionrate,
+         name="ajax_load_rates"),
+     path('calculatecommission/', views.calculatecommission, name="calculatecommission"),
+      path('showtype/', views.calculatortypeshow,
+         name="showtype"),
 
 
 ]
-urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = urlpatterns + \
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

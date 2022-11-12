@@ -553,6 +553,10 @@ class Migration(migrations.Migration):
                         default=False,
                     ),
                 ),
+
+
+
+
                 (
                     "repayment_history",
                     models.CharField(
@@ -686,6 +690,16 @@ class Migration(migrations.Migration):
                         to="master.qualification",
                     ),
                 ),
+
+
+                ("tenure",
+                    models.ForeignKey(
+                        default=12,
+                        blank=False,
+                        null=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="master.tenure"),
+                 ),
             ],
         ),
 
@@ -848,7 +862,8 @@ class Migration(migrations.Migration):
                 ('bank_name', models.ForeignKey(
                     on_delete=django.db.models.deletion.CASCADE, to='master.bankname')),
                 ('products_or_services', models.ForeignKey(
-                    on_delete=django.db.models.deletion.CASCADE, to='master.productsorservices')),
+                    on_delete=django.db.models.deletion.CASCADE, to="master.product")
+                 ),
             ],
         ),
 
