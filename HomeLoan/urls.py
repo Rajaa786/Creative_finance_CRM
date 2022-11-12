@@ -4,8 +4,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('eligibility/<int:id>', views.eligibility, name="eligibility"),
-    path('ajax/cities/',views.load_cities,name = "ajax_load_cities"),
-    path('ajax/subproducts/',views.load_subProduct,name = "ajax_load_subproducts"),
+    path('ajax/cities/',views.load_cities,name = "ajax_load_cities_homeloan"),
+    path('ajax/subproducts/',views.load_subProduct,name = "ajax_load_subproducts_homeloan"),
     #product policy master
     path('editproductandpolicy/<int:ppid>/age', views.PPage, name='PPage'),
     path('editproductandpolicy/<int:ppid>/editage/<int:ageid>', views.PPeditAge, name='PPeditAge'),

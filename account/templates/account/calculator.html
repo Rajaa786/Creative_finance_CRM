@@ -22,6 +22,7 @@
                     <option value="Stamp Duty And Registration">Stamp Duty And Registration</option>
                     <option value="Extra Payment">Extra Payment</option>
                     <option value="EMI Calculator">EMI Calculator</option>
+                    <option value="Earning Calculator">Earning Calculator</option>
                 </select>
               </div>
               <div class="container" id="details1" style="display: none">
@@ -187,6 +188,65 @@
                   </div>
                 </form>
               </div>
+              <div class="container" id="details5" style="display: none">
+                <form  id="calculateform" data-rates-url ="{% url 'ajax_load_rates' %}" method="GET">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                          <label for="sel_tenure" class="ms-0 text-primary fw-bold col-12">Select type</label>
+                          <select class="form-control col-12" name="Commission_selected" id="Commission_selected">
+                            <option value="">-- Type of commission --</option>
+                            <!-- <option value="Home Loan">Home Loan</option>
+                            <option value="Loan against property">Loan against property</option>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Business Loan">Business Loan</option>
+                            <option value="Car Refinance">Car Refinance</option>
+                            <option value="Real Estate (Buying and selling)">Real Estate (buying and selling)</option>
+                            <option value="Real Estate (50% of rental)">Real Estate (50% of rental)</option>
+                            <option value="General Insurance">General Insurance</option>
+                            <option value="Life Insurance">Life Insurance</option> -->
+                            {% for commission in commissiontypes %}
+                            <option value="{{ commission.id }}">{{ commission.Commissiontype }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline mb-4">
+                        <label  for="ent_amt" class="form-label text-primary fw-bold">Enter Amount</label>
+                        <input type="number" name="ent_amt" id="ent_amt" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline mb-4">
+                       
+                        <label  for="Ent_roi" class="form-label text-primary fw-bold">Enter Interest</label>
+                        <!-- <input type="number" name="Ent_roi" id="Ent_roi" class="form-control" value= "{{commissiontypes.Commissionrate}}" required> -->
+                        <select name="rates" id="rates" class="form-control">
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group input-group-outline mb-4">
+                        <label  for="est_amt" class="form-label text-primary fw-bold">Estimated Commission</label>
+                        <input type="number" name="est_amt" id="est_amt" class="form-control" required>
+                      </div>
+                    </div>
+                    
+                    
+                   
+                  </div>
+                  <div class="row">
+                    <div class="text-center">
+                      <button class="btn btn-primary mx-auto" type="submit">Calculate</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -199,10 +259,7 @@
   <script>
     $(document).ready(function () {
       $('#calc_details').on('change', function () {
-<<<<<<< HEAD
       
-=======
->>>>>>> 706de2b7fd3a8033e12efab6e29468f9565f4d5e
         if (this.value == 'Loan Comparison') {
           $("#details1").show();
         }
@@ -226,6 +283,12 @@
         }
         else {
           $("#details4").hide();
+        }
+        if (this.value == 'Earning Calculator') {
+          $("#details5").show();
+        }
+        else {
+          $("#details5").hide();
         }
       
       });
