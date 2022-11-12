@@ -11,39 +11,41 @@ import os
 from pathlib import Path
 import django_heroku
 from django.contrib.messages import constants as messages
-
-# https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
 import environ
 
+# https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f
+
 # Initialise environment variables
-# env = environ.Env()
-# environ.Env.read_env()
+env = environ.Env(DEBUG=(bool, False))
+
+READ_DOT_ENV_FILE = env.bool("READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / "templates"
-STATIC_DIR = BASE_DIR / "static"
+
+STATICFILES_DIR = [BASE_DIR / "static"]
+STATIC_URL = "/static/"
+STATIC_ROOT = "static_root"
 MEDIA_DIR = BASE_DIR / "media"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env('SECRET_KEY')
-# print("There", os.environ.get('SECRET_KEY'))
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-# SECRET_KEY = "abcdefghijklmn"
-SECRET_KEY = "django-insecure-b3o1q&u(b8_)wa*-d^^*%n^2tpagx0z()7jj$+9aploi()yd$"
+
+SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-# ALLOWED_HOSTS = [env('ALLOWED_HOST_1'), env('ALLOWED_HOST_2')]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "account.apps.AccountConfig",
     "master.apps.MasterConfig",
     "HomeLoan.apps.HomeloanConfig",
@@ -97,25 +99,13 @@ WSGI_APPLICATION = "leadgenerator.wsgi.application"
 
 DATABASES = {
     "default": {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        "OPTIONS": {
-            "init_command": "SET sql_mode=STRICT_TRANS_TABLES",
-        },
         "ENGINE": "django.db.backends.mysql",
-        # 'NAME': 'creativefinserve$leadgen',
-        # 'NAME': os.environ.get('DATABASES_NAME'),
-        "NAME": "django-test",
-        # 'USER': 'creativefinserve',
-        # 'USER': os.environ.get('DATABASES_USER'),
-        "USER": "root",
-        # 'PASSWORD': '_HP@B99_',
-        "PASSWORD": "",
-        # 'HOST': 'creativefinservecrm.mysql.pythonanywhere-services.com',
-        # 'HOST': os.environ.get('DATABASES_HOST'),
-        "HOST": "localhost",
-        # 'PORT': os.environ.get('DATABASES_PORT'),
-        "PORT": 3306,
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASES_USER"),
+        "PASSWORD": env("DATABASES_USER"),
+        "HOST": env("DATABASES_HOST"),
+        # "HOST": "localhost",
+        "PORT": env("DATABASES_PORT"),
     }
 }
 
@@ -161,9 +151,6 @@ en_formats.DATE_FORMAT = "M d, Y"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [STATIC_DIR]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = MEDIA_DIR
