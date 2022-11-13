@@ -420,7 +420,7 @@ def Nationality_form(request):
 
 def ResidenceType_form(request):
     if request.method == 'POST':
-        residencetypeformvalue = request.POST['resType'].strip()
+        residencetypeformvalue = request.POST['ResidenceType'].strip()
         effective_date = date.today()
         ineffective_date = check_ineffective_date_present(request.POST['ResidenceTypeIdate'])
         if ResidenceType.objects.filter(residence_type=residencetypeformvalue).exists():
@@ -428,7 +428,7 @@ def ResidenceType_form(request):
             return redirect('Master_details')
         else:
             newresidencetype = ResidenceType.objects.create(
-                residence_type=residencetypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+                residence_type=residencetypeformvalue)
             newresidencetype.save()
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
@@ -436,15 +436,17 @@ def ResidenceType_form(request):
 
 def SalaryType_form(request):
     if request.method == 'POST':
-        salarytypeformvalue = request.POST['salaryType'].strip()
+        salarytypeformvalue = request.POST.get('SalaryType').strip()
         effective_date = date.today()
         ineffective_date = check_ineffective_date_present(request.POST['SalaryTypeIdate'])
         if SalaryType.objects.filter(salary_type=salarytypeformvalue).exists():
             messages.info(request, 'Salary Type already exists')
             return redirect('Master_details')
         else:
+            # newsalarytype = SalaryType.objects.create(
+            #     salary_type=salarytypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
             newsalarytype = SalaryType.objects.create(
-                salary_type=salarytypeformvalue, effective_date=effective_date, ineffective_date=ineffective_date)
+                salary_type=salarytypeformvalue)
             newsalarytype.save()
             return redirect('Master_details')
     return render(request, 'master/master_details.html')
