@@ -38,7 +38,10 @@ from leadgenerator.settings import BASE_DIR, EMAIL_HOST_USER
 from HomeLoan.models import *
 from django.core.files.storage import FileSystemStorage
 from stronghold.decorators import public
+from .eligibilityManager import *
 
+NOT_ELIGIBLE = "NOT ELIGIBLE"
+ELIGIBLE = "ELIGIBLE"
 
 '''
 NEW VIEWS
@@ -2453,8 +2456,7 @@ def check_eligibility(request, id):
         amt = 1
         roi = 1
         qr = 0
-        print("TEsting customer type ",
-              main_applicant.cust_type == i.customer_type)
+
         if v.product == i.product_name:
             msg = msg + i.bank_names.bank_name + '['
             if main_applicant.cust_type == i.customer_type:
@@ -2748,6 +2750,115 @@ def check_eligibility(request, id):
                    'fin': fin})
 
     return render(request, 'account/eligibility.html')
+
+
+def check_eligibility(request, id):
+    lead = Leads.objects.get(pk=id)
+    main_applicant = AdditionalDetails.objects.filter(
+        lead_id=lead, applicant_type__applicant_type="Applicant").first()
+    main_applicant_personal_details = SalPersonalDetails.objects.filter(
+        additional_details_id=main_applicant).first()
+    main_applicant_company_details = SalCompanyDetails.objects.filter(
+        addi_details_id=main_applicant).first()
+    main_applicant_income_details = SalIncomeDetails.objects.filter(
+        addi_details_id=main_applicant).first()
+
+    product_and_policy_master = product_and_policy_master.objects.all()
+
+# Personal Details
+#     cibil_score =
+#     repayment_history =
+#     retirement_age =
+
+    store_eligibility_details = {}
+
+    for product in product_and_policy_master:
+        if lead.product == product.product_name:
+            store_eligibility_details[product.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type, 'category': "Couldn't be calculated", 'roi': "Couldn't be found",
+                                                                       'loanamt': lead.loan_amt, 'loanelig': "Couldn't be calculated",
+                                                                       'loancap': "Couldn't be calculated", 'eligibility': NOT_ELIGIBLE,
+                                                                       'pro': product.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated",
+                                                                       'reasons': []
+                                                                       }
+
+            
+            # /********* Personal Details Check ************/
+            if not check_cibil_score(main_applicant_personal_details.cibil_score, product.cibil_score):
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].append = "Less Cibil Score"
+            # if main_applicant_personal_details.cibil_score < product.cibil_score :
+
+            store_eligibility_details[product.bank_names.bank_name]['available_tenures'] = check_tenure_availability(main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age,main_applicant_personal_details.tenure , product)
+
+
+
+
+            # /********* Income Details Check ************/
+            if not check_salary_type(main_applicant_income_details.salary_type.salary_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].append = "Salary Type must only be Bank Transfer"
+
+     
+            if not check_gross_salary(main_applicant_income_details.gross_sal , product.gross_min , product.gross_max):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+
+
+            if not check_net_salary(main_applicant_income_details.net_sal , product.net_min , product.net_max):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+
+
+
+            # /********* Company Details Check ************/
+            if check_company_type(main_applicant_company_details.company_type.company_type.company_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+
+            if check_designation_type(main_applicant_company_details.designation_type.desg_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+
+            experience_info_ = check_current_and_total_experience(main_applicant_company_details.current_experience , main_applicant_company_details.total_experience , product.current_experience , product.total_experience)
+            if not experience_info_['eligibile'] :
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].extend(experience_info_['non_eligibility_reasons'])
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+
+
+            if check_employment_type(main_applicant_company_details.employment_type.employment_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+
+
+
+
+            # /******************             Calculation of Multiplier               ****************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            # /******************             Calculation of Foir               ****************/
+
+
+
+
+
+
+
+
+
+
+
+    pass
 
 
 def selfemployed(request):
