@@ -1,3 +1,4 @@
+from master.models import BankCategory
 
 
 def check_cibil_score(customer_cibil_score, product_cibil_score):
@@ -60,3 +61,9 @@ def check_current_and_total_experience(cust_current_exp, cust_total_exp, product
 
 def check_employment_type(cust_employment_type):
     return cust_employment_type in ['Permanent']
+
+
+
+
+def get_related_bank_categories(product_bank_name , cust_company_name):
+    return BankCategory.objects.filter( bank_name = product_bank_name , company_name = cust_company_name).first()

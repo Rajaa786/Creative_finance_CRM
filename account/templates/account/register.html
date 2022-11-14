@@ -3,6 +3,20 @@
 
 
 {% block other_css %}
+<style>
+  input:-webkit-autofill {
+    {% comment %} -webkit-text-fill-color: rgb(255, 255, 255) !important; {% endcomment %}
+  }
+  
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    {% comment %} -webkit-text-fill-color: rgb(255, 255, 255) !important; {% endcomment %}
+    {% comment %} -webkit-box-shadow: 0 0 0 30px white inset !important; {% endcomment %}
+  }
+</style>
 {% endblock other_css %}
 
 {% block title %}Registration Form{% endblock title %}
@@ -21,6 +35,13 @@
     </div>
     <div class="col-md-4">
       <div class="input-group input-group-outline mb-4">
+        <label for="password" class="form-label text-primary fw-bold">Password</label>
+        <input type="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" name="password"
+          oninvalid="this.setCustomValidity('Password must be between 8-12 characters with atleast 1 uppercase,1 lowercase ,and 1 special character.')" oninput="this.setCustomValidity('')" id="password" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group input-group-outline mb-4">
         <label for="email" class="form-label text-primary fw-bold">E-mail</label>
         <input type="email" name="email" id="email" class="form-control" required>
       </div>
@@ -28,15 +49,10 @@
     <div class="col-md-4">
       <div class="input-group input-group-outline mb-4">
         <label for="phone" class="form-label text-primary fw-bold">Mobile Number</label>
-        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="phone" id="phone" class="form-control" required>
+        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="phone" id="phone" class="form-control" maxlength="10" required>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="input-group input-group-outline mb-4">
-        <label for="alt_phone" class="form-label text-primary fw-bold">System Role</label>
-        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="alt_phone" id="alt_phone" class="form-control" required>
-      </div>
-    </div>
+
     <div class="col-md-4">
       <label for="address" class="form-label text-primary fw-bold mb-0">Address</label>
       <div class="input-group input-group-dynamic mb-4">
@@ -45,24 +61,62 @@
       </div>
     </div>
     <div class="col-md-4">
-      <label for="address" class="form-label text-primary fw-bold mb-0">City</label>
-      <div class="input-group input-group-dynamic mb-4">
-        <textarea name="address" id="address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false"
-          required></textarea>
+      <div class="form-group row">
+        <div class="input-group input-group-static mb-4">
+          <label for="city" class="ms-0 text-primary fw-bold col-12">City</label>
+          <select class="form-control col-12" name="city" id="city" required>
+            <option value="">-- Select City --</option>
+            {% for city in  cities%}
+            <option value={{city.city_name}}>{{city.city_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
     </div>
     <div class="col-md-4">
-      <label for="address" class="form-label text-primary fw-bold mb-0">PinCode</label>
-      <div class="input-group input-group-dynamic mb-4">
-        <textarea name="address" id="address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false"
-          required></textarea>
+      <div class="input-group input-group-outline mb-4">
+        <label for="pincode" class="form-label text-primary fw-bold">PinCode</label>
+        <input type="text" name="pincode" id="pincode" class="form-control" required>
       </div>
     </div>
     <div class="col-md-4">
-      <label for="address" class="form-label text-primary fw-bold mb-0">How did you know about us?</label>
-      <div class="input-group input-group-dynamic mb-4">
-        <textarea name="address" id="address" class="form-control" rows="1" placeholder="eg. Address" spellcheck="false"
-          required></textarea>
+      <div class="input-group input-group-outline mb-4">
+        <label for="reference" class="form-label text-primary fw-bold">How did you know about us?</label>
+        <input type="text" name="reference" id="reference" class="form-control" required>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group input-group-outline mb-4">
+        <label for="referral_code" class="form-label text-primary fw-bold">Referral Code</label>
+        <input type="text" name="referral_code" id="referral_code" class="form-control">
+      </div>
+    </div>
+   
+    <div class="col-md-4">
+      <div class="form-group row">
+        <div class="input-group input-group-static mb-4">
+          <label for="has_gst" class="ms-0 text-primary fw-bold col-12">Do you have GST?</label>
+          <select class="form-control col-12" name="has_gst" id="has_gst" required>
+            <option value="">-- Select Yes or No --</option>
+            <option default value={{True}}>Yes</option>
+            <option default value={{False}}>No</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="form-group row">
+        <div class="input-group input-group-static mb-4">
+          <label for="system_role" class="ms-0 text-primary fw-bold col-12">System Role</label>
+          <select class="form-control col-12" name="system_role" id="system_role" required>
+            {% comment %} <option value="">-- Select Role --</option> {% endcomment %}
+            {% if role%}
+            <option default value="{{role.role}}">{{role.role}}</option>
+            {% endif %}
+          </select>
+        </div>
       </div>
     </div>
 
@@ -71,23 +125,13 @@
     <div class="col-md-4">
       <div class="form-group row">
         <div class="input-group input-group-static mb-4">
-          <label for="designation" class="ms-0 text-primary fw-bold col-12">Profession</label>
-          <select class="form-control col-12" name="designation" id="select_opt"
+          <label for="profession" class="ms-0 text-primary fw-bold col-12">Profession</label>
+          <select class="form-control col-12" name="profession" id="profession"
             onchange="showfield(this.options[this.selectedIndex].value)" required>
-            <option value="">-- Select Designation --</option>
-            <option>Salaried</option>
-            <option>Self Employed</option>
-            <option>Freelancer</option>
-            <option> Student</option>
-            <option>Home Maker</option>
-            <option>DSA</option>
-            <option> Insurance Agent</option>
-            <option> Chartered Accountant</option>
-            <option> Tax Consultants</option>
-            <option>Banker</option>
-            <option> Company Secretary</option>
-            <option> Real Estate Agent</option>
-            <option>Builder</option>
+            <option value="">-- Select Profession --</option>
+            {% for profession in  professions%}
+            <option value={{profession.profession}}>{{profession.profession}}</option>
+            {% endfor %}
             <option>Other</option>
           </select>
         </div>
@@ -96,6 +140,9 @@
     <div class="col-md-4" id="div1">
     </div>
   </div>
+
+
+
   <div class="container text-danger">
     {% for message in messages %}
     {{message}}
@@ -118,6 +165,7 @@
 {% block other_js %}
 <script>
   function showfield(name) {
+    console.log(name)
     if (name == 'Other')
       document.getElementById('div1').innerHTML =
       '  <label  for="other" class="form-label text-primary fw-bold">Other</label>' +

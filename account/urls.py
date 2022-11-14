@@ -63,7 +63,7 @@ urlpatterns = [
 
     path('forgot_username', views.forgot_username, name="forgot_username"),
     path('emailverificationmsg', views.email_ver_msg, name="email_ver_msg"),
-    path('activate/<uidb64>/<token>', VerificationView.as_view(), name="activate"),
+    path('activate/<uidb64_pk>/<uidb64_hash>/<token>', VerificationView.as_view(), name="activate"),
     path('uname_pw_gen', views.uname_pw_gen, name="uname_pw_gen"),
 
     path('add_leads/', views.add_leads, name="add_leads"),
