@@ -179,18 +179,26 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # SMTP Configuration
 # EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# # EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_HOST = 'smtp.gmail.com'
+# # EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_PORT = 587
+# # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_USE_TLS = True
+# # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_USER = 'vinayjain449@gmail.com'
+# # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
+
 EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_PORT = 587
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_USER = 'vinayjain449@gmail.com'
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'rajsingh08471@gmail.com'
 EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 
 django_heroku.settings(locals())
 
@@ -201,7 +209,7 @@ MESSAGE_TAGS = {
 LOGIN_URL = '/account/login'
 
 # https://github.com/mgrouchy/django-stronghold
-# STRONGHOLD_DEFAULTS = env('STRONGHOLD_DEFAULTS')
+# STRONGHOLD_DEFAULTS = True
 STRONGHOLD_PUBLIC_NAMED_URLS = ('home', 'register', 'forgot_username', 'reset_password',
                                 'password_reset_done', 'password_reset_confirm', 'password_reset_complete', )
 STRONGHOLD_PUBLIC_URLS = ('/admin/',)

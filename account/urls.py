@@ -38,6 +38,10 @@ urlpatterns = [
          name="ajax_load_subproducts_account"),
     path('homeloan/', include('HomeLoan.urls')),
     path('register/', views.register, name="register"),
+    path('register/staff', views.register_staff, name="register_staff"),
+    path('register/vendor', views.register_vendor, name="register_vendor"),
+    path('register/referral', views.register_referral, name="register_referral"),
+
     path('login/', views.login, name="login"),
     path('logout', views.logout, name="logout"),
     path('deleteapplicant/<int:id>', views.delapplicant, name="deleteapplicant"),

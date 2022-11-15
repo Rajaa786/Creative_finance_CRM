@@ -89,6 +89,9 @@ class ReferralProfile(models.Model):
     referral_code = models.CharField(max_length=200 , blank=True)
     agreement = models.FileField(upload_to='agreements', default="terms.pdf")
 
+    def __str__(self) :
+        return f"{self.full_name}_{self.user.username}"
+
     
 
 

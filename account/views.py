@@ -31,6 +31,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 import json
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.utils.datastructures import MultiValueDictKeyError
 # def random_password(size=8):
 #     return BaseUserManager().make_random_password(size)
@@ -39,6 +40,8 @@ from HomeLoan.models import *
 from django.core.files.storage import FileSystemStorage
 from stronghold.decorators import public
 from .eligibilityManager import *
+from .registerManager import *
+
 
 NOT_ELIGIBLE = "NOT ELIGIBLE"
 ELIGIBLE = "ELIGIBLE"
@@ -183,136 +186,26 @@ def base_dashboard(request):
     return render(request, 'account/base.html', context)
 
 
-@login_required()
+# @login_required()
 def register(request):
     if request.method == 'POST':
-        print(request.POST)
-        group = Group.objects.get(name="Referral Partner")
-        fname = request.POST['fname']
-        system_role = request.POST['system_role']
-        Email = request.POST['email']
-        phone = request.POST['phone']
-        password = request.POST['password']
-        profession = request.POST['profession']
-        if(profession == "Other"):
-            profession = request.POST['other']
-        address = request.POST['address']
-        pincode = request.POST['pincode']
-        city = request.POST['city']
-        has_gst = request.POST['has_gst']
-        reference = request.POST['reference']
-        referral_code = request.POST.get('referral_code', "")
-        if CustomUser.objects.filter(email=Email).exists():
-            messages.info(request, 'Email Taken')
-            return redirect('register')
-        else:
-            system_role = Role.objects.filter(role = system_role).first()
-            city = City.objects.filter(city_name = city).first()
-            print(profession)
-            print(system_role)
-            print(city)
-            user = CustomUser.objects.create_user(username="default", password=password, system_role=system_role, email=Email, phone=phone,address=address , pincode =pincode , city = city)
+        redir = register_manager_dict[request.POST['system_role']](request)
+        print(redir)
+        return redir
 
-            print(user)
-            user.set_password
-            user.mapped_to_dept = "Admin"
-            user.reporting_head = "Admin"
-            user.is_active = False
-            user.groups.add(group)
-            user.save()
-            referral_profile = ReferralProfile.objects.create(user = user , full_name = fname , profession = profession , has_GST = has_gst , reference = reference , referral_code = referral_code)
-            referral_profile.save()
-            ini = ""
-            if user.designation == "Salaried":
-                ini += "SAL"
-            elif user.designation == "Self Employed":
-                ini += "SE"
-            elif user.designation == "Freelancer":
-                ini += "FL"
-            elif user.designation == "Student":
-                ini += "ST"
-            elif user.designation == "Home Maker":
-                ini += "HM"
-            elif user.designation == "DSA":
-                ini += "DSA"
-            elif user.designation == "Insurance Agent":
-                ini += "IA"
-            elif user.designation == "Chartered Accountant":
-                ini += "CA"
-            elif user.designation == "Tax Consultants":
-                ini += "TC"
-            elif user.designation == "Banker":
-                ini += "BNK"
-            elif user.designation == "Company Secretary":
-                ini += "CS"
-            elif user.designation == "Real Estate Agent":
-                ini += "REA"
-            elif user.designation == "Builder":
-                ini += "BLD"
-            else:
-                ini += "O"
-            if user.role == "Referral Partner":
-                ini += "RP"
-            num = '{:04d}'.format(user.id)
-            newusername = ini+num
-            user.username = newusername
-            user.save()
-            if user.role == "Referral Partner":
-                ini = "ORP"
-                num = '{:03d}'.format(user.id)
-                newusername = ini+num
-                user.username = newusername
-                user.save()
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain
-            link = reverse('activate', kwargs={
-                           'uidb64': uidb64, 'token': token_generator.make_token(user)})
-            activate_url = "http://"+domain+link
-            email_body = 'Hi ' + user.first_name + \
-                ' Please use this link to verify your account\n' + activate_url
-            email = EmailMessage(
-                'Activate your account',
-                email_body,
-                'rohan@gmail.com',
-                [Email],
-            )
-            email.send(fail_silently=False)
-            # template = get_template('account/Agreement.html')
-            context = {
-                "partner_name": user.first_name
-            }
-            # html = template.render(context)
-            pdf = render_to_pdf('account/Agreement.html', context)
+    print("redir******")
+        
+    context = {
+        'roles': Role.objects.all(),
+        'professions': Profession.objects.all(),
+        'cities': City.objects.all()
 
-            response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Agreement_%s.pdf" % (user.username)
+    }
+    return render(request, 'account/register_non_admin.html', context=context)
 
-            content = "attachment; filename='%s'" % (filename)
-            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-            user.agreement.save(filename, ContentFile(pdf.content))
-            print(user.agreement)
-            message = "this is test mail"
-            subject = "terms and conditions"
-            mail_id = request.POST.get('email', '')
-            # mail_id="daghariddhi12@gmail.com"
-            email = EmailMessage(
-                subject, message, EMAIL_HOST_USER, [mail_id, ])
-            email.content_subtype = 'html'
-            # file2=open("abcd.txt","r")
-            # file=open("manage.py","r")
-            # email.attach("abcd.txt",file2.read(),'text/plain')
-            # email.attach("manage.py",file.read(), 'text/plain')
-            # email.attach_file('abc.pdf')
-            email.send()
-            # return render(request, 'account/terms.html')
-        # else:
-            # messages.info(request, 'Password did not match')
-            # return redirect('register')
-            return redirect('email_ver_msg')
-        # else:
-            # messages.info(request, 'Password did not match')
-            # return redirect('register')
-    else:
+
+# @login_required()
+def register_referral(request):
         context = {
             'role': Role.objects.filter(role="Referral Partner").first(),
             'professions': Profession.objects.all(),
@@ -322,12 +215,23 @@ def register(request):
         return render(request, 'account/register.html', context=context)
 
 
+def register_staff(request):
+    pass
+
+
+def register_vendor(request):
+    pass
+
+
 class VerificationView(View):
     def get(self, request, uidb64_pk, uidb64_hash, token):
         try:
+            print("inside verification")
             id = force_str(urlsafe_base64_decode(uidb64_pk))
             password = force_str(urlsafe_base64_decode(uidb64_hash))
             user = CustomUser.objects.get(pk=id)
+            print(id)
+            print(password)
 
             if not token_generator.check_token(user, token):
                 return redirect('login'+'?message='+'User already activated')
@@ -357,7 +261,12 @@ class VerificationView(View):
 
         return redirect('uname_pw_gen')
 
+    @method_decorator(public)
+    def dispatch(self, *args, **kwargs):
+    	        return super(VerificationView, self).dispatch(*args, **kwargs)
 
+
+@public
 def email_ver_msg(request):
     return render(request, 'account/email_ver_msg.html')
 
@@ -377,10 +286,9 @@ def login(request):
                 print("POST ", request.POST['next'])
                 return redirect(request.POST['next'])
 
-            print("After Next")
-            if user.role == "Admin":
+            if user.is_superuser :
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base_dashboard')
         else:
             messages.info(request, 'Invalid Username or Password')
@@ -415,6 +323,7 @@ def forgot_username(request):
         return render(request, 'account/forgot_username.html')
 
 
+@public
 def uname_pw_gen(request):
     return render(request, 'account/uname_pw_gen.html')
 
@@ -1206,6 +1115,7 @@ def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
+@login_required()
 def additionaldetails(request, id):
     redirect_temp = None
     add_instance_form_1 = None
@@ -3146,7 +3056,7 @@ def email(request):
     return render(request, 'account/email.html')
 
 
-@login_required(redirect_field_name='login', login_url='login')
+# @login_required(redirect_field_name='login', login_url='login')
 def register2(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -3386,3 +3296,9 @@ def commissionrate(request):
 def calculatortypeshow(request):
     commissiontypesshow = Commission.objects.all()
     return render(request, 'account/calculator.html', {'commissiontypes': commissiontypesshow})
+
+
+register_manager = {
+    'Referral Partner': register_referral,
+    'Vendor': register_vendor
+}

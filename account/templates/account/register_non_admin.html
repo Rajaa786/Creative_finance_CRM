@@ -1,0 +1,218 @@
+{% load static %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    {% include 'base/meta.html' %}
+
+    {% include 'base/css.html' %}
+
+    {% include 'base/dashboard_css.html' %}
+
+
+    <title>Registration Form</title>
+
+
+    <style>
+        input:-webkit-autofill {
+            {% comment %} -webkit-text-fill-color: rgb(255, 255, 255) !important; {% endcomment %}
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            {% comment %} -webkit-text-fill-color: rgb(255, 255, 255) !important; {% endcomment %}
+            {% comment %} -webkit-box-shadow: 0 0 0 30px white inset !important; {% endcomment %}
+
+        }
+
+        .alert-text {
+            color: white;
+            font-weight: bolder;
+        }
+    </style>
+
+</head>
+
+<body {% include 'base/dashboard_body_css.html' %} {% block other_body_css %}{% endblock other_body_css %}>
+
+    <main class="main-content position-relative border-radius-lg ">
+
+        <h1 class="mb-5 mt-3 display-3 text-center bg-transparent text-dark">New Partner Registration</h1>
+        <form action="{% url 'register' %}" method="POST" class="bg-white rounded p-5 shadow-blur border-0"
+            style="width: 95%; margin: 25px auto;">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="fname" class="form-label text-primary fw-bold">Full Name</label>
+                        <input type="text" name="fname" id="fname" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="password" class="form-label text-primary fw-bold">Password</label>
+                        <input type="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                            name="password"
+                            oninvalid="this.setCustomValidity('Password must be between 8-12 characters with atleast 1 uppercase,1 lowercase ,and 1 special character.')"
+                            oninput="this.setCustomValidity('')" id="password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="email" class="form-label text-primary fw-bold">E-mail</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="phone" class="form-label text-primary fw-bold">Mobile Number</label>
+                        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="phone" id="phone" class="form-control"
+                            maxlength="10" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="address" class="form-label text-primary fw-bold mb-0">Address</label>
+                    <div class="input-group input-group-dynamic mb-4">
+                        <textarea name="address" id="address" class="form-control" rows="1" placeholder="eg. Address"
+                            spellcheck="false" required></textarea>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                            <label for="city" class="ms-0 text-primary fw-bold col-12">City</label>
+                            <select class="form-control col-12" name="city" id="city" required>
+                                <option value="">-- Select City --</option>
+                                {% for city in  cities%}
+                                <option value={{city.city_name}}>{{city.city_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="pincode" class="form-label text-primary fw-bold">PinCode</label>
+                        <input type="text" name="pincode" id="pincode" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="reference" class="form-label text-primary fw-bold">How did you know about
+                            us?</label>
+                        <input type="text" name="reference" id="reference" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-outline mb-4">
+                        <label for="referral_code" class="form-label text-primary fw-bold">Referral Code</label>
+                        <input type="text" name="referral_code" id="referral_code" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                            <label for="has_gst" class="ms-0 text-primary fw-bold col-12">Do you have GST?</label>
+                            <select class="form-control col-12" name="has_gst" id="has_gst" required>
+                                <option value="">-- Select Yes or No --</option>
+                                <option default value={{True}}>Yes</option>
+                                <option default value={{False}}>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                            <label for="system_role" class="ms-0 text-primary fw-bold col-12">System Role</label>
+                            <select class="form-control col-12" name="system_role" id="system_role" required>
+                                <option value="">-- Select Role --</option>
+                                {% for role in roles %}
+                                <option default value="{{role.role}}">{{role.role}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="input-group input-group-static mb-4">
+                            <label for="profession" class="ms-0 text-primary fw-bold col-12">Profession</label>
+                            <select class="form-control col-12" name="profession" id="profession"
+                                onchange="showfield(this.options[this.selectedIndex].value)" required>
+                                <option value="">-- Select Profession --</option>
+                                {% for profession in  professions%}
+                                <option value={{profession.profession}}>{{profession.profession}}</option>
+                                {% endfor %}
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="div1">
+                </div>
+            </div>
+
+
+
+            <div class="container text-danger">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </div>
+            <p class="text-center">By clicking "Register", you agree to our
+                <a href="#" class="text-info">Terms & Conditions</a>.
+            </p>
+            <div class="row justify-content-center">
+                <button type="submit" class="col-3 btn bg-gradient-primary">Register</button>
+            </div>
+            <div class="container text-center">
+                <p>Already have an account?
+                    <a href={% url "login" %} class="text-info">Login</a>.
+                </p>
+            </div>
+        </form>
+
+
+        {% include 'base/js.html' %}
+
+    </main>
+
+    <script>
+        function showfield(name) {
+            console.log(name)
+            if (name == 'Other')
+                document.getElementById('div1').innerHTML =
+                '  <label  for="other" class="form-label text-primary fw-bold">Other</label>' +
+                '  <div class="input-group input-group-outline mb-4">' +
+                '      <input type="text" name="other" id="other" class="form-control" placeholder="eg. Other Designation">' +
+                '  </div>';
+            else
+                document.getElementById('div1').innerHTML = '';
+        }
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+
+
+</body>
+
+</html>
+
+

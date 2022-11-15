@@ -546,6 +546,7 @@ def PPeditcostsheet(request, ppid, costsheetid):
     return render(request, 'HomeLoan/editcostsheet.html', context=context)
 
 
+@login_required()
 def PPProduct(request):
     if request.method == 'POST':
         product = request.POST['prod_name']
