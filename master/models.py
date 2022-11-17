@@ -424,8 +424,6 @@ class FoirCategory(models.Model):
     roi = models.FloatField()
     min_loan_amt = models.BigIntegerField()
     max_loan_amt = models.BigIntegerField()
-    gross_salary = models.BigIntegerField()
-    net_salary = models.BigIntegerField()
 
 
 class SalaryType(models.Model):
@@ -472,8 +470,6 @@ class MultiplierCategory(models.Model):
     roi = models.FloatField()
     min_loan_amt = models.BigIntegerField()
     max_loan_amt = models.BigIntegerField()
-    gross_salary = models.BigIntegerField()
-    net_salary = models.BigIntegerField()
 
 
 class product_and_policy_master(models.Model):

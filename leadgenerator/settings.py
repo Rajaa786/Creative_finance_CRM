@@ -84,6 +84,7 @@ WSGI_APPLICATION = "leadgenerator.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": env("DATABASES_NAME"),
@@ -149,23 +150,35 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # SMTP Configuration
 # EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_PORT = 587
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# # EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_HOST = 'smtp.gmail.com'
+# # EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_PORT = 587
+# # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_USE_TLS = True
+# # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_USER = 'vinayjain449@gmail.com'
+# # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'rajsingh08471@gmail.com'
+EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
 EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_USER = "vinayjain449@gmail.com"
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_PASSWORD = "rzvujwqswaduhgih"
+EMAIL_USE_SSL = False
+
+
+django_heroku.settings(locals())
+
 
 
 LOGIN_URL = "/account/login"
 
 # https://github.com/mgrouchy/django-stronghold
+
 # STRONGHOLD_DEFAULTS = env('STRONGHOLD_DEFAULTS')
 STRONGHOLD_PUBLIC_NAMED_URLS = (
     "home",

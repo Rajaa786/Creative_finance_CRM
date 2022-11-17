@@ -31,6 +31,7 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 import json
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.utils.datastructures import MultiValueDictKeyError
 # def random_password(size=8):
 #     return BaseUserManager().make_random_password(size)
@@ -38,7 +39,14 @@ from leadgenerator.settings import BASE_DIR, EMAIL_HOST_USER
 from HomeLoan.models import *
 from django.core.files.storage import FileSystemStorage
 from stronghold.decorators import public
+from .eligibilityManager import *
+from .registerManager import *
+from numpy_financial import pmt
 
+
+NOT_ELIGIBLE = False
+ELIGIBLE = True
+PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND = 6
 
 '''
 NEW VIEWS
@@ -179,130 +187,60 @@ def base_dashboard(request):
     return render(request, 'account/base.html', context)
 
 
-@login_required()
+# @login_required()
 def register(request):
     if request.method == 'POST':
-        group = Group.objects.get(name="Referral Partner")
-        fname = request.POST['fname']
-        Email = request.POST['email']
-        phone = request.POST['phone']
-        alt_phone = request.POST['alt_phone']
-        designation = request.POST['designation']
-        if(designation == "Other"):
-            designation = request.POST['other']
-        address = request.POST['address']
-        role = "Referral Partner"
-        mapped_to = "admin"
-        mapped_to_nm = "admin"
-        by_online = "yes"
-        if CustomUser.objects.filter(email=Email).exists():
-            messages.info(request, 'Email Taken')
-            return redirect('register')
-        else:
-            user = CustomUser.objects.create_user(username=Email, password="", email=Email, first_name=fname, phone=phone, alt_phone=alt_phone,
-                                                  designation=designation, address=address, role=role, mapped_to=mapped_to, mapped_to_name=mapped_to_nm, by_online=by_online)
-            user.is_active = False
-            user.groups.add(group)
-            user.save()
-            ini = ""
-            if user.designation == "Salaried":
-                ini += "SAL"
-            elif user.designation == "Self Employed":
-                ini += "SE"
-            elif user.designation == "Freelancer":
-                ini += "FL"
-            elif user.designation == "Student":
-                ini += "ST"
-            elif user.designation == "Home Maker":
-                ini += "HM"
-            elif user.designation == "DSA":
-                ini += "DSA"
-            elif user.designation == "Insurance Agent":
-                ini += "IA"
-            elif user.designation == "Chartered Accountant":
-                ini += "CA"
-            elif user.designation == "Tax Consultants":
-                ini += "TC"
-            elif user.designation == "Banker":
-                ini += "BNK"
-            elif user.designation == "Company Secretary":
-                ini += "CS"
-            elif user.designation == "Real Estate Agent":
-                ini += "REA"
-            elif user.designation == "Builder":
-                ini += "BLD"
-            else:
-                ini += "O"
-            if user.role == "Referral Partner":
-                ini += "RP"
-            num = '{:04d}'.format(user.id)
-            newusername = ini+num
-            user.username = newusername
-            user.save()
-            if user.role == "Referral Partner":
-                ini = "ORP"
-                num = '{:03d}'.format(user.id)
-                newusername = ini+num
-                user.username = newusername
-                user.save()
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            domain = get_current_site(request).domain
-            link = reverse('activate', kwargs={
-                           'uidb64': uidb64, 'token': token_generator.make_token(user)})
-            activate_url = "http://"+domain+link
-            email_body = 'Hi ' + user.first_name + \
-                ' Please use this link to verify your account\n' + activate_url
-            email = EmailMessage(
-                'Activate your account',
-                email_body,
-                'rohan@gmail.com',
-                [Email],
-            )
-            email.send(fail_silently=False)
-            # template = get_template('account/Agreement.html')
-            context = {
-                "partner_name": user.first_name
-            }
-            # html = template.render(context)
-            pdf = render_to_pdf('account/Agreement.html', context)
+        redir = register_manager_dict[request.POST['system_role']](request)
+        print(redir)
+        return redir
+    
 
-            response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Agreement_%s.pdf" % (user.username)
+    # print("redir******")
+        
+    # context = {
+    #     'roles': Role.objects.all(),
+    #     'professions': Profession.objects.all(),
+    #     'cities': City.objects.all()
 
-            content = "attachment; filename='%s'" % (filename)
-            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-            user.agreement.save(filename, ContentFile(pdf.content))
-            print(user.agreement)
-            message = "this is test mail"
-            subject = "terms and conditions"
-            mail_id = request.POST.get('email', '')
-            # mail_id="daghariddhi12@gmail.com"
-            email = EmailMessage(
-                subject, message, EMAIL_HOST_USER, [mail_id, ])
-            email.content_subtype = 'html'
-            # file2=open("abcd.txt","r")
-            # file=open("manage.py","r")
-            # email.attach("abcd.txt",file2.read(),'text/plain')
-            # email.attach("manage.py",file.read(), 'text/plain')
-            # email.attach_file('abc.pdf')
-            email.send()
-            # return render(request, 'account/terms.html')
-        # else:
-            # messages.info(request, 'Password did not match')
-            # return redirect('register')
-            return redirect('email_ver_msg')
-        # else:
-            # messages.info(request, 'Password did not match')
-            # return redirect('register')
-    else:
-        return render(request, 'account/register.html')
+    # }
+    # return render(request, 'account/register_non_admin.html', context=context)
+
+
+# @login_required()
+@public
+def register_referral(request):
+        context = {
+            'role': Role.objects.filter(role="Referral Partner").first(),
+            'professions': Profession.objects.all(),
+            'cities': City.objects.all()
+
+        }
+
+
+
+        if request.user.is_authenticated:
+            return render(request, 'account/register.html', context=context)
+        else :
+            return render(request, 'account/register_non_admin.html' , context=context)
+
+
+def register_staff(request):
+    pass
+
+
+def register_vendor(request):
+    pass
 
 
 class VerificationView(View):
-    def get(self, request, uidb64, token):
+    def get(self, request, uidb64_pk, uidb64_hash, token):
         try:
-            id = force_str(urlsafe_base64_decode(uidb64))
+            print("inside verification")
+            id = force_str(urlsafe_base64_decode(uidb64_pk))
+            password = force_str(urlsafe_base64_decode(uidb64_hash))
             user = CustomUser.objects.get(pk=id)
+            print(id)
+            print(password)
 
             if not token_generator.check_token(user, token):
                 return redirect('login'+'?message='+'User already activated')
@@ -310,8 +248,9 @@ class VerificationView(View):
             if user.is_active:
                 return redirect('uname_pw_gen')
             user.is_active = True
-            password = BaseUserManager().make_random_password(10)
-            user.set_password(password)
+            user.is_staff = True
+            # password = BaseUserManager().make_random_password(10)
+            # user.set_password(password)
             user.save()
             email_body = 'Hi ' + user.first_name+' \n Your username: ' + \
                 user.username + '\n Your Password: '+password
@@ -331,7 +270,12 @@ class VerificationView(View):
 
         return redirect('uname_pw_gen')
 
+    @method_decorator(public)
+    def dispatch(self, *args, **kwargs):
+    	        return super(VerificationView, self).dispatch(*args, **kwargs)
 
+
+@public
 def email_ver_msg(request):
     return render(request, 'account/email_ver_msg.html')
 
@@ -351,10 +295,9 @@ def login(request):
                 print("POST ", request.POST['next'])
                 return redirect(request.POST['next'])
 
-            print("After Next")
-            if user.role == "Admin":
+            if user.is_superuser :
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base_dashboard')
         else:
             messages.info(request, 'Invalid Username or Password')
@@ -389,6 +332,7 @@ def forgot_username(request):
         return render(request, 'account/forgot_username.html')
 
 
+@public
 def uname_pw_gen(request):
     return render(request, 'account/uname_pw_gen.html')
 
@@ -1180,6 +1124,7 @@ def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
+@login_required()
 def additionaldetails(request, id):
     redirect_temp = None
     add_instance_form_1 = None
@@ -2396,359 +2341,574 @@ def salaried(request, lead_id, additionaldetails_id):
     #             return redirect(f"/account/property_details/{add.lead_id.lead_id}")
 
 
+# def check_eligibility(request, id):
+#     v = Leads.objects.get(pk=id)
+#     main_applicant = AdditionalDetails.objects.filter(
+#         lead_id=v, applicant_type__applicant_type="Applicant").first()
+#     main_applicant_personal_details = SalPersonalDetails.objects.filter(
+#         additional_details_id=main_applicant).first()
+#     main_applicant_company_details = SalCompanyDetails.objects.filter(
+#         addi_details_id=main_applicant).first()
+#     main_applicant_income_details = SalIncomeDetails.objects.filter(
+#         addi_details_id=main_applicant).first()
+
+#     p = product_and_policy_master.objects.all()
+#     print(main_applicant_personal_details)
+#     print(main_applicant_income_details)
+#     print(main_applicant_company_details)
+#     b = BankCategory.objects.all()
+#     # c = pp_cibil.objects.all()
+#     lo = SalExistingLoanDetails.objects.filter(
+#         addi_details_id=main_applicant).first()
+#     cr = SalExistingCreditCard.objects.filter(
+#         addi_details_id=main_applicant).first()
+#     print(lo)
+#     print(cr)
+#     ds = {}
+#     req = 0
+#     ds2 = {}
+#     sid = {}
+#     foircal = 0
+#     sid2 = {}
+#     l = ''
+#     li = []
+#     # Salary, Designation, Total Exp, Salary Credit left
+#     m2 = ''
+#     set = []
+#     mulcal = []
+#     foical = []
+#     cal = 0
+#     cal2 = 0
+#     msg = ''
+#     msg2 = 0
+#     for i in p:
+#         # d1 = datetime(int(i.eff_date[:4]), int(i.eff_date[5:7]), int(i.eff_date[8:10]), int(i.eff_date[11:13]),
+#         #               int(i.eff_date[14:16]), int(i.eff_date[17:19]))
+#         # d2 = datetime(int(v.date[:4]), int(v.date[5:7]), int(v.date[8:10]), int(v.date[11:13]), int(v.date[14:16]),
+#         #               int(v.date[17:19]))
+#         # if i.ineff_date != '':
+#         #     d3 = datetime(int(i.ineff_date[:4]), int(i.ineff_date[5:7]), int(i.ineff_date[8:10]),
+#         #                   int(i.ineff_date[11:13]), int(i.ineff_date[14:16]), int(i.ineff_date[17:19]))
+#         # if (d1 - d2).total_seconds() > 0.0:
+#         #     continue
+#         # if i.ineff_date != '':
+#         #     if (d2 - d3).total_seconds() > 0.0:
+#         #         continue
+#         sum = 0
+#         msg = ''
+#         amt = 1
+#         roi = 1
+#         qr = 0
+
+#         if v.product == i.product_name:
+#             msg = msg + i.bank_names.bank_name + '['
+#             if main_applicant.cust_type == i.customer_type:
+#                 msg = msg + 'Salaried, '
+#                 sid[i.bank_names.bank_name] = 'NOT ELIGIBLE'
+#                 sid2[i.bank_names.bank_name] = 'NOT ELIGIBLE'
+#                 x = 'NOT ELIGIBLE'
+#                 ds[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type, 'category': "Couldn't be calculated",
+#                                               'roi': "Couldn't be found",
+#                                               'loanamt': v.loan_amt, 'loanelig': "Couldn't be calculated",
+#                                               'loancap': "Couldn't be calculated", 'elig': 'NOT ELIGIBLE',
+#                                               'pro': i.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated"}
+#                 r = ''
+#                 mal = False
+
+#                 if (int(main_applicant_personal_details.cibil_score) >= i.cibil_score):
+#                     msg = msg + 'Cibil->' + \
+#                         str(main_applicant_personal_details.cibil_score) + ','
+#                     mal = True
+#                 if int(main_applicant_personal_details.cibil_score) == 9999 or int(main_applicant_personal_details.cibil_score) == 0 or int(main_applicant_personal_details.cibil_score) == -1:
+#                     mal = False
+#                 if int(main_applicant_personal_details.cibil_score) == 9999:
+#                     r = r + "CIBIL(9999),"
+#                     mal = True
+#                 if int(main_applicant_personal_details.cibil_score) == 0 or int(main_applicant_personal_details.cibil_score) == -1:
+#                     r = r + "CIBIL(0 or -1),"
+#                     mal = True
+#                 if mal != True:
+#                     req = i.cibil_score
+#                     r = r + "Less Cibil(" + str(main_applicant_personal_details.cibil_score) + \
+#                         ")->Required(" + str(req) + "),"
+#                 mal = False
+#                 if (int(main_applicant_personal_details.age) >= i.min_age) and (int(main_applicant_personal_details.age) <= i.max_age):
+#                     mal = True
+#                 if mal != True:
+#                     r = r + 'Age not in range,'
+#                 mal = False
+#                 if int(main_applicant_company_details.current_experience) >= i.current_experience:
+#                     mal = True
+#                 if mal != True:
+#                     r = r + 'Less Experienced,'
+#                 mal = False
+#                 if int(main_applicant_income_details.gross_sal) >= i.salary_new:
+#                     mal = True
+#                 if mal != True:
+#                     r = r + 'Less Gross Salary,'
+#                 mal = False
+#                 for m in i.company_type.all():
+#                     if main_applicant_company_details.company_type.company_type == m.company_type:
+#                         mal = True
+#                 if mal != True:
+#                     r = r + 'Company Type not as listed,'
+#                 mal = False
+#                 for j in i.tenure.all():
+#                     if main_applicant_personal_details.tenure.ten_type == j.ten_type:
+#                         mal = True
+#                 if mal != True:
+#                     r = r + 'Tenure not applicable,'
+#                 if (int(main_applicant_personal_details.age) >= i.min_age) and (int(main_applicant_personal_details.age) <= i.max_age):
+#                     msg = msg + 'Age,'
+#                     if int(main_applicant_company_details.current_experience) >= i.current_experience:
+#                         msg = msg + 'Exp,'
+#                         if (int(main_applicant_income_details.gross_sal) >= i.salary_new):
+#                             for m in i.company_type.all():
+#                                 if main_applicant_company_details.company_type.company_type == m.company_type:
+#                                     msg = msg + 'CompType' + '->' + \
+#                                         main_applicant_company_details.company_type.company_type + ','
+#                                     for j in i.tenure.all():
+#                                         if main_applicant_personal_details.tenure.ten_type == j.ten_type:
+#                                             msg = msg + 'Tenure' + '->' + \
+#                                                 str(j.ten_type) + ','
+#                                             ds[i.bank_names.bank_name]['tenure'] = main_applicant_personal_details.tenure.ten_type
+#                                             for n in b:
+#                                                 if main_applicant_company_details.company_name.company_name == n.company_name and i.bank_names.bank_name == n.bank_name.bank_name:
+#                                                     categ = n.category
+#                                                     ds[i.bank_names.bank_name]['category'] = n.category.cocat_type
+#                                                     msg = msg + main_applicant_company_details.company_name.company_name + \
+#                                                         '->' + n.category.cocat_type + '->'
+#                                                     for q in i.company_category.all():
+#                                                         if q.cocat_type == n.category:
+#                                                             ds[i.bank_names.bank_name]['cocat_no'] = q.multiplier_number
+#                                                             roi = q.roi
+#                                                             amt = q.multiplier_number * \
+#                                                                 int(main_applicant_income_details.net_sal)
+#                                                             ds[i.bank_names.bank_name]['loanelig'] = amt
+#                                                             msg = msg + str(q.multiplier_number) + '->' + str(
+#                                                                 amt) + ','
+#                                                             if amt > q.max_loan_amt:
+#                                                                 amt = q.max_loan_amt
+#                                                             if amt > v.loan_amt:
+#                                                                 amt = v.loan_amt
+#                                                             ds[i.bank_names.bank_name]['loancap'] = amt
+#                                                             mulcal.append(
+#                                                                 amt)
+#                                                             ds[i.bank_names.bank_name]['roi'] = roi
+#                                                             ds[i.bank_names.bank_name]['loanamt'] = v.loan_amt
+
+#                                                             msg = msg + 'Eligible->' + str(
+#                                                                 amt) + '{MULTIPLIER}'
+#                                                             ds[i.bank_names.bank_name]['elig'] = 'ELIGIBLE'
+#                                                             sid[i.bank_names.bank_name] = 'ELIGIBLE'
+#                                                             x = 'ELIGIBLE'
+#                                                             # print(ds)
+#                                                             # print(sid)
+#                                                     for fo in i.foir.all():
+#                                                         if (int(main_applicant_income_details.net_sal) > fo.min_amt) and (
+#                                                                 int(main_applicant_income_details.net_sal) <= fo.max_amt):
+#                                                             cut = int(
+#                                                                 main_applicant_income_details.net_sal) * fo.cutoff / 100
+
+#                                                             sum = sum + \
+#                                                                 int(cr.limit_utilized)
+#                                                             limit = int(
+#                                                                 cr.limit_utilized)
+
+#                                                             if sum != 0:
+#                                                                 sum = sum * 5 / 100
+#                                                                 m2 = m2 + 'Sum->' + \
+#                                                                     str(sum) + \
+#                                                                     '~'
+#                                                             creditob = sum
+#                                                             ab = 0
+
+#                                                             loanob = 'Enter'
+#                                                             aa = str(
+#                                                                 lo.emi_start_date)
+#                                                             bb = str(
+#                                                                 lo.emi_end_date)
+#                                                             loanob = loanob + '->' + aa + '->' + bb
+#                                                             d1 = lo.emi_start_date
+#                                                             d2 = lo.emi_end_date
+#                                                             res = abs(
+#                                                                 d2 - d1).days
+#                                                             loanob = loanob + \
+#                                                                 '->' + \
+#                                                                 str(res)
+#                                                             mon = i.months_for_foir * 30
+#                                                             if res > mon:
+#                                                                 sum = sum + \
+#                                                                     int(lo.emi)
+#                                                                 ab = ab + \
+#                                                                     int(lo.emi)
+#                                                                 qr = 1
+#                                                             m2 = m2 + str(lo.emi_start_date) + '~' + str(
+#                                                                 lo.emi_end_date) + '~' + str(
+#                                                                 res) + '~' + str(sum)
+
+#                                                             if sum != 0 and ds[i.bank_names.bank_name][
+#                                                                     'tenure'] != 'Tenure not applicable' and qr == 1:
+#                                                                 ob = sum
+#                                                                 pri = 100000
+#                                                                 rate = int(
+#                                                                     roi) / (12 * 100)
+#                                                                 tenu = main_applicant_personal_details.tenure.ten_type
+#                                                                 tot = cut - sum
+#                                                                 if tot > 0:
+#                                                                     emis = (pri * rate * pow(1 + rate,
+#                                                                                              tenu)) / (
+#                                                                         pow(1 + rate,
+#                                                                             tenu) - 1)
+#                                                                     emis = int(
+#                                                                         emis)
+#                                                                     elg = int(
+#                                                                         round(tot / emis, 5) * 100000)
+#                                                                     if elg > v.loan_amt:
+#                                                                         foi = v.loan_amt
+#                                                                     else:
+#                                                                         foi = elg
+#                                                                     elgb = elg * cut
+#                                                                     elgb = round(
+#                                                                         elgb, 2)
+
+#                                                                     ds2[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type,
+#                                                                                                    'cocat': categ,
+#                                                                                                    'roi': roi,
+#                                                                                                    'elgb': elg,
+#                                                                                                    'foi': foi,
+#                                                                                                    'elg': 'ELIGIBLE',
+#                                                                                                    'net_sal': main_applicant_income_details.net_sal,
+#                                                                                                    'cutoff': int(cut),
+#                                                                                                    'obligation': int(
+#                                                                                                        ob),
+#                                                                                                    'totalemi': int(
+#                                                                                                        tot),
+#                                                                                                    'emi': emis,
+#                                                                                                    'pro': i.processing_fee}
+#                                                                     foical.append(
+#                                                                         foi)
+#                                                                     sid2[i.bank_names.bank_name] = 'ELIGIBLE'
+#                                                                     foircal = 1
+
+#                 ds[i.bank_names.bank_name]['reason'] = r
+#                 cal = cal + 1
+#                 set.append(x)
+
+#             msg = msg + ']~~  '
+#         li.append(msg)
+#     for value in set:
+#         if value == 'NOT ELIGIBLE':
+#             cal2 = cal2 + 1
+#     if cal == cal2:
+#         msg2 = 1
+#     dict = {}
+#     mulop = 0
+#     foiop = 0
+#     if mulcal != []:
+#         mulop = 1
+#         minmul = min(mulcal)
+#         for i in range(len(mulcal)):
+#             if mulcal[i] == minmul:
+#                 count = 0
+#                 for j in ds:
+#                     if i == count:
+#                         dict[j] = ds[j]
+#                     count += 1
+#     dict2 = {}
+#     if foical != []:
+#         foiop = 1
+#         minfoi = min(foical)
+#         for i in range(len(foical)):
+#             if foical[i] == minfoi:
+#                 count = 0
+#                 for j in ds2:
+#                     if i == count:
+#                         dict2[j] = ds2[j]
+#                     count += 1
+#     # Final Eligibility
+#     fin = {}
+#     mul, foirs = 0, 0
+#     for i, j in ds.items():
+#         fin[i + 'MULTI'] = {'BANK': i, 'LOANAMT': v.loan_amt, 'LOANELIG': ds[i]['loanelig'],
+#                             'BANKCAP': ds[i]['loancap'], 'PROCESSING': ds[i]['pro'], 'TENURE': ds[i]['tenure'],
+#                             'ROI': ds[i]['roi'], 'CALCULATE': 'MULTIPLIER', 'ELIG': ds[i]['elig']}
+#         if ds[i]['loancap'] != "Couldn't be calculated":
+#             mul += 1
+#     fin2 = {}
+#     for m, n in ds2.items():
+#         fin2[m + 'FOIR'] = {'BANK': m, 'LOANAMT': v.loan_amt, 'LOANELIG': ds2[m]['elgb'], 'BANKCAP': ds2[m]['foi'],
+#                             'PROCESSING': ds2[m]['pro'], 'TENURE': ds[i]['tenure'], 'ROI': ds2[m]['roi'],
+#                             'CALCULATE': 'FOIR', 'ELIG': 'ELIGIBLE'}
+
+#     # Trials of Final Eligibility
+#     exist = 0
+#     finalize, finalize2 = {}, {}
+#     if len(fin2) == 0 and mul == 0:
+#         exist = 0
+#     elif len(fin2) == 0 and mul != 0:
+#         for i, j in fin.items():
+#             finalize[i] = fin[i]
+#     elif len(fin2) != 0 and mul != 0:
+#         for i, j in fin.items():
+#             if fin[i]['BANKCAP'] != "Couldn't be calculated":
+#                 mno = 0
+#                 for m, n in fin2.items():
+#                     if fin[i]['BANK'] == fin2[m]['BANK']:
+#                         if fin[i]['BANKCAP'] < fin2[m]['BANKCAP']:
+#                             finalize2[i] = fin[i]
+#                             mno = 1
+#                         elif fin[i]['BANKCAP'] >= fin2[m]['BANKCAP']:
+#                             finalize2[i] = fin2[m]
+#                             mno = 1
+#                 if mno == 0:
+#                     finalize2[i] = fin[i]
+
+#     if len(finalize) != 0 or len(finalize2) != 0:
+#         exist = 1
+
+#     # Rejection Reasons
+#     reject = {}
+#     if mul == 0:
+#         for i, j in ds.items():
+#             if ds[i]['elig'] == 'NOT ELIGIBLE':
+#                 reject[i] = {'BANK': i, 'LOANAMT': v.loan_amt, 'LOANELIG': ds[i]['loanelig'],
+#                              'BANKCAP': ds[i]['loancap'], 'PROCESSING': ds[i]['pro'], 'TENURE': ds[i]['tenure'],
+#                              'ROI': ds[i]['roi'],
+#                              'CALCULATE': 'MULTIPLIER', 'ELIGIBILITY': ds[i]['elig'], 'REASON': ds[i]['reason']}
+
+#     # r = remarks.objects.all()
+#     # process = profee.objects.all()
+
+#     print("here are items sid")
+#     print(sid)
+#     print(ds)
+#     print(sid2)
+
+#     return render(request, 'account/eligibility.html',
+#                   {'ds2': ds2, 'msg': msg, 's': v, 'select': l, 'li': li, 'ds': ds, 'r': "r", 'sid': sid, 'm2': m2,
+#                    'sid2': sid2, 'foircal': foircal, 'msg2': msg2, 'cal': cal, 'cal2': cal2, 'set': set, 'p': "process",
+#                    'mulcal': mulcal, 'foical': foical, 'dict': dict, 'dict2': dict2, 'mulop': mulop, 'foiop': foiop,
+#                    'finalize': finalize, 'exist': exist, 'reject': reject, 'mul': mul, 'finalize2': finalize2,
+#                    'fin': fin})
+
+#     return render(request, 'account/eligibility.html')
+
+
 def check_eligibility(request, id):
-    v = Leads.objects.get(pk=id)
+    lead = Leads.objects.get(pk=id)
     main_applicant = AdditionalDetails.objects.filter(
-        lead_id=v, applicant_type__applicant_type="Applicant").first()
+        lead_id=lead, applicant_type__applicant_type="Applicant").first()
     main_applicant_personal_details = SalPersonalDetails.objects.filter(
         additional_details_id=main_applicant).first()
     main_applicant_company_details = SalCompanyDetails.objects.filter(
         addi_details_id=main_applicant).first()
     main_applicant_income_details = SalIncomeDetails.objects.filter(
         addi_details_id=main_applicant).first()
-
-    p = product_and_policy_master.objects.all()
-    print(main_applicant_personal_details)
-    print(main_applicant_income_details)
-    print(main_applicant_company_details)
-    b = BankCategory.objects.all()
-    # c = pp_cibil.objects.all()
-    lo = SalExistingLoanDetails.objects.filter(
+    main_applicant_existing_loan_details = SalExistingLoanDetails.objects.filter(
         addi_details_id=main_applicant).first()
-    cr = SalExistingCreditCard.objects.filter(
+    main_applicant_existing_credit_card_details = SalExistingCreditCard.objects.filter(
         addi_details_id=main_applicant).first()
-    print(lo)
-    print(cr)
-    ds = {}
-    req = 0
-    ds2 = {}
-    sid = {}
-    foircal = 0
-    sid2 = {}
-    l = ''
-    li = []
-    # Salary, Designation, Total Exp, Salary Credit left
-    m2 = ''
-    set = []
-    mulcal = []
-    foical = []
-    cal = 0
-    cal2 = 0
-    msg = ''
-    msg2 = 0
-    for i in p:
-        # d1 = datetime(int(i.eff_date[:4]), int(i.eff_date[5:7]), int(i.eff_date[8:10]), int(i.eff_date[11:13]),
-        #               int(i.eff_date[14:16]), int(i.eff_date[17:19]))
-        # d2 = datetime(int(v.date[:4]), int(v.date[5:7]), int(v.date[8:10]), int(v.date[11:13]), int(v.date[14:16]),
-        #               int(v.date[17:19]))
-        # if i.ineff_date != '':
-        #     d3 = datetime(int(i.ineff_date[:4]), int(i.ineff_date[5:7]), int(i.ineff_date[8:10]),
-        #                   int(i.ineff_date[11:13]), int(i.ineff_date[14:16]), int(i.ineff_date[17:19]))
-        # if (d1 - d2).total_seconds() > 0.0:
-        #     continue
-        # if i.ineff_date != '':
-        #     if (d2 - d3).total_seconds() > 0.0:
-        #         continue
-        sum = 0
-        msg = ''
-        amt = 1
-        roi = 1
-        qr = 0
-        print("TEsting customer type ",
-              main_applicant.cust_type == i.customer_type)
-        if v.product == i.product_name:
-            msg = msg + i.bank_names.bank_name + '['
-            if main_applicant.cust_type == i.customer_type:
-                msg = msg + 'Salaried, '
-                sid[i.bank_names.bank_name] = 'NOT ELIGIBLE'
-                sid2[i.bank_names.bank_name] = 'NOT ELIGIBLE'
-                x = 'NOT ELIGIBLE'
-                ds[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type, 'category': "Couldn't be calculated",
-                                              'roi': "Couldn't be found",
-                                              'loanamt': v.loan_amt, 'loanelig': "Couldn't be calculated",
-                                              'loancap': "Couldn't be calculated", 'elig': 'NOT ELIGIBLE',
-                                              'pro': i.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated"}
-                r = ''
-                mal = False
 
-                if (int(main_applicant_personal_details.cibil_score) >= i.cibil_score):
-                    msg = msg + 'Cibil->' + \
-                        str(main_applicant_personal_details.cibil_score) + ','
-                    mal = True
-                if int(main_applicant_personal_details.cibil_score) == 9999 or int(main_applicant_personal_details.cibil_score) == 0 or int(main_applicant_personal_details.cibil_score) == -1:
-                    mal = False
-                if int(main_applicant_personal_details.cibil_score) == 9999:
-                    r = r + "CIBIL(9999),"
-                    mal = True
-                if int(main_applicant_personal_details.cibil_score) == 0 or int(main_applicant_personal_details.cibil_score) == -1:
-                    r = r + "CIBIL(0 or -1),"
-                    mal = True
-                if mal != True:
-                    req = i.cibil_score
-                    r = r + "Less Cibil(" + str(main_applicant_personal_details.cibil_score) + \
-                        ")->Required(" + str(req) + "),"
-                mal = False
-                if (int(main_applicant_personal_details.age) >= i.min_age) and (int(main_applicant_personal_details.age) <= i.max_age):
-                    mal = True
-                if mal != True:
-                    r = r + 'Age not in range,'
-                mal = False
-                if int(main_applicant_company_details.current_experience) >= i.current_experience:
-                    mal = True
-                if mal != True:
-                    r = r + 'Less Experienced,'
-                mal = False
-                if int(main_applicant_income_details.gross_sal) >= i.salary_new:
-                    mal = True
-                if mal != True:
-                    r = r + 'Less Gross Salary,'
-                mal = False
-                for m in i.company_type.all():
-                    if main_applicant_company_details.company_type.company_type == m.company_type:
-                        mal = True
-                if mal != True:
-                    r = r + 'Company Type not as listed,'
-                mal = False
-                for j in i.tenure.all():
-                    if main_applicant_personal_details.tenure.ten_type == j.ten_type:
-                        mal = True
-                if mal != True:
-                    r = r + 'Tenure not applicable,'
-                if (int(main_applicant_personal_details.age) >= i.min_age) and (int(main_applicant_personal_details.age) <= i.max_age):
-                    msg = msg + 'Age,'
-                    if int(main_applicant_company_details.current_experience) >= i.current_experience:
-                        msg = msg + 'Exp,'
-                        if (int(main_applicant_income_details.gross_sal) >= i.salary_new):
-                            for m in i.company_type.all():
-                                if main_applicant_company_details.company_type.company_type == m.company_type:
-                                    msg = msg + 'CompType' + '->' + \
-                                        main_applicant_company_details.company_type.company_type + ','
-                                    for j in i.tenure.all():
-                                        if main_applicant_personal_details.tenure.ten_type == j.ten_type:
-                                            msg = msg + 'Tenure' + '->' + \
-                                                str(j.ten_type) + ','
-                                            ds[i.bank_names.bank_name]['tenure'] = main_applicant_personal_details.tenure.ten_type
-                                            for n in b:
-                                                if main_applicant_company_details.company_name.company_name == n.company_name and i.bank_names.bank_name == n.bank_name.bank_name:
-                                                    categ = n.category
-                                                    ds[i.bank_names.bank_name]['category'] = n.category.cocat_type
-                                                    msg = msg + main_applicant_company_details.company_name.company_name + \
-                                                        '->' + n.category.cocat_type + '->'
-                                                    for q in i.company_category.all():
-                                                        if q.cocat_type == n.category:
-                                                            ds[i.bank_names.bank_name]['cocat_no'] = q.multiplier_number
-                                                            roi = q.roi
-                                                            amt = q.multiplier_number * \
-                                                                int(main_applicant_income_details.net_sal)
-                                                            ds[i.bank_names.bank_name]['loanelig'] = amt
-                                                            msg = msg + str(q.multiplier_number) + '->' + str(
-                                                                amt) + ','
-                                                            if amt > q.max_loan_amt:
-                                                                amt = q.max_loan_amt
-                                                            if amt > v.loan_amt:
-                                                                amt = v.loan_amt
-                                                            ds[i.bank_names.bank_name]['loancap'] = amt
-                                                            mulcal.append(
-                                                                amt)
-                                                            ds[i.bank_names.bank_name]['roi'] = roi
-                                                            ds[i.bank_names.bank_name]['loanamt'] = v.loan_amt
+    main_applicant_residence_details = SalResidenceDetails.objects.filter(addi_details_id=main_applicant).first()
 
-                                                            msg = msg + 'Eligible->' + str(
-                                                                amt) + '{MULTIPLIER}'
-                                                            ds[i.bank_names.bank_name]['elig'] = 'ELIGIBLE'
-                                                            sid[i.bank_names.bank_name] = 'ELIGIBLE'
-                                                            x = 'ELIGIBLE'
-                                                            # print(ds)
-                                                            # print(sid)
-                                                    for fo in i.foir.all():
-                                                        if (int(main_applicant_income_details.net_sal) > fo.min_amt) and (
-                                                                int(main_applicant_income_details.net_sal) <= fo.max_amt):
-                                                            cut = int(
-                                                                main_applicant_income_details.net_sal) * fo.cutoff / 100
+    product_and_policy_master = product_and_policy_master.objects.all()
 
-                                                            sum = sum + \
-                                                                int(cr.limit_utilized)
-                                                            limit = int(
-                                                                cr.limit_utilized)
+# Personal Details
+#     cibil_score =
+#     repayment_history =
+#     retirement_age =
 
-                                                            if sum != 0:
-                                                                sum = sum * 5 / 100
-                                                                m2 = m2 + 'Sum->' + \
-                                                                    str(sum) + \
-                                                                    '~'
-                                                            creditob = sum
-                                                            ab = 0
+    store_eligibility_details = {}
 
-                                                            loanob = 'Enter'
-                                                            aa = str(
-                                                                lo.emi_start_date)
-                                                            bb = str(
-                                                                lo.emi_end_date)
-                                                            loanob = loanob + '->' + aa + '->' + bb
-                                                            d1 = lo.emi_start_date
-                                                            d2 = lo.emi_end_date
-                                                            res = abs(
-                                                                d2 - d1).days
-                                                            loanob = loanob + \
-                                                                '->' + \
-                                                                str(res)
-                                                            mon = i.months_for_foir * 30
-                                                            if res > mon:
-                                                                sum = sum + \
-                                                                    int(lo.emi)
-                                                                ab = ab + \
-                                                                    int(lo.emi)
-                                                                qr = 1
-                                                            m2 = m2 + str(lo.emi_start_date) + '~' + str(
-                                                                lo.emi_end_date) + '~' + str(
-                                                                res) + '~' + str(sum)
+    for product in product_and_policy_master:
+        if lead.product == product.product_name:
+            store_eligibility_details[product.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type, 'category': "Couldn't be calculated", 'roi': "Couldn't be found",
+                                                                       'loanamt': lead.loan_amt, 'loanelig': "Couldn't be calculated",
+                                                                       'loancap': "Couldn't be calculated", 'eligibility': ELIGIBLE,
+                                                                       'pro': product.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated",
+                                                                       'reasons': [],
+                                                                       'foir_fresh_calculations' : [],
+                                                                       'foir_bt_calculations' : [],
+                                                                       'multiplier_fresh_calculations' : [],
+                                                                       'multiplier_bt_calculations' : []
+                                                                       }
 
-                                                            if sum != 0 and ds[i.bank_names.bank_name][
-                                                                    'tenure'] != 'Tenure not applicable' and qr == 1:
-                                                                ob = sum
-                                                                pri = 100000
-                                                                rate = int(
-                                                                    roi) / (12 * 100)
-                                                                tenu = main_applicant_personal_details.tenure.ten_type
-                                                                tot = cut - sum
-                                                                if tot > 0:
-                                                                    emis = (pri * rate * pow(1 + rate,
-                                                                                             tenu)) / (
-                                                                        pow(1 + rate,
-                                                                            tenu) - 1)
-                                                                    emis = int(
-                                                                        emis)
-                                                                    elg = int(
-                                                                        round(tot / emis, 5) * 100000)
-                                                                    if elg > v.loan_amt:
-                                                                        foi = v.loan_amt
-                                                                    else:
-                                                                        foi = elg
-                                                                    elgb = elg * cut
-                                                                    elgb = round(
-                                                                        elgb, 2)
+            # /********* Personal Details Check ************/
+            if not check_cibil_score(main_applicant_personal_details.cibil_score, product.cibil_score):
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].append = "Less Cibil Score"
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+            # if main_applicant_personal_details.cibil_score < product.cibil_score :
 
-                                                                    ds2[i.bank_names.bank_name] = {'tenure': main_applicant_personal_details.tenure.ten_type,
-                                                                                                   'cocat': categ,
-                                                                                                   'roi': roi,
-                                                                                                   'elgb': elg,
-                                                                                                   'foi': foi,
-                                                                                                   'elg': 'ELIGIBLE',
-                                                                                                   'net_sal': main_applicant_income_details.net_sal,
-                                                                                                   'cutoff': int(cut),
-                                                                                                   'obligation': int(
-                                                                                                       ob),
-                                                                                                   'totalemi': int(
-                                                                                                       tot),
-                                                                                                   'emi': emis,
-                                                                                                   'pro': i.processing_fee}
-                                                                    foical.append(
-                                                                        foi)
-                                                                    sid2[i.bank_names.bank_name] = 'ELIGIBLE'
-                                                                    foircal = 1
+            store_eligibility_details[product.bank_names.bank_name]['available_tenures'] , product_max_tenure = check_tenure_availability(
+                main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age, main_applicant_personal_details.tenure, product)
 
-                ds[i.bank_names.bank_name]['reason'] = r
-                cal = cal + 1
-                set.append(x)
+            # /********* Income Details Check ************/
+            if not check_salary_type(main_applicant_income_details.salary_type.salary_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                store_eligibility_details[product.bank_names.bank_name][
+                    'reasons'].append = "Salary Type must only be Bank Transfer"
 
-            msg = msg + ']~~  '
-        li.append(msg)
-    for value in set:
-        if value == 'NOT ELIGIBLE':
-            cal2 = cal2 + 1
-    if cal == cal2:
-        msg2 = 1
-    dict = {}
-    mulop = 0
-    foiop = 0
-    if mulcal != []:
-        mulop = 1
-        minmul = min(mulcal)
-        for i in range(len(mulcal)):
-            if mulcal[i] == minmul:
-                count = 0
-                for j in ds:
-                    if i == count:
-                        dict[j] = ds[j]
-                    count += 1
-    dict2 = {}
-    if foical != []:
-        foiop = 1
-        minfoi = min(foical)
-        for i in range(len(foical)):
-            if foical[i] == minfoi:
-                count = 0
-                for j in ds2:
-                    if i == count:
-                        dict2[j] = ds2[j]
-                    count += 1
-    # Final Eligibility
-    fin = {}
-    mul, foirs = 0, 0
-    for i, j in ds.items():
-        fin[i + 'MULTI'] = {'BANK': i, 'LOANAMT': v.loan_amt, 'LOANELIG': ds[i]['loanelig'],
-                            'BANKCAP': ds[i]['loancap'], 'PROCESSING': ds[i]['pro'], 'TENURE': ds[i]['tenure'],
-                            'ROI': ds[i]['roi'], 'CALCULATE': 'MULTIPLIER', 'ELIG': ds[i]['elig']}
-        if ds[i]['loancap'] != "Couldn't be calculated":
-            mul += 1
-    fin2 = {}
-    for m, n in ds2.items():
-        fin2[m + 'FOIR'] = {'BANK': m, 'LOANAMT': v.loan_amt, 'LOANELIG': ds2[m]['elgb'], 'BANKCAP': ds2[m]['foi'],
-                            'PROCESSING': ds2[m]['pro'], 'TENURE': ds[i]['tenure'], 'ROI': ds2[m]['roi'],
-                            'CALCULATE': 'FOIR', 'ELIG': 'ELIGIBLE'}
+            if not check_gross_salary(main_applicant_income_details.gross_sal, product.gross_min, product.gross_max):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
 
-    # Trials of Final Eligibility
-    exist = 0
-    finalize, finalize2 = {}, {}
-    if len(fin2) == 0 and mul == 0:
-        exist = 0
-    elif len(fin2) == 0 and mul != 0:
-        for i, j in fin.items():
-            finalize[i] = fin[i]
-    elif len(fin2) != 0 and mul != 0:
-        for i, j in fin.items():
-            if fin[i]['BANKCAP'] != "Couldn't be calculated":
-                mno = 0
-                for m, n in fin2.items():
-                    if fin[i]['BANK'] == fin2[m]['BANK']:
-                        if fin[i]['BANKCAP'] < fin2[m]['BANKCAP']:
-                            finalize2[i] = fin[i]
-                            mno = 1
-                        elif fin[i]['BANKCAP'] >= fin2[m]['BANKCAP']:
-                            finalize2[i] = fin2[m]
-                            mno = 1
-                if mno == 0:
-                    finalize2[i] = fin[i]
+            if not check_net_salary(main_applicant_income_details.net_sal, product.net_min, product.net_max):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
 
-    if len(finalize) != 0 or len(finalize2) != 0:
-        exist = 1
+            # /********* Company Details Check ************/
+            if check_company_type(main_applicant_company_details.company_type.company_type.company_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
 
-    # Rejection Reasons
-    reject = {}
-    if mul == 0:
-        for i, j in ds.items():
-            if ds[i]['elig'] == 'NOT ELIGIBLE':
-                reject[i] = {'BANK': i, 'LOANAMT': v.loan_amt, 'LOANELIG': ds[i]['loanelig'],
-                             'BANKCAP': ds[i]['loancap'], 'PROCESSING': ds[i]['pro'], 'TENURE': ds[i]['tenure'],
-                             'ROI': ds[i]['roi'],
-                             'CALCULATE': 'MULTIPLIER', 'ELIGIBILITY': ds[i]['elig'], 'REASON': ds[i]['reason']}
+            if check_designation_type(main_applicant_company_details.designation_type.desg_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
 
-    # r = remarks.objects.all()
-    # process = profee.objects.all()
+            experience_info_ = check_current_and_total_experience(
+                main_applicant_company_details.current_experience, main_applicant_company_details.total_experience, product.current_experience, product.total_experience)
+            if not experience_info_['eligibile']:
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].extend(
+                    experience_info_['non_eligibility_reasons'])
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
 
-    print("here are items sid")
-    print(sid)
-    print(ds)
-    print(sid2)
+            if check_employment_type(main_applicant_company_details.employment_type.employment_type):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
 
-    return render(request, 'account/eligibility.html',
-                  {'ds2': ds2, 'msg': msg, 's': v, 'select': l, 'li': li, 'ds': ds, 'r': "r", 'sid': sid, 'm2': m2,
-                   'sid2': sid2, 'foircal': foircal, 'msg2': msg2, 'cal': cal, 'cal2': cal2, 'set': set, 'p': "process",
-                   'mulcal': mulcal, 'foical': foical, 'dict': dict, 'dict2': dict2, 'mulop': mulop, 'foiop': foiop,
-                   'finalize': finalize, 'exist': exist, 'reject': reject, 'mul': mul, 'finalize2': finalize2,
-                   'fin': fin})
 
-    return render(request, 'account/eligibility.html')
+
+            if check_residence_type(main_applicant_residence_details):
+                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+
+
+
+
+
+            if store_eligibility_details[product.bank_names.bank_name]['eligibility']:
+
+                related_bank_categories = get_related_bank_categories(
+                    product.bank_names, main_applicant_company_details.company_name)
+                # for bank_category in related_bank_category:
+                categ = related_bank_categories.category
+                store_eligibility_details[product.bank_names.bank_name]['category'] = related_bank_categories.category.cocat_type
+
+
+                # /******************             Calculation of Multiplier               ****************/
+                # Multiplier Fresh
+                for multiplier_fresh in product.multiplier_fresh.all():
+                    if multiplier_fresh.cocat_type == related_bank_categories.category.cocat_type:
+                        store_eligibility_details[product.bank_names.bank_name][
+                            'multiplier_fresh'] = multiplier_fresh.multiplier_number
+                        roi = multiplier_fresh.roi
+                        eligible_amount = multiplier_fresh.multiplier_number * \
+                            main_applicant_income_details.net_sal
+                        store_eligibility_details[product.bank_names.bank_name]['eligible_amount_fresh'] = eligible_amount
+                        eligible_amount = min(
+                            eligible_amount, multiplier_fresh.max_loan_amt, lead.loan_amt)
+                        # store_eligibility_details[product.bank_names.bank_name]['loancap_fresh'] = eligible_amount
+                        if eligible_amount :
+                            store_eligibility_details[product.bank_names.bank_name]['multiplier_fresh_calculations'].append(eligible_amount)
+                            eligible_amount = 0
+                    
+
+                # Multiplier Balanced Transfer
+                for multiplier_bt in product.multiplier_bt.all():
+                    if multiplier_bt.cocat_type == related_bank_categories.category.cocat_type:
+                        store_eligibility_details[product.bank_names.bank_name][
+                            'multiplier_bt'] = multiplier_fresh.multiplier_number
+                        roi = multiplier_fresh.roi
+                        eligible_amount = multiplier_fresh.multiplier_number * \
+                            main_applicant_income_details.net_sal
+                        store_eligibility_details[product.bank_names.bank_name]['eligible_amount_fresh'] = eligible_amount
+                        eligible_amount = min(
+                            eligible_amount, multiplier_fresh.max_loan_amt, lead.loan_amt)
+                        # store_eligibility_details[product.bank_names.bank_name]['loancap_fresh'] = eligible_amount
+                        if eligible_amount :
+                            store_eligibility_details[product.bank_names.bank_name]['multiplier_bt_calculations'].append(eligible_amount)
+
+
+                # /******************             Calculation of Foir               ****************/
+                # Foir Fresh
+                for foir_fresh in product.foir_fresh.all():
+                    if foir_fresh.cocat_type == related_bank_categories.cocat_type:
+
+                        obligation_amount_fresh = 0
+
+                        cust_considerable_amount = main_applicant_income_details.net_sal * \
+                            foir_fresh.cutoff / 100
+
+                        limit_utilized = main_applicant_existing_credit_card_details.limit_utilized
+                        if limit_utilized:
+                            obligation_amount_fresh = limit_utilized * product.credit_card_obligation / 100
+
+                        d1 = main_applicant_existing_loan_details.emi_start_date
+                        d2 = main_applicant_existing_loan_details.emi_end_date
+                        emi_dration_remaining = abs(
+                            d2 - d1).days
+                        pending_emi_duration_upperbound = PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND * 30
+                        if emi_dration_remaining > pending_emi_duration_upperbound:
+                            obligation_amount_fresh = obligation_amount_fresh + \
+                                main_applicant_existing_loan_details.emi
+
+                        principal = -100000
+                        rate = foir_fresh.roi / (12 * 100)
+                        tenure_in_months = get_tenure_months(main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age)
+                        tenure_in_months = min(tenure_in_months , product_max_tenure)
+                        cust_considerable_amount = cust_considerable_amount - obligation_amount_fresh
+                        if cust_considerable_amount > 0:
+                            emis = pmt(rate=rate , nper=tenure_in_months , pv=principal)
+                            eligible_loan_amount = round(
+                                cust_considerable_amount / emis, 5) * 100000
+                            eligible_loan_amount = min(
+                                lead.loan_amt, eligible_loan_amount , foir_bt.max_loan_amt)
+                            store_eligibility_details[product.bank_names.bank_name]['foir_fresh_calculations'].append(eligible_loan_amount)
+                            eligible_loan_amount = 0
+
+
+                # Foir Balanced Transfer
+                for foir_bt in product.foir_bt.all():
+                    if foir_bt.cocat_type == related_bank_categories.cocat_type:
+
+                        obligation_amount_bt = 0
+
+                        cust_considerable_amount = main_applicant_income_details.net_sal * \
+                            foir_bt.cutoff / 100
+
+                        limit_utilized = main_applicant_existing_credit_card_details.limit_utilized
+                        if limit_utilized:
+                            obligation_amount_bt = limit_utilized * product.credit_card_obligation / 100
+
+                        d1 = main_applicant_existing_loan_details.emi_start_date
+                        d2 = main_applicant_existing_loan_details.emi_end_date
+                        emi_dration_remaining = abs(
+                            d2 - d1).days
+                        pending_emi_duration_upperbound = PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND * 30
+                        if emi_dration_remaining > pending_emi_duration_upperbound:
+                            obligation_amount_bt = obligation_amount_bt + \
+                                main_applicant_existing_loan_details.emi
+
+                        principal = -100000
+                        rate = foir_bt.roi / (12 * 100)
+                        tenure_in_months = get_tenure_months(main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age)
+                        tenure_in_months = min(tenure_in_months , product_max_tenure)
+                        cust_considerable_amount = cust_considerable_amount - obligation_amount_fresh
+                        if cust_considerable_amount > 0:
+                            emis = pmt(rate=rate , nper=tenure_in_months , pv=principal)
+                            eligible_loan_amount = round(
+                                cust_considerable_amount / emis, 5) * 100000
+                            eligible_loan_amount = min(
+                                lead.loan_amt, eligible_loan_amount , foir_bt.max_loan_amt)
+                            store_eligibility_details[product.bank_names.bank_name]['foir_bt_calculations'].append(eligible_loan_amount)
+
+
+
+    context = {
+        "s" : store_eligibility_details
+    }
+    return render(request , "account/temporary_test_eligibility.html" , context=context)
+
+
 
 
 def selfemployed(request):
@@ -2926,7 +3086,7 @@ def email(request):
     return render(request, 'account/email.html')
 
 
-@login_required(redirect_field_name='login', login_url='login')
+# @login_required(redirect_field_name='login', login_url='login')
 def register2(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -3166,3 +3326,9 @@ def commissionrate(request):
 def calculatortypeshow(request):
     commissiontypesshow = Commission.objects.all()
     return render(request, 'account/calculator.html', {'commissiontypes': commissiontypesshow})
+
+
+register_manager = {
+    'Referral Partner': register_referral,
+    'Vendor': register_vendor
+}
