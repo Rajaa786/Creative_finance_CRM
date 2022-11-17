@@ -84,7 +84,6 @@ WSGI_APPLICATION = "leadgenerator.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": env("DATABASES_NAME"),
@@ -163,16 +162,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 # EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'rajsingh08471@gmail.com'
-EMAIL_HOST_PASSWORD = 'rzvujwqswaduhgih'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = "rajsingh08471@gmail.com"
+EMAIL_HOST_PASSWORD = "rzvujwqswaduhgih"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
-
-django_heroku.settings(locals())
-
 
 
 LOGIN_URL = "/account/login"
