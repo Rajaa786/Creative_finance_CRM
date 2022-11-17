@@ -193,19 +193,21 @@ def register(request):
         redir = register_manager_dict[request.POST['system_role']](request)
         print(redir)
         return redir
+    
 
-    print("redir******")
+    # print("redir******")
         
-    context = {
-        'roles': Role.objects.all(),
-        'professions': Profession.objects.all(),
-        'cities': City.objects.all()
+    # context = {
+    #     'roles': Role.objects.all(),
+    #     'professions': Profession.objects.all(),
+    #     'cities': City.objects.all()
 
-    }
-    return render(request, 'account/register_non_admin.html', context=context)
+    # }
+    # return render(request, 'account/register_non_admin.html', context=context)
 
 
 # @login_required()
+@public
 def register_referral(request):
         context = {
             'role': Role.objects.filter(role="Referral Partner").first(),
@@ -213,7 +215,13 @@ def register_referral(request):
             'cities': City.objects.all()
 
         }
-        return render(request, 'account/register.html', context=context)
+
+
+
+        if request.user.is_authenticated:
+            return render(request, 'account/register.html', context=context)
+        else :
+            return render(request, 'account/register_non_admin.html' , context=context)
 
 
 def register_staff(request):
@@ -2784,7 +2792,7 @@ def check_eligibility(request, id):
                 categ = related_bank_categories.category
                 store_eligibility_details[product.bank_names.bank_name]['category'] = related_bank_categories.category.cocat_type
 
-                
+
                 # /******************             Calculation of Multiplier               ****************/
                 # Multiplier Fresh
                 for multiplier_fresh in product.multiplier_fresh.all():

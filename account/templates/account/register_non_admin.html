@@ -27,7 +27,7 @@
         input:-webkit-autofill:focus,
         input:-webkit-autofill:active {
             transition: background-color 5000s ease-in-out 0s;
-            {% comment %} -webkit-text-fill-color: rgb(255, 255, 255) !important; {% endcomment %}
+            -webkit-text-fill-color: rgb(0, 0, 0) !important;
             {% comment %} -webkit-box-shadow: 0 0 0 30px white inset !important; {% endcomment %}
 
         }
@@ -137,10 +137,10 @@
                         <div class="input-group input-group-static mb-4">
                             <label for="system_role" class="ms-0 text-primary fw-bold col-12">System Role</label>
                             <select class="form-control col-12" name="system_role" id="system_role" required>
-                                <option value="">-- Select Role --</option>
-                                {% for role in roles %}
+                            
+                                {% if role %}
                                 <option default value="{{role.role}}">{{role.role}}</option>
-                                {% endfor %}
+                                {% endif %}
                             </select>
                         </div>
                     </div>
