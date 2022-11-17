@@ -70,18 +70,29 @@ def create_path(instance, filename):
 
 
 class CustomUser(AbstractUser):
-    role = models.CharField(max_length=20)
+    system_role = models.ForeignKey(Role , on_delete=models.CASCADE , blank=False , default=None , null=True)
     phone = models.CharField(max_length=10)
-    alt_phone = models.CharField(max_length=10)
-    designation = models.CharField(max_length=50)
-    address = models.TextField()
-    mapped_to = models.CharField(max_length=50)
-    mapped_to_name = models.CharField(max_length=10)
-    type_of_partner = models.CharField(max_length=20, default='Hot')
-    status = models.CharField(max_length=20, default='Active')
-    remarks = models.CharField(max_length=20, default='good')
-    by_online = models.CharField(max_length=3)
+    address = models.TextField(blank=False , default="" , null=True)
+    city = models.ForeignKey(City ,on_delete=models.CASCADE, blank=False , default=None , null=True)
+    pincode = models.TextField(blank=False , default=None , null=True)
+    mapped_to_dept = models.CharField(max_length=200)
+    reporting_head = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    
+
+class ReferralProfile(models.Model):
+    user = models.OneToOneField(CustomUser , on_delete=models.CASCADE, blank=False)
+    full_name = models.CharField(max_length=200)
+    profession = models.CharField(max_length=200, blank=False)
+    has_GST = models.BooleanField(blank=False , null=False, choices=YES_NO_CHOICES)
+    reference = models.CharField(max_length=200 , blank=False)
+    referral_code = models.CharField(max_length=200 , blank=True)
     agreement = models.FileField(upload_to='agreements', default="terms.pdf")
+
+    def __str__(self) :
+        return f"{self.full_name}_{self.user.username}"
+
+    
 
 
 class Leads(models.Model):

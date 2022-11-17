@@ -38,6 +38,10 @@ urlpatterns = [
          name="ajax_load_subproducts"),
     path('homeloan/', include('HomeLoan.urls')),
     path('register/', views.register, name="register"),
+    path('register/staff', views.register_staff, name="register_staff"),
+    path('register/vendor', views.register_vendor, name="register_vendor"),
+    path('register/referral', views.register_referral, name="register_referral"),
+
     path('login/', views.login, name="login"),
     path('logout', views.logout, name="logout"),
     path('deleteapplicant/<int:id>', views.delapplicant, name="deleteapplicant"),
@@ -63,7 +67,7 @@ urlpatterns = [
 
     path('forgot_username', views.forgot_username, name="forgot_username"),
     path('emailverificationmsg', views.email_ver_msg, name="email_ver_msg"),
-    path('activate/<uidb64>/<token>', VerificationView.as_view(), name="activate"),
+    path('activate/<uidb64_pk>/<uidb64_hash>/<token>', VerificationView.as_view(), name="activate"),
     path('uname_pw_gen', views.uname_pw_gen, name="uname_pw_gen"),
 
     path('add_leads/', views.add_leads, name="add_leads"),
