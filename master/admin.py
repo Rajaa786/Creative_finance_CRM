@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+
 # Register your models here.
 admin.site.register(Product)
 admin.site.register(SubProduct)
@@ -13,6 +14,8 @@ admin.site.register(Role)
 admin.site.register(CustomerType)
 admin.site.register(DesignationType)
 admin.site.register(CompanyType)
+admin.site.register(Comissionrates)
+
 admin.site.register(SalaryType)
 admin.site.register(ResidenceType)
 admin.site.register(BankName)

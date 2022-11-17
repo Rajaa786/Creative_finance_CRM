@@ -1,1 +1,0 @@
-web: gunicorn creativefinservecrm.wsgi --log-file -

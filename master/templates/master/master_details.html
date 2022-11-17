@@ -2165,7 +2165,9 @@
 								</tr>
 							</thead>
 							<tbody>
+								{% comment %} 
 								{% for commission in commissionrates %}
+								{% endcomment %}
 								<tr>
 									<td>{{ commission.Commissiontype }}</td>
 									<td>{{ commission.Commissionrate }}</td>
@@ -2180,7 +2182,9 @@
 										</a>
 									</td>
 								</tr>
+								{% comment %} 
 								{% endfor %}
+								{% endcomment %} 
 							</tbody>
 						</table>
 					</div>
