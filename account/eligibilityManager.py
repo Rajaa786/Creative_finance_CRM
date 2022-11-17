@@ -1,4 +1,5 @@
 from master.models import BankCategory
+from .registerManager import get_tenure_months
 
 
 def check_cibil_score(customer_cibil_score, product_cibil_score):
@@ -6,15 +7,18 @@ def check_cibil_score(customer_cibil_score, product_cibil_score):
 
 
 def check_tenure_availability(age,  retirement_age, tenure_asked, product):
-    tenure_available = (retirement_age-age)*12
+    tenure_available = get_tenure_months(age , retirement_age)
 
     available_tenures = []
+
+    product_max_tenure = 0
 
     for tenure in product.tenure.all():
         if tenure_available >= tenure.ten_type:
             available_tenures.append(tenure.ten_type)
+            product_max_tenure = max(product_max_tenure , tenure.ten_type)
 
-    return available_tenures
+    return available_tenures , product_max_tenure
 
 
 def check_salary_type(cust_salary_type):
@@ -61,6 +65,11 @@ def check_current_and_total_experience(cust_current_exp, cust_total_exp, product
 
 def check_employment_type(cust_employment_type):
     return cust_employment_type in ['Permanent']
+
+
+
+def check_residence_type(residence_details):
+    return residence_details.current_residence_type.residence_type in ['Chawl' , "Slum"]
 
 
 

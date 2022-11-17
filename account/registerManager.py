@@ -14,6 +14,9 @@ from django.contrib.auth.models import auth, Group
 from django.contrib import messages
 
 
+def get_tenure_months(current_age , retirement_age):
+    return (retirement_age - current_age)*12
+
 
 
 def register_referral_logic(request):
