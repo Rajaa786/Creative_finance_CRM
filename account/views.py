@@ -943,9 +943,9 @@ def base(request):
 
 @login_required()
 def list_leads(request):
-    if request.user.role == "Admin":
+    if request.user.is_superuser:
         ll = Leads.objects.all()
-    elif request.user.role == "Referral Partner":
+    else :
         ll = Leads.objects.filter(added_by=request.user.username)
     ids = []
     for i in ll:
