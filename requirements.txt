@@ -33,4 +33,4 @@ virtualenv==20.13.0
 webencodings==0.5.1
 whitenoise==6.2.0
 xhtml2pdf==0.2.8
-numpy-financial==1.23.3
+numpy-financial==1.0.0
