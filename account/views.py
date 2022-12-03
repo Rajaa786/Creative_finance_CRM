@@ -85,12 +85,12 @@ def lead_update(request, pk):
     if request.method == 'POST':
         if 'cancel' in request.POST:
             form = LeadsForm(request.POST, instance=lead)
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 form = LeadsForm(request.POST)
                 if form.is_valid():
                     instance = form.save(commit=False)
@@ -98,7 +98,7 @@ def lead_update(request, pk):
                 else:
                     print(form.errors)
                 return redirect("newLeadview.html", lead.pk)
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
         if 'next' in request.POST:
 
@@ -342,12 +342,12 @@ def add_leads(request):
     user = request.user
     if request.method == 'POST':
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 form = LeadsForm(request.POST, request.FILES)
                 files = request.FILES.getlist('upload_documents')
                 if form.is_valid():
@@ -361,7 +361,7 @@ def add_leads(request):
                 else:
                     print(form.errors)
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
         if 'next' in request.POST:
             form = LeadsForm(request.POST, request.FILES)
@@ -843,61 +843,61 @@ def create_mem(request):
             else:
                 ini += "O"
 
-            if user.role == "Referral Partner":
+            if user.system_role.role == "Referral Partner":
                 ini += "RP"
 
-            elif user.role == "Branch User":
+            elif user.system_role.role == "Branch User":
                 ini += "BU"
 
-            elif user.role == "Business Associates":
+            elif user.system_role.role == "Business Associates":
                 ini += "BA"
 
-            elif user.role == "Business Partner":
+            elif user.system_role.role == "Business Partner":
                 ini += "BP"
 
-            elif user.role == "Coordinator":
+            elif user.system_role.role == "Coordinator":
                 ini += "CO"
 
-            elif user.role == "Creative Finserver Center":
+            elif user.system_role.role == "Creative Finserver Center":
                 ini += "CFC"
 
-            elif user.role == "Development Partner":
+            elif user.system_role.role == "Development Partner":
                 ini += "DP"
 
-            elif user.role == "Doc boy":
+            elif user.system_role.role == "Doc boy":
                 ini += "DB"
 
-            elif user.role == "Execution Partner":
+            elif user.system_role.role == "Execution Partner":
                 ini += "EP"
 
-            elif user.role == "Execution team internal":
+            elif user.system_role.role == "Execution team internal":
                 ini += "ETI"
 
-            elif user.role == "Field executive":
+            elif user.system_role.role == "Field executive":
                 ini += "FE"
 
-            elif user.role == "Referral Agent":
+            elif user.system_role.role == "Referral Agent":
                 ini += "RA"
 
-            elif user.role == "Relationship manager":
+            elif user.system_role.role == "Relationship manager":
                 ini += "RM"
 
-            elif user.role == "Secured Vertical Head":
+            elif user.system_role.role == "Secured Vertical Head":
                 ini += "SVH"
 
-            elif user.role == "Sr. Development Partner":
+            elif user.system_role.role == "Sr. Development Partner":
                 ini += "SDP"
 
-            elif user.role == "Team Manager":
+            elif user.system_role.role == "Team Manager":
                 ini += "TM"
 
-            elif user.role == "Tele Sales":
+            elif user.system_role.role == "Tele Sales":
                 ini += "TS"
 
-            elif user.role == "Users":
+            elif user.system_role.role == "Users":
                 ini += "Us"
 
-            elif user.role == "Vertical Head":
+            elif user.system_role.role == "Vertical Head":
                 ini += "VH"
 
             num = '{:04d}'.format(user.id)
@@ -905,7 +905,7 @@ def create_mem(request):
             user.username = newusername
             user.save()
 
-            # if user.role == "Referral Partner":
+            # if user.system_role.role == "Referral Partner":
             #     ini = "ORP"
             #     num = '{:03d}'.format(user.id)
             #     newusername = ini+num
@@ -922,11 +922,11 @@ def create_mem(request):
             )
             email.send(fail_silently=False)
             messages.success(request, 'Account Created successfully')
-            if request.user.role == "Admin":
+            if request.user.system_role.role == "Admin":
                 # return render(request, 'account/dashboard.html')
                 return redirect('dashboard')
 
-            elif request.user.role == "Referral Partner":
+            elif request.user.system_role.role == "Referral Partner":
                 # return render(request, 'account/base.html')
                 return redirect('base')
 
@@ -943,9 +943,9 @@ def base(request):
 
 @login_required()
 def list_leads(request):
-    if request.user.role == "Admin":
+    if request.user.system_role.role == "Admin":
         ll = Leads.objects.all()
-    elif request.user.role == "Referral Partner":
+    elif request.user.system_role.role == "Referral Partner":
         ll = Leads.objects.filter(added_by=request.user.username)
     ids = []
     for i in ll:
@@ -970,9 +970,9 @@ def list_lead_edit(request, id):
     user = request.user
     if request.method == 'POST':
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
         name = request.POST['name']
         ref = request.POST['ref']
@@ -1049,9 +1049,9 @@ def list_lead_edit(request, id):
 #     user = request.user
 #     if request.method == 'POST':
 #         if 'cancel' in request.POST:
-#             if user.role == "Admin":
+#             if user.system_role.role == "Admin":
 #                 return redirect('dashboard')
-#             elif user.role == "Referral Partner":
+#             elif user.system_role.role == "Referral Partner":
 #                 return redirect('base')
 #         name = request.POST['name']
 #         ref = request.POST['ref']
@@ -1266,9 +1266,9 @@ def housewife(request, id):
         add = AdditionalDetails.objects.filter(add_det_id=id).first()
 
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         dob = request.POST['dob']
@@ -1351,9 +1351,9 @@ def housewife(request, id):
             inv_det.save()
 
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         if 'next' in request.POST:
@@ -1549,9 +1549,9 @@ def property_details(request, id):
         lead = Leads.objects.filter(lead_id=id).first()
 
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         prop_type = request.POST['prop_type']
@@ -1693,10 +1693,10 @@ def property_details(request, id):
             prop_det3.save()
 
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('/account/dashboard')
 
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('/account/base')
 
         if 'next' in request.POST:
@@ -1715,9 +1715,9 @@ def retired(request, id):
         add = AdditionalDetails.objects.filter(pk=id).first()
 
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('base_dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         dob = request.POST['dob']
@@ -1812,9 +1812,9 @@ def retired(request, id):
             ret_oth_det.save()
 
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         if 'next' in request.POST:
@@ -2109,9 +2109,9 @@ def salaried(request, lead_id, additionaldetails_id):
     #     add = AdditionalDetails.objects.filter(add_det_id=id).first()
 
     #     if 'cancel' in request.POST:
-    #         if user.role == "Admin":
+    #         if user.system_role.role == "Admin":
     #             return redirect('dashboard')
-    #         elif user.role == "Referral Partner":
+    #         elif user.system_role.role == "Referral Partner":
     #             return redirect('base')
 
     #     loan_amt = request.POST['loan_amt']
@@ -2293,9 +2293,9 @@ def salaried(request, lead_id, additionaldetails_id):
     #         sal_inv_u_have.save()
 
     #     if 'save' in request.POST:
-    #         if user.role == "Admin":
+    #         if user.system_role.role == "Admin":
     #             return redirect('dashboard')
-    #         elif user.role == "Referral Partner":
+    #         elif user.system_role.role == "Referral Partner":
     #             return redirect('base')
 
     #     if 'next' in request.POST:
@@ -2946,9 +2946,9 @@ def student(request, id):
         add = AdditionalDetails.objects.filter(add_det_id=id).first()
 
         if 'cancel' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         dob = request.POST['dob']
@@ -3010,9 +3010,9 @@ def student(request, id):
                 card_det.save()
 
         if 'save' in request.POST:
-            if user.role == "Admin":
+            if user.system_role.role == "Admin":
                 return redirect('dashboard')
-            elif user.role == "Referral Partner":
+            elif user.system_role.role == "Referral Partner":
                 return redirect('base')
 
         if 'next' in request.POST:
@@ -3118,7 +3118,7 @@ def register2(request):
             else:
                 ini += "O"
 
-            if user.role == "Referral Partner":
+            if user.system_role.role == "Referral Partner":
                 ini += "RP"
 
             num = '{:04d}'.format(user.id)
@@ -3126,7 +3126,7 @@ def register2(request):
             user.username = newusername
             user.save()
 
-            # if user.role == "Referral Partner":
+            # if user.system_role.role == "Referral Partner":
             #     ini = "ORP"
             #     num = '{:03d}'.format(user.id)
             #     newusername = ini+num
