@@ -13,6 +13,7 @@ urlpatterns = [
     path('addStatus/', views.Status_form, name="Status_form"),
     path('addCompanyType/', views.CompanyType_form, name="CompanyType_form"),
     path('addCompanyName/', views.CompanyName_form, name="CompanyName_form"),
+    path('addPrefix/', views.Prefix_form, name="Prefix_form"),
     path('addCompanyCat/', views.CompanyCat_form, name="CompanyCat_form"),
     path('addTenure/', views.Tenure_form, name="Tenure_form"),
     path('addCustomerType/', views.CustomerType_form, name="CustomerType_form"),

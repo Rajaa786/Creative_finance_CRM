@@ -388,7 +388,8 @@ def Degree_form(request):
 
 def LeadSource_form(request):
     if request.method == 'POST':
-        leadsourceformvalue = request.POST['leadSource'].strip()
+        print(request.POST)
+        leadsourceformvalue = request.POST['LeadSource'].strip()
         effective_date = date.today()
         ineffective_date = check_ineffective_date_present(request.POST['LeadSourceIdate'])
         if LeadSource.objects.filter(lead_source=leadsourceformvalue).exists():
@@ -470,7 +471,7 @@ def State_form(request):
 
 def SubProduct_form(request):
     if request.method == 'POST':
-        product = Product.objects.get(pk=int(request.POST['product']))
+        product = Product.objects.get(pk=int(request.POST['Product']))
         subproductformvalue = request.POST['SubProduct'].strip()
         effective_date = date.today()
         ineffective_date = check_ineffective_date_present(request.POST['SubProductIdate'])
@@ -487,6 +488,29 @@ def SubProduct_form(request):
     context = {
         'products': products,
     }
+    return render(request, 'master/master_details.html', context=context)
+
+
+def Prefix_form(request):
+    if request.method == 'POST':
+        prefixValue = request.POST['Prefix'].strip()
+        effective_date = date.today()
+        ineffective_date = check_ineffective_date_present(request.POST['PrefixDate'])
+        if Prefix.objects.filter(prefix=prefixValue).exists():
+            messages.info(request, 'Prefix already exists')
+            return redirect('Master_details')
+        else:
+            newPrefix = Prefix.objects.create(
+                prefix=prefixValue, effective_date=effective_date, ineffective_date=ineffective_date)
+            newPrefix.save()
+            return redirect('Master_details')
+
+    prefixes = Prefix.objects.all()
+    context = {
+        'prefix': prefixes,
+    }
+
+    print(prefixes)
     return render(request, 'master/master_details.html', context=context)
 
 
@@ -544,6 +568,7 @@ def Masterdetails(request):
         'stageOfconstructions': StageOfConstruction.objects.all(),
         'rejectiontypes': RejectionType.objects.all(),
         'commissionrates': Comissionrates.objects.all(),
+        'prefix' : Prefix.objects.all(),
     }
     return render(request, 'master/master_details.html', context=context)
 
@@ -1242,6 +1267,7 @@ def addProductAndPolicyView(request):
 
             # Adding Foir Fresh Category to P&P
             for (cocat_type, percentage, roi, min_loan_amt, max_loan_amt) in zip(foir_fresh_cocat_type, foir_fresh_percentage, foir_fresh_roi, foir_fresh_min_loan_amt, foir_fresh_max_loan_amt):
+                print("Entered for loop")
 
                 if FoirCategory.objects.filter(cocat_type=cocat_type, cutoff=percentage, roi=roi,
                                                min_loan_amt=min_loan_amt, max_loan_amt=max_loan_amt).exists():
