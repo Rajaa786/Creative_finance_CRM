@@ -39,7 +39,7 @@ def register_referral_logic(request):
     referral_code = request.POST.get('referral_code', "")
     if CustomUser.objects.filter(email=Email).exists():
         messages.info(request, 'Email Taken')
-        return redirect('register')
+        return redirect('register_referral')
     else:
         system_role = Role.objects.filter(role=system_role).first()
         city = City.objects.filter(city_name=city).first()

@@ -943,7 +943,7 @@ def base(request):
 
 @login_required()
 def list_leads(request):
-    if request.user.system_role.role == "Admin":
+    if request.user.is_superuser:
         ll = Leads.objects.all()
     elif request.user.system_role.role == "Referral Partner":
         ll = Leads.objects.filter(added_by=request.user.username)
@@ -1925,7 +1925,7 @@ def salaried(request, lead_id, additionaldetails_id):
                     request, '"Personal Details" Saved Successfully')
                 check_salaried_details_form_list['personal_details'] = True
 
-                return redirect('salaried', id)
+                return redirect('account:salaried', id)
             else:
                 messages.error(request, form.errors)
                 return redirect('salaried', id)
