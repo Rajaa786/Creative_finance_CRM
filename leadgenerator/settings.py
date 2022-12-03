@@ -23,11 +23,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_DIR = BASE_DIR / "media"
 
 
-# SECRET_KEY = env("SECRET_KEY")
-SECRET_KEY = "fdfdfdfdfdffd"
+SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = "fdfdfdfdfdffd"
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env("DEBUG")
-DEBUG = True
+DEBUG = env("DEBUG")
+# DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -91,17 +91,17 @@ DATABASES = {
 
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        # "NAME": env("DATABASES_NAME"),
-        # "USER": env("DATABASES_USER"),
-        # "PASSWORD": env("DATABASES_PASSWORD"),
-        # "HOST": env("DATABASES_HOST"),
-        # # "HOST": "localhost",
-        # "PORT": env("DATABASES_PORT"),
-        "NAME": 'django-test',
-        "USER": 'root',
-        "PASSWORD": '',
-        "HOST": "localhost",
-        "PORT": 3306,
+        "NAME": env("DATABASES_NAME"),
+        "USER": env("DATABASES_USER"),
+        "PASSWORD": env("DATABASES_PASSWORD"),
+        "HOST": env("DATABASES_HOST"),
+        # "HOST": "localhost",
+        "PORT": env("DATABASES_PORT"),
+#         "NAME": 'django-test',
+#         "USER": 'root',
+#         "PASSWORD": '',
+#         "HOST": "localhost",
+#         "PORT": 3306,
     }
 }
 
