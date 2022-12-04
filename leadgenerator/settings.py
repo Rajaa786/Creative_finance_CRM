@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ
+from django.conf.locale.en import formats as en_formats
+import django_heroku
 
 
 env = environ.Env(DEBUG=(bool, False))
@@ -22,8 +24,10 @@ MEDIA_DIR = BASE_DIR / "media"
 
 
 SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = "fdfdfdfdfdffd"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
+# DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -92,6 +96,11 @@ DATABASES = {
         "HOST": env("DATABASES_HOST"),
         # "HOST": "localhost",
         "PORT": env("DATABASES_PORT"),
+#         "NAME": 'django-test',
+#         "USER": 'root',
+#         "PASSWORD": '',
+#         "HOST": "localhost",
+#         "PORT": 3306,
     }
 }
 
@@ -129,6 +138,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+en_formats.DATE_FORMAT = "M d, Y"
 
 
 # Static files (CSS, JavaScript, Images)
