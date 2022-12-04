@@ -1319,6 +1319,7 @@ def addProductAndPolicyView(request):
                     multiplier_fresh)
 
              # Adding Foir Balanced Transfer Category to P&P
+
             for (cocat_type_bt, percentage_bt, roi_bt, min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
                 if FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
                                                min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt).exists():
