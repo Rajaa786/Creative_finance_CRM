@@ -1,449 +1,497 @@
-{% extends "base/base.html" %}
-
-{% load static %}
-
-{% block title %}Product & Policy Master{% endblock title %}
-
-{% block other_body_css %}id="page-top"{% endblock other_body_css %}
-
-{% block other_body %}
-<div class="container" style="margin:25px auto;">
-    {% csrf_token %}
-    <div class="form-group row"></div>
-    <div class="container">
-        <h1 class=" mt-3 mb-4 display-3 text-center">Product & Policy Details</h1>
-        <div class="card-body">
-            <div class="container">
-                <form method="POST" action="{% url 'add_products_and_policy_view' %}"
-                    class="form-container bg-white rounded shadow-blur p-3" id="leadform" data-cities-url="ajax/cities/"
-                    data-subproducts-url="ajax/subproducts/">
-                    {% csrf_token %}
-                    <div class="row g-4 p-4">
-                        {% for field in form %}
-                        <div class="col-sm-4 mb-2">
-                            <div class="input-group input-group-static">
-                                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                                {{ field }}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-
-
-
-                    <div class="field_wrapper" id="multiplier_fresh_row">
-                        <div class="row g-4 p-4">
-                            <label class="col-sm-4 ms-0" style="color: black"><b>Add Multiplier : Fresh</b></label>
-
-                            <div class="col-sm-12 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
-                                            Category:</b></label>
-                                    <select class="custom-select form-control" name="multiplier_fresh_cocat_type">
-                                        <option selected>Select Multiplier Type:</option>
-                                        {% for cocat in cocatt_type %}
-                                        <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"
-                                        style="color: black"><b>ROI:</b></label>
-                                    <input type=number class="form-control ml-1" step="any" name="multiplier_fresh_roi"
-                                        placeholder="ROI">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Multiplier No:</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_fresh_number">
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_fresh_gross">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_fresh_net">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold" style="color: black"><b>Loan
-                                            Amount:</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_fresh_min_loan_amt"
-                                        placeholder="Min Loan Amount">
-                                    <input class="form-control ml-1" type="number" name="multiplier_fresh_max_loan_amt"
-                                        placeholder="Max Loan Amount">
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-
-
-
-
-                    <div class="row ps-4">
-                        <button id="addMultiplierFreshBtn" class="col-sm-5 btn btn-primary add_button" type="button">+
-                            Add one
-                            more Multiplier Fresh
-                            Type</button>
-                    </div>
-
-
-                    <div class="field_wrapper" id="multiplier_bt_row">
-                        <div class="row g-4 p-4">
-                            <label class="col-sm-4 ms-0" style="color: black"><b>Add Multiplier : Balanced
-                                    Transfer</b></label>
-
-                            <div class="col-sm-12 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
-                                            Category:</b></label>
-                                    <select class="custom-select form-control" name="multiplier_bt_cocat_type">
-                                        <option selected>Select Multiplier Type:</option>
-                                        {% for cocat in cocatt_type %}
-                                        <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"
-                                        style="color: black"><b>ROI:</b></label>
-                                    <input type=number class="form-control ml-1" step="any" name="multiplier_bt_roi"
-                                        placeholder="ROI">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Multiplier No:</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_bt_number">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_bt_gross">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_bt_net">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold" style="color: black"><b>Loan
-                                            Amount:</b></label>
-                                    <input class="form-control ml-1" type="number" name="multiplier_bt_min_loan_amt"
-                                        placeholder="Min Loan Amount">
-                                    <input class="form-control ml-1" type="number" name="multiplier_bt_max_loan_amt"
-                                        placeholder="Max Loan Amount">
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-
-                    <div class="row ps-4">
-                        <button id="addMultiplierBTBtn" class="col-sm-5 btn btn-primary add_button" type="button">+
-                            Add one
-                            more Multiplier Balanced Transfer
-                            Type</button>
-                    </div>
-
-
-
-                    <div class="field_wrapper" id="foir_fresh_row">
-                        <div class="row g-4 p-4">
-
-                            <label class="ms-0 col-sm-12" style="color: black"><b>Add FOIR : Fresh</b></label>
-
-
-                            <div class="col-sm-12 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
-                                            Category:</b></label>
-                                    <select class="custom-select form-control" name="foir_fresh_cocat_type">
-                                        <option selected>Select Multiplier Type:</option>
-                                        {% for cocat in cocatt_type %}
-                                        <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"
-                                        style="color: black"><b>ROI:</b></label>
-                                    <input type=number class="form-control ml-1" step="any" name="foir_fresh_roi"
-                                        placeholder="ROI">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>FOIR %</b></label>
-                                    <input class="form-control ml-1" type="number" placeholder="FOIR (in %)"
-                                        name="foir_fresh_percentage">
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_fresh_gross">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_fresh_net">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold" style="color: black"><b>Loan
-                                            Amount:</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_fresh_min_loan_amt"
-                                        placeholder="Min Loan Amount">
-                                    <input class="form-control ml-1" type="number" name="foir_fresh_max_loan_amt"
-                                        placeholder="Max Loan Amount">
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row ps-4">
-                        <button id="addFoirFreshBtn" class="col-sm-5 btn btn-primary add_button_FOIR" type="button">+
-                            Add one
-                            more FOIR Fresh
-                            Type</button>
-                    </div>
-
-
-
-                    <div class="field_wrapper" id="foir_bt_row">
-                        <div class="row g-4 p-4">
-
-                            <label class="ms-0 col-sm-12" style="color: black"><b>Add FOIR : Balanced
-                                    Transfer</b></label>
-
-
-                            <div class="col-sm-12 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
-                                            Category:</b></label>
-                                    <select class="custom-select form-control" name="foir_bt_cocat_type">
-                                        <option selected>Select Multiplier Type:</option>
-                                        {% for cocat in cocatt_type %}
-                                        <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"
-                                        style="color: black"><b>ROI:</b></label>
-                                    <input type=number class="form-control ml-1" step="any" name="foir_bt_roi"
-                                        placeholder="ROI">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>FOIR %</b></label>
-                                    <input class="form-control ml-1" type="number" placeholder="FOIR (in %)"
-                                        name="foir_bt_percentage">
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_bt_gross">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_bt_net">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6 mb-2">
-                                <div class="input-group input-group-static">
-                                    <label class="ml-3 ms-0 text-primary fw-bold" style="color: black"><b>Loan
-                                            Amount:</b></label>
-                                    <input class="form-control ml-1" type="number" name="foir_bt_min_loan_amt"
-                                        placeholder="Min Loan Amount">
-                                    <input class="form-control ml-1" type="number" name="foir_bt_max_loan_amt"
-                                        placeholder="Max Loan Amount">
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="row ps-4">
-                        <button id="addFoirBTBtn" class="col-sm-5 btn btn-primary add_button_FOIR" type="button">+
-                            Add one
-                            more FOIR Balanced Transfer
-                            Type</button>
-                    </div>
-
-
-
-
-
-
-                    <div class="row g-1 mt-3 px-4">
-                        <label class="col-12" style="color: black"><b>Company Type:</b></label>
-                        {% for com in com_type %}
-                        <div class="col-sm-4 mb-2">
-                            <div class="form-check">
-                                <input class="form-check-input me-1" style="border-color: grey;" type="checkbox"
-                                    value="{{com.company_type}}" name="company_type">
-                                <label
-                                    class="form-check-label ml-1 ms-0 text-primary fw-bold"><b>{{com.company_type}}</b></label>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="row g-1 mt-3 px-4">
-                        <label class="col-12" style="color: black"><b>Salary Type:</b></label>
-                        {% for salary_type in s_type %}
-                        <div class="col-sm-4 mb-2">
-                            <div class="form-check">
-                                <input class="form-check-input me-1" style="border-color: grey;" type="checkbox"
-                                    value="{{salary_type.salary_type}}" name="salary_type">
-                                <label
-                                    class="form-check-label ml-1 ms-0 text-primary fw-bold"><b>{{salary_type.salary_type}}</b></label>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-
-                    <div class="row g-1 mt-3 px-4">
-                        <label class="col-12" style="color: black"><b>Residence Type:</b></label>
-                        {% for residence_type in res_type %}
-                        <div class="col-sm-4 mb-2">
-                            <div class="form-check">
-                                <input class="form-check-input me-1" style="border-color: grey;" type="checkbox"
-                                    value="{{residence_type.residence_type}}" name="res_type">
-                                <label
-                                    class="form-check-label ml-1 ms-0 text-primary fw-bold"><b>{{residence_type.residence_type}}</b></label>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="row g-2 mt-3 px-4">
-                        <label class="col-12" style="color: black"><b>Tenure:</b></label>
-                        {% for tenure in tenures %}
-                        <div class="col-sm-4 mb-2">
-                            <div class="form-check">
-                                <input class="form-check-input me-1" style="border-color: grey;" type="checkbox"
-                                    value="{{tenure.ten_type}}" name="tenure">
-                                <label
-                                    class="form-check-label ml-1 ms-0 text-primary fw-bold"><b>{{tenure.ten_type}}</b></label>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="mt-3 text-center">
-
-                        <button class="btn btn-primary me-3" type="submit">Submit</button>
-                        <button class="btn btn-secondary" type="reset">Reset</button>
-                    </div>
-
-
-
-                </form>
+{% extends "base/base.html" %} {% load static %} {% block title %}Product &
+Policy Master{% endblock title %} {% block other_body_css %}id="page-top"{%
+endblock other_body_css %} {% block other_body %}
+<div class="container" style="margin: 25px auto">
+  {% csrf_token %}
+  <div class="form-group row"></div>
+  <div class="container">
+    <h1 class="mt-3 mb-4 display-3 text-center">Product & Policy Details</h1>
+    <div class="card-body">
+      <div class="container">
+        <form
+          method="POST"
+          action="{% url 'add_products_and_policy_view' %}"
+          class="form-container bg-white rounded shadow-blur p-3"
+          id="leadform"
+          data-cities-url="ajax/cities/"
+          data-subproducts-url="ajax/subproducts/"
+        >
+          {% csrf_token %}
+          <div class="row g-4 p-4">
+            {% for field in form %}
+            <div class="col-sm-4 mb-2">
+              <div class="input-group input-group-static">
+                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
+                {{ field }}
+              </div>
             </div>
-        </div>
+            {% endfor %}
+          </div>
+
+          <div class="field_wrapper" id="multiplier_fresh_row">
+            <div class="row g-4 p-4">
+              <label class="col-sm-4 ms-0" style="color: black"
+                ><b>Add Multiplier : Fresh</b></label
+              >
+
+              <div class="col-sm-12 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ms-0 text-primary fw-bold" style="color: black"
+                    ><b>Company Category:</b></label
+                  >
+                  <select
+                    class="custom-select form-control"
+                    name="multiplier_fresh_cocat_type"
+                  >
+                    <option disabled selected>Select Multiplier Type:</option>
+                    {% for cocat in cocatt_type %}
+                    <option value="{{cocat.cocat_type}}">
+                      {{cocat.cocat_type}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>ROI:</b></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control ml-1"
+                    step="any"
+                    name="multiplier_fresh_roi"
+                    placeholder="ROI"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ml-3 ms-0 text-primary fw-bold"
+                    ><b>Multiplier No:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_fresh_number"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>Loan Amount:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_fresh_min_loan_amt"
+                    placeholder="Min Loan Amount"
+                  />
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_fresh_max_loan_amt"
+                    placeholder="Max Loan Amount"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ps-4">
+            <button
+              id="addMultiplierFreshBtn"
+              class="col-sm-5 btn btn-primary add_button"
+              type="button"
+            >
+              + Add one more Multiplier Fresh Type
+            </button>
+          </div>
+
+          <div class="field_wrapper" id="multiplier_bt_row">
+            <div class="row g-4 p-4">
+              <label class="col-sm-4 ms-0" style="color: black"
+                ><b>Add Multiplier : Balanced Transfer</b></label
+              >
+
+              <div class="col-sm-12 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ms-0 text-primary fw-bold" style="color: black"
+                    ><b>Company Category:</b></label
+                  >
+                  <select
+                    class="custom-select form-control"
+                    name="multiplier_bt_cocat_type"
+                  >
+                    <option disabled selected>Select Multiplier Type:</option>
+                    {% for cocat in cocatt_type %}
+                    <option value="{{cocat.cocat_type}}">
+                      {{cocat.cocat_type}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>ROI:</b></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control ml-1"
+                    step="any"
+                    name="multiplier_bt_roi"
+                    placeholder="ROI"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ml-3 ms-0 text-primary fw-bold"
+                    ><b>Multiplier No:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_bt_number"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>Loan Amount:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_bt_min_loan_amt"
+                    placeholder="Min Loan Amount"
+                  />
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="multiplier_bt_max_loan_amt"
+                    placeholder="Max Loan Amount"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ps-4">
+            <button
+              id="addMultiplierBTBtn"
+              class="col-sm-5 btn btn-primary add_button"
+              type="button"
+            >
+              + Add one more Multiplier Balanced Transfer Type
+            </button>
+          </div>
+
+          <div class="field_wrapper" id="foir_fresh_row">
+            <div class="row g-4 p-4">
+              <label class="ms-0 col-sm-12" style="color: black"
+                ><b>Add FOIR : Fresh</b></label
+              >
+
+              <div class="col-sm-12 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ms-0 text-primary fw-bold" style="color: black"
+                    ><b>Company Category:</b></label
+                  >
+                  <select
+                    class="custom-select form-control"
+                    name="foir_fresh_cocat_type"
+                  >
+                    <option disabled selected>Select Multiplier Type:</option>
+                    {% for cocat in cocatt_type %}
+                    <option value="{{cocat.cocat_type}}">
+                      {{cocat.cocat_type}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>ROI:</b></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control ml-1"
+                    step="any"
+                    name="foir_fresh_roi"
+                    placeholder="ROI"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ml-3 ms-0 text-primary fw-bold"
+                    ><b>FOIR %</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    placeholder="FOIR (in %)"
+                    name="foir_fresh_percentage"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>Loan Amount:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="foir_fresh_min_loan_amt"
+                    placeholder="Min Loan Amount"
+                  />
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="foir_fresh_max_loan_amt"
+                    placeholder="Max Loan Amount"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ps-4">
+            <button
+              id="addFoirFreshBtn"
+              class="col-sm-5 btn btn-primary add_button_FOIR"
+              type="button"
+            >
+              + Add one more FOIR Fresh Type
+            </button>
+          </div>
+
+          <div class="field_wrapper" id="foir_bt_row">
+            <div class="row g-4 p-4">
+              <label class="ms-0 col-sm-12" style="color: black"
+                ><b>Add FOIR : Balanced Transfer</b></label
+              >
+
+              <div class="col-sm-12 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ms-0 text-primary fw-bold" style="color: black"
+                    ><b>Company Category:</b></label
+                  >
+                  <select
+                    class="custom-select form-control"
+                    name="foir_bt_cocat_type"
+                  >
+                    <option disabled selected>Select Multiplier Type:</option>
+                    {% for cocat in cocatt_type %}
+                    <option value="{{cocat.cocat_type}}">
+                      {{cocat.cocat_type}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>ROI:</b></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control ml-1"
+                    step="any"
+                    name="foir_bt_roi"
+                    placeholder="ROI"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label class="ml-3 ms-0 text-primary fw-bold"
+                    ><b>FOIR %</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    placeholder="FOIR (in %)"
+                    name="foir_bt_percentage"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-2">
+                <div class="input-group input-group-static">
+                  <label
+                    class="ml-3 ms-0 text-primary fw-bold"
+                    style="color: black"
+                    ><b>Loan Amount:</b></label
+                  >
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="foir_bt_min_loan_amt"
+                    placeholder="Min Loan Amount"
+                  />
+                  <input
+                    class="form-control ml-1"
+                    type="number"
+                    name="foir_bt_max_loan_amt"
+                    placeholder="Max Loan Amount"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ps-4">
+            <button
+              id="addFoirBTBtn"
+              class="col-sm-5 btn btn-primary add_button_FOIR"
+              type="button"
+            >
+              + Add one more FOIR Balanced Transfer Type
+            </button>
+          </div>
+
+          <div class="row g-1 mt-3 px-4">
+            <label class="col-12" style="color: black"
+              ><b>Company Type:</b></label
+            >
+            {% for com in com_type %}
+            <div class="col-sm-4 mb-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input me-1"
+                  style="border-color: grey"
+                  type="checkbox"
+                  value="{{com.company_type}}"
+                  name="company_type"
+                />
+                <label class="form-check-label ml-1 ms-0 text-primary fw-bold"
+                  ><b>{{com.company_type}}</b></label
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="row g-1 mt-3 px-4">
+            <label class="col-12" style="color: black"
+              ><b>Salary Type:</b></label
+            >
+            {% for salary_type in s_type %}
+            <div class="col-sm-4 mb-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input me-1"
+                  style="border-color: grey"
+                  type="checkbox"
+                  value="{{salary_type.salary_type}}"
+                  name="salary_type"
+                />
+                <label class="form-check-label ml-1 ms-0 text-primary fw-bold"
+                  ><b>{{salary_type.salary_type}}</b></label
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="row g-1 mt-3 px-4">
+            <label class="col-12" style="color: black"
+              ><b>Residence Type:</b></label
+            >
+            {% for residence_type in res_type %}
+            <div class="col-sm-4 mb-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input me-1"
+                  style="border-color: grey"
+                  type="checkbox"
+                  value="{{residence_type.residence_type}}"
+                  name="res_type"
+                />
+                <label class="form-check-label ml-1 ms-0 text-primary fw-bold"
+                  ><b>{{residence_type.residence_type}}</b></label
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="row g-2 mt-3 px-4">
+            <label class="col-12" style="color: black"><b>Tenure:</b></label>
+            {% for tenure in tenures %}
+            <div class="col-sm-4 mb-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input me-1"
+                  style="border-color: grey"
+                  type="checkbox"
+                  value="{{tenure.ten_type}}"
+                  name="tenure"
+                />
+                <label class="form-check-label ml-1 ms-0 text-primary fw-bold"
+                  ><b>{{tenure.ten_type}}</b></label
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="mt-3 text-center">
+            <button class="btn btn-primary me-3" type="submit">Submit</button>
+            <button class="btn btn-secondary" type="reset">Reset</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-
-
-
+  </div>
 </div>
 
-
-
-{% endblock other_body %}
-
-
-{% block other_js %}
+{% endblock other_body %} {% block other_js %}
 
 <script>
-    $(document).ready(() => {
+  $(document).ready(() => {
+    let wrapper = $(".field_wrapper");
 
-        let wrapper = $('.field_wrapper');
+    $("#addFoirFreshBtn").click(() => {
+      console.log("Foir Clicked");
 
-
-        $("#addFoirFreshBtn").click(() => {
-            console.log("Foir Clicked")
-
-            $("#foir_fresh_row").append(`<div class="row g-4 p-4 position-relative">
+      $("#foir_fresh_row").append(`<div class="row g-4 p-4 position-relative">
 
                 <label class="ms-0 col-sm-12" style="color: black"><b>Add FOIR : Fresh</b></label>
 
@@ -457,7 +505,7 @@
                         <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
                                 Category:</b></label>
                         <select class="custom-select form-control" name="foir_fresh_cocat_type">
-                            <option selected>Select Multiplier Type:</option>
+                            <option disabled selected>Select Multiplier Type:</option>
                             {% for cocat in cocatt_type %}
                             <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
                             {% endfor %}
@@ -483,20 +531,6 @@
 
 
 
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="foir_fresh_gross">
-                    </div>
-                </div>
-
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="foir_fresh_net">
-                    </div>
-                </div>
-
 
                 <div class="col-sm-6 mb-2">
                     <div class="input-group input-group-static">
@@ -509,15 +543,11 @@
                     </div>
                 </div>
 
-            </div>`)
-        })
+            </div>`);
+    });
 
-
-
-
-
-        $("#addFoirBTBtn").click(() => {
-            $("#foir_bt_row").append(`<div class="row g-4 p-4 position-relative">
+    $("#addFoirBTBtn").click(() => {
+      $("#foir_bt_row").append(`<div class="row g-4 p-4 position-relative">
 
                 <label class="ms-0 col-sm-12" style="color: black"><b>Add FOIR : Balanced
                         Transfer</b></label>
@@ -532,7 +562,7 @@
                         <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
                                 Category:</b></label>
                         <select class="custom-select form-control" name="foir_bt_cocat_type">
-                            <option selected>Select Multiplier Type:</option>
+                            <option disabled selected>Select Multiplier Type:</option>
                             {% for cocat in cocatt_type %}
                             <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
                             {% endfor %}
@@ -559,20 +589,6 @@
 
 
 
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="foir_bt_gross">
-                    </div>
-                </div>
-
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="foir_bt_net">
-                    </div>
-                </div>
-
 
                 <div class="col-sm-6 mb-2">
                     <div class="input-group input-group-static">
@@ -588,17 +604,13 @@
 
 
 
-            </div>`)
+            </div>`);
+    });
 
-        })
-
-
-
-
-
-        $("#addMultiplierFreshBtn").click(() => {
-            console.log("Category Clicked")
-            $("#multiplier_fresh_row").append(`<div class="row g-4 p-4 position-relative">
+    $("#addMultiplierFreshBtn").click(() => {
+      console.log("Category Clicked");
+      $("#multiplier_fresh_row")
+        .append(`<div class="row g-4 p-4 position-relative">
                 <label class="col-sm-4 ms-0" style="color: black"><b>Add Multiplier : Fresh</b></label>
 
                 <span class="icon text-black-100 remove_button col-sm-1 ms-0 position-absolute end-0 cursor-pointer">
@@ -610,7 +622,7 @@
                         <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
                                 Category:</b></label>
                         <select class="custom-select form-control" name="multiplier_fresh_cocat_type">
-                            <option selected>Select Multiplier Type:</option>
+                            <option disabled selected>Select Multiplier Type:</option>
                             {% for cocat in cocatt_type %}
                             <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
                             {% endfor %}
@@ -645,30 +657,14 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="multiplier_fresh_gross">
-                    </div>
-                </div>
-
-                <div class="col-sm-6 mb-2">
-                    <div class="input-group input-group-static">
-                        <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                        <input class="form-control ml-1" type="number" name="multiplier_fresh_net">
-                    </div>
-                </div>
 
 
-            </div>`)
-        })
+            </div>`);
+    });
 
-
-
-
-        $("#addMultiplierBTBtn").click(() => {
-
-            $("#multiplier_bt_row").append(`<div class="row g-4 p-4 position-relative">
+    $("#addMultiplierBTBtn").click(() => {
+      $("#multiplier_bt_row")
+        .append(`<div class="row g-4 p-4 position-relative">
                  <label class="col-sm-4 ms-0" style="color: black"><b>Add Multiplier : Balanced
                          Transfer</b></label>
 
@@ -682,7 +678,7 @@
                          <label class="ms-0 text-primary fw-bold" style="color: black"><b>Company
                                  Category:</b></label>
                          <select class="custom-select form-control" name="multiplier_bt_cocat_type">
-                             <option selected>Select Multiplier Type:</option>
+                             <option disabled selected>Select Multiplier Type:</option>
                              {% for cocat in cocatt_type %}
                              <option value="{{cocat.cocat_type}}">{{cocat.cocat_type}}</option>
                              {% endfor %}
@@ -706,19 +702,6 @@
                  </div>
 
 
-                 <div class="col-sm-6 mb-2">
-                     <div class="input-group input-group-static">
-                         <label class="ml-3 ms-0 text-primary fw-bold"><b>Gross Salary</b></label>
-                         <input class="form-control ml-1" type="number" name="multiplier_bt_gross">
-                     </div>
-                 </div>
-
-                 <div class="col-sm-6 mb-2">
-                     <div class="input-group input-group-static">
-                         <label class="ml-3 ms-0 text-primary fw-bold"><b>Net Salary</b></label>
-                         <input class="form-control ml-1" type="number" name="multiplier_bt_net">
-                     </div>
-                 </div>
 
 
                  <div class="col-sm-6 mb-2">
@@ -734,17 +717,12 @@
 
 
              </div>`);
-        })
+    });
 
-
-
-
-
-
-        $(wrapper).on('click', '.remove_button', function (e) {
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-        });
-    })
+    $(wrapper).on("click", ".remove_button", function (e) {
+      e.preventDefault();
+      $(this).parent("div").remove(); //Remove field html
+    });
+  });
 </script>
 {% endblock other_js %}

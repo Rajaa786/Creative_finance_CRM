@@ -19,6 +19,87 @@
 					<h1 class="display-3">General Master</h1>
 				</div>
 			</div>
+
+
+
+			<div class="card z-index-2 pb-3 mb-5">
+				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
+						<div class="row">
+							<div class="col">
+								<a data-bs-toggle="collapse" href="#Prefix" role="button" aria-expanded="false" aria-controls="Prefic">
+									<h4 class="card-title fw-bold text-light">Prefix</h4>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+								</a>
+							</div>
+							<div class="col-auto d-flex align-items-center">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addPrefix"><span class="material-icons">add</span> Add</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="collapse card-body" id="Prefix">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="text-primary">
+								<tr>
+									<th class="px-2">Prefix</th>
+									<th class="px-2">Effective Date</th>
+									<th class="px-2">Ineffective Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for pre in prefix %}
+								<tr>
+									<td>{{ pre.prefix }}</td>
+									<td>{{ pre.effective_date }}</td>
+									<td>{{ pre.ineffective_date }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="addPrefix" tabindex="-1" role="dialog" aria-labelledby="addPrefix" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-normal" id="addPrefix"><i class="fab fa-product-hunt"></i> Add Prefix</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form class=" form text-left" action={% url 'Prefix_form' %} method="POST">
+							<div class="modal-body">
+								{% csrf_token %}
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label"> Prefix</label>
+									<input type="text" name="Prefix" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+								</div>
+							
+								<div class="input-group input-group-static my-3">
+									<label>Ineffective Date</label>
+									<input type="date" name="PrefixDate" class="form-control">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -799,6 +880,11 @@
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label"> Sub Product</label>
 									<input type="text" name="SubProduct" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+								</div>
+								<div class="input-group input-group-outline my-3">
+									<label class="form-label">Product</label>
+
+									<input type="text" name="Product" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>

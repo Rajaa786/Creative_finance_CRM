@@ -35,11 +35,11 @@ class LeadsForm(ModelForm):
                 pass
 
         if 'product' in self.data:
-            print("*************************Product ID ", product_id)
             try:
                 product_id = int(self.data.get('product'))
-                self.fields['sub_product'].queryset = SubProduct.objects.filter(product=product_id)
-                    
+                self.fields['sub_product'].queryset = SubProduct.objects.filter(
+                    product=product_id)
+
             except(ValueError, TypeError):
                 pass
 
