@@ -520,12 +520,8 @@ def Prefix_form(request):
     if request.method == 'POST':
         prefixValue = request.POST['Prefix'].strip()
         effective_date = date.today()
-<<<<<<< HEAD
         ineffective_date = check_ineffective_date_present(
             request.POST['PrefixDate'])
-=======
-        ineffective_date = check_ineffective_date_present(request.POST['PrefixDate'])
->>>>>>> e787a81eb74635b1961a45f2719fd5f05d5657f9
         if Prefix.objects.filter(prefix=prefixValue).exists():
             messages.info(request, 'Prefix already exists')
             return redirect('Master_details')
@@ -599,11 +595,8 @@ def Masterdetails(request):
         'stageOfconstructions': StageOfConstruction.objects.all(),
         'rejectiontypes': RejectionType.objects.all(),
         'commissionrates': Comissionrates.objects.all(),
-<<<<<<< HEAD
         'prefix': Prefix.objects.all(),
-=======
-        'prefix' : Prefix.objects.all(),
->>>>>>> e787a81eb74635b1961a45f2719fd5f05d5657f9
+        'prefix': Prefix.objects.all(),
     }
     return render(request, 'master/master_details.html', context=context)
 
@@ -1257,11 +1250,6 @@ def addProductAndPolicyView(request):
         foir_bt_max_loan_amt = request.POST.getlist(
             'foir_bt_max_loan_amt')
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> e787a81eb74635b1961a45f2719fd5f05d5657f9
         co_type = request.POST.getlist('company_type')
         salary_type_ = request.POST.getlist('salary_type')
         res_type_ = request.POST.getlist('res_type')
@@ -1331,11 +1319,7 @@ def addProductAndPolicyView(request):
                     multiplier_fresh)
 
              # Adding Foir Balanced Transfer Category to P&P
-<<<<<<< HEAD
             for (cocat_type_bt, percentage_bt, roi_bt, min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
-=======
-            for (cocat_type_bt, percentage_bt, roi_bt,min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
->>>>>>> e787a81eb74635b1961a45f2719fd5f05d5657f9
                 if FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
                                                min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt).exists():
                     foir_bt = FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
