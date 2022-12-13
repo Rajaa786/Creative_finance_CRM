@@ -1,6 +1,4 @@
 import os
-from enum import Enum
-from model_utils import Choices
 
 from email.policy import default
 from django.conf import settings
