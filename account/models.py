@@ -1,4 +1,7 @@
 import os
+from enum import Enum
+from model_utils import Choices
+
 from email.policy import default
 from django.conf import settings
 from django.db import models
@@ -9,6 +12,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from master.models import *
+from master.models import product_and_policy_master
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 
@@ -61,6 +65,9 @@ def create_path(instance, filename):
 
 
 class CustomUser(AbstractUser):
+    system_role = models.ForeignKey(
+        Role, on_delete=models.CASCADE, blank=False, default=None, null=True
+    )
     phone = models.CharField(max_length=10)
     address = models.TextField(blank=False, default="", null=True)
     city = models.ForeignKey(
@@ -160,16 +167,17 @@ class SalPersonalDetails(models.Model):
     retirement_age = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(50), MaxValueValidator(70)]
     )
+    retirement_proof = models.BooleanField(choices=YES_NO_CHOICES, default=None)
     marital_status = models.ForeignKey(
         MaritalStatus, on_delete=models.CASCADE, blank=True, null=True
     )
     qualification = models.ForeignKey(
         Qualification, on_delete=models.CASCADE, blank=True, null=True
     )
-    degree_others = models.CharField(max_length=100, blank=True, null=True)
     profession = models.ForeignKey(
         Profession, on_delete=models.CASCADE, blank=True, null=True
     )
+    degree_others = models.CharField(max_length=100, blank=True, null=True)
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, blank=True, null=True)
     lawyerType = models.ForeignKey(
         LawyerType, on_delete=models.CASCADE, blank=True, null=True
@@ -189,6 +197,13 @@ class SalPersonalDetails(models.Model):
 
 
 class SalIncomeDetails(models.Model):
+    Bonus_Type = (
+        ("Monthly", "Monthly"),
+        ("Quarterly", "Quarterly"),
+        ("Half-Yearly", "Half-Yearly"),
+        ("No Bonus", "No Bonus"),
+    )
+
     inc_det_id = models.AutoField(primary_key=True)
     salary_type = models.ForeignKey(
         SalaryType, on_delete=models.CASCADE, blank=True, null=True
@@ -196,6 +211,7 @@ class SalIncomeDetails(models.Model):
     bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE)
     gross_sal = models.IntegerField()
     net_sal = models.IntegerField()
+    bonus_type = models.CharField(max_length=11, choices=Bonus_Type, default=None)
     bonus_duration = models.IntegerField(blank=True, null=True)
     bonus_amount = models.IntegerField(blank=True, null=True)
     incentive_duration = models.IntegerField(blank=True, null=True)
@@ -212,7 +228,6 @@ class SalIncomeDetails(models.Model):
 
 class SalOtherIncomes(models.Model):
     other_inc_id = models.AutoField(primary_key=True)
-    rental_income = models.IntegerField()
     lessee_type = models.ForeignKey(
         LesseType, on_delete=models.CASCADE, blank=True, null=True
     )
@@ -251,18 +266,26 @@ class ContactPerson(models.Model):
 
 
 class SalCompanyDetails(models.Model):
+
     comp_det_id = models.AutoField(primary_key=True)
     company_type = models.ForeignKey(
         CompanyType, on_delete=models.CASCADE, blank=True, null=True
     )
     company_name = models.ForeignKey(
-        CompanyName, on_delete=models.CASCADE, blank=True, null=True
+        CompanyName,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        default=None,
     )
-    location = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
+    other_company_name = models.CharField(max_length=20)
     paid_up_capital = models.IntegerField()
     company_age = models.IntegerField()
-    nature_of_business = models.CharField(max_length=50)
     designation = models.CharField(max_length=50)
+    location = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
+
+    nature_of_business = models.CharField(max_length=50)
+
     designation_type = models.ForeignKey(
         DesignationType, on_delete=models.CASCADE, blank=True, null=True
     )
@@ -272,6 +295,8 @@ class SalCompanyDetails(models.Model):
         EmploymentType, on_delete=models.CASCADE, blank=True, null=True
     )
     form_16 = models.BooleanField(choices=YES_NO_CHOICES, default=False)
+    Provident_Fund_deduction = models.BooleanField(choices=YES_NO_CHOICES, default=None)
+    TDS_deduction = models.BooleanField(choices=YES_NO_CHOICES, default=None)
     office_phone = models.CharField(max_length=10)
     office_email = models.EmailField(max_length=50)
     addi_details_id = models.ForeignKey(
@@ -282,6 +307,7 @@ class SalCompanyDetails(models.Model):
 class SalExistingLoanDetails(models.Model):
     existing_loan_det_id = models.AutoField(primary_key=True)
     bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE)
+    other_bank_name = models.CharField(max_length=10, default=None)
     products_or_services = models.ForeignKey(
         Product, on_delete=models.CASCADE, null=False
     )
@@ -302,6 +328,7 @@ class SalExistingLoanDetails(models.Model):
 class SalExistingCreditCard(models.Model):
     existing_credit_card_id = models.AutoField(primary_key=True)
     bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE)
+    other_bank_name = models.CharField(max_length=10, default=None)
     credit_limit = models.IntegerField()
     limit_utilized = models.IntegerField()
     minimum_due = models.DecimalField(max_digits=12, decimal_places=2)
@@ -325,6 +352,9 @@ class SalAdditionalDetails(models.Model):
 class SalInvestments(models.Model):
     sal_inv_id = models.AutoField(primary_key=True)
     investments = models.ForeignKey(InvestmentType, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=None)
+    Other_Assets = models.CharField(max_length=100, default=None)
+    Other_Owned_Property_Details = models.CharField(max_length=100, default=None)
     addi_details_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)
 
 

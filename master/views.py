@@ -12,22 +12,21 @@ from stronghold.decorators import public
 
 # Create your views here.
 
-
 def check_ineffective_date_present(ineff_date):
 
-    if not ineff_date:
-        print("if", ineff_date)
+    if not ineff_date : 
+        print("if" , ineff_date)
         ineff_date = None
 
     return ineff_date
+
 
 
 def CompanyName_form(request):
     if request.method == 'POST':
         companynameformvalue = request.POST['CompanyName'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['CompanyNameIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['CompanyNameIdate'])
         if CompanyName.objects.filter(company_name=companynameformvalue).exists():
             messages.info(request, 'Company Name already exists')
             return redirect('Master_details')
@@ -45,9 +44,8 @@ def CompanyType_form(request):
     if request.method == 'POST':
         companytypeformvalue = request.POST['CompanyType'].strip()
         effective_date = date.today()
-
-        ineffective_date = check_ineffective_date_present(
-            request.POST['CompanyTypeIdate'])
+        
+        ineffective_date =check_ineffective_date_present(request.POST['CompanyTypeIdate'])
         if CompanyType.objects.filter(company_type=companytypeformvalue).exists():
             messages.info(request, 'Company Type already exists')
             return redirect('Master_details')
@@ -94,8 +92,7 @@ def Agreementtype_form(request):
     if request.method == 'POST':
         agreementtypeformvalue = request.POST['AgreementType'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['AgreementtypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['AgreementtypeIdate'])
 
         if AgreementType.objects.filter(agreement_type=agreementtypeformvalue).exists():
             messages.info(request, 'Agreement Type already exists')
@@ -113,8 +110,7 @@ def Applicanttype_form(request):
     if request.method == 'POST':
         applicanttypeformvalue = request.POST['ApplicantType'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['ApplicanttypeIdate'])
+        ineffective_date =check_ineffective_date_present(request.POST['ApplicanttypeIdate'])
         if ApplicantType.objects.filter(applicant_type=applicanttypeformvalue).exists():
             messages.info(request, 'Applicant Type already exists')
             return redirect('Master_details')
@@ -130,8 +126,7 @@ def AYyear_form(request):
     if request.method == 'POST':
         ayyearformvalue = request.POST['AYyear'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['AYyearIdate'])
+        ineffective_date =check_ineffective_date_present(request.POST['AYyearIdate'])
         if AYYear.objects.filter(ay_year=ayyearformvalue).exists():
             messages.info(request, 'Ay Year already exists')
             return redirect('Master_details')
@@ -147,8 +142,7 @@ def NatureOfBusiness_form(request):
     if request.method == 'POST':
         natureofbusinessformvalue = request.POST['NatureBusiness'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['NatureOfBusinessIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['NatureOfBusinessIdate'])
         if NatureOfBusiness.objects.filter(nature_business=natureofbusinessformvalue).exists():
             messages.info(request, 'Nature of Business already exists')
             return redirect('Master_details')
@@ -164,8 +158,7 @@ def PropertyIn_form(request):
     if request.method == 'POST':
         propertyinformvalue = request.POST['PropertyIn'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['PropertyInIdate'])
+        ineffective_date =check_ineffective_date_present(request.POST['PropertyInIdate'])
         if PropertyIn.objects.filter(property_in=propertyinformvalue).exists():
             messages.info(request, 'PropertyIn Business already exists')
             return redirect('Master_details')
@@ -181,8 +174,7 @@ def RejectionType_form(request):
     if request.method == 'POST':
         rejectiontypeformvvalue = request.POST['Type'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['RejectionTypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['RejectionTypeIdate'])
         rejectiontypereasonformvvalue = request.POST['Reason'].strip()
         if RejectionType.objects.filter(rejection_type=rejectiontypeformvvalue, rejection_reason=rejectiontypereasonformvvalue).exists():
             messages.info(request, 'Rejection type already exists')
@@ -200,8 +192,7 @@ def StageOfConstruction_form(request):
     if request.method == 'POST':
         stageformvalue = request.POST['Stage'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['StageOfConstructionIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['StageOfConstructionIdate'])
         if StageOfConstruction.objects.filter(stage=stageformvalue).exists():
             messages.info(request, 'Stage Of Construction already exists')
             return redirect('Master_details')
@@ -217,8 +208,7 @@ def Status_form(request):
     if request.method == 'POST':
         statusformvalue = request.POST['Status'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['StatusIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['StatusIdate'])
         if Status.objects.filter(status=statusformvalue).exists():
             messages.info(request, 'Status already exists')
             return redirect('Master_details')
@@ -250,8 +240,7 @@ def CustomerType_form(request):
     if request.method == 'POST':
         customertypeformvalue = request.POST['CustomerType'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['CustomerTypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['CustomerTypeIdate'])
         if CustomerType.objects.filter(cust_type=customertypeformvalue).exists():
             messages.info(request, 'Customer Type already exists')
             return redirect('Master_details')
@@ -267,8 +256,7 @@ def DesignationType_form(request):
     if request.method == 'POST':
         designationtypeformvalue = request.POST['DesignationType'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['DesignationTypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['DesignationTypeIdate'])
         if DesignationType.objects.filter(desg_type=designationtypeformvalue).exists():
             messages.info(request, 'Designation Type already exists')
             return redirect('Master_details')
@@ -284,8 +272,7 @@ def Product_form(request):
     if request.method == 'POST':
         productformvalue = request.POST['Product'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['ProductIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['ProductIdate'])
         if Product.objects.filter(product=productformvalue).exists():
             messages.info(request, 'Product already exists')
             return redirect('Master_details')
@@ -301,8 +288,7 @@ def Profession_form(request):
     if request.method == 'POST':
         professionformvalue = request.POST['Profession'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['ProfessionIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['ProfessionIdate'])
         if Profession.objects.filter(profession=professionformvalue).exists():
             messages.info(request, 'Profession already exists')
             return redirect('Master_details')
@@ -318,8 +304,7 @@ def Qualification_form(request):
     if request.method == 'POST':
         qualificationformvalue = request.POST['Qualification'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['QualificationIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['QualificationIdate'])
         if Qualification.objects.filter(qualification=qualificationformvalue).exists():
             messages.info(request, 'qualification already exists')
             return redirect('Master_details')
@@ -336,8 +321,7 @@ def Commission_form(request):
         Commission_type = request.POST['Commission'].strip()
         Commission_rate = request.POST['Ent_roi'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['Commissiondate'])
+        ineffective_date = check_ineffective_date_present(request.POST['Commissiondate'])
         if Commission.objects.filter(Commissiontype=Commission_type).exists():
             messages.info(request, 'Commission already exists')
             return redirect('Master_details')
@@ -358,8 +342,7 @@ def Role_form(request):
     if request.method == 'POST':
         roleformvalue = request.POST['Role'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['RoleIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['RoleIdate'])
         if Role.objects.filter(role=roleformvalue).exists():
             messages.info(request, 'Role already exists')
             return redirect('Master_details')
@@ -375,8 +358,7 @@ def BankName_form(request):
     if request.method == 'POST':
         banknameformvalue = request.POST['BankName'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['BankNameIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['BankNameIdate'])
         if BankName.objects.filter(bank_name=banknameformvalue).exists():
             messages.info(request, 'Bank Name already exists')
             return redirect('Master_details')
@@ -392,8 +374,7 @@ def Degree_form(request):
     if request.method == 'POST':
         degreeformvalue = request.POST['degree'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['DegreeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['DegreeIdate'])
         if Degree.objects.filter(degree=degreeformvalue).exists():
             messages.info(request, 'Degree already exists')
             return redirect('Master_details')
@@ -410,8 +391,7 @@ def LeadSource_form(request):
         print(request.POST)
         leadsourceformvalue = request.POST['LeadSource'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['LeadSourceIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['LeadSourceIdate'])
         if LeadSource.objects.filter(lead_source=leadsourceformvalue).exists():
             messages.info(request, 'Degree already exists')
             return redirect('Master_details')
@@ -427,8 +407,7 @@ def Nationality_form(request):
     if request.method == 'POST':
         nationalityformvalue = request.POST['nation'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['NationalityIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['NationalityIdate'])
         if Nationality.objects.filter(nationality=nationalityformvalue).exists():
             messages.info(request, 'Degree already exists')
             return redirect('Master_details')
@@ -444,8 +423,7 @@ def ResidenceType_form(request):
     if request.method == 'POST':
         residencetypeformvalue = request.POST['ResidenceType'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['ResidenceTypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['ResidenceTypeIdate'])
         if ResidenceType.objects.filter(residence_type=residencetypeformvalue).exists():
             messages.info(request, 'Residence Type already exists')
             return redirect('Master_details')
@@ -461,8 +439,7 @@ def SalaryType_form(request):
     if request.method == 'POST':
         salarytypeformvalue = request.POST.get('SalaryType').strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['SalaryTypeIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['SalaryTypeIdate'])
         if SalaryType.objects.filter(salary_type=salarytypeformvalue).exists():
             messages.info(request, 'Salary Type already exists')
             return redirect('Master_details')
@@ -480,8 +457,7 @@ def State_form(request):
     if request.method == 'POST':
         stateformvalue = request.POST['state'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['StateIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['StateIdate'])
         if State.objects.filter(state=stateformvalue).exists():
             messages.info(request, 'State already exists')
             return redirect('Master_details')
@@ -498,8 +474,7 @@ def SubProduct_form(request):
         product = Product.objects.get(pk=int(request.POST['Product']))
         subproductformvalue = request.POST['SubProduct'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['SubProductIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['SubProductIdate'])
         if SubProduct.objects.filter(sub_product=subproductformvalue, product=product).exists():
             messages.info(request, 'Sub Product already exists')
             return redirect('Master_details')
@@ -520,8 +495,7 @@ def Prefix_form(request):
     if request.method == 'POST':
         prefixValue = request.POST['Prefix'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['PrefixDate'])
+        ineffective_date = check_ineffective_date_present(request.POST['PrefixDate'])
         if Prefix.objects.filter(prefix=prefixValue).exists():
             messages.info(request, 'Prefix already exists')
             return redirect('Master_details')
@@ -545,8 +519,7 @@ def City_form(request):
         state = State.objects.get(pk=int(request.POST['state']))
         cityformvalue = request.POST['City'].strip()
         effective_date = date.today()
-        ineffective_date = check_ineffective_date_present(
-            request.POST['CityIdate'])
+        ineffective_date = check_ineffective_date_present(request.POST['CityIdate'])
         if City.objects.filter(city_name=cityformvalue, state=state).exists():
             messages.info(request, 'city already exists')
             return redirect('Master_details')
@@ -595,8 +568,7 @@ def Masterdetails(request):
         'stageOfconstructions': StageOfConstruction.objects.all(),
         'rejectiontypes': RejectionType.objects.all(),
         'commissionrates': Comissionrates.objects.all(),
-        'prefix': Prefix.objects.all(),
-        'prefix': Prefix.objects.all(),
+        'prefix' : Prefix.objects.all(),
     }
     return render(request, 'master/master_details.html', context=context)
 
@@ -1250,6 +1222,8 @@ def addProductAndPolicyView(request):
         foir_bt_max_loan_amt = request.POST.getlist(
             'foir_bt_max_loan_amt')
 
+
+
         co_type = request.POST.getlist('company_type')
         salary_type_ = request.POST.getlist('salary_type')
         res_type_ = request.POST.getlist('res_type')
@@ -1319,8 +1293,7 @@ def addProductAndPolicyView(request):
                     multiplier_fresh)
 
              # Adding Foir Balanced Transfer Category to P&P
-
-            for (cocat_type_bt, percentage_bt, roi_bt, min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
+            for (cocat_type_bt, percentage_bt, roi_bt,min_loan_amt_bt, max_loan_amt_bt) in zip(foir_bt_cocat_type, foir_bt_percentage, foir_bt_roi, foir_bt_min_loan_amt, foir_bt_max_loan_amt):
                 if FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,
                                                min_loan_amt=min_loan_amt_bt, max_loan_amt=max_loan_amt_bt).exists():
                     foir_bt = FoirCategory.objects.filter(cocat_type=cocat_type_bt, cutoff=percentage_bt, roi=roi_bt,

@@ -1,5 +1,5 @@
-from account.models import ReferralProfile, CustomUser
-from master.models import Role, City
+from account.models import ReferralProfile , CustomUser
+from master.models import Role , City
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -14,8 +14,9 @@ from django.contrib.auth.models import auth, Group
 from django.contrib import messages
 
 
-def get_tenure_months(current_age, retirement_age):
+def get_tenure_months(current_age , retirement_age):
     return (retirement_age - current_age)*12
+
 
 
 def register_referral_logic(request):
@@ -46,7 +47,7 @@ def register_referral_logic(request):
         print(system_role)
         print(city)
         user = CustomUser.objects.create_user(username="default", password=password, system_role=system_role,
-                                              email=Email, phone=phone, address=address, pincode=pincode, city=city)
+                                                email=Email, phone=phone, address=address, pincode=pincode, city=city)
 
         print(user)
         user.mapped_to_dept = "Admin"
