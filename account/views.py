@@ -2981,7 +2981,7 @@ def salaried(request, lead_id, additionaldetails_id):
 #     return render(request, 'account/eligibility.html')
 
 
-def check_eligibility(request, lead_id, additionaldetails_id):
+def check_eligibility(request, id):
     lead = Leads.objects.get(pk=id)
     product_and_policy_master = pp.objects.all()
     main_applicant = AdditionalDetails.objects.filter(
