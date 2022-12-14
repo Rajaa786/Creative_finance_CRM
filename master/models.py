@@ -3,15 +3,12 @@ from hashlib import blake2b
 from tokenize import blank_re
 from django.db import models
 from django.conf import settings
+
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-YES_NO_CHOICES = (
-    (None, ('Select Yes Or No')),
-    (True, ('Yes')),
-    (False, ('No'))
-)
+YES_NO_CHOICES = ((None, ("Select Yes Or No")), (True, ("Yes")), (False, ("No")))
 
 
 class Prefix(models.Model):
@@ -213,7 +210,7 @@ class State(models.Model):
 
 
 class City(models.Model):
-    city_name = models.CharField(max_length=25, default='')
+    city_name = models.CharField(max_length=25, default="")
     effective_date = models.DateField(null=True)
     ineffective_date = models.DateField(blank=True, null=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
@@ -290,6 +287,7 @@ class RejectionType(models.Model):
     rejection_reason = models.CharField(max_length=60)
     effective_date = models.DateField(null=True)
     ineffective_date = models.DateField(blank=True, null=True)
+
 
 # Create your models here.
 
@@ -452,16 +450,21 @@ class Tenure(models.Model):
 
 
 class BankCategory(models.Model):
-    bank_name = models.ForeignKey(
-        BankName, on_delete=models.CASCADE, blank=False)
-    company_name = models.ForeignKey(
-        CompanyName, on_delete=models.CASCADE, blank=False)
+    bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE, blank=False)
+    company_name = models.ForeignKey(CompanyName, on_delete=models.CASCADE, blank=False)
     category = models.ForeignKey(
-        CompanyCatergoryTypes, on_delete=models.CASCADE, blank=False)
+        CompanyCatergoryTypes, on_delete=models.CASCADE, blank=False
+    )
     effective_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.bank_name.bank_name + "_" + self.company_name.company_name + "_"+self.category.cocat_type)
+        return str(
+            self.bank_name.bank_name
+            + "_"
+            + self.company_name.company_name
+            + "_"
+            + self.category.cocat_type
+        )
 
 
 class MultiplierCategory(models.Model):
@@ -474,23 +477,29 @@ class MultiplierCategory(models.Model):
 
 class product_and_policy_master(models.Model):
     customer_type = models.ForeignKey(
-        CustomerType, on_delete=models.CASCADE, null=False, blank=False, related_name="cust_types")
+        CustomerType,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name="cust_types",
+    )
     product_name = models.ForeignKey(
-        Product, null=False, blank=False, on_delete=models.CASCADE)
+        Product, null=False, blank=False, on_delete=models.CASCADE
+    )
     bank_names = models.ForeignKey(
-        BankName, on_delete=models.CASCADE, null=False, blank=False)
-    is_salary_account = models.BooleanField(
-        null=False, choices=YES_NO_CHOICES)
+        BankName, on_delete=models.CASCADE, null=False, blank=False
+    )
+    is_salary_account = models.BooleanField(null=False, choices=YES_NO_CHOICES)
     designation = models.ForeignKey(
-        DesignationType, on_delete=models.CASCADE, null=False, blank=False)
+        DesignationType, on_delete=models.CASCADE, null=False, blank=False
+    )
     min_age = models.IntegerField()
     max_age = models.IntegerField()
     internal_customer = models.BigIntegerField()
     external_customer = models.BigIntegerField()
     current_experience = models.IntegerField()
     total_experience = models.IntegerField()
-    cibil_score = models.BigIntegerField(
-        null=False, blank=False)
+    cibil_score = models.BigIntegerField(null=False, blank=False)
     processing_fee = models.BigIntegerField()
     months_for_foir = models.BigIntegerField()
     effective_date = models.DateField(blank=True, null=True)
@@ -504,25 +513,25 @@ class product_and_policy_master(models.Model):
     credit_card_dpd = models.IntegerField()
     credit_card_obligation = models.IntegerField()
     emi_obligation = models.IntegerField()
-    foir_fresh = models.ManyToManyField(
-        FoirCategory, related_name="foir_fresh")
-    foir_bt = models.ManyToManyField(
-        FoirCategory, related_name="foir_bt")
+    foir_fresh = models.ManyToManyField(FoirCategory, related_name="foir_fresh")
+    foir_bt = models.ManyToManyField(FoirCategory, related_name="foir_bt")
     multiplier_fresh = models.ManyToManyField(
-        MultiplierCategory, related_name="multiplier_fresh")
+        MultiplierCategory, related_name="multiplier_fresh"
+    )
     multiplier_bt = models.ManyToManyField(
-        MultiplierCategory, related_name="multiplier_bt")
-    salary_type = models.ManyToManyField(
-        SalaryType)
-    residence_type = models.ManyToManyField(
-        ResidenceType)
-    tenure = models.ManyToManyField(
-        Tenure)
+        MultiplierCategory, related_name="multiplier_bt"
+    )
+    salary_type = models.ManyToManyField(SalaryType)
+    residence_type = models.ManyToManyField(ResidenceType)
+    tenure = models.ManyToManyField(Tenure)
     company_type = models.ManyToManyField(CompanyType)
 
     def __str__(self):
-        s = self.bank_names.bank_name[:4] + \
-            self.product_name.product[:3] + self.customer_type.cust_type[:3]
+        s = (
+            self.bank_names.bank_name[:4]
+            + self.product_name.product[:3]
+            + self.customer_type.cust_type[:3]
+        )
         return s.upper()
 
 

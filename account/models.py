@@ -64,7 +64,7 @@ def create_path(instance, filename):
 
 class CustomUser(AbstractUser):
     system_role = models.ForeignKey(
-        Role, on_delete=models.CASCADE, blank=False, default=None, null=True
+        Role, on_delete=models.CASCADE, blank=True, default=None, null=True
     )
     phone = models.CharField(max_length=10)
     address = models.TextField(blank=False, default="", null=True)
