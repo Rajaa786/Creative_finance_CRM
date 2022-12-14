@@ -3680,7 +3680,7 @@ def customer_details(request):
 @login_required(redirect_field_name="login", login_url="login")
 def partner_list(request):
     users = CustomUser.objects.all()
-    partners = [x for x in users if x.role == "Referral Partner"]
+    partners = [x for x in users if x.system_role.role == "Referral Partner"]
     context = {"partners": partners}
     return render(request, "account/partner_list.html", context=context)
 
