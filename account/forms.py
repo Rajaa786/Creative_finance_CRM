@@ -6,6 +6,7 @@ from django.forms.models import ModelChoiceField, ModelForm
 from django.forms.widgets import EmailInput, NumberInput, TextInput
 from .models import *
 from django.db.models import Q
+from django.utils.safestring import mark_safe
 
 
 class LeadsForm(ModelForm):
@@ -37,8 +38,9 @@ class LeadsForm(ModelForm):
         if 'product' in self.data:
             try:
                 product_id = int(self.data.get('product'))
-                self.fields['sub_product'].queryset = SubProduct.objects.filter(product=product_id)
-                    
+                self.fields['sub_product'].queryset = SubProduct.objects.filter(
+                    product=product_id)
+
             except(ValueError, TypeError):
                 pass
 
@@ -55,7 +57,8 @@ class AdditionalDetailsForm(ModelForm):
         super(AdditionalDetailsForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
-        self.fields['applicant_type'].widget.attrs.update({'readonly': 'true'})
+        self.fields['applicant_type'].widget.attrs.update(
+            {'readonly': 'false'})
         self.fields['is_diff'].widget.attrs.update(
             {'class': 'form-check-input'})
 
@@ -219,10 +222,16 @@ class SalAdditionalOtherIncomesForm(ModelForm):
 
 
 class SalPersonalDetailsForm(ModelForm):
+
+    # cibil_score = forms.CharField(label='Cibil Score',
+    #                         widget=forms.TextInput(attrs={'placeholder': 'Enter 9999, if unsure'}))
+
     def __init__(self, *args, **kwargs):
         super(SalPersonalDetailsForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+            self.fields['cibil_score'].widget.attrs.update({'placeholder': 'Enter 9999 , if not sure'})
+            self.fields['product_id'].label = 'Product'
 
     class Meta:
         model = SalPersonalDetails
@@ -233,9 +242,14 @@ class SalPersonalDetailsForm(ModelForm):
 
 
 class SalCompanyDetailsForm(ModelForm):
+    other_company_name = forms.CharField(widget=forms.TextInput(),
+                                         max_length=20, label=mark_safe(
+            '<a href="https://www.mca.gov.in/content/mca/global/en/home.html" target="_blank">Other Company</a>'))
+
     def __init__(self, *args, **kwargs):
         super(SalCompanyDetailsForm, self).__init__(*args, **kwargs)
         for field in self.fields:
+            self.fields['other_company_name'].widget.attrs.update({'placeholder': 'Click the link above'})
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:

@@ -1,5 +1,5 @@
-from account.models import ReferralProfile , CustomUser
-from master.models import Role , City
+from account.models import ReferralProfile, CustomUser
+from master.models import Role, City
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -14,40 +14,47 @@ from django.contrib.auth.models import auth, Group
 from django.contrib import messages
 
 
-def get_tenure_months(current_age , retirement_age):
-    return (retirement_age - current_age)*12
-
+def get_tenure_months(current_age, retirement_age):
+    return (retirement_age - current_age) * 12
 
 
 def register_referral_logic(request):
 
     print(request.POST)
     group = Group.objects.get(name="Referral Partner")
-    fname = request.POST['fname']
-    system_role = request.POST['system_role']
-    Email = request.POST['email']
-    phone = request.POST['phone']
-    password = request.POST['password']
-    profession = request.POST['profession']
-    if(profession == "Other"):
-        profession = request.POST['other']
-    address = request.POST['address']
-    pincode = request.POST['pincode']
-    city = request.POST['city']
-    has_gst = request.POST['has_gst']
-    reference = request.POST['reference']
-    referral_code = request.POST.get('referral_code', "")
+    fname = request.POST["fname"]
+    system_role = request.POST["system_role"]
+    Email = request.POST["email"]
+    phone = request.POST["phone"]
+    password = request.POST["password"]
+    profession = request.POST["profession"]
+    if profession == "Other":
+        profession = request.POST["other"]
+    address = request.POST["address"]
+    pincode = request.POST["pincode"]
+    city = request.POST["city"]
+    has_gst = request.POST["has_gst"]
+    reference = request.POST["reference"]
+    referral_code = request.POST.get("referral_code", "")
     if CustomUser.objects.filter(email=Email).exists():
-        messages.info(request, 'Email Taken')
-        return redirect('register_referral')
+        messages.info(request, "Email Taken")
+        return redirect("register_referral")
     else:
         system_role = Role.objects.filter(role=system_role).first()
         city = City.objects.filter(city_name=city).first()
         print(profession)
         print(system_role)
         print(city)
-        user = CustomUser.objects.create_user(username="default", password=password, system_role=system_role,
-                                                email=Email, phone=phone, address=address, pincode=pincode, city=city)
+        user = CustomUser.objects.create_user(
+            username="default",
+            password=password,
+            system_role=system_role,
+            email=Email,
+            phone=phone,
+            address=address,
+            pincode=pincode,
+            city=city,
+        )
 
         print(user)
         user.mapped_to_dept = "Admin"
@@ -57,7 +64,13 @@ def register_referral_logic(request):
         user.save()
 
     referral_profile = ReferralProfile.objects.create(
-        user=user, full_name=fname, profession=profession, has_GST=has_gst, reference=reference, referral_code=referral_code)
+        user=user,
+        full_name=fname,
+        profession=profession,
+        has_GST=has_gst,
+        reference=reference,
+        referral_code=referral_code,
+    )
     referral_profile.save()
     ini = ""
     if referral_profile.profession == "Salaried":
@@ -90,55 +103,69 @@ def register_referral_logic(request):
         ini += "O"
     if user.system_role.role == "Referral Partner":
         ini += "RP"
-    num = '{:04d}'.format(user.id)
-    newusername = ini+num
+    num = "{:04d}".format(user.id)
+    newusername = ini + num
     user.username = newusername
     user.save()
     if user.system_role.role == "Referral Partner":
         ini = "ORP"
-        num = '{:03d}'.format(user.id)
-        newusername = ini+num
+        num = "{:03d}".format(user.id)
+        newusername = ini + num
         user.username = newusername
         user.save()
     uidb64_pk = urlsafe_base64_encode(force_bytes(user.pk))
     uidb64_hash = urlsafe_base64_encode(force_bytes(password))
     domain = get_current_site(request).domain
-    link = reverse('activate', kwargs={
-        'uidb64_pk': uidb64_pk, 'uidb64_hash': uidb64_hash, 'token': token_generator.make_token(user)})
-    activate_url = "http://"+domain+link
-    email_body = 'Hi ' + referral_profile.full_name + \
-        ' Please use this link to verify your account\n' + activate_url
+    link = reverse(
+        "activate",
+        kwargs={
+            "uidb64_pk": uidb64_pk,
+            "uidb64_hash": uidb64_hash,
+            "token": token_generator.make_token(user),
+        },
+    )
+    activate_url = "http://" + domain + link
+    email_body = (
+        "Hi "
+        + referral_profile.full_name
+        + " Please use this link to verify your account\n"
+        + activate_url
+    )
     email = EmailMessage(
-        'Activate your account',
+        "Activate your account",
         email_body,
-        'rohan@gmail.com',
+        "rohan@gmail.com",
         [Email],
     )
     email.send(fail_silently=False)
     # template = get_template('account/Agreement.html')
-    context = {
-        "partner_name": referral_profile.full_name
-    }
+    context = {"partner_name": referral_profile.full_name}
     # html = template.render(context)
-    pdf = render_to_pdf('account/Agreement.html', context)
+    pdf = render_to_pdf("account/Agreement.html", context)
 
-    response = HttpResponse(pdf, content_type='application/pdf')
+    response = HttpResponse(pdf, content_type="application/pdf")
     filename = "Agreement_%s.pdf" % (user.username)
 
     content = "attachment; filename='%s'" % (filename)
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    response["Content-Disposition"] = 'attachment; filename="report.pdf"'
     referral_profile.agreement.save(filename, ContentFile(pdf.content))
     print(referral_profile.agreement)
     message = "this is test mail"
     subject = "terms and conditions"
-    mail_id = request.POST.get('email', '')
+    mail_id = request.POST.get("email", "")
     email = EmailMessage(
-        subject, message, EMAIL_HOST_USER, [mail_id, ])
-    email.content_subtype = 'html'
+        subject,
+        message,
+        EMAIL_HOST_USER,
+        [
+            mail_id,
+        ],
+    )
+    email.content_subtype = "html"
 
     email.send()
 
-    return redirect('email_ver_msg')
+    return redirect("email_ver_msg")
 
     # return referral
 
@@ -154,6 +181,6 @@ def register_staff_logic():
 
 
 register_manager_dict = {
-    'Referral Partner': register_referral_logic,
-    'Vendor': register_vendor_logic
+    "Referral Partner": register_referral_logic,
+    "Vendor": register_vendor_logic,
 }
