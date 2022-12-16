@@ -1350,48 +1350,7 @@
 				</div>
 			</div>
 			
-			<div class="card z-index-2 pb-3 mb-5">
-				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
-						<div class="row">
-							<div class="col">
-								<a data-bs-toggle="collapse" href="#Degree" role="button" aria-expanded="false" aria-controls="Degree">
-									<h4 class="card-title fw-bold text-light">Bank Name</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
-								</a>
-							</div>
-							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addDegree"><span class="material-icons">add</span> Add</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="collapse card-body" id="Degree">
-					<div class="table-responsive">
-						<table class="table">
-							<thead class=" text-primary">
-								<tr>
-									<th class="px-2">Degree</th>
-									<th class="px-2">Effective Date</th>
-									<th class="px-2">Ineffective Date</th>
-									<th class="px-2">Edit</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for degree in degrees %}
-								<tr>
-									<td>{{ degree.degree }}</td>
-									<td>{{ degree.effective_date }}</td>
-									<td>{{ degree.ineffective_date }}</td>
-									<td><a href={% url 'editdegree' id=degree.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+			
 			<div class="modal fade" id="addDegree" tabindex="-1" role="dialog" aria-labelledby="addDegree" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">

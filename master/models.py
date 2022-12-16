@@ -346,13 +346,13 @@ class IncentivesType(models.Model):
         return self.incentives_type
 
 
-class DeductionType(models.Model):
-    deduction_type = models.CharField(max_length=30)
-    effective_date = models.DateField(null=True)
-    ineffective_date = models.DateField(blank=True, null=True)
+# class DeductionType(models.Model):
+#     deduction_type = models.CharField(max_length=30)
+#     effective_date = models.DateField(null=True)
+#     ineffective_date = models.DateField(blank=True, null=True)
 
-    def __str__(self):
-        return self.deduction_type
+#     def __str__(self):
+#         return self.deduction_type
 
 
 class LesseType(models.Model):

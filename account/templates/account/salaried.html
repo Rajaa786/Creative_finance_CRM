@@ -37,7 +37,7 @@
                 </div>
                 <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
                      data-bs-target="#otherIncomes">
-                    <b>Other Incomes Details</b>
+                    <b>Other Income Details</b>
                 </div>
                 <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
                      data-bs-target="#otherThanIncomeMentionedAbove">
@@ -423,10 +423,12 @@
         {% endfor %}
         var id_company_name, id_other_company_name, id_how_old_is_agreement, id_will_you_make_agreement,
             id_valid_rent_agreement, id_lessee_name, id_lessee_type, id_bonus_amount, id_repayment_history_col,
-            id_product_id,
+            id_product_id,id_Other_Bank_Name,id_bank_name,
             id_loan_inquiry_disbursement_details, id_cibil_score,
             id_degree_others, id_degree, id_lawyerType, id_country;
         $(document).ready(function () {
+            id_Other_Bank_Name = $('#id_Other_Bank_Name').parent().parent();
+            id_bank_name = $('#id_bank_name').parent().parent();
             id_company_name = $('#id_company_name').parent().parent();
             id_other_company_name = $('#id_other_company_name').parent().parent();
             id_how_old_is_agreement = $('#id_how_old_is_agreement').parent().parent();
@@ -447,10 +449,19 @@
             id_degree_others.hide();
             id_degree = $('#id_degree').parent().parent();
             id_degree.hide();
-            id_lawyerType = $('#id_lawyerType').parent().parent();
-            id_lawyerType.hide();
+            id_Lawyer_Type = $('#id_Lawyer_Type').parent().parent();
+            id_Lawyer_Type.hide();
             id_country = $('#id_country').parent().parent();
             id_country.hide();
+        });
+
+        $(document).on('change', '#id_bank_name', function () {
+            var bank_name = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (bank_name === "Other") {
+                id_Other_Bank_Name.show();
+            } else {
+                id_Other_Bank_Name.hide();
+            }
         });
 
         $(document).on('change', '#id_company_name', function () {
@@ -535,13 +546,13 @@
             var profession_name = $('option[value="' + $(this).val() + '"]:selected').text();
             if (profession_name === "Doctor") {
                 id_degree.show();
-                id_lawyerType.hide();
+                id_Lawyer_Type.hide();
             } else if (profession_name === "Lawyer") {
                 id_degree.hide();
-                id_lawyerType.show();
+                id_Lawyer_Type.show();
             } else {
                 id_degree.hide();
-                id_lawyerType.hide();
+                id_Lawyer_Type.hide();
             }
         });
         $(document).on('change', '#id_nationality', function () {

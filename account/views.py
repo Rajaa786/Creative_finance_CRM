@@ -109,7 +109,7 @@ def lead_update(request, pk):
                 # if form.is_valid():
                 #     name = form.cleaned_data['name']
                 #     ref = request.POST['ref']
-                #     #username   = form.cleaned_data['username']
+                #     #username   = form.cleaned_data['username'
                 #     email = form.cleaned_data['email']
                 #     #password1  = request.POST['password1']
                 #     #password2  = request.POST['password2']
@@ -2180,6 +2180,7 @@ def salaried(request, lead_id, additionaldetails_id):
 
         if "personal_details" in request.POST:
             form = SalPersonalDetailsForm(request.POST)
+            print(request.POST)
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.additional_details_id = AdditionalDetails.objects.get(
@@ -2189,11 +2190,12 @@ def salaried(request, lead_id, additionaldetails_id):
                 messages.success(request, '"Personal Details" Saved Successfully')
                 check_salaried_details_form_list["personal_details"] = True
 
-                return redirect("account:salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
         elif "income_details" in request.POST:
+            print(request.POST)
             form = SalIncomeDetailsForm(request.POST)
             if form.is_valid():
                 instance = form.save(commit=False)
@@ -2204,11 +2206,11 @@ def salaried(request, lead_id, additionaldetails_id):
                 messages.success(request, '"Income Details" Saved Successfully')
                 check_salaried_details_form_list["income_details"] = True
 
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "other_incomes" in request.POST:
             form = SalOtherIncomesForm(request.POST)
@@ -2221,10 +2223,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 messages.success(request, '"Other Incomes Details" Saved Successfully')
                 check_salaried_details_form_list["other_incomes"] = True
 
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "additional_other_incomes" in request.POST:
             form = SalAdditionalOtherIncomesForm(request.POST)
@@ -2239,10 +2241,10 @@ def salaried(request, lead_id, additionaldetails_id):
                     '"Other than Income Mentioned Above Details" Saved Successfully',
                 )
                 check_salaried_details_form_list["additional_other_incomes"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "company_details" in request.POST:
             form = SalCompanyDetailsForm(request.POST)
@@ -2254,10 +2256,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Company Details" Saved Successfully')
                 check_salaried_details_form_list["company_details"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "residence_details" in request.POST:
             form = SalResidenceDetailsForm(request.POST)
@@ -2269,10 +2271,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Residence Details" Saved Successfully')
                 check_salaried_details_form_list["residence_details"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "existing_loan_details" in request.POST:
             form = SalExistingLoanDetailsForm(request.POST)
@@ -2284,10 +2286,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Existing Loan Details" Saved Successfully')
                 check_salaried_details_form_list["existing_loan_details"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "existing_card_details" in request.POST:
             form = SalExistingCreditCardForm(request.POST)
@@ -2299,10 +2301,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Existing Card Details" Saved Successfully')
                 check_salaried_details_form_list["existing_card_details"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
         elif "additional_details" in request.POST:
             form = SalAdditionalDetailsForm(request.POST)
@@ -2314,10 +2316,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Additional Details" Saved Successfully')
                 check_salaried_details_form_list["additional_details"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
         elif "investment" in request.POST:
             form = SalInvestmentsForm(request.POST)
             if form.is_valid():
@@ -2328,10 +2330,10 @@ def salaried(request, lead_id, additionaldetails_id):
                 instance.save()
                 messages.success(request, '"Investment Details" Saved Successfully')
                 check_salaried_details_form_list["investment"] = True
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
             else:
                 messages.error(request, form.errors)
-                return redirect("salaried", id)
+                return redirect("salaried", lead_id, additionaldetails_id)
 
     additional_details_instance = AdditionalDetails.objects.get(pk=additionaldetails_id)
     # qualifications_list = []
