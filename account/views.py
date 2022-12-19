@@ -193,10 +193,9 @@ def register(request):
         redir = register_manager_dict[request.POST['system_role']](request)
         print(redir)
         return redir
-    
 
     # print("redir******")
-        
+
     # context = {
     #     'roles': Role.objects.all(),
     #     'professions': Profession.objects.all(),
@@ -209,19 +208,17 @@ def register(request):
 # @login_required()
 @public
 def register_referral(request):
-        context = {
-            'role': Role.objects.filter(role="Referral Partner").first(),
-            'professions': Profession.objects.all(),
-            'cities': City.objects.all()
+    context = {
+        'role': Role.objects.filter(role="Referral Partner").first(),
+        'professions': Profession.objects.all(),
+        'cities': City.objects.all()
 
-        }
+    }
 
-
-
-        if request.user.is_authenticated:
-            return render(request, 'account/register.html', context=context)
-        else :
-            return render(request, 'account/register_non_admin.html' , context=context)
+    if request.user.is_authenticated:
+        return render(request, 'account/register.html', context=context)
+    else:
+        return render(request, 'account/register_non_admin.html', context=context)
 
 
 def register_staff(request):
@@ -272,7 +269,7 @@ class VerificationView(View):
 
     @method_decorator(public)
     def dispatch(self, *args, **kwargs):
-    	        return super(VerificationView, self).dispatch(*args, **kwargs)
+        return super(VerificationView, self).dispatch(*args, **kwargs)
 
 
 @public
@@ -295,7 +292,7 @@ def login(request):
                 print("POST ", request.POST['next'])
                 return redirect(request.POST['next'])
 
-            if user.is_superuser :
+            if user.is_superuser:
                 return redirect('base_dashboard')
             elif user.system_role.role == "Referral Partner":
                 return redirect('base_dashboard')
@@ -1190,8 +1187,8 @@ def additionaldetails(request, id):
 def addtionalDetailsNext_Btn_Handler(request, lead_id):
     lead = Leads.objects.get(pk=lead_id)
     main_applicant = AdditionalDetails.objects.filter(lead_id=lead).first()
-        #lead_id=lead, applicant_type__applicant_type='Applicant').first()
-        
+    # lead_id=lead, applicant_type__applicant_type='Applicant').first()
+
     return redirect('salaried', lead_id, main_applicant.pk)
 
 
@@ -2710,9 +2707,10 @@ def check_eligibility(request, id):
     main_applicant_existing_credit_card_details = SalExistingCreditCard.objects.filter(
         addi_details_id=main_applicant).first()
 
-    main_applicant_residence_details = SalResidenceDetails.objects.filter(addi_details_id=main_applicant).first()
+    main_applicant_residence_details = SalResidenceDetails.objects.filter(
+        addi_details_id=main_applicant).first()
 
-    product_and_policy_master = product_and_policy_master.objects.all()
+    product_and_policy_master = Product_and_Policy_Master.objects.all()
 
 # Personal Details
 #     cibil_score =
@@ -2728,43 +2726,45 @@ def check_eligibility(request, id):
                                                                        'loancap': "Couldn't be calculated", 'eligibility': ELIGIBLE,
                                                                        'pro': product.processing_fee, 'reason': '', 'cocat_no': "Couldn't be calculated",
                                                                        'reasons': [],
-                                                                       'foir_fresh_calculations' : [],
-                                                                       'foir_bt_calculations' : [],
-                                                                       'multiplier_fresh_calculations' : [],
-                                                                       'multiplier_bt_calculations' : []
+                                                                       'foir_calculations': [],
+                                                                       'multiplier_calculations': []
                                                                        }
 
             # /********* Personal Details Check ************/
-            if not check_cibil_score(main_applicant_personal_details.cibil_score, product.cibil_score):
-                store_eligibility_details[product.bank_names.bank_name]['reasons'].append = "Less Cibil Score"
-                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
-            # if main_applicant_personal_details.cibil_score < product.cibil_score :
+            # if not check_cibil_score(main_applicant_personal_details.cibil_score, product.cibil_score):
+            #     store_eligibility_details[product.bank_names.bank_name]['reasons'].append = "Less Cibil Score"
+            #     store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+            # # if main_applicant_personal_details.cibil_score < product.cibil_score :
 
-            store_eligibility_details[product.bank_names.bank_name]['available_tenures'] , product_max_tenure = check_tenure_availability(
-                main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age, main_applicant_personal_details.tenure, product)
+            # store_eligibility_details[product.bank_names.bank_name]['available_tenures'], store_eligibility_details[product.bank_names.bank_name]['product_max_tenures'], store_eligibility_details[product.bank_names.bank_name]['tenure_available'] = check_tenure_availability(
+            #     main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age, main_applicant_personal_details.tenure, product)
 
             # /********* Income Details Check ************/
             if not check_salary_type(main_applicant_income_details.salary_type.salary_type):
                 store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
                 store_eligibility_details[product.bank_names.bank_name][
-                    'reasons'].append = "Salary Type must only be Bank Transfer"
+                    'reasons'].append("Salary Type must only be Bank Transfer")
 
-            if not check_gross_salary(main_applicant_income_details.gross_sal, product.gross_min, product.gross_max):
-                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
-                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+            # if not check_gross_salary(main_applicant_income_details.gross_sal, product.gross_min, product.gross_max):
+            #     store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+            #     store_eligibility_details[product.bank_names.bank_name]['reasons'].append(
+            #         "Check Gross Salary")
 
-            if not check_net_salary(main_applicant_income_details.net_sal, product.net_min, product.net_max):
-                store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
-                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+            # if not check_net_salary(main_applicant_income_details.net_sal, product.net_min, product.net_max):
+            #     store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
+            #     store_eligibility_details[product.bank_names.bank_name]['reasons'].append(
+            #         "Net Salary")
 
             # /********* Company Details Check ************/
-            if check_company_type(main_applicant_company_details.company_type.company_type.company_type):
+            if check_company_type(main_applicant_company_details.company_type.company_type):
                 store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
-                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].append(
+                    "Company Type")
 
             if check_designation_type(main_applicant_company_details.designation_type.desg_type):
                 store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
-                #    store_eligibility_details['reasons'].append = "Salary Type must only be Bank Transfer"
+                store_eligibility_details[product.bank_names.bank_name]['reasons'].append(
+                    "Designation Type")
 
             experience_info_ = check_current_and_total_experience(
                 main_applicant_company_details.current_experience, main_applicant_company_details.total_experience, product.current_experience, product.total_experience)
@@ -2776,139 +2776,115 @@ def check_eligibility(request, id):
             if check_employment_type(main_applicant_company_details.employment_type.employment_type):
                 store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
 
-
-
             if check_residence_type(main_applicant_residence_details):
                 store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
 
-
-
-
+            # store_eligibility_details[product.bank_names.bank_name]['eligibility'] = NOT_ELIGIBLE
 
             if store_eligibility_details[product.bank_names.bank_name]['eligibility']:
 
-                related_bank_categories = get_related_bank_categories(
+                main_applicant_bank_category = get_related_bank_categories(
                     product.bank_names, main_applicant_company_details.company_name)
                 # for bank_category in related_bank_category:
-                categ = related_bank_categories.category
-                store_eligibility_details[product.bank_names.bank_name]['category'] = related_bank_categories.category.cocat_type
+                categ = main_applicant_bank_category.category.cocat_type
+                store_eligibility_details[product.bank_names.bank_name]['category'] = categ
 
+                multiplier_info = product.multiplier_info.filter(
+                    cocat_type=categ).first()
+                foir_info = product.foir_info.filter(cocat_type=categ).first()
+                roi_info = product.rate_of_interest.filter(
+                    cocat_type=categ).first()
 
-                # /******************             Calculation of Multiplier               ****************/
-                # Multiplier Fresh
-                for multiplier_fresh in product.multiplier_fresh.all():
-                    if multiplier_fresh.cocat_type == related_bank_categories.category.cocat_type:
-                        store_eligibility_details[product.bank_names.bank_name][
-                            'multiplier_fresh'] = multiplier_fresh.multiplier_number
-                        roi = multiplier_fresh.roi
-                        eligible_amount = multiplier_fresh.multiplier_number * \
+                for tenure in Tenure.objects.all():
+
+                    if not check_tenure_availability(
+                            main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age, main_applicant_personal_details.tenure, tenure):
+                        continue
+                    print(tenure.ten_type)
+
+                # /****************** Calculation of Multiplier  ****************/
+
+                    multiplier_data = multiplier_info.multiplier_data.filter(
+                        min_salary__lte=main_applicant_income_details.net_sal, max_salary__gte=main_applicant_income_details.net_sal).first()
+
+                    associated_tenure_multiplier = multiplier_data.tenure_multipliers.filter(
+                        associated_tenure=tenure).first()
+
+                    if associated_tenure_multiplier:
+
+                        # print(associated_tenure_multiplier.multiplier)
+
+                        eligible_amount = associated_tenure_multiplier.multiplier * \
                             main_applicant_income_details.net_sal
-                        store_eligibility_details[product.bank_names.bank_name]['eligible_amount_fresh'] = eligible_amount
-                        eligible_amount = min(
-                            eligible_amount, multiplier_fresh.max_loan_amt, lead.loan_amt)
-                        # store_eligibility_details[product.bank_names.bank_name]['loancap_fresh'] = eligible_amount
-                        if eligible_amount :
-                            store_eligibility_details[product.bank_names.bank_name]['multiplier_fresh_calculations'].append(eligible_amount)
-                            eligible_amount = 0
+
+                        tmp = {'associated_tenure': tenure.ten_type,
+                               'eligible_amount': eligible_amount,
+                               'multiplier': associated_tenure_multiplier.multiplier,
+                               }
+
+                        store_eligibility_details[product.bank_names.bank_name]['multiplier_calculations'].append(
+                            tmp)
+
+                # /******************  Calculation of Foir ****************/
+                    foir_data = foir_info.foir_data.filter(
+                        min_salary__lte=main_applicant_income_details.net_sal, max_salary__gte=main_applicant_income_details.net_sal).first()
+
+                    associated_tenure_foir = foir_data.tenure_foirs.filter(
+                        associated_tenure=tenure).first()
+
+                    if associated_tenure_foir:
+
+                        cust_considerable_amount = main_applicant_income_details.net_sal * \
+                            associated_tenure_foir.foir / 100
+
+                        limit_utilized = main_applicant_existing_credit_card_details.limit_utilized
+                        if limit_utilized:
+                            obligation_amount = limit_utilized * product.credit_card_obligation / 100
+
+                        d1 = main_applicant_existing_loan_details.emi_start_date
+                        d2 = main_applicant_existing_loan_details.emi_end_date
+                        emi_dration_remaining = abs(d2 - d1).days
+                        pending_emi_duration_upperbound = PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND * 30
+                        if emi_dration_remaining > pending_emi_duration_upperbound:
+
+                            obligation_amount = obligation_amount + main_applicant_existing_loan_details.emi
+
+                        print(obligation_amount)
+
+                        roi_data = roi_info.additional_rate_info.filter(
+                            min_salary__lte=main_applicant_income_details.net_sal, max_salary__gte=main_applicant_income_details.net_sal,
+                            loan_min_amount__lte=main_applicant_personal_details.loan_amount, loan_max_amount__gte=main_applicant_personal_details.loan_amount).first()
+
+                        principal = -100000
+                        rate = roi_data.rate_of_interest / (12 * 100)
+                        # tenure_in_months = get_tenure_months(
+                        #     main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age)
+                        # tenure_in_months = min(
+                        # tenure_in_months, product_max_tenure)
+                        tenure_in_months = tenure.ten_type * 12
+
+                        cust_considerable_amount = cust_considerable_amount - obligation_amount
                     
-
-                # Multiplier Balanced Transfer
-                for multiplier_bt in product.multiplier_bt.all():
-                    if multiplier_bt.cocat_type == related_bank_categories.category.cocat_type:
-                        store_eligibility_details[product.bank_names.bank_name][
-                            'multiplier_bt'] = multiplier_fresh.multiplier_number
-                        roi = multiplier_fresh.roi
-                        eligible_amount = multiplier_fresh.multiplier_number * \
-                            main_applicant_income_details.net_sal
-                        store_eligibility_details[product.bank_names.bank_name]['eligible_amount_fresh'] = eligible_amount
-                        eligible_amount = min(
-                            eligible_amount, multiplier_fresh.max_loan_amt, lead.loan_amt)
-                        # store_eligibility_details[product.bank_names.bank_name]['loancap_fresh'] = eligible_amount
-                        if eligible_amount :
-                            store_eligibility_details[product.bank_names.bank_name]['multiplier_bt_calculations'].append(eligible_amount)
-
-
-                # /******************             Calculation of Foir               ****************/
-                # Foir Fresh
-                for foir_fresh in product.foir_fresh.all():
-                    if foir_fresh.cocat_type == related_bank_categories.cocat_type:
-
-                        obligation_amount_fresh = 0
-
-                        cust_considerable_amount = main_applicant_income_details.net_sal * \
-                            foir_fresh.cutoff / 100
-
-                        limit_utilized = main_applicant_existing_credit_card_details.limit_utilized
-                        if limit_utilized:
-                            obligation_amount_fresh = limit_utilized * product.credit_card_obligation / 100
-
-                        d1 = main_applicant_existing_loan_details.emi_start_date
-                        d2 = main_applicant_existing_loan_details.emi_end_date
-                        emi_dration_remaining = abs(
-                            d2 - d1).days
-                        pending_emi_duration_upperbound = PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND * 30
-                        if emi_dration_remaining > pending_emi_duration_upperbound:
-                            obligation_amount_fresh = obligation_amount_fresh + \
-                                main_applicant_existing_loan_details.emi
-
-                        principal = -100000
-                        rate = foir_fresh.roi / (12 * 100)
-                        tenure_in_months = get_tenure_months(main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age)
-                        tenure_in_months = min(tenure_in_months , product_max_tenure)
-                        cust_considerable_amount = cust_considerable_amount - obligation_amount_fresh
                         if cust_considerable_amount > 0:
-                            emis = pmt(rate=rate , nper=tenure_in_months , pv=principal)
+                            emis = pmt(
+                                rate=rate, nper=tenure_in_months, pv=principal)
                             eligible_loan_amount = round(
                                 cust_considerable_amount / emis, 5) * 100000
-                            eligible_loan_amount = min(
-                                lead.loan_amt, eligible_loan_amount , foir_bt.max_loan_amt)
-                            store_eligibility_details[product.bank_names.bank_name]['foir_fresh_calculations'].append(eligible_loan_amount)
-                            eligible_loan_amount = 0
+                            # eligible_loan_amount = min(lead.loan_amt, eligible_loan_amount)
 
+                        tmp = {'associated_tenure': tenure.ten_type,
+                               'eligible_amount': eligible_loan_amount,
+                               'foir': associated_tenure_foir.foir,
+                               'roi': roi_data.rate_of_interest,
+                               }
 
-                # Foir Balanced Transfer
-                for foir_bt in product.foir_bt.all():
-                    if foir_bt.cocat_type == related_bank_categories.cocat_type:
-
-                        obligation_amount_bt = 0
-
-                        cust_considerable_amount = main_applicant_income_details.net_sal * \
-                            foir_bt.cutoff / 100
-
-                        limit_utilized = main_applicant_existing_credit_card_details.limit_utilized
-                        if limit_utilized:
-                            obligation_amount_bt = limit_utilized * product.credit_card_obligation / 100
-
-                        d1 = main_applicant_existing_loan_details.emi_start_date
-                        d2 = main_applicant_existing_loan_details.emi_end_date
-                        emi_dration_remaining = abs(
-                            d2 - d1).days
-                        pending_emi_duration_upperbound = PENDING_EMI_OBLIGATION_DURATION_UPPER_BOUND * 30
-                        if emi_dration_remaining > pending_emi_duration_upperbound:
-                            obligation_amount_bt = obligation_amount_bt + \
-                                main_applicant_existing_loan_details.emi
-
-                        principal = -100000
-                        rate = foir_bt.roi / (12 * 100)
-                        tenure_in_months = get_tenure_months(main_applicant_personal_details.age,  main_applicant_personal_details.retirement_age)
-                        tenure_in_months = min(tenure_in_months , product_max_tenure)
-                        cust_considerable_amount = cust_considerable_amount - obligation_amount_fresh
-                        if cust_considerable_amount > 0:
-                            emis = pmt(rate=rate , nper=tenure_in_months , pv=principal)
-                            eligible_loan_amount = round(
-                                cust_considerable_amount / emis, 5) * 100000
-                            eligible_loan_amount = min(
-                                lead.loan_amt, eligible_loan_amount , foir_bt.max_loan_amt)
-                            store_eligibility_details[product.bank_names.bank_name]['foir_bt_calculations'].append(eligible_loan_amount)
-
-
+                        store_eligibility_details[product.bank_names.bank_name]['foir_calculations'].append(
+                            tmp)
 
     context = {
-        "s" : store_eligibility_details
+        "eligibility_details_data": store_eligibility_details
     }
-    return render(request , "account/temporary_test_eligibility.html" , context=context)
-
-
+    return render(request, "account/temporary_test_eligibility.html", context=context)
 
 
 def selfemployed(request):

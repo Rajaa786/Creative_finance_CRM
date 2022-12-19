@@ -7,6 +7,79 @@
     <title>Document</title>
 </head>
 <body>
-    <h4>{{s}}</h4>
+    {% for bank , data in eligibility_details_data.items %}
+    <div>{{data}}</div>
+    {% comment %} <h4>{{eligibility_details_data}}</h4> {% endcomment %}
+    {% if data.multiplier_calculations %}
+    <div class="mb-3 table-responsive">
+        <table class="m-0 table table-bordered">
+            <thead>
+                <tr>
+                    <th>Bank</th>
+                    <th>Loan Required</th>
+                    <th>Loan Eligibility</th>
+                    <th>Tenure</th>
+                    <th>Multiplier</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for multiplier_calculations in  data.multiplier_calculations %}
+                <tr>
+                    <td>{{bank}}</td>
+                    <td>{{data.loanamt}}</td>
+                    <td>{{multiplier_calculations.eligible_amount}}</td>
+                    <td>{{multiplier_calculations.associated_tenure}}</td>
+                    <td>{{multiplier_calculations.multiplier}}</td>
+                </tr>
+                {% endfor %}
+                
+                 
+            </tbody>
+            
+            <tfoot>
+                
+            </tfoot>
+        </table>
+    </div>
+    {% endif %}
+
+
+    {% if data.foir_calculations %}
+    <div class="mb-3 table-responsive">
+        <table class="m-0 table table-bordered">
+            <thead>
+                <tr>
+                    <th>Bank</th>
+                    <th>Loan Required</th>
+                    <th>Loan Eligibility</th>
+                    <th>Tenure</th>
+                    <th>Foir</th>
+                    <th>ROI</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for foir_calculations in  data.foir_calculations %}
+                <tr>
+                    <td>{{bank}}</td>
+                    <td>{{data.loanamt}}</td>
+                    <td>{{foir_calculations.eligible_amount}}</td>
+                    <td>{{foir_calculations.associated_tenure}}</td>
+                    <td>{{foir_calculations.foir}}</td>
+                    <td>{{foir_calculations.roi}}</td>
+                </tr>
+                {% endfor %}
+                
+                 
+            </tbody>
+            
+            <tfoot>
+                
+            </tfoot>
+        </table>
+    </div>
+    {% endif %}
+    {% endfor %}
 </body>
 </html>

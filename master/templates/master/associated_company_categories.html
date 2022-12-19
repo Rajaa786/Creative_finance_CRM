@@ -1,0 +1,364 @@
+<div class="wrapper">
+    <h4>Multiplier</h4>
+    {% for categories in associatedCompanyCategories%}
+    <div class="mb-3 table-responsive">
+        <table class="m-0 table table-bordered">
+            <thead>
+                <tr>
+                    <th class="category_heading" colspan="1000">
+                        {{categories.cocat_type}}
+                    </th>
+                </tr>
+
+                <tr>
+                    <th class="salary_heading" rowspan="2" colspan="2" scope="col">
+                        Salary Range
+                    </th>
+                    <th class="tenure_heading" colspan="1000" scope="col">Tenures</th>
+                </tr>
+                <tr>
+                    {% for tenure in tenures %}
+                    <th>{{tenure.ten_type}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody id="{{categories.pk}}_multiplier_table_body">
+                <input type="hidden" name="row_count_per_cocat_type_multiplier" value="1" />
+
+                <tr>
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control salary_range_input"
+                                name="{{categories.pk}}_multiplier_min_salary" type="number" style=""
+                                placeholder="Min Net Salary" onfocus="focused(this)" onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control salary_range_input"
+                                name="{{categories.pk}}_multiplier_max_salary" type="number" style=""
+                                placeholder="Max Net Salary" onfocus="focused(this)" onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+                    {% for tenure in tenures %}
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control multiplier_input" name="{{categories.pk}}_multiplier_no_1"
+                                type="number" style="" placeholder="Multiplier" onfocus="focused(this)"
+                                onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+
+                    {% endfor %}
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <td colspan="1000">
+                    <button class="addMultiplierRow btn btn-primary" type="button" data-cat-type="{{categories.pk}}"
+                        data-calculation-type="_multiplier">
+                        Add Row +
+                    </button>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+    {% endfor %}
+
+    <h4 class="mt-6">FOIR</h4>
+    {% for categories in associatedCompanyCategories%}
+    <div class="mb-3 table-responsive">
+        <input type="hidden" name="total_cocat_types" value="{{categories.pk}}" />
+
+        <table class="m-0 table table-bordered">
+            <thead>
+                <tr>
+                    <th class="category_heading" colspan="1000">
+                        {{categories.cocat_type}}
+                    </th>
+                </tr>
+
+                <tr>
+                    <th class="salary_heading" rowspan="2" colspan="2" scope="col">
+                        Salary Range
+                    </th>
+                    <th class="tenure_heading" colspan="1000" scope="col">Tenures</th>
+                </tr>
+                <tr>
+                    {% for tenure in tenures %}
+                    <th>{{tenure.ten_type}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody id="{{categories.pk}}_foir_table_body">
+                <input type="hidden" name="row_count_per_cocat_type_foir" value="1" />
+
+                <tr>
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control salary_range_input" name="{{categories.pk}}_foir_min_salary"
+                                type="number" style="" placeholder="Min Net Salary" onfocus="focused(this)"
+                                onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control salary_range_input" name="{{categories.pk}}_foir_max_salary"
+                                type="number" style="" placeholder="Max Net Salary" onfocus="focused(this)"
+                                onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+                    {% for tenure in tenures %}
+                    <td>
+                        <div class="input-group input-group-static">
+                            <input class="form-control multiplier_input" name="{{categories.pk}}_foir_no_1"
+                                type="number" style="" placeholder="FOIR(%)" onfocus="focused(this)"
+                                onfocusout="defocused(this)" />
+                        </div>
+                    </td>
+
+                    {% endfor %}
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <td colspan="1000">
+                    <button class="addMultiplierRow btn btn-primary" type="button" data-cat-type="{{categories.pk}}"
+                        data-calculation-type="_foir">
+                        Add Row +
+                    </button>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+    {% endfor %}
+
+    <h4>Rate of Interest</h4>
+    {% for categories in associatedCompanyCategories%}
+
+    <div id="rate_container">
+        <div class="mb-3 table-responsive">
+            <table class="m-0 table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="category_heading" colspan="1000">
+                            {{categories.cocat_type}}
+                        </th>
+                    </tr>
+                </thead>
+
+                <tr>
+                    <th class="tenure_heading" rowspan="2" colspan="2" scope="col">
+                        Loan Amount Range
+                    </th>
+                    <th colspan="1000" class="tenure_heading" scope="col">Salary Range</th>
+                </tr>
+
+                <tr id="{{categories.pk}}_salary_range_container">
+                    <td>
+
+                        <table width="100%" class="m-0 table table-bordered">
+                            <tr>
+                                <td>
+                                    <div class="input-group input-group-static">
+                                        <input class="form-control salary_range_input" name="{{categories.pk}}_rate_min_salary"
+                                            type="number" placeholder="Min Net Salary" onfocus="focused(this)"
+                                            onfocusout="defocused(this)" />
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="input-group input-group-static">
+                                        <input class="form-control salary_range_input" name="{{categories.pk}}_rate_max_salary"
+                                            type="number" placeholder="Max Net Salary" onfocus="focused(this)"
+                                            onfocusout="defocused(this)" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tbody id="{{categories.pk}}_rate_table_body">
+
+                    <input type="hidden" name="row_count_per_cocat_type_rate" value=1 />
+
+                    <tr class="{{categories.pk}}_rate_info_row" data-instance-count="1">
+                        <td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_min_amt" type="number"
+                                    placeholder="Min Loan Amount" onfocus="focused(this)"
+                                    onfocusout="defocused(this)" />
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_max_amt" type="number"
+                                    placeholder="Max Loan Amount" onfocus="focused(this)"
+                                    onfocusout="defocused(this)" />
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input" name="{{categories.pk}}_rate_of_interest_no_1" type="number"
+                                    placeholder="Rate of Interest" onfocus="focused(this)"
+                                    onfocusout="defocused(this)" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tfoot>
+                    <td>
+                        <button class="addRateRow btn btn-primary" type="button" data-cat-type="{{categories.pk}}"
+                            data-calculation-type="_rate" data-instance-count="1">
+                            Add Row +
+                        </button>
+                    </td>
+                    <td colspan="1000" style="text-align:right">
+                        <button class="addNewSalaryRange btn btn-primary" type="button"
+                        style="font-size : 1.1rem;"
+                            data-cat-type="{{categories.pk}}" data-calculation-type="_rate" data-instance-count="1">
+                            +
+                        </button>
+                    </td>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+<script>
+    $(".wrapper").click((event) => {
+        console.log(event)
+        if (event.target.nodeName == "BUTTON") {
+
+            btn_clicked = event.target
+            let tmp1 = btn_clicked.attributes['data-cat-type'].nodeValue
+            let tmp2 = btn_clicked.attributes['data-calculation-type'].nodeValue
+
+
+            if (event.target.classList[0] == "addNewSalaryRange") {
+
+
+
+                $(`.${tmp1}_rate_info_row`).each(function (i, element) {
+                    console.log(this)
+                    let temp1 = $(this).attr("data-instance-count")
+                    console.log(temp1)
+                    $(this).append(`<td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input" name="${tmp1}_rate_of_interest_no_${temp1}" type="number"
+                                    placeholder="Rate of Interest" onfocus="focused(this)"
+                                    onfocusout="defocused(this)" />
+                            </div>
+                        </td>`)
+                })
+
+                $(`#${tmp1}_salary_range_container`).append(`
+                <td>
+                    <table width="100%" class="m-0 table table-bordered">
+                        <tr>
+                            <td>
+                                <div class="input-group input-group-static">
+                                    <input class="form-control salary_range_input" name="${tmp1}_rate_min_salary"
+                                        type="number" placeholder="Min Net Salary" onfocus="focused(this)"
+                                        onfocusout="defocused(this)" />
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="input-group input-group-static">
+                                    <input class="form-control salary_range_input" name="${tmp1}_rate_max_salary"
+                                        type="number" placeholder="Max Net Salary" onfocus="focused(this)"
+                                        onfocusout="defocused(this)" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                `)
+
+
+
+
+                return;
+            }
+
+
+
+
+            let tmp3 = "#" + tmp1 + tmp2 + "_table_body"
+
+            let info_count = parseInt($(`${tmp3} input[type=hidden]`).val())
+            console.log(info_count)
+            $(`${tmp3} input[type=hidden]`).val(info_count + 1)
+
+
+            if (event.target.classList[0] != "addRateRow") {
+
+                $(tmp3).append(`
+            <tr>
+
+          <td>
+              <div class="input-group input-group-static"><input
+                  class="form-control salary_range_input" type="number"
+                  name="${tmp1}${tmp2}_min_salary"
+                  placeholder="Min Net Salary" onfocus="focused(this)"
+                      onfocusout="defocused(this)"></div>
+          </td>
+          <td>
+              <div class="input-group input-group-static"><input
+                      class="form-control salary_range_input" type="number"
+                      name="${tmp1}${tmp2}_max_salary"
+                      placeholder="Max Net Salary" onfocus="focused(this)"
+                      onfocusout="defocused(this)"></div>
+          </td>
+          {% for tenure in tenures %}
+          <td>
+              <div class="input-group input-group-static"><input class="form-control
+                  multiplier_input" type="number" style="" placeholder="Multiplier"
+                  name="${tmp1}${tmp2}_no_${info_count+1}"
+                      onfocus="focused(this)" onfocusout="defocused(this)"></div>
+          </td>
+
+          {% endfor %}
+
+          </tr>`)
+            } else {
+
+                $(tmp3).append(`
+          <tr class="${tmp1}_rate_info_row" data-instance-count=${info_count+1}>
+
+              <td>
+                  <div class="input-group input-group-static"><input class="form-control"
+                          name="${tmp1}_loan_min_amt" type="number" placeholder="Min Loan Amount"
+                          onfocus="focused(this)" onfocusout="defocused(this)"></div>
+              </td>
+
+              <td>
+                  <div class="input-group input-group-static"><input class="form-control"
+                          name="${tmp1}_loan_max_amt" type="number" placeholder="Max Loan Amount"
+                          onfocus="focused(this)" onfocusout="defocused(this)"></div>
+              </td>
+
+              <td>
+                  <div class="input-group input-group-static"><input class="form-control"
+                          name="${tmp1}_rate_of_interest_no_${info_count+1}" type="number"
+                          placeholder="Rate of Interest" onfocus="focused(this)" onfocusout="defocused(this)">
+                  </div>
+              </td>
+          </tr>
+
+          `)
+
+            }
+        }
+    })
+</script>

@@ -413,6 +413,7 @@ class ProductsOrServices(models.Model):
 
 class CompanyCatergoryTypes(models.Model):
     cocat_type = models.CharField(max_length=50)
+    banks = models.ManyToManyField(BankName)
 
     def __str__(self):
         return self.cocat_type
@@ -461,7 +462,7 @@ class BankCategory(models.Model):
     effective_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.bank_name.bank_name + "_" + self.company_name.company_name + "_"+self.category.cocat_type)
+        return str(self.bank_name.bank_name + "_" + self.company_name.company_name + "_" + self.category.cocat_type)
 
 
 class MultiplierCategory(models.Model):
@@ -472,7 +473,51 @@ class MultiplierCategory(models.Model):
     max_loan_amt = models.BigIntegerField()
 
 
-class product_and_policy_master(models.Model):
+class PerTenure_Multiplier_Data(models.Model):
+    associated_tenure = models.ForeignKey(Tenure , on_delete=models.CASCADE)
+    multiplier = models.IntegerField()
+
+
+class PerTenure_Foir_Data(models.Model):
+    associated_tenure = models.ForeignKey(Tenure , on_delete=models.CASCADE)
+    foir = models.IntegerField()
+
+class Multiplier_Data(models.Model):
+    min_salary = models.BigIntegerField()
+    max_salary = models.BigIntegerField()
+    tenure_multipliers = models.ManyToManyField(PerTenure_Multiplier_Data)
+
+
+
+class Multiplier_Info(models.Model):
+    cocat_type = models.CharField(max_length=250)
+    multiplier_data = models.ManyToManyField(Multiplier_Data)
+
+
+class Foir_Data(models.Model):
+    min_salary = models.BigIntegerField()
+    max_salary = models.BigIntegerField()
+    tenure_foirs = models.ManyToManyField(PerTenure_Foir_Data)
+
+class Foir_Info(models.Model):
+    cocat_type = models.CharField(max_length=250)
+    foir_data = models.ManyToManyField(Foir_Data)
+
+class AdditionalRate_Info(models.Model):
+    min_salary = models.BigIntegerField(null=True)    
+    max_salary = models.BigIntegerField(null=True)
+    loan_min_amount = models.BigIntegerField()
+    loan_max_amount = models.BigIntegerField()
+    rate_of_interest = models.BigIntegerField()
+
+
+class RateOfInterest_Info(models.Model):
+    cocat_type = models.CharField(max_length=250 , null=True)
+    additional_rate_info = models.ManyToManyField(AdditionalRate_Info)
+
+
+
+class Product_and_Policy_Master(models.Model):
     customer_type = models.ForeignKey(
         CustomerType, on_delete=models.CASCADE, null=False, blank=False, related_name="cust_types")
     product_name = models.ForeignKey(
@@ -504,21 +549,14 @@ class product_and_policy_master(models.Model):
     credit_card_dpd = models.IntegerField()
     credit_card_obligation = models.IntegerField()
     emi_obligation = models.IntegerField()
-    foir_fresh = models.ManyToManyField(
-        FoirCategory, related_name="foir_fresh")
-    foir_bt = models.ManyToManyField(
-        FoirCategory, related_name="foir_bt")
-    multiplier_fresh = models.ManyToManyField(
-        MultiplierCategory, related_name="multiplier_fresh")
-    multiplier_bt = models.ManyToManyField(
-        MultiplierCategory, related_name="multiplier_bt")
+    multiplier_info = models.ManyToManyField(Multiplier_Info)
+    foir_info = models.ManyToManyField(Foir_Info)
     salary_type = models.ManyToManyField(
         SalaryType)
     residence_type = models.ManyToManyField(
         ResidenceType)
-    tenure = models.ManyToManyField(
-        Tenure)
     company_type = models.ManyToManyField(CompanyType)
+    rate_of_interest = models.ManyToManyField(RateOfInterest_Info)
 
     def __str__(self):
         s = self.bank_names.bank_name[:4] + \
