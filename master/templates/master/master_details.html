@@ -27,13 +27,16 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Prefix" role="button" aria-expanded="false" aria-controls="Prefic">
+								<a data-bs-toggle="collapse" href="#Prefix" role="button" aria-expanded="false"
+									aria-controls="Prefic">
 									<h4 class="card-title fw-bold text-light">Prefix</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addPrefix"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addPrefix"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -61,11 +64,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addPrefix" tabindex="-1" role="dialog" aria-labelledby="addPrefix" aria-hidden="true">
+			<div class="modal fade" id="addPrefix" tabindex="-1" role="dialog" aria-labelledby="addPrefix"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addPrefix"><i class="fab fa-product-hunt"></i> Add Prefix</h5>
+							<h5 class="modal-title font-weight-normal" id="addPrefix"><i
+									class="fab fa-product-hunt"></i> Add Prefix</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -75,16 +80,18 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label"> Prefix</label>
-									<input type="text" name="Prefix" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Prefix" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
-							
+
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
 									<input type="date" name="PrefixDate" class="form-control">
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -105,15 +112,17 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Qualification" role="button" aria-expanded="false" aria-controls="Qualification">
+								<a data-bs-toggle="collapse" href="#Qualification" role="button" aria-expanded="false"
+									aria-controls="Qualification">
 									<h4 class="card-title fw-bold text-light">Qualification</h4>
-									<p class="card-category fw-bold text-light mb-0"> 
+									<p class="card-category fw-bold text-light mb-0">
 										Here is a subtitle for this table
 									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addQualification"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addQualification"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -149,11 +158,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addQualification" tabindex="-1" role="dialog" aria-labelledby="addQualification" aria-hidden="true">
+			<div class="modal fade" id="addQualification" tabindex="-1" role="dialog" aria-labelledby="addQualification"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addQualification"><i class="fas fa-graduation-cap"></i> Add Qualification</h5>
+							<h5 class="modal-title font-weight-normal" id="addQualification"><i
+									class="fas fa-graduation-cap"></i> Add Qualification</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -163,7 +174,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Qualification</label>
-									<input type="text" name="Qualification" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Qualification" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -171,7 +183,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -183,13 +196,16 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Profession" role="button" aria-expanded="false" aria-controls="Profession">
+								<a data-bs-toggle="collapse" href="#Profession" role="button" aria-expanded="false"
+									aria-controls="Profession">
 									<h4 class="card-title fw-bold text-light">Profession</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addProfession"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addProfession"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -225,11 +241,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addProfession" tabindex="-1" role="dialog" aria-labelledby="addProfession" aria-hidden="true">
+			<div class="modal fade" id="addProfession" tabindex="-1" role="dialog" aria-labelledby="addProfession"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addProfession"><i class="fas fa-graduation-cap"></i> Add Profession</h5>
+							<h5 class="modal-title font-weight-normal" id="addProfession"><i
+									class="fas fa-graduation-cap"></i> Add Profession</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -239,7 +257,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Profession</label>
-									<input type="text" name="Profession" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Profession" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -247,7 +266,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -278,8 +298,8 @@
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyName"><span
-										class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addCompanyName"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -320,7 +340,8 @@
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addCompanyName"><i class="fas fa-graduation-cap"></i>
+							<h5 class="modal-title font-weight-normal" id="addCompanyName"><i
+									class="fas fa-graduation-cap"></i>
 								Add Company Name</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -340,7 +361,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -350,7 +372,7 @@
 
 
 
-			{% comment %} Company Type  {% endcomment %}
+			{% comment %} Company Type {% endcomment %}
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -365,8 +387,8 @@
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyType"><span
-										class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addCompanyType"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -407,7 +429,8 @@
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addCompanyType"><i class="fas fa-graduation-cap"></i>
+							<h5 class="modal-title font-weight-normal" id="addCompanyType"><i
+									class="fas fa-graduation-cap"></i>
 								Add Company Type</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -427,7 +450,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -437,61 +461,62 @@
 
 
 
-			{% comment %} Company Category  {% endcomment %}
+
+			{% comment %} companycategorytypes {% endcomment %}
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#CompanyCat" role="button" aria-expanded="false"
-									aria-controls="CompanyCat">
+								<a data-bs-toggle="collapse" href="#CompanyCategoryTypes" role="button"
+									aria-expanded="false" aria-controls="CompanyCategoryTypes">
 									<h4 class="card-title fw-bold text-light">Company Category</h4>
-									<p class="card-category fw-bold text-light mb-0">
-										Here is a subtitle for this table
-									</p>
+
 								</a>
 							</div>
-							<div class="col-auto d-flex align-items-center ">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyCat"><span
-										class="material-icons">add</span> Add</a>
+							<div class="col-auto  d-flex align-items-center">
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addCompanyCategoryType"><span class="material-icons">add</span>
+									Add</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="collapse card-body" id="CompanyCat">
+
+				<div class="collapse card-body" id="CompanyCategoryTypes">
 					<div class="table-responsive">
 						<table class="table">
-							<thead class="text-primary">
+							<thead class=" text-primary">
 								<tr>
 									<th class="px-2">Company Category</th>
+									<th class="px-2">Associated Bank</th>
 									<th class="px-2">Edit</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for category in company_cat %}
+								{% for company_cat in company_cat %}
+								{% for banks in company_cat.banks.all %}
 								<tr>
-									<td>{{ category.cocat_type }}</td>
-									<td>
-										<a href={% url 'editcompanycat' id=category.id%}>
-											<span class="icon text-black-50">
-												<i class="fa fa-edit"></i>
-											</span>
-										</a>
-									</td>
+									<td>{{ company_cat.cocat_type }}</td>
+									<td>{{ banks.bank_name }}</td>
+
+									<td><a><span class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
+								{% endfor %}
 								{% endfor %}
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addCompanyCat" tabindex="-1" role="dialog" aria-labelledby="addCompanyCat"
-				aria-hidden="true">
+
+			<div class="modal fade" id="addCompanyCategoryType" tabindex="-1" role="dialog"
+				aria-labelledby="addCompanyCategoryType" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addCompanyCat"><i class="fas fa-graduation-cap"></i>
-								Add Company Category</h5>
+							<h5 class="modal-title font-weight-normal" id="addCompanyCategoryType">Add Company Category
+							</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -504,90 +529,32 @@
 									<input type="text" name="CompanyCat" class="form-control" onfocus="focused(this)"
 										onfocusout="defocused(this)">
 								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			{% comment %} companycategorytypes {% endcomment %}
-			<div class="card z-index-2 pb-3 mb-5">
-				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
-						<div class="row">
-							<div class="col">
-								<a data-bs-toggle="collapse" href="#CompanyCategoryTypes" role="button" aria-expanded="false" aria-controls="CompanyCategoryTypes">
-									<h4 class="card-title fw-bold text-light">Company Category Type</h4>
-									
-								</a>
-							</div>
-							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCompanyCategoryType"><span class="material-icons">add</span> Add</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="collapse card-body" id="CompanyCategoryTypes">
-					<div class="table-responsive">
-						<table class="table">
-							<thead class=" text-primary">
-								<tr>
-									<th class="px-2">Company Category Types</th>
-									
-									<th class="px-2">Edit</th>
-								</tr>
-							</thead>
-							<tbody>
-								 {% for company_cat in company_cat %} 
-								<tr>
-									<td>{{ company_cat.cocat_type }}</td>
-									
-									<td><a ><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		
-			<div class="modal fade" id="addCompanyCategoryType" tabindex="-1" role="dialog" aria-labelledby="addCompanyCategoryType" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addCompanyCategoryType">Add Company Category Type</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<form class=" form text-left" action={% url 'CompanyCat_form' %} method="POST">
-							<div class="modal-body">
-								{% csrf_token %}
-								<div class="input-group input-group-outline my-3">
-									<label class="form-label">Company Category Type</label>
-									<input type="text" name="CompanyCat" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+								<div class="input-group input-group-static my-3">
+									<select name="BankName" id="BankName" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)" required>
+										<option value="" selected disabled>--Select Bank--</option>
+										{% for bank in banknames %}
+										<option value={{bank.bank_name}}>{{bank.bank_name}}</option>
+										{% endfor %}
+									</select>
 								</div>
-								
+
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			{% comment %} end here  {% endcomment %}
+			{% comment %} end here {% endcomment %}
 
 
 
 
-			{% comment %} Tenure  {% endcomment %}
+			{% comment %} Tenure {% endcomment %}
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -635,11 +602,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addTenure" tabindex="-1" role="dialog" aria-labelledby="addTenure" aria-hidden="true">
+			<div class="modal fade" id="addTenure" tabindex="-1" role="dialog" aria-labelledby="addTenure"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addTenure"><i class="fas fa-graduation-cap"></i> Add
+							<h5 class="modal-title font-weight-normal" id="addTenure"><i
+									class="fas fa-graduation-cap"></i> Add
 								Tenure</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -653,10 +622,11 @@
 									<input type="number" name="Tenure" class="form-control" onfocus="focused(this)"
 										onfocusout="defocused(this)">
 								</div>
-								
+
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -673,19 +643,22 @@
 
 
 
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Role" role="button" aria-expanded="false" aria-controls="Role">
+								<a data-bs-toggle="collapse" href="#Role" role="button" aria-expanded="false"
+									aria-controls="Role">
 									<h4 class="card-title fw-bold text-light">Role</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a class="btn btn-info mb-0 " data-bs-toggle="modal" data-bs-target="#addRole"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0 " data-bs-toggle="modal" data-bs-target="#addRole"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -721,11 +694,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="addRole" aria-hidden="true">
+			<div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="addRole"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addRole"><i class="fas fa-user-tag"></i> Add Role</h5>
+							<h5 class="modal-title font-weight-normal" id="addRole"><i class="fas fa-user-tag"></i> Add
+								Role</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -735,7 +710,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Role</label>
-									<input type="text" name="Role" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Role" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -743,7 +719,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -758,11 +735,13 @@
 								<a data-bs-toggle="collapse" href="#Product" role="button" aria-expanded="false"
 									aria-controls="Product">
 									<h4 class="card-title fw-bold text-light">Product</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center  ">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addProduct"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addProduct"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -795,11 +774,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProduct" aria-hidden="true">
+			<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProduct"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addProduct"><i class="fab fa-product-hunt"></i> Add Product</h5>
+							<h5 class="modal-title font-weight-normal" id="addProduct"><i
+									class="fab fa-product-hunt"></i> Add Product</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -809,7 +790,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Product</label>
-									<input type="text" name="Product" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Product" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -817,7 +799,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -829,13 +812,16 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#SubProduct" role="button" aria-expanded="false" aria-controls="SubProduct">
+								<a data-bs-toggle="collapse" href="#SubProduct" role="button" aria-expanded="false"
+									aria-controls="SubProduct">
 									<h4 class="card-title fw-bold text-light">SubProduct</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addSubProduct"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addSubProduct"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -865,11 +851,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addSubProduct" tabindex="-1" role="dialog" aria-labelledby="addSubProduct" aria-hidden="true">
+			<div class="modal fade" id="addSubProduct" tabindex="-1" role="dialog" aria-labelledby="addSubProduct"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addSubProduct"><i class="fab fa-product-hunt"></i> Add SubProduct</h5>
+							<h5 class="modal-title font-weight-normal" id="addSubProduct"><i
+									class="fab fa-product-hunt"></i> Add SubProduct</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -879,12 +867,14 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label"> Sub Product</label>
-									<input type="text" name="SubProduct" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="SubProduct" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Product</label>
 
-									<input type="text" name="Product" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Product" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -892,7 +882,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -907,11 +898,13 @@
 								<a data-bs-toggle="collapse" href="#CustomerType" role="button" aria-expanded="false"
 									aria-controls="CustomerType">
 									<h4 class="card-title fw-bold text-light">CustomerType</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCustomerType"><span class="material-icons">add</span>Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addCustomerType"><span class="material-icons">add</span>Add</a>
 							</div>
 						</div>
 					</div>
@@ -942,11 +935,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addCustomerType" tabindex="-1" role="dialog" aria-labelledby="addCustomerType" aria-hidden="true">
+			<div class="modal fade" id="addCustomerType" tabindex="-1" role="dialog" aria-labelledby="addCustomerType"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addCustomerType"><i class="fas fa-user-tag"></i> Add CustomerType</h5>
+							<h5 class="modal-title font-weight-normal" id="addCustomerType"><i
+									class="fas fa-user-tag"></i> Add CustomerType</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -956,7 +951,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">CustomerType</label>
-									<input type="text" name="CustomerType" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="CustomerType" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -964,7 +960,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -979,11 +976,13 @@
 								<a data-bs-toggle="collapse" href="#DesignationType" role="button" aria-expanded="false"
 									aria-controls="DesignationType">
 									<h4 class="card-title fw-bold text-light">Designation Type</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addDesignationType"><span class="material-icons">add</span>Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addDesignationType"><span class="material-icons">add</span>Add</a>
 							</div>
 						</div>
 					</div>
@@ -1014,7 +1013,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addDesignationType" tabindex="-1" role="dialog" aria-labelledby="addDesignationType" aria-hidden="true">
+			<div class="modal fade" id="addDesignationType" tabindex="-1" role="dialog"
+				aria-labelledby="addDesignationType" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1028,7 +1028,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">DesignationType</label>
-									<input type="text" name="DesignationType" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="DesignationType" class="form-control"
+										onfocus="focused(this)" onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1036,7 +1037,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -1048,13 +1050,16 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#SalaryType" role="button" aria-expanded="false" aria-controls="SalaryType">
+								<a data-bs-toggle="collapse" href="#SalaryType" role="button" aria-expanded="false"
+									aria-controls="SalaryType">
 									<h4 class="card-title fw-bold text-light">Salary Type</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addSalaryType"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addSalaryType"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1086,8 +1091,9 @@
 										<td>{{ salarytype.ineffective_date }}</td>
 										-->
 
-										<td><a href={% url 'editsalarytype' id=salarytype.id %}><span class="icon text-black-50"><i
-														class="fa fa-edit"></i></span></a></td>
+										<td><a href={% url 'editsalarytype' id=salarytype.id %}><span
+													class="icon text-black-50"><i class="fa fa-edit"></i></span></a>
+										</td>
 									</tr>
 									{% endfor %}
 								</tbody>
@@ -1096,7 +1102,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addSalaryType" tabindex="-1" role="dialog" aria-labelledby="addSalaryType" aria-hidden="true">
+			<div class="modal fade" id="addSalaryType" tabindex="-1" role="dialog" aria-labelledby="addSalaryType"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1110,7 +1117,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">SalaryType</label>
-									<input type="text" name="SalaryType" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="SalaryType" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1118,7 +1126,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -1133,11 +1142,13 @@
 								<a data-bs-toggle="collapse" href="#ResidenceType" role="button" aria-expanded="false"
 									aria-controls="ResidenceType">
 									<h4 class="card-title fw-bold text-light">Residence Type</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addResidenceType"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addResidenceType"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1166,9 +1177,9 @@
 									<td>{{ residencetype.effective_date }}</td>
 									<td>{{ residencetype.ineffective_date }}</td>
 									-->
-									
-									<td><a href={% url 'editresidencetype' id=residencetype.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+
+									<td><a href={% url 'editresidencetype' id=residencetype.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1176,7 +1187,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addResidenceType" tabindex="-1" role="dialog" aria-labelledby="addResidenceType" aria-hidden="true">
+			<div class="modal fade" id="addResidenceType" tabindex="-1" role="dialog" aria-labelledby="addResidenceType"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1190,7 +1202,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">ResidenceType</label>
-									<input type="text" name="ResidenceType" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="ResidenceType" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1198,26 +1211,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#BankName" role="button" aria-expanded="false" aria-controls="BankName">
+								<a data-bs-toggle="collapse" href="#BankName" role="button" aria-expanded="false"
+									aria-controls="BankName">
 									<h4 class="card-title fw-bold text-light">Bank Name</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addBankName"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addBankName"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1239,8 +1256,8 @@
 									<td>{{ bankname.bank_name }}</td>
 									<td>{{ bankname.effective_date }}</td>
 									<td>{{ bankname.ineffective_date }}</td>
-									<td><a href={% url 'editbankname' id=bankname.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editbankname' id=bankname.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1248,7 +1265,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addBankName" tabindex="-1" role="dialog" aria-labelledby="addBankName" aria-hidden="true">
+			<div class="modal fade" id="addBankName" tabindex="-1" role="dialog" aria-labelledby="addBankName"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1262,7 +1280,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">BankName</label>
-									<input type="text" name="BankName" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="BankName" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1270,28 +1289,32 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#LeadSource" role="button" aria-expanded="false" aria-controls="LeadSource">
+								<a data-bs-toggle="collapse" href="#LeadSource" role="button" aria-expanded="false"
+									aria-controls="LeadSource">
 									<h4 class="card-title fw-bold text-light">Lead Source</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addLeadSource"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addLeadSource"><span class="material-icons">add</span> Add</a>
 							</div>
-						</div >
+						</div>
 					</div>
 				</div>
 				<div class="collapse card-body" id="LeadSource">
@@ -1311,8 +1334,8 @@
 									<td>{{ leadsource.lead_source }}</td>
 									<td>{{ leadsource.effective_date }}</td>
 									<td>{{ leadsource.ineffective_date }}</td>
-									<td><a href={% url 'editleadsource' id=leadsource.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editleadsource' id=leadsource.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1320,7 +1343,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addLeadSource" tabindex="-1" role="dialog" aria-labelledby="addLeadSource" aria-hidden="true">
+			<div class="modal fade" id="addLeadSource" tabindex="-1" role="dialog" aria-labelledby="addLeadSource"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1334,7 +1358,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">LeadSource</label>
-									<input type="text" name="LeadSource" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="LeadSource" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1342,26 +1367,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Degree" role="button" aria-expanded="false" aria-controls="Degree">
+								<a data-bs-toggle="collapse" href="#Degree" role="button" aria-expanded="false"
+									aria-controls="Degree">
 									<h4 class="card-title fw-bold text-light">Bank Name</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addDegree"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addDegree"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1392,7 +1421,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addDegree" tabindex="-1" role="dialog" aria-labelledby="addDegree" aria-hidden="true">
+			<div class="modal fade" id="addDegree" tabindex="-1" role="dialog" aria-labelledby="addDegree"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1406,7 +1436,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Degree</label>
-									<input type="text" name="Degree" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Degree" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1414,14 +1445,15 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -1430,11 +1462,13 @@
 								<a data-bs-toggle="collapse" href="#Nationality" role="button" aria-expanded="false"
 									aria-controls="Nationality">
 									<h4 class="card-title fw-bold text-light">Nationality</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addNationality"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addNationality"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1456,8 +1490,8 @@
 									<td>{{ nationality.nationality }}</td>
 									<td>{{ nationality.effective_date }}</td>
 									<td>{{ nationality.ineffective_date }}</td>
-									<td><a href={% url 'editnationality' id=nationality.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editnationality' id=nationality.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1465,7 +1499,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addNationality" tabindex="-1" role="dialog" aria-labelledby="addNationality" aria-hidden="true">
+			<div class="modal fade" id="addNationality" tabindex="-1" role="dialog" aria-labelledby="addNationality"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1479,7 +1514,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Nationality</label>
-									<input type="text" name="Nationality" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Nationality" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1487,26 +1523,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#State" role="button" aria-expanded="false" aria-controls="State">
+								<a data-bs-toggle="collapse" href="#State" role="button" aria-expanded="false"
+									aria-controls="State">
 									<h4 class="card-title fw-bold text-light">State</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addState"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addState"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1537,7 +1577,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addState" tabindex="-1" role="dialog" aria-labelledby="addState" aria-hidden="true">
+			<div class="modal fade" id="addState" tabindex="-1" role="dialog" aria-labelledby="addState"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1551,7 +1592,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">State</label>
-									<input type="text" name="State" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="State" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1559,26 +1601,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#City" role="button" aria-expanded="false" aria-controls="City">
+								<a data-bs-toggle="collapse" href="#City" role="button" aria-expanded="false"
+									aria-controls="City">
 									<h4 class="card-title fw-bold text-light">City</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCity"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addCity"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1607,7 +1653,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addCity" tabindex="-1" role="dialog" aria-labelledby="addCity" aria-hidden="true">
+			<div class="modal fade" id="addCity" tabindex="-1" role="dialog" aria-labelledby="addCity"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1621,7 +1668,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">City</label>
-									<input type="text" name="City" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="City" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1629,14 +1677,15 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -1645,11 +1694,13 @@
 								<a data-bs-toggle="collapse" href="#ApplicantType" role="button" aria-expanded="false"
 									aria-controls="ApplicantType">
 									<h4 class="card-title fw-bold text-light">Applicant Type</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addApplicanttype"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addApplicanttype"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1671,8 +1722,8 @@
 									<td>{{ applicanttype.applicant_type }}</td>
 									<td>{{ applicanttype.effective_date }}</td>
 									<td>{{ applicanttype.ineffective_date }}</td>
-									<td><a href={% url 'editapplicanttype' id=applicanttype.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editapplicanttype' id=applicanttype.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1680,7 +1731,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addApplicanttype" tabindex="-1" role="dialog" aria-labelledby="addApplicanttype" aria-hidden="true">
+			<div class="modal fade" id="addApplicanttype" tabindex="-1" role="dialog" aria-labelledby="addApplicanttype"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1694,7 +1746,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Applicanttype</label>
-									<input type="text" name="Applicanttype" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Applicanttype" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1702,26 +1755,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#PropertyIn" role="button" aria-expanded="false" aria-controls="PropertyIn">
+								<a data-bs-toggle="collapse" href="#PropertyIn" role="button" aria-expanded="false"
+									aria-controls="PropertyIn">
 									<h4 class="card-title fw-bold text-light">Property In</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addPropertyIn"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addPropertyIn"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1743,8 +1800,8 @@
 									<td>{{ propertyin.property_in }}</td>
 									<td>{{ propertyin.effective_date }}</td>
 									<td>{{ propertyin.ineffective_date }}</td>
-									<td><a href={% url 'editpropertyln' id=propertyin.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editpropertyln' id=propertyin.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1752,7 +1809,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addPropertyIn" tabindex="-1" role="dialog" aria-labelledby="addPropertyIn" aria-hidden="true">
+			<div class="modal fade" id="addPropertyIn" tabindex="-1" role="dialog" aria-labelledby="addPropertyIn"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1766,7 +1824,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">PropertyIn</label>
-									<input type="text" name="PropertyIn" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="PropertyIn" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1774,26 +1833,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Status" role="button" aria-expanded="false" aria-controls="Status">
+								<a data-bs-toggle="collapse" href="#Status" role="button" aria-expanded="false"
+									aria-controls="Status">
 									<h4 class="card-title fw-bold text-light">Status</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addStatus"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addStatus"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1815,7 +1878,8 @@
 									<td>{{ status.status }}</td>
 									<td>{{ status.effective_date }}</td>
 									<td>{{ status.ineffective_date }}</td>
-									<td><a href={% url 'editstatus' id=status.id %}><span class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editstatus' id=status.id %}><span class="icon text-black-50"><i
+													class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -1823,7 +1887,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addStatus" tabindex="-1" role="dialog" aria-labelledby="addStatus" aria-hidden="true">
+			<div class="modal fade" id="addStatus" tabindex="-1" role="dialog" aria-labelledby="addStatus"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1837,7 +1902,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Status</label>
-									<input type="text" name="Status" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Status" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1845,27 +1911,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#NatureOfBusiness" role="button" aria-expanded="false"
-									aria-controls="NatureOfBusiness">
+								<a data-bs-toggle="collapse" href="#NatureOfBusiness" role="button"
+									aria-expanded="false" aria-controls="NatureOfBusiness">
 									<h4 class="card-title fw-bold text-light">Nature Of Business</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addNatureOfBusiness"><span class="material-icons">add</span>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addNatureOfBusiness"><span class="material-icons">add</span>
 									Add</a>
 							</div>
 						</div>
@@ -1897,11 +1966,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addNatureOfBusiness" tabindex="-1" role="dialog" aria-labelledby="addNatureOfBusiness" aria-hidden="true">
+			<div class="modal fade" id="addNatureOfBusiness" tabindex="-1" role="dialog"
+				aria-labelledby="addNatureOfBusiness" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addNatureOfBusiness">Add NatureOfBusiness</h5>
+							<h5 class="modal-title font-weight-normal" id="addNatureOfBusiness">Add NatureOfBusiness
+							</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -1911,7 +1982,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">NatureOfBusiness</label>
-									<input type="text" name="NatureOfBusiness" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="NatureOfBusiness" class="form-control"
+										onfocus="focused(this)" onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1919,26 +1991,30 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#AYYear" role="button" aria-expanded="false" aria-controls="AYYear">
+								<a data-bs-toggle="collapse" href="#AYYear" role="button" aria-expanded="false"
+									aria-controls="AYYear">
 									<h4 class="card-title fw-bold text-light">AYYear</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addAYyear"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addAYyear"><span
+										class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -1969,7 +2045,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addAYyear" tabindex="-1" role="dialog" aria-labelledby="addAYyear" aria-hidden="true">
+			<div class="modal fade" id="addAYyear" tabindex="-1" role="dialog" aria-labelledby="addAYyear"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -1983,7 +2060,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">AYyear</label>
-									<input type="text" name="AYyear" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="AYyear" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -1991,14 +2069,15 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -2007,11 +2086,13 @@
 								<a data-bs-toggle="collapse" href="#AgreementType" role="button" aria-expanded="false"
 									aria-controls="AgreementType">
 									<h4 class="card-title fw-bold text-light">Agreement Type</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addAgreementtype"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addAgreementtype"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -2033,8 +2114,8 @@
 									<td>{{ agreementtype.agreement_type }}</td>
 									<td>{{ agreementtype.effective_date }}</td>
 									<td>{{ agreementtype.ineffective_date }}</td>
-									<td><a href={% url 'editagreementtype' id=agreementtype.id %}><span class="icon text-black-50"><i
-													class="fa fa-edit"></i></span></a></td>
+									<td><a href={% url 'editagreementtype' id=agreementtype.id %}><span
+												class="icon text-black-50"><i class="fa fa-edit"></i></span></a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -2042,7 +2123,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addAgreementtype" tabindex="-1" role="dialog" aria-labelledby="addAgreementtype" aria-hidden="true">
+			<div class="modal fade" id="addAgreementtype" tabindex="-1" role="dialog" aria-labelledby="addAgreementtype"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -2056,7 +2138,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">Agreementtype</label>
-									<input type="text" name="Agreementtype" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="Agreementtype" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -2064,27 +2147,31 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#StageOfConstruction" role="button" aria-expanded="false"
-									aria-controls="StageOfConstruction">
+								<a data-bs-toggle="collapse" href="#StageOfConstruction" role="button"
+									aria-expanded="false" aria-controls="StageOfConstruction">
 									<h4 class="card-title fw-bold text-light">StageOfConstruction</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addStageOfConstruction"><span class="material-icons">add</span>Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addStageOfConstruction"><span
+										class="material-icons">add</span>Add</a>
 							</div>
 						</div>
 					</div>
@@ -2115,11 +2202,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addStageOfConstruction" tabindex="-1" role="dialog" aria-labelledby="addStageOfConstruction" aria-hidden="true">
+			<div class="modal fade" id="addStageOfConstruction" tabindex="-1" role="dialog"
+				aria-labelledby="addStageOfConstruction" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addStageOfConstruction">Add StageOfConstruction</h5>
+							<h5 class="modal-title font-weight-normal" id="addStageOfConstruction">Add
+								StageOfConstruction</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -2129,7 +2218,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">StageOfConstruction</label>
-									<input type="text" name="StageOfConstruction" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="StageOfConstruction" class="form-control"
+										onfocus="focused(this)" onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -2137,14 +2227,15 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="card z-index-2 pb-3 mb-5">
 				<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
@@ -2153,11 +2244,13 @@
 								<a data-bs-toggle="collapse" href="#RejectionType" role="button" aria-expanded="false"
 									aria-controls="RejectionType">
 									<h4 class="card-title fw-bold text-light">RejectionType</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto  d-flex align-items-center">
-								<a class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addRejectionType"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addRejectionType"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -2193,7 +2286,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addRejectionType" tabindex="-1" role="dialog" aria-labelledby="addRejectionType" aria-hidden="true">
+			<div class="modal fade" id="addRejectionType" tabindex="-1" role="dialog" aria-labelledby="addRejectionType"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -2207,7 +2301,8 @@
 								{% csrf_token %}
 								<div class="input-group input-group-outline my-3">
 									<label class="form-label">RejectionType</label>
-									<input type="text" name="RejectionType" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+									<input type="text" name="RejectionType" class="form-control" onfocus="focused(this)"
+										onfocusout="defocused(this)">
 								</div>
 								<div class="input-group input-group-static my-3">
 									<label>Ineffective Date</label>
@@ -2215,7 +2310,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>
@@ -2227,13 +2323,16 @@
 					<div class="bg-gradient-primary shadow-primary border-radius-lg p-3 ">
 						<div class="row">
 							<div class="col">
-								<a data-bs-toggle="collapse" href="#Commission" role="button" aria-expanded="false" aria-controls="Commission">
+								<a data-bs-toggle="collapse" href="#Commission" role="button" aria-expanded="false"
+									aria-controls="Commission">
 									<h4 class="card-title fw-bold text-light">Earning Calculator Details</h4>
-									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table</p>
+									<p class="card-category fw-bold text-light mb-0"> Here is a subtitle for this table
+									</p>
 								</a>
 							</div>
 							<div class="col-auto d-flex align-items-center ">
-								<a  class="btn btn-info mb-0" data-bs-toggle="modal" data-bs-target="#addcommission"><span class="material-icons">add</span> Add</a>
+								<a class="btn btn-info mb-0" data-bs-toggle="modal"
+									data-bs-target="#addcommission"><span class="material-icons">add</span> Add</a>
 							</div>
 						</div>
 					</div>
@@ -2251,7 +2350,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% comment %} 
+								{% comment %}
 								{% for commission in commissionrates %}
 								{% endcomment %}
 								<tr>
@@ -2260,27 +2359,29 @@
 									<td>{{ commission.effective_date }}</td>
 									<td>{{ commission.ineffective_date }}</td>
 									<td>
-										<a >
-											
+										<a>
+
 											<span class="icon text-black-50">
 												<i class="fa fa-edit"></i>
 											</span>
 										</a>
 									</td>
 								</tr>
-								{% comment %} 
+								{% comment %}
 								{% endfor %}
-								{% endcomment %} 
+								{% endcomment %}
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="addcommission" tabindex="-1" role="dialog" aria-labelledby="addcommission" aria-hidden="true">
+			<div class="modal fade" id="addcommission" tabindex="-1" role="dialog" aria-labelledby="addcommission"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-normal" id="addcommission"><i class="fas fa-graduation-cap"></i> Add Commission Details</h5>
+							<h5 class="modal-title font-weight-normal" id="addcommission"><i
+									class="fas fa-graduation-cap"></i> Add Commission Details</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -2292,29 +2393,33 @@
 									<!-- <label class="form-label">Commission Types</label> -->
 									<div class="col-md-6">
 										<div class="form-group row">
-										  <div class="input-group input-group-static mb-4"   class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
-											<label for="sel_tenure" class="ms-0 text-primary fw-bold col-12">Select type</label>
-											<select class="form-control col-12" name="Commission" id="sel_tenure">
-											  <option value="">-- Type of commission --</option>
-											  <option value="Home Loan">Home Loan</option>
-											  <option value="Loan against property">Loan against property</option>
-											  <option value="Personal Loan">Personal Loan</option>
-											  <option value="Business Loan">Business Loan</option>
-											  <option value="Car Refinance">Car Refinance</option>
-											  <option value="Real Estate (Buying and selling)">Real Estate (buying and selling)</option>
-											  <option value="Real Estate (50% of rental)">Real Estate (50% of rental)</option>
-											  <option value="General Insurance">General Insurance</option>
-											  <option value="Life Insurance">Life Insurance</option>
-											</select>
-										  </div>
+											<div class="input-group input-group-static mb-4" class="form-control"
+												onfocus="focused(this)" onfocusout="defocused(this)">
+												<label for="sel_tenure" class="ms-0 text-primary fw-bold col-12">Select
+													type</label>
+												<select class="form-control col-12" name="Commission" id="sel_tenure">
+													<option value="">-- Type of commission --</option>
+													<option value="Home Loan">Home Loan</option>
+													<option value="Loan against property">Loan against property</option>
+													<option value="Personal Loan">Personal Loan</option>
+													<option value="Business Loan">Business Loan</option>
+													<option value="Car Refinance">Car Refinance</option>
+													<option value="Real Estate (Buying and selling)">Real Estate (buying
+														and selling)</option>
+													<option value="Real Estate (50% of rental)">Real Estate (50% of
+														rental)</option>
+													<option value="General Insurance">General Insurance</option>
+													<option value="Life Insurance">Life Insurance</option>
+												</select>
+											</div>
 										</div>
-									  </div>
+									</div>
 									<!-- <input type="text" name="Commission" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)"> -->
 								</div>
 								<div class="col-md-6">
 									<div class="input-group input-group-outline mb-4">
-									  <label  for="Ent_roi" class="form-label text-primary fw-bold">Enter rate</label>
-									  <input type="number" name="Ent_roi" id="Ent_roi" class="form-control" required>
+										<label for="Ent_roi" class="form-label text-primary fw-bold">Enter rate</label>
+										<input type="number" name="Ent_roi" id="Ent_roi" class="form-control" required>
 									</div>
 								</div>
 								<div class="input-group input-group-static my-3">
@@ -2323,7 +2428,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn bg-gradient-secondary"
+									data-bs-dismiss="modal">Close</button>
 								<button type="submit" class="btn bg-gradient-primary">Save changes</button>
 							</div>
 						</form>

@@ -20,7 +20,7 @@ class ProductAndPolicyMasterForm(ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
-        model = product_and_policy_master
+        model = Product_and_Policy_Master
 
         labels = {
             "current_experience": "Current Experience (in months)",
@@ -28,5 +28,4 @@ class ProductAndPolicyMasterForm(ModelForm):
             "total_experience": "Total Experience (in years)"
         }
 
-        exclude = ('effective_date', 'ineffective_date', 'foir_fresh', 'foir_bt', 'multiplier_fresh',
-                   'multiplier_bt', 'salary_type', 'residence_type', 'tenure', 'company_type')
+        exclude = ('effective_date', 'ineffective_date', 'multiplier_info' , 'foir_info' , 'rate_of_interest' , 'salary_type', 'residence_type', 'tenure', 'company_type')

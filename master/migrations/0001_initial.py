@@ -503,7 +503,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='product_and_policy_master',
+            name='Product_and_Policy_Master',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_salary_account', models.BooleanField(choices=[(None, 'Select Yes Or No'), (True, 'Yes'), (False, 'No')])),

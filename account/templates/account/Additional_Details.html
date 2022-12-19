@@ -138,10 +138,12 @@
       </div>
       {% endif %}
     </div>
+    {% if number_of_applicants > 0 %}
     <div style="text-align:center">
       <a class="btn btn-primary btn-lg active" role="button"
         href="{% url 'handle_next_addtional_details' lead_id=lead_id %}" aria-pressed="true">Next</a>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock other_body %}
@@ -257,6 +259,7 @@
 
           });*/
         },
+
         error: function (data) {
           console.log(data);
         }
