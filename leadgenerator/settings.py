@@ -23,11 +23,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_DIR = BASE_DIR / "media"
 
 
-# SECRET_KEY = env("SECRET_KEY")
-SECRET_KEY = "fdfdfdfdfdffd"
+SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = "fdfdfdfdfdffd"
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env("DEBUG")
-DEBUG = True
+DEBUG = env("DEBUG")
+# DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
