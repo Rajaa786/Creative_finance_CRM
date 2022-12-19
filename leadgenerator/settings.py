@@ -1,7 +1,6 @@
 from pathlib import Path
 import environ
 from django.conf.locale.en import formats as en_formats
-import django_heroku
 
 
 env = environ.Env(DEBUG=(bool, False))

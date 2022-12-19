@@ -252,9 +252,6 @@ class SalOtherIncomes(models.Model):
     reflection_in_bank_account = models.BooleanField(
         choices=YES_NO_CHOICES, blank=True, null=True
     )
-    rent_reflection_in_bank = models.PositiveIntegerField(
-        validators=[MinValueValidator(1)]
-    )
     reflection_in_itr = models.BooleanField(
         choices=YES_NO_CHOICES, blank=True, null=True
     )
@@ -266,7 +263,7 @@ class SalOtherIncomes(models.Model):
 
 class SalAdditionalOtherIncomes(models.Model):
     add_oth_inc_id = models.AutoField(primary_key=True)
-    other_income = models.CharField(max_length=50)
+    Future_Rent = models.BooleanField(choices=YES_NO_CHOICES)
     income_amount = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     addi_details_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)
 
@@ -365,8 +362,19 @@ class SalAdditionalDetails(models.Model):
 
 class SalInvestments(models.Model):
     sal_inv_id = models.AutoField(primary_key=True)
-    investments = models.ForeignKey(InvestmentType, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    bank_sav_dep = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)]
+                    )
+    current_bal = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)]
+                    )
+    life_ins = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)]
+                    )
+    share_sec = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)]
+                    )
+    
     Other_Assets = models.CharField(max_length=100, default=None)
     Other_Owned_Property_Details = models.CharField(max_length=100, default=None)
     addi_details_id = models.ForeignKey(AdditionalDetails, on_delete=models.CASCADE)

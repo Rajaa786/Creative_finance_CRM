@@ -243,11 +243,6 @@ class SalOtherIncomesForm(ModelForm):
                     "oninput": "this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
                 }
             )
-            self.fields["rent_reflection_in_bank"].widget.attrs.update(
-                {
-                    "oninput": "this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
-                }
-            )
             self.fields["extension_expected_years"].widget.attrs.update(
                 {
                     "oninput": "this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
@@ -304,7 +299,9 @@ class SalPersonalDetailsForm(ModelForm):
             self.fields["cibil_score"].widget.attrs.update(
                 {"placeholder": "Enter 9999 , if not sure"}
             )
-            self.fields["product_id"].label = ("Product",)
+            self.fields["product_id"].label = "Product"
+            self.fields["degree_others"].label = "Degree"
+
             self.fields["age"].widget.attrs.update(
                 {
                     "oninput": "this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null",
@@ -505,13 +502,21 @@ class SalAdditionalDetailsForm(ModelForm):
 class SalInvestmentsForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(SalInvestmentsForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
+        for field in self.fields:       
             self.fields[field].widget.attrs.update({"class": "form-control"})
-            self.fields["amount"].widget.attrs.update(
-                {
-                    "oninput": "this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
-                }
-            )
+            self.fields["bank_sav_dep"].label = "Bank Savings/Deposits"
+            self.fields["current_bal"].label = "Current Balance In PF/PPF"
+            self.fields["life_ins"].label = "Life Insurance Policies/PLI"
+            self.fields["share_sec"].label = "Share & Securities"
+
+
+
+            # self.fields['bank_sav_dep'] = "Bank Savings/Deposits"
+            # self.fields['current_bal'] = "Current Balance In PF/PPF"
+            # self.fields['life_ins'] = "Life Insurance Policies/PLI"
+            # self.fields['share_sec'] = "Share & Securities"
+
+            
 
     class Meta:
         model = SalInvestments

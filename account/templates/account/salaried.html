@@ -423,10 +423,16 @@
         {% endfor %}
         var id_company_name, id_other_company_name, id_how_old_is_agreement, id_will_you_make_agreement,
             id_valid_rent_agreement, id_lessee_name, id_lessee_type, id_bonus_amount, id_repayment_history_col,
-            id_product_id,id_Other_Bank_Name,id_bank_name,
-            id_loan_inquiry_disbursement_details, id_cibil_score,
+            id_product_id,id_Other_Bank_Name,id_bank_name,id_repayment_history,id_default_year,id_details_about_default,
+            id_loan_inquiry_disbursement_details, id_cibil_score,id_loan_taken,id_tenure,id_profession,
             id_degree_others, id_degree, id_lawyerType, id_country;
         $(document).ready(function () {
+            id_profession = $('#id_profession').parent().parent();
+            id_loan_taken = $('#id_loan_taken').parent().parent();
+            id_tenure = $('#id_tenure').parent().parent();
+            id_details_about_default = $('#id_details_about_default').parent().parent();
+            id_default_year = $('#id_default_year').parent().parent();
+            id_repayment_history = $('#id_repayment_history').parent().parent();
             id_Other_Bank_Name = $('#id_Other_Bank_Name').parent().parent();
             id_bank_name = $('#id_bank_name').parent().parent();
             id_company_name = $('#id_company_name').parent().parent();
@@ -455,12 +461,30 @@
             id_country.hide();
         });
 
+
+        $(document).on('change', '#id_loan_taken', function () {
+            if ($(this).val() == 'False') {
+                id_tenure.hide() && id_default_year.hide() && id_details_about_default.hide();
+            } else {
+                id_tenure.show() && id_default_year.show() && id_details_about_default.show();
+
+            }
+        });
+
         $(document).on('change', '#id_bank_name', function () {
             var bank_name = $('option[value="' + $(this).val() + '"]:selected').text();
             if (bank_name === "Other") {
                 id_Other_Bank_Name.show();
             } else {
                 id_Other_Bank_Name.hide();
+            }
+        });
+
+        $(document).on('change', '#id_repayment_history', function () {
+            if ($(this).val() == 'Bad') {
+                id_default_year.show() && id_details_about_default.show();
+            } else {
+                id_default_year.hide() && id_details_about_default.hide();
             }
         });
 
@@ -534,14 +558,33 @@
                 id_cibil_score.hide();
             }
         });
+
         $(document).on('change', '#id_qualification', function () {
+            var qualification = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (qualification === "Post Graduate") {
+                id_degree_others.show();
+            } else {
+                id_degree_others.hide();
+            }
+        });
+
+        $(document).on('change', '#id_qualification', function () {
+            var qualification = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (qualification === "Professional") {
+                id_profession.show();
+            } else {
+                id_profession.hide();
+            }
+        });
+
+        {% comment %} $(document).on('change', '#id_qualification', function () {
             var qualification_name = $('option[value="' + $(this).val() + '"]:selected').text();
             if (qualifications[qualification_name]) {
                 id_degree_others.show();
             } else {
                 id_degree_others.hide();
             }
-        });
+        }); {% endcomment %}
         $(document).on('change', '#id_profession', function () {
             var profession_name = $('option[value="' + $(this).val() + '"]:selected').text();
             if (profession_name === "Doctor") {
