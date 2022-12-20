@@ -75,6 +75,11 @@ urlpatterns = [
     path('delete_product_and_policy/<int:id>',
          views.deleteProductAndPolicy, name='delete_product_and_policy'),
 
+    path('get_company_categories_data/',
+         views.companyCategoryData, name='get_company_categories_data'),
+
+
+
 
 
 

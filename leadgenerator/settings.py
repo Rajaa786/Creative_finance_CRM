@@ -93,13 +93,13 @@ DATABASES = {
         "USER": env("DATABASES_USER"),
         "PASSWORD": env("DATABASES_PASSWORD"),
         "HOST": env("DATABASES_HOST"),
-        # "HOST": "localhost",
+        # # "HOST": "localhost",
         "PORT": env("DATABASES_PORT"),
-#         "NAME": 'django-test',
-#         "USER": 'root',
-#         "PASSWORD": '',
-#         "HOST": "localhost",
-#         "PORT": 3306,
+        # "NAME": 'django-test',
+        # "USER": 'root',
+        # "PASSWORD": '',
+        # "HOST": "localhost",
+        # "PORT": 3306,
     }
 }
 

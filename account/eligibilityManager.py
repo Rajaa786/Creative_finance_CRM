@@ -1,24 +1,28 @@
 from master.models import BankCategory
 from .registerManager import get_tenure_months
 
+TENURE_AVAILABLE = None
+
+def get_Available_Tenure(age , retirement_age):
+    global TENURE_AVAILABLE
+    if TENURE_AVAILABLE:
+         return TENURE_AVAILABLE
+    TENURE_AVAILABLE = get_tenure_months(age , retirement_age)
+    return TENURE_AVAILABLE
+
+
 
 def check_cibil_score(customer_cibil_score, product_cibil_score):
     return customer_cibil_score > product_cibil_score
 
 
-def check_tenure_availability(age,  retirement_age, tenure_asked, product):
-    tenure_available = get_tenure_months(age , retirement_age)
+def check_tenure_availability(age,  retirement_age, tenure_asked, current_tenure):
+    tenure_available = get_Available_Tenure(age , retirement_age)
 
-    available_tenures = []
-
-    product_max_tenure = 0
-
-    for tenure in product.tenure.all():
-        if tenure_available >= tenure.ten_type:
-            available_tenures.append(tenure.ten_type)
-            product_max_tenure = max(product_max_tenure , tenure.ten_type)
-
-    return available_tenures , product_max_tenure
+    if tenure_available >= current_tenure.ten_type:
+        return True
+    else: 
+        return False
 
 
 def check_salary_type(cust_salary_type):
