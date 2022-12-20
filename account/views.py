@@ -215,10 +215,10 @@ def register_referral(request):
 
     }
 
-    if request.user.is_authenticated:
-        return render(request, 'account/register.html', context=context)
-    else:
-        return render(request, 'account/register_non_admin.html', context=context)
+    #if request.user.is_authenticated:
+    return render(request, 'account/register.html', context=context)
+    #else:
+     #   return render(request, 'account/register_non_admin.html', context=context)
 
 
 def register_staff(request):
