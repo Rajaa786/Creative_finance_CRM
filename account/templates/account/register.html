@@ -1,10 +1,27 @@
-{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
+{% extends request.user.is_superuser|yesno:"base/base.html,base/register_non_admin_base_template.html" %}
 {% load static %}
 
 
 {% block other_css %}
+<link rel="stylesheet" href="{% static 'material_2_pro_assets/css/agreement.css' %}" />
+
 <style>
- 
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 750px;
+    }
+  }
+
+  .close-btn:hover{
+    opacity : 1
+  }
+
+  .close-btn {
+    border : none;
+    outline : none;
+    background : none;
+    opacity : 0.7
+  }
 </style>
 {% endblock other_css %}
 
@@ -26,7 +43,8 @@
       <div class="input-group input-group-outline mb-4">
         <label for="password" class="form-label text-primary fw-bold">Password</label>
         <input type="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" name="password"
-          oninvalid="this.setCustomValidity('Password must be between 8-12 characters with atleast 1 uppercase,1 lowercase ,and 1 special character.')" oninput="this.setCustomValidity('')" id="password" class="form-control" required>
+          oninvalid="this.setCustomValidity('Password must be between 8-12 characters with atleast 1 uppercase,1 lowercase ,and 1 special character.')"
+          oninput="this.setCustomValidity('')" id="password" class="form-control" required>
       </div>
     </div>
     <div class="col-md-4">
@@ -38,7 +56,8 @@
     <div class="col-md-4">
       <div class="input-group input-group-outline mb-4">
         <label for="phone" class="form-label text-primary fw-bold">Mobile Number</label>
-        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="phone" id="phone" class="form-control" maxlength="10" required>
+        <input type="tel" pattern="[1-9]{1}[0-9]{9}" name="phone" id="phone" class="form-control" maxlength="10"
+          required>
       </div>
     </div>
 
@@ -80,7 +99,7 @@
         <input type="text" name="referral_code" id="referral_code" class="form-control">
       </div>
     </div>
-   
+
     <div class="col-md-4">
       <div class="form-group row">
         <div class="input-group input-group-static mb-4">
@@ -137,18 +156,53 @@
     {{message}}
     {% endfor %}
   </div>
-  <p class="text-center">By clicking "Register", you agree to our
-    <a href="#" class="text-info">Terms & Conditions</a>.
-  </p>
+  <div class="form-check p-0">
+    <input type="checkbox" name="terms" id="terms" class="form-check-input" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" style="border-color: grey;" 
+      oninvalid="this.setCustomValidity('You must agree to our Terms and Conditions before proceeding.')"
+      oninput="this.setCustomValidity('')"
+      required>
+    <label for="terms" class="form-check-label d-inline ms-0 text-center">I agree to the <span>Terms &
+        Conditions</span>.</label>
+  </div>
   <div class="row justify-content-center">
     <button type="submit" class="col-3 btn bg-gradient-primary">Register</button>
   </div>
+  {% if  %}{% endif %}
   <div class="container text-center">
     <p>Already have an account?
       <a href={% url "login" %} class="text-info">Login</a>.
     </p>
   </div>
 </form>
+
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Referral Agreement</h5>
+        <button type="button" class="close-btn text-dark" style="font-size : 2rem;" data-bs-dismiss="modal"
+          aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        {% comment %} {% include 'account/Agreement.html' %} {% endcomment %}
+        <div class="form-check pt-5">
+          <input type="checkbox" name="agreement" id="agreement" class="form-check-input" style="border-color: grey;">
+          <label for="agreement" class="form-check-label text-primary d-inline ms-0 text-center">I have read and agree
+            to Creative
+            Finance's <span>Terms & Conditions and Agreement Policy</span>.</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock other_body %}
 
 {% block other_js %}
@@ -164,5 +218,34 @@
     else
       document.getElementById('div1').innerHTML = '';
   }
+
+  $('input[name="agreement"]').change(function (event) {
+    required_checkbox = $('input[name="terms"]')
+    if (this.checked) {
+      required_checkbox.prop("checked", true);
+      required_checkbox.removeAttr("data-bs-target")
+      required_checkbox.removeAttr("data-bs-toggle")
+      console.log("Terms wala " + $('input[name="terms"]').prop('checked'))
+    } else {
+      required_checkbox.prop("checked", false);
+      required_checkbox.attr("data-bs-target", "#exampleModal")
+      required_checkbox.attr("data-bs-toggle", "modal")
+      console.log("Terms wala " + $('input[name="terms"]').prop('checked'))
+    }
+  })
+
+
+  $('input[name="terms"]').change(function (event) {
+    console.log("Termsdsdsdsds wala " + this.checked)
+    if (!this.checked) {
+      $(this).attr("data-bs-target", "#exampleModal")
+      $(this).attr("data-bs-toggle", "modal")
+    }
+
+    this.checked = false;
+
+    $('input[name="agreement"]').prop("checked", false)
+
+  });
 </script>
 {% endblock other_js %}
