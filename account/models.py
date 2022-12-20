@@ -10,7 +10,6 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from master.models import *
-from master.models import product_and_policy_master
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 

@@ -1,4 +1,5 @@
-{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %} {% load static %} {% block other_css %} {% comment %}
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html"%}
+{% load static %} {% block other_css %} {% comment %}
 <style>
   table,
   th,
@@ -12,7 +13,7 @@
   rel="stylesheet"
   href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}"
 />
-{% endcomment %} {% endblock other_css %} {% block title %}Additional Details{% endblock title %} {% block other_body_css %}id="page-top"{% endblock other_body_css %} {% block other_body %}
+{% endcomment %} {% endblock other_css %} {% block title %}Add Details {%endblock title %} {% block other_body_css %}id="page-top"{% endblock other_body_css %} {% block other_body %}
 <div
   class="modal fade"
   id="exampleModal"
@@ -65,9 +66,7 @@
                 data-url="{% url 'ajax_add_applicant' %}"
               >
                 <h4 class="card-title fw-bold text-light">Add Applicant</h4>
-                <p class="card-category fw-bold text-light mb-0">
-                  
-                </p>
+                <p class="card-category fw-bold text-light mb-0"></p>
               </a>
             </div>
           </div>
@@ -189,9 +188,14 @@
     </div>
 
     {% if number_of_applicants > 0 %}
-    <div style="text-align:center">
-      <a class="btn btn-primary btn-lg active" role="button"
-        href="{% url 'handle_next_addtional_details' lead_id=lead_id %}" aria-pressed="true">Next</a>
+    <div style="text-align: center">
+      <a
+        class="btn btn-primary btn-lg active"
+        role="button"
+        href="{% url 'handle_next_addtional_details' lead_id=lead_id %}"
+        aria-pressed="true"
+        >Next</a
+      >
     </div>
     {% endif %}
   </div>
