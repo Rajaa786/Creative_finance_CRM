@@ -1,10 +1,10 @@
 
-.table .category_heading , .table .tenure_heading {
+.table .category_heading , .table .centre_heading {
     text-align: center;
 }
 
 
-.table .salary_heading {
+.table .centre_centre_heading {
    text-align: center;
    vertical-align: middle;
 }
@@ -16,7 +16,8 @@
     outline: none;
     background-image: linear-gradient(0deg, #e91e63 2px, rgba(156, 39, 176, 0) 0), linear-gradient(0deg, #d2d2d2 1px, hsla(0, 0%, 82%, 0) 0);
     background-size: 0 100%, 100% 100%;
-    max-width: 7.5rem;
+    /* max-width: 7.5rem; */
+    max-width: fit-content;
     min-width: 7rem !important;
 }
 
@@ -26,7 +27,8 @@
     outline: none;
     background-image: linear-gradient(0deg, #e91e63 2px, rgba(156, 39, 176, 0) 0), linear-gradient(0deg, #d2d2d2 1px, hsla(0, 0%, 82%, 0) 0);
     background-size: 0 100%, 100% 100%;
-    max-width: 4.5rem;
+    /* max-width: 4.5rem; */
+    max-width: fit-content;
     min-width: 4.5rem !important;
 }
 

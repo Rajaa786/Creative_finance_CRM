@@ -1290,20 +1290,23 @@ def addProductAndPolicyView(request):
                 current_multiplier_info.save()
 
                 for i in range(int(current_cocat_type_row_count_multiplier)):
-                    current_min_salary = current_cocat_type_min_salaries[i]
-                    current_max_salary = current_cocat_type_min_salaries[i]
+                    current_min_multiplier_salary = current_cocat_type_min_salaries[i]
+                    current_max_multiplier_salary = current_cocat_type_max_salaries[i]
 
-                    if not current_min_salary or not current_max_salary:
+                    if not current_min_multiplier_salary or not current_max_multiplier_salary:
                         continue
 
                     current_multipliers = request.POST.getlist(
                         f"{cocat_type_id}_multiplier_no_{i+1}")
 
                     current_multiplier_data = Multiplier_Data(
-                        min_salary=current_min_salary, max_salary=current_max_salary)
+                        min_salary=current_min_multiplier_salary, max_salary=current_max_multiplier_salary)
                     current_multiplier_data.save()
 
                     for (multiplier, tenure) in zip(current_multipliers, tenures):
+
+                        if not multiplier:
+                            continue
                         per_tenure_multiplier_data = PerTenure_Multiplier_Data(
                             associated_tenure=tenure, multiplier=multiplier)
                         per_tenure_multiplier_data.save()
@@ -1332,7 +1335,7 @@ def addProductAndPolicyView(request):
 
                 for i in range(int(current_cocat_type_row_count_foir)):
                     current_min_salary = current_cocat_type_min_salaries[i]
-                    current_max_salary = current_cocat_type_min_salaries[i]
+                    current_max_salary = current_cocat_type_max_salaries[i]
                     if not current_min_salary or not current_max_salary:
                         continue
 
@@ -1344,6 +1347,9 @@ def addProductAndPolicyView(request):
                     current_foir_data.save()
 
                     for (foir, tenure) in zip(current_foirs, tenures):
+
+                        if not foir:
+                            continue
                         per_tenure_foir_data = PerTenure_Foir_Data(
                             associated_tenure=tenure, foir=foir)
                         per_tenure_foir_data.save()
@@ -1379,14 +1385,17 @@ def addProductAndPolicyView(request):
                     current_rate_of_interest_list = request.POST.getlist(
                           f"{cocat_type_id}_rate_of_interest_no_{index_+1}")
 
+                    current_processing_fee_list = request.POST.getlist(
+                          f"{cocat_type_id}_processing_fee_no_{index_+1}")
+
                     for index_salary,  (current_rate_min_salary, current_rate_max_salary) in enumerate(zip(current_cocat_type_rate_min_salaries , current_cocat_type_rate_max_salaries)):
 
                         print(current_rate_min_salary , current_rate_max_salary , current_rate_of_interest_list[index_salary])
 
-                        if not current_rate_of_interest_list[index_salary] or not current_rate_min_salary or not current_rate_max_salary:
+                        if not current_rate_of_interest_list[index_salary] or not current_processing_fee_list[index_salary] or not current_rate_min_salary or not current_rate_max_salary:
                             continue
 
-                        current_additionalrate_info = AdditionalRate_Info(min_salary=current_rate_min_salary, max_salary = current_rate_max_salary,  loan_min_amount = current_loan_min_amount , loan_max_amount = current_loan_max_amount , rate_of_interest = current_rate_of_interest_list[index_salary])
+                        current_additionalrate_info = AdditionalRate_Info(min_salary=current_rate_min_salary, max_salary = current_rate_max_salary,  loan_min_amount = current_loan_min_amount , loan_max_amount = current_loan_max_amount , rate_of_interest = current_rate_of_interest_list[index_salary] , processing_fee = current_processing_fee_list[index_salary])
                         current_additionalrate_info.save()
 
                         current_rateofinterest_info.additional_rate_info.add(

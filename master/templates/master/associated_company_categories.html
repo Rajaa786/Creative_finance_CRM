@@ -11,10 +11,10 @@
                 </tr>
 
                 <tr>
-                    <th class="salary_heading" rowspan="2" colspan="2" scope="col">
+                    <th class="centre_centre_heading" rowspan="2" colspan="2" scope="col">
                         Salary Range
                     </th>
-                    <th class="tenure_heading" colspan="1000" scope="col">Tenures</th>
+                    <th class="centre_heading" colspan="1000" scope="col">Tenures</th>
                 </tr>
                 <tr>
                     {% for tenure in tenures %}
@@ -80,10 +80,10 @@
                 </tr>
 
                 <tr>
-                    <th class="salary_heading" rowspan="2" colspan="2" scope="col">
+                    <th class="centre_centre_heading" rowspan="2" colspan="2" scope="col">
                         Salary Range
                     </th>
-                    <th class="tenure_heading" colspan="1000" scope="col">Tenures</th>
+                    <th class="centre_heading" colspan="1000" scope="col">Tenures</th>
                 </tr>
                 <tr>
                     {% for tenure in tenures %}
@@ -149,36 +149,41 @@
                     </tr>
                 </thead>
 
-                <tr>
-                    <th class="tenure_heading" rowspan="2" colspan="2" scope="col">
-                        Loan Amount Range
-                    </th>
-                    <th colspan="1000" class="tenure_heading" scope="col">Salary Range</th>
-                </tr>
+
+
 
                 <tr id="{{categories.pk}}_salary_range_container">
+
+                    <th class="centre_centre_heading" colspan="2" scope="col">
+                        Loan Amount Range
+                    </th>
+
                     <td>
 
-                        <table width="100%" class="m-0 table table-bordered">
+                        <table width="100%" class="salary_range_table m-0 table table-bordered">
                             <tr>
                                 <td>
                                     <div class="input-group input-group-static">
-                                        <input class="form-control salary_range_input" name="{{categories.pk}}_rate_min_salary"
-                                            type="number" placeholder="Min Net Salary" onfocus="focused(this)"
+                                        <input class="form-control salary_range_input"
+                                            name="{{categories.pk}}_rate_min_salary" type="number"
+                                            placeholder="Min Net Salary" onfocus="focused(this)"
                                             onfocusout="defocused(this)" />
                                     </div>
                                 </td>
 
                                 <td>
                                     <div class="input-group input-group-static">
-                                        <input class="form-control salary_range_input" name="{{categories.pk}}_rate_max_salary"
-                                            type="number" placeholder="Max Net Salary" onfocus="focused(this)"
+                                        <input class="form-control salary_range_input"
+                                            name="{{categories.pk}}_rate_max_salary" type="number"
+                                            placeholder="Max Net Salary" onfocus="focused(this)"
                                             onfocusout="defocused(this)" />
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </td>
+
+                    <th class="centre_centre_heading" scope="col">PF</th>
                 </tr>
 
                 <tbody id="{{categories.pk}}_rate_table_body">
@@ -188,25 +193,34 @@
                     <tr class="{{categories.pk}}_rate_info_row" data-instance-count="1">
                         <td>
                             <div class="input-group input-group-static">
-                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_min_amt" type="number"
-                                    placeholder="Min Loan Amount" onfocus="focused(this)"
+                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_min_amt"
+                                    type="number" placeholder="Min Loan Amount" onfocus="focused(this)"
                                     onfocusout="defocused(this)" />
                             </div>
                         </td>
 
                         <td>
                             <div class="input-group input-group-static">
-                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_max_amt" type="number"
-                                    placeholder="Max Loan Amount" onfocus="focused(this)"
+                                <input class="form-control salary_range_input" name="{{categories.pk}}_loan_max_amt"
+                                    type="number" placeholder="Max Loan Amount" onfocus="focused(this)"
                                     onfocusout="defocused(this)" />
                             </div>
                         </td>
 
                         <td>
                             <div class="input-group input-group-static">
-                                <input class="form-control salary_range_input" name="{{categories.pk}}_rate_of_interest_no_1" type="number"
+                                <input class="form-control salary_range_input"
+                                    name="{{categories.pk}}_rate_of_interest_no_1" type="number"
                                     placeholder="Rate of Interest" onfocus="focused(this)"
                                     onfocusout="defocused(this)" />
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input"
+                                    name="{{categories.pk}}_processing_fee_no_1" type="number" placeholder="PF"
+                                    onfocus="focused(this)" onfocusout="defocused(this)" />
                             </div>
                         </td>
                     </tr>
@@ -220,8 +234,7 @@
                         </button>
                     </td>
                     <td colspan="1000" style="text-align:right">
-                        <button class="addNewSalaryRange btn btn-primary" type="button"
-                        style="font-size : 1.1rem;"
+                        <button class="addNewSalaryRange btn btn-primary" type="button" style="font-size : 1.1rem;"
                             data-cat-type="{{categories.pk}}" data-calculation-type="_rate" data-instance-count="1">
                             +
                         </button>
@@ -235,6 +248,36 @@
 </div>
 
 <script>
+
+    const roi_add_row_handler = (company_cat , row_count) => {
+        let elementString = "";
+
+        $('.salary_range_table').each( function(i , element){
+
+            elementString += `
+            <td>
+                <div class="input-group input-group-static"><input class="form-control salary_range_input"
+                        name="${company_cat}_rate_of_interest_no_${row_count+1}" type="number"
+                        placeholder="Rate of Interest" onfocus="focused(this)" onfocusout="defocused(this)">
+                </div>
+            </td>
+
+            <td>
+              <div class="input-group input-group-static">
+                  <input class="form-control salary_range_input" name="${company_cat}_processing_fee_no_${row_count+1}" type="number"
+                      placeholder="PF" onfocus="focused(this)"
+                      onfocusout="defocused(this)" />
+              </div>
+          </td>`
+          })
+
+          return elementString;
+    }
+
+
+
+
+
     $(".wrapper").click((event) => {
         console.log(event)
         if (event.target.nodeName == "BUTTON") {
@@ -258,12 +301,22 @@
                                     placeholder="Rate of Interest" onfocus="focused(this)"
                                     onfocusout="defocused(this)" />
                             </div>
-                        </td>`)
+                        </td>
+
+                        <td>
+                            <div class="input-group input-group-static">
+                                <input class="form-control salary_range_input" name="${tmp1}_processing_fee_no_${temp1}" type="number"
+                                    placeholder="PF" onfocus="focused(this)"
+                                    onfocusout="defocused(this)" />
+                            </div>
+                        </td>
+                        
+                        `)
                 })
 
                 $(`#${tmp1}_salary_range_container`).append(`
                 <td>
-                    <table width="100%" class="m-0 table table-bordered">
+                    <table width="100%" class="salary_range_table m-0 table table-bordered">
                         <tr>
                             <td>
                                 <div class="input-group input-group-static">
@@ -283,6 +336,7 @@
                         </tr>
                     </table>
                 </td>
+                <th class="centre_centre_heading" scope="col">PF</th>
                 `)
 
 
@@ -342,18 +396,16 @@
                           onfocus="focused(this)" onfocusout="defocused(this)"></div>
               </td>
 
+
               <td>
                   <div class="input-group input-group-static"><input class="form-control"
                           name="${tmp1}_loan_max_amt" type="number" placeholder="Max Loan Amount"
                           onfocus="focused(this)" onfocusout="defocused(this)"></div>
               </td>
 
-              <td>
-                  <div class="input-group input-group-static"><input class="form-control"
-                          name="${tmp1}_rate_of_interest_no_${info_count+1}" type="number"
-                          placeholder="Rate of Interest" onfocus="focused(this)" onfocusout="defocused(this)">
-                  </div>
-              </td>
+              
+              ${roi_add_row_handler(tmp1 , info_count)}
+
           </tr>
 
           `)
