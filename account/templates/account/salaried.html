@@ -4,517 +4,638 @@
 {% block title %}Salary Details{% endblock title %}
 
 {% block other_body %}
-<div class="container-fluid">
-  <div id="content-wrapper" class="d-flex flex-column">
-    <h1 class=" mt-3 mb-4 display-3 text-center">Income Details for Salaried</h1>
-    <div class="container bg-white shadow-blur rounded mb-4">
-      <div class="row" align="center">
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label class="col-sm-12 col-form-label text-primary"> <b>Customer Name</b> </label>
-            <div class="col-sm-12">
-              <input type="text" value="{{name}}" class="form-control" disabled>
+    <div class="container-fluid">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <h1 class=" mt-3 mb-4 display-3 text-center">Income Details for Salaried</h1>
+            <div class="container bg-white shadow-blur rounded mb-4">
+                <div class="row" align="center">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label text-primary"> <b>Customer Name</b> </label>
+                            <div class="col-sm-12">
+                                <input type="text" value="{{ name }}" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label text-primary"> <b>Applicant Type</b> </label>
+                            <div class="col-sm-12">
+                                <input type="text" value="{{ applicant_type }}" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#personalDetailsModal">
+                    <b>Personal Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#incomeDetails">
+                    <b>Income Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#otherIncomes">
+                    <b>Other Income Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#otherThanIncomeMentionedAbove">
+                    <b>Other Than Income Mentioned Above Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#companyDetailsModal">
+                    <b>Company Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#residenceDetailModal">
+                    <b>Residence Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#existingloanDetailModal">
+                    <b>Existing Loan Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#existingcardDetailModal">
+                    <b>Existing Card Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#additionalDetailsModal">
+                    <b>Additional Details</b>
+                </div>
+                <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
+                     data-bs-target="#investmentDetailModal">
+                    <b>Investment Details</b>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-3" name="next" type="submit">NEXT</button>
+                    </div>
+                </form>
             </div>
-          </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group row">
-            <label class="col-sm-12 col-form-label text-primary"> <b>Applicant Type</b> </label>
-            <div class="col-sm-12">
-              <input type="text" value="{{applicant_type}}" class="form-control" disabled>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#personalDetailsModal">
-        <b>Personal Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#incomeDetails">
-        <b>Income Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#otherIncomes">
-        <b>Other Incomes Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#otherThanIncomeMentionedAbove">
-        <b>Other Than Income Mentioned Above Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#companyDetailsModal">
-        <b>Company Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#residenceDetailModal">
-        <b>Residence Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#existingloanDetailModal">
-        <b>Existing Loan Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#existingcardDetailModal">
-        <b>Existing Card Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#additionalDetailsModal">
-        <b>Additional Details</b>
-      </div>
-      <div class="alert alert-primary fs-4 text-white" style="cursor: pointer;" data-bs-toggle="modal"
-        data-bs-target="#investmentDetailModal">
-        <b>Investment Details</b>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="text-center">
-          <button class="btn btn-primary mr-3" name="next" type="submit">NEXT</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="personalDetailsModal" tabindex="-1" role="dialog"
-  aria-labelledby="personalDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="personalDetailsModalLabel">Personal details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in personal_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="personalDetailsModal" tabindex="-1" role="dialog"
+         aria-labelledby="personalDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="personalDetailsModalLabel">Personal details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in personal_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="personal_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="personal_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="incomeDetails" tabindex="-1" role="dialog" aria-labelledby="incomeDetailsLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="incomeDetailsLabel">Income Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in income_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="incomeDetails" tabindex="-1" role="dialog" aria-labelledby="incomeDetailsLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="incomeDetailsLabel">Income Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in income_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="income_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="income_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="otherIncomes" tabindex="-1" role="dialog" aria-labelledby="otherIncomesLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="otherIncomesLabel">Other Incomes</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in other_incomes_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="otherIncomes" tabindex="-1" role="dialog" aria-labelledby="otherIncomesLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="otherIncomesLabel">Rental Income</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in other_incomes_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="other_incomes" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="other_incomes" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
 
-<div class="modal fade" id="otherThanIncomeMentionedAbove" tabindex="-1" role="dialog"
-  aria-labelledby="otherThanIncomeMentionedAboveLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="otherThanIncomeMentionedAboveLabel">Other Than Income Mentioned
-          Above</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action="{% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}">
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in additional_other_incomes_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="otherThanIncomeMentionedAbove" tabindex="-1" role="dialog"
+         aria-labelledby="otherThanIncomeMentionedAboveLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="otherThanIncomeMentionedAboveLabel">Other Than Income
+                        Mentioned
+                        Above</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action="{% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in additional_other_incomes_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="additional_other_incomes" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="additional_other_incomes" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="companyDetailsModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="companyDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="companyDetailsModalLabel">Company Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action="{% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}">
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in company_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="companyDetailsModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="companyDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="companyDetailsModalLabel">Company Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action="{% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in company_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="company_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="company_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="residenceDetailModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="residenceDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="residenceDetailModalLabel">Residence Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in residence_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="residenceDetailModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="residenceDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="residenceDetailModalLabel">Residence Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in residence_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="residence_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="residence_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="existingloanDetailModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="existingloanDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="existingloanDetailModalLabel">Existing Loan Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in existing_loan_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="existingloanDetailModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="existingloanDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="existingloanDetailModalLabel">Existing Loan
+                        Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in existing_loan_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="existing_loan_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="existing_loan_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="existingcardDetailModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="existingcardDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="existingcardDetailModalLabel">Existing Card Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in existing_card_details_form %}
-            <div class="col-sm-4">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="existingcardDetailModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="existingcardDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="existingcardDetailModalLabel">Existing Card
+                        Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in existing_card_details_form %}
+                                <div class="col-sm-4">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="existing_card_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="existing_card_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-</div>
-<div class="modal fade" id="additionalDetailsModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="additionalDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="additionalDetailsModalLabel">Additional Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in additional_details_form %}
-            <div class="col-sm-6">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    </div>
+    <div class="modal fade" id="additionalDetailsModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="additionalDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="additionalDetailsModalLabel">Additional Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in additional_details_form %}
+                                <div class="col-sm-6">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="additional_details" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="additional_details" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-<div class="modal fade" id="investmentDetailModal" role="dialog" tabindex="-1" role="dialog"
-  aria-labelledby="investmentDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="investmentDetailModalLabel">Investment Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
-        {% csrf_token %}
-        <div class="modal-body">
-          <div class="row g-4 p-4">
-            {% for field in investment_form %}
-            <div class="col-sm-6">
-              <div class="input-group input-group-static">
-                <label class="ms-0 text-primary fw-bold">{{field.label}}</label>
-                {{ field }}
-              </div>
+    <div class="modal fade" id="investmentDetailModal" role="dialog" tabindex="-1" role="dialog"
+         aria-labelledby="investmentDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="investmentDetailModalLabel">Investment Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"
+                      action={% url 'salaried' lead_id=lead_id additionaldetails_id=additionaldetails_id %}>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row g-4 p-4">
+                            {% for field in investment_form %}
+                                <div class="col-sm-6">
+                                    <div class="input-group input-group-static">
+                                        <label class="ms-0 text-primary fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" name="investment" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-            {% endfor %}
-          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" name="investment" type="submit">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
 {% endblock other_body %}
 
 {% block other_js %}
-<script>
-  var qualifications = {}; 
-  {% for instance in personal_details_qualification %}
-    qualifications["{{instance.qualification}}"] = ("{{instance.degree}}" == 'True'); 
-  {% endfor %}
-  var id_repayment_history_col, id_product_id, id_loan_inquiry_disbursement_details, id_cibil_score,
-    id_degree_others, id_degree, id_lawyerType, id_country;
-  $(document).ready(function () {
-    id_repayment_history_col = $('#id_repayment_history').parent().parent();
-    id_repayment_history_col.hide();
-    id_product_id = $('#id_product_id').parent().parent();
-    id_product_id.hide();
-    id_loan_inquiry_disbursement_details = $('#id_loan_inquiry_disbursement_details').parent().parent();
-    id_loan_inquiry_disbursement_details.hide();
-    id_cibil_score = $('#id_cibil_score').parent().parent();
-    //id_cibil_score.hide();
-    id_degree_others = $('#id_degree_others').parent().parent();
-    id_degree_others.hide();
-    id_degree = $('#id_degree').parent().parent();
-    id_degree.hide();
-    id_lawyerType = $('#id_lawyerType').parent().parent();
-    id_lawyerType.hide();
-    id_country = $('#id_country').parent().parent();
-    id_country.hide();
-  });
-  $(document).on('change', '#id_loan_taken', function () {
-    if ($(this).val() == 'True') {
-      id_repayment_history_col.show();
-    } else {
-      $('#id_repayment_history').val('Good');
-      id_repayment_history_col.hide();
-      id_product_id.hide();
-    }
-  });
-  $(document).on('change', '#id_repayment_history', function () {
-    if ($(this).val() == 'Bad') {
-      id_product_id.show();
-    } else {
-      id_product_id.hide();
-    }
-  });
-  $(document).on('change', '#id_loan_inquiry_disbursement', function () {
-    if ($(this).val() == 'True') {
-      id_loan_inquiry_disbursement_details.show();
-    } else {
-      id_loan_inquiry_disbursement_details.hide();
-    }
-  });
-  $(document).on('change', '#id_cibil_type', function () {
-    if ($(this).val() == 1) {
-      id_cibil_score.show();
-    } else {
-      id_cibil_score.hide();
-    }
-  });
-  $(document).on('change', '#id_qualification', function () {
-    var qualification_name = $('option[value="' + $(this).val() + '"]:selected').text();
-    if (qualifications[qualification_name]) {
-      id_degree_others.show();
-    } else {
-      id_degree_others.hide();
-    }
-  });
-  $(document).on('change', '#id_profession', function () {
-    var profession_name = $('option[value="' + $(this).val() + '"]:selected').text();
-    if (profession_name == "Doctor") {
-      id_degree.show();
-      id_lawyerType.hide();
-    } else if (profession_name == "Lawyer") {
-      id_degree.hide();
-      id_lawyerType.show();
-    } else {
-      id_degree.hide();
-      id_lawyerType.hide();
-    }
-  });
-  $(document).on('change', '#id_nationality', function () {
-    var nationality_name = $('option[value="' + $(this).val() + '"]:selected').text();
-    if (nationality_name == "Non Resident Indian") {
-      id_country.show();
-    } else {
-      id_country.hide();
-    }
-  });
+    <script>
+        var qualifications = {};
+        {% for instance in personal_details_qualification %}
+            qualifications["{{instance.qualification}}"] = ("{{instance.degree}}" == 'True');
+        {% endfor %}
+        var id_company_name, id_other_company_name, id_how_old_is_agreement, id_will_you_make_agreement,
+            id_valid_rent_agreement, id_lessee_name, id_lessee_type, id_bonus_amount, id_repayment_history_col,
+            id_product_id,id_Other_Bank_Name,id_bank_name,id_repayment_history,id_default_year,id_details_about_default,
+            id_loan_inquiry_disbursement_details, id_cibil_score,id_loan_taken,id_tenure,id_profession,
+            id_degree_others, id_degree, id_lawyerType, id_country;
+        $(document).ready(function () {
+            id_profession = $('#id_profession').parent().parent();
+            id_loan_taken = $('#id_loan_taken').parent().parent();
+            id_tenure = $('#id_tenure').parent().parent();
+            id_details_about_default = $('#id_details_about_default').parent().parent();
+            id_default_year = $('#id_default_year').parent().parent();
+            id_repayment_history = $('#id_repayment_history').parent().parent();
+            id_Other_Bank_Name = $('#id_Other_Bank_Name').parent().parent();
+            id_bank_name = $('#id_bank_name').parent().parent();
+            id_company_name = $('#id_company_name').parent().parent();
+            id_other_company_name = $('#id_other_company_name').parent().parent();
+            id_how_old_is_agreement = $('#id_how_old_is_agreement').parent().parent();
+            id_will_you_make_agreement = $('#id_will_you_make_agreement').parent().parent();
+            id_valid_rent_agreement = $('#id_valid_rent_agreement').parent().parent();
+            id_lessee_name = $('#id_lessee_name').parent().parent();
+            id_lessee_type = $('#id_lessee_type').parent().parent();
+            id_bonus_amount = $('#id_bonus_amount').parent().parent();
+            id_repayment_history_col = $('#id_repayment_history').parent().parent();
+            id_repayment_history_col.hide();
+            id_product_id = $('#id_product_id').parent().parent();
+            id_product_id.hide();
+            id_loan_inquiry_disbursement_details = $('#id_loan_inquiry_disbursement_details').parent().parent();
+            id_loan_inquiry_disbursement_details.hide();
+            id_cibil_score = $('#id_cibil_score').parent().parent();
+            //id_cibil_score.hide();
+            id_degree_others = $('#id_degree_others').parent().parent();
+            id_degree_others.hide();
+            id_degree = $('#id_degree').parent().parent();
+            id_degree.hide();
+            id_Lawyer_Type = $('#id_Lawyer_Type').parent().parent();
+            id_Lawyer_Type.hide();
+            id_country = $('#id_country').parent().parent();
+            id_country.hide();
+        });
 
-  function ageCalculator(id_dob) {
-    var userinput = document.getElementById(id_dob).value;
-    var dob = new Date(userinput);
-    if (userinput == null || userinput == '') {
-      return false;
-    } else {
 
-      //calculate month difference from current date in time  
-      var month_diff = Date.now() - dob.getTime();
+        $(document).on('change', '#id_loan_taken', function () {
+            if ($(this).val() == 'False') {
+                id_tenure.hide() && id_default_year.hide() && id_details_about_default.hide();
+            } else {
+                id_tenure.show() && id_default_year.show() && id_details_about_default.show();
 
-      //convert the calculated difference in date format  
-      var age_dt = new Date(month_diff);
+            }
+        });
 
-      //extract year from date      
-      var year = age_dt.getUTCFullYear();
+        $(document).on('change', '#id_bank_name', function () {
+            var bank_name = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (bank_name === "Other") {
+                id_Other_Bank_Name.show();
+            } else {
+                id_Other_Bank_Name.hide();
+            }
+        });
 
-      //now calculate the age of the user  
-      var age = Math.abs(year - 1970);
-      return age;
-    }
-  }
-  $(document).on('change', '#id_dob', function () {
-    var age = ageCalculator('id_dob');
-    if (age) {
-      $('#id_age').val(age);
-    } else {
-      $('#id_age').val('');
-    }
-  });
-</script>
+        $(document).on('change', '#id_repayment_history', function () {
+            if ($(this).val() == 'Bad') {
+                id_default_year.show() && id_details_about_default.show();
+            } else {
+                id_default_year.hide() && id_details_about_default.hide();
+            }
+        });
+
+        $(document).on('change', '#id_company_name', function () {
+            if ($(this).val() == '4') {
+                id_other_company_name.show();
+            } else {
+                id_other_company_name.hide();
+
+            }
+        });
+        $(document).on('change', '#id_valid_rent_agreement', function () {
+            if ($(this).val() == 'True') {
+                id_how_old_is_agreement.show();
+            } else {
+                id_how_old_is_agreement.hide();
+
+            }
+        });
+        $(document).on('change', '#id_valid_rent_agreement', function () {
+            if ($(this).val() == 'False') {
+                id_will_you_make_agreement.show();
+            } else {
+                id_will_you_make_agreement.hide();
+
+            }
+        });
+        $(document).on('change', '#id_lessee_type', function () {
+            if ($(this).val() == '2') {
+                id_lessee_name.show();
+            } else {
+                id_lessee_name.hide();
+
+            }
+        });
+        $(document).on('change', '#id_loan_taken', function () {
+            if ($(this).val() == 'True') {
+                id_repayment_history_col.show();
+            } else {
+                $('#id_repayment_history').val('Good');
+                id_repayment_history_col.hide();
+                id_product_id.hide();
+            }
+        });
+        $(document).on('change', '#id_bonus_type', function () {
+            if ($(this).val() == 'No Bonus') {
+                id_bonus_amount.hide();
+            } else {
+                id_bonus_amount.show();
+
+            }
+        });
+        $(document).on('change', '#id_repayment_history', function () {
+            if ($(this).val() == 'Bad') {
+                id_product_id.show();
+            } else {
+                id_product_id.hide();
+            }
+        });
+        $(document).on('change', '#id_loan_inquiry_disbursement', function () {
+            if ($(this).val() == 'True') {
+                id_loan_inquiry_disbursement_details.show();
+            } else {
+                id_loan_inquiry_disbursement_details.hide();
+            }
+        });
+        $(document).on('change', '#id_cibil_type', function () {
+            if ($(this).val() == 1) {
+                id_cibil_score.show();
+            } else {
+                id_cibil_score.hide();
+            }
+        });
+
+        $(document).on('change', '#id_qualification', function () {
+            var qualification = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (qualification === "Post Graduate") {
+                id_degree_others.show();
+            } else {
+                id_degree_others.hide();
+            }
+        });
+
+        $(document).on('change', '#id_qualification', function () {
+            var qualification = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (qualification === "Professional") {
+                id_profession.show();
+            } else {
+                id_profession.hide();
+            }
+        });
+
+        {% comment %} $(document).on('change', '#id_qualification', function () {
+            var qualification_name = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (qualifications[qualification_name]) {
+                id_degree_others.show();
+            } else {
+                id_degree_others.hide();
+            }
+        }); {% endcomment %}
+        $(document).on('change', '#id_profession', function () {
+            var profession_name = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (profession_name === "Doctor") {
+                id_degree.show();
+                id_Lawyer_Type.hide();
+            } else if (profession_name === "Lawyer") {
+                id_degree.hide();
+                id_Lawyer_Type.show();
+            } else {
+                id_degree.hide();
+                id_Lawyer_Type.hide();
+            }
+        });
+        $(document).on('change', '#id_nationality', function () {
+            var nationality_name = $('option[value="' + $(this).val() + '"]:selected').text();
+            if (nationality_name == "Non Resident Indian") {
+                id_country.show();
+            } else {
+                id_country.hide();
+            }
+        });
+
+        function ageCalculator(id_dob) {
+            var userinput = document.getElementById(id_dob).value;
+            var dob = new Date(userinput);
+            if (userinput == null || userinput == '') {
+                return false;
+            } else {
+
+                //calculate month difference from current date in time
+                var month_diff = Date.now() - dob.getTime();
+
+                //convert the calculated difference in date format
+                var age_dt = new Date(month_diff);
+
+                //extract year from date
+                var year = age_dt.getUTCFullYear();
+
+                //now calculate the age of the user
+                var age = Math.abs(year - 1970);
+                return age;
+            }
+        }
+
+        $(document).on('change', '#id_dob', function () {
+            var age = ageCalculator('id_dob');
+            if (age) {
+                $('#id_age').val(age);
+            } else {
+                $('#id_age').val('');
+            }
+        });
+    </script>
 {% endblock other_js %}

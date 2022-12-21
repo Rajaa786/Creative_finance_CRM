@@ -3,15 +3,12 @@ from hashlib import blake2b
 from tokenize import blank_re
 from django.db import models
 from django.conf import settings
+
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-YES_NO_CHOICES = (
-    (None, ('Select Yes Or No')),
-    (True, ('Yes')),
-    (False, ('No'))
-)
+YES_NO_CHOICES = ((None, ("Select Yes Or No")), (True, ("Yes")), (False, ("No")))
 
 
 class Prefix(models.Model):
@@ -213,7 +210,7 @@ class State(models.Model):
 
 
 class City(models.Model):
-    city_name = models.CharField(max_length=25, default='')
+    city_name = models.CharField(max_length=25, default="")
     effective_date = models.DateField(null=True)
     ineffective_date = models.DateField(blank=True, null=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
@@ -291,6 +288,7 @@ class RejectionType(models.Model):
     effective_date = models.DateField(null=True)
     ineffective_date = models.DateField(blank=True, null=True)
 
+
 # Create your models here.
 
 
@@ -348,13 +346,13 @@ class IncentivesType(models.Model):
         return self.incentives_type
 
 
-class DeductionType(models.Model):
-    deduction_type = models.CharField(max_length=30)
-    effective_date = models.DateField(null=True)
-    ineffective_date = models.DateField(blank=True, null=True)
+# class DeductionType(models.Model):
+#     deduction_type = models.CharField(max_length=30)
+#     effective_date = models.DateField(null=True)
+#     ineffective_date = models.DateField(blank=True, null=True)
 
-    def __str__(self):
-        return self.deduction_type
+#     def __str__(self):
+#         return self.deduction_type
 
 
 class LesseType(models.Model):
@@ -453,12 +451,11 @@ class Tenure(models.Model):
 
 
 class BankCategory(models.Model):
-    bank_name = models.ForeignKey(
-        BankName, on_delete=models.CASCADE, blank=False)
-    company_name = models.ForeignKey(
-        CompanyName, on_delete=models.CASCADE, blank=False)
+    bank_name = models.ForeignKey(BankName, on_delete=models.CASCADE, blank=False)
+    company_name = models.ForeignKey(CompanyName, on_delete=models.CASCADE, blank=False)
     category = models.ForeignKey(
-        CompanyCatergoryTypes, on_delete=models.CASCADE, blank=False)
+        CompanyCatergoryTypes, on_delete=models.CASCADE, blank=False
+    )
     effective_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
@@ -519,23 +516,29 @@ class RateOfInterest_Info(models.Model):
 
 class Product_and_Policy_Master(models.Model):
     customer_type = models.ForeignKey(
-        CustomerType, on_delete=models.CASCADE, null=False, blank=False, related_name="cust_types")
+        CustomerType,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name="cust_types",
+    )
     product_name = models.ForeignKey(
-        Product, null=False, blank=False, on_delete=models.CASCADE)
+        Product, null=False, blank=False, on_delete=models.CASCADE
+    )
     bank_names = models.ForeignKey(
-        BankName, on_delete=models.CASCADE, null=False, blank=False)
-    is_salary_account = models.BooleanField(
-        null=False, choices=YES_NO_CHOICES)
+        BankName, on_delete=models.CASCADE, null=False, blank=False
+    )
+    is_salary_account = models.BooleanField(null=False, choices=YES_NO_CHOICES)
     designation = models.ForeignKey(
-        DesignationType, on_delete=models.CASCADE, null=False, blank=False)
+        DesignationType, on_delete=models.CASCADE, null=False, blank=False
+    )
     min_age = models.IntegerField()
     max_age = models.IntegerField()
     internal_customer = models.BigIntegerField()
     external_customer = models.BigIntegerField()
     current_experience = models.IntegerField()
     total_experience = models.IntegerField()
-    cibil_score = models.BigIntegerField(
-        null=False, blank=False)
+    cibil_score = models.BigIntegerField(null=False, blank=False)
     processing_fee = models.BigIntegerField()
     months_for_foir = models.BigIntegerField()
     effective_date = models.DateField(blank=True, null=True)
@@ -549,6 +552,7 @@ class Product_and_Policy_Master(models.Model):
     credit_card_dpd = models.IntegerField()
     credit_card_obligation = models.IntegerField()
     emi_obligation = models.IntegerField()
+
     multiplier_info = models.ManyToManyField(Multiplier_Info)
     foir_info = models.ManyToManyField(Foir_Info)
     salary_type = models.ManyToManyField(
@@ -559,8 +563,11 @@ class Product_and_Policy_Master(models.Model):
     rate_of_interest = models.ManyToManyField(RateOfInterest_Info)
 
     def __str__(self):
-        s = self.bank_names.bank_name[:4] + \
-            self.product_name.product[:3] + self.customer_type.cust_type[:3]
+        s = (
+            self.bank_names.bank_name[:4]
+            + self.product_name.product[:3]
+            + self.customer_type.cust_type[:3]
+        )
         return s.upper()
 
 

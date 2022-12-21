@@ -2,11 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.template.env
 .git
-
 .vscode
-
+.env
+envtext.txt
 # C extensions
 *.so
 
@@ -63,6 +63,7 @@ cover/
 *.log
 local_settings.py
 db.sqlite3
+env
 db.sqlite3-journal
 
 # Flask stuff:
@@ -109,7 +110,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-
+/variables
 .venv
 env/
 venv/
@@ -137,6 +138,9 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
-
+.
 # Cython debug symbols
 cython_debug/
+.env
+.env
+.env

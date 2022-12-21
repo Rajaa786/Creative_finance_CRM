@@ -1,42 +1,48 @@
-{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html" %}
-{% load static %}
-
-{% block other_css %}
-{% comment %} <style>
+{% extends request.user.is_superuser|yesno:"base/base.html,base/base_non_admin_template.html"%}
+{% load static %} {% block other_css %} {% comment %}
+<style>
   table,
   th,
   td {
     border: 1px solid black;
     border-collapse: collapse;
   }
-</style> {% endcomment %}
-
-    {% comment %} <link rel="stylesheet" href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}" /> {% endcomment %}
-
-{% endblock other_css %}
-
-{% block title %}Additional Details{% endblock title %}
-
-{% block other_body_css %}id="page-top"{% endblock other_body_css %}
-{% block other_body %}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+</style>
+{% endcomment %} {% comment %}
+<link
+  rel="stylesheet"
+  href="{% static 'material_2_pro_assets/css/dashboard_index_css.css' %}"
+/>
+{% endcomment %} {% endblock other_css %} {% block title %}Add Details {%endblock title %} {% block other_body_css %}id="page-top"{% endblock other_body_css %} {% block other_body %}
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Edit Applicant</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title font-weight-normal" id="exampleModalLabel">
+          Edit Applicant
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="editpage">
-
-      </div>
+      <div class="modal-body" id="editpage"></div>
     </div>
   </div>
 </div>
 
-<div class="container mb-0 ">
+<div class="container mb-0">
   <div class="mb-3 card-body bg-white rounded shadow-blur">
     <div class="row justify-content-center mb-5 mt-3">
       <div class="col-auto">
@@ -44,32 +50,47 @@
       </div>
     </div>
     <div class="card z-index-2 pb-3 mb-5">
-      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+      <div
+        class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent"
+      >
         <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
           <div class="row">
             <div class="col">
-              <a data-bs-toggle="collapse" href="#Applicant" role="button" aria-expanded="false"
-                aria-controls="Applicant" id="addapplicant" data-url="{% url 'ajax_add_applicant' %}">
+              <a
+                data-bs-toggle="collapse"
+                href="#Applicant"
+                role="button"
+                aria-expanded="false"
+                aria-controls="Applicant"
+                id="addapplicant"
+                data-url="{% url 'ajax_add_applicant' %}"
+              >
                 <h4 class="card-title fw-bold text-light">Add Applicant</h4>
-                <p class="card-category fw-bold text-light mb-0">
-                  Add Main Applicant Details
-
-                </p>
+                <p class="card-category fw-bold text-light mb-0"></p>
               </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="collapse card-body" id="Applicant">
-      </div>
+      <div class="collapse card-body" id="Applicant"></div>
     </div>
-    {% comment %} <div class="card z-index-2 pb-3 mb-5">
-      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+    {% comment %}
+    <div class="card z-index-2 pb-3 mb-5">
+      <div
+        class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent"
+      >
         <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
           <div class="row">
             <div class="col">
-              <a data-bs-toggle="collapse" href="#CoApplicant" role="button" aria-expanded="false"
-                aria-controls="CoApplicant" id="addcoapplicant" data-url="{% url 'ajax_add_applicant' %}">
+              <a
+                data-bs-toggle="collapse"
+                href="#CoApplicant"
+                role="button"
+                aria-expanded="false"
+                aria-controls="CoApplicant"
+                id="addcoapplicant"
+                data-url="{% url 'ajax_add_applicant' %}"
+              >
                 <h4 class="card-title fw-bold text-light">Add CoApplicant</h4>
                 <p class="card-category fw-bold text-light mb-0">
                   Add Co Applicants Details
@@ -83,24 +104,38 @@
         {{applicant_type_form.applicant_type}}
         <div id="response"></div>
       </div>
-    </div> {% endcomment %}
+    </div>
+    {% endcomment %}
     <div class="row mb-6">
       {% if applicants %}
       <div class="card bg-white shadow-blur">
         <h1 class="text-center display-6 fw-bold text">Applicants</h1>
         <div class="table-responsive">
-          <table class="table table-striped table-bordered table-align-items-center mb-0">
+          <table
+            class="table table-striped table-bordered table-align-items-center mb-0"
+          >
             <thead>
               <tr>
-                <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">
-                  Customer Name</th>
                 <th
-                  class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7 ps-2">
-                  Customer Type/Designation</th>
-                <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">
-                  Applicant_Type</th>
-                <th class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7">
-                  Actions</th>
+                  class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7"
+                >
+                  Customer Name
+                </th>
+                <th
+                  class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7 ps-2"
+                >
+                  Customer Type/Designation
+                </th>
+                <th
+                  class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7"
+                >
+                  Applicant_Type
+                </th>
+                <th
+                  class="align-middle text-center text-uppercase text-primary text-lg font-weight-bolder opacity-7"
+                >
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -113,22 +148,35 @@
                   <p class="text-md font-weight-bold mb-0">{{app.cust_type}}</p>
                 </td>
                 <td class="align-middle text-center text-sm">
-                  <p class="text-md font-weight-bold mb-0">{{app.applicant_type}}</p>
+                  <p class="text-md font-weight-bold mb-0">
+                    {{app.applicant_type}}
+                  </p>
                 </td>
                 <td class="align-middle text-center">
-                  <a type="button" class="btn btn-primary" id="delete" href="{% url 'deleteapplicant' id=app.pk %}">
+                  <a
+                    type="button"
+                    class="btn btn-primary"
+                    id="delete"
+                    href="{% url 'deleteapplicant' id=app.pk %}"
+                  >
                     <span class="icon text-light">
                       <i class="fa-lg fa fa-trash"></i>
                     </span>
                   </a>
                   /
-                  <button class="btn btn-primary" title="Edit Entry" id="edit" data-id={{app.pk}}
-                    data-url="{% url 'edit_applicant' %}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button
+                    class="btn btn-primary"
+                    title="Edit Entry"
+                    id="edit"
+                    data-id="{{app.pk}}"
+                    data-url="{% url 'edit_applicant' %}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
                     <span class="icon text-light">
                       <i class="fa-lg fa fa-edit"></i>
                     </span>
                   </button>
-
                 </td>
               </tr>
               {% endfor %}
@@ -138,16 +186,21 @@
       </div>
       {% endif %}
     </div>
+
     {% if number_of_applicants > 0 %}
-    <div style="text-align:center">
-      <a class="btn btn-primary btn-lg active" role="button"
-        href="{% url 'handle_next_addtional_details' lead_id=lead_id %}" aria-pressed="true">Next</a>
+    <div style="text-align: center">
+      <a
+        class="btn btn-primary btn-lg active"
+        role="button"
+        href="{% url 'handle_next_addtional_details' lead_id=lead_id %}"
+        aria-pressed="true"
+        >Next</a
+      >
     </div>
     {% endif %}
   </div>
 </div>
-{% endblock other_body %}
-{% block other_js %}
+{% endblock other_body %} {% block other_js %}
 <script>
   /*if ({{number_of_applicants}} >= 2){
     console.log("Applicants greater than 2")
@@ -157,7 +210,7 @@
   }*/
 
 
-  
+
 
   $("#edit").click(function () {
     const add_id = $(this).attr("data-id");
